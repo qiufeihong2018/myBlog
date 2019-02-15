@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8344741a-f00e-4541-903a-3b0990356ae3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/public/dev.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/public/plugin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/public/ubuntu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/public/webpack.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/ubuntu/pubilc/language.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/ubuntu/pubilc/language2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/ubuntu/pubilc/language3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/ubuntu/pubilc/language4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/technical-summary/nuxt/public/nuxt1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/technical-summary/nuxt/public/nuxt2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/technical-summary/nuxt/public/nuxt3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vuepress/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/technical-summary/mongo/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/technical-summary/mongo/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/technical-summary/public/mongo.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/technical-summary/public/mongo.png" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,65 +22,17 @@
         <entry file="file://$PROJECT_DIR$/docs/.vuepress/config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
-              <caret line="30" column="84" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="84" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/technical-summary/vue-component/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1817">
-                <caret line="200" column="3" selection-start-line="200" selection-start-column="3" selection-end-line="200" selection-end-column="3" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/technical-summary/mongo/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="210">
-                <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="168">
-                <caret line="8" selection-end-line="17" />
-              </first_editor>
-              <second_editor />
+              <caret line="39" column="35" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/docs/technical-summary/ubuntu/README.md">
+        <entry file="file://$PROJECT_DIR$/docs/technical-summary/nuxt/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="284">
-                <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/technical-summary/vue-webpack/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="336">
-                <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+              <first_editor relative-caret-position="155">
+                <caret line="123" column="4" lean-forward="true" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
               </first_editor>
               <second_editor />
             </state>
@@ -118,6 +62,8 @@
         <option value="$PROJECT_DIR$/docs/technical-summary/vue-webpack/README.md" />
         <option value="$PROJECT_DIR$/docs/technical-summary/vue-component/README.md" />
         <option value="$PROJECT_DIR$/docs/technical-summary/ubuntu/README.md" />
+        <option value="$PROJECT_DIR$/docs/technical-summary/eslint/README.md" />
+        <option value="$PROJECT_DIR$/docs/technical-summary/nuxt/README.md" />
       </list>
     </option>
   </component>
@@ -157,35 +103,7 @@
               <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
               <item name="docs" type="462c0819:PsiDirectoryNode" />
               <item name="technical-summary" type="462c0819:PsiDirectoryNode" />
-              <item name="mongo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="technical-summary" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="technical-summary" type="462c0819:PsiDirectoryNode" />
-              <item name="ubuntu" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="technical-summary" type="462c0819:PsiDirectoryNode" />
-              <item name="vue-component" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="technical-summary" type="462c0819:PsiDirectoryNode" />
-              <item name="vue-webpack" type="462c0819:PsiDirectoryNode" />
+              <item name="nuxt" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -202,6 +120,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/technical-summary/nuxt/public" />
       <recent name="$PROJECT_DIR$/docs" />
       <recent name="$PROJECT_DIR$/technical-summary/mongo" />
     </key>
@@ -234,12 +153,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1550197343214</updated>
-      <workItem from="1550197344703" duration="7777000" />
+      <workItem from="1550197344703" duration="8904000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7777000" />
+    <option name="totallyTimeSpent" value="8904000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -302,13 +221,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/.vuepress/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="30" column="84" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -342,8 +254,35 @@
     <entry file="file://$PROJECT_DIR$/docs/technical-summary/ubuntu/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="284">
+          <first_editor relative-caret-position="221">
             <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/technical-summary/eslint/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="211">
+            <caret line="58" column="24" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/.vuepress/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="39" column="35" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/technical-summary/nuxt/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="155">
+            <caret line="123" column="4" lean-forward="true" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
           </first_editor>
           <second_editor />
         </state>
