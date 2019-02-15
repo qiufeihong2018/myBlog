@@ -13,21 +13,63 @@ module.exports = {
                 text: 'home', link: '/'
             },
             {
-                text: 'schedule',
+                text: '我的资源', link: '/resource/'
+            },
+            {
+                text: '优文转载', link: '/Reprint/'
+            },
+            {
+                text: '技术总结',
                 items: [
-                    {text: 'x-alert', link: '/schedule/x-alert/'},
-                    {text: 'deep-file-ai', link: '/schedule/deep-file-ai/'}
+                    {
+                        text: 'mongo', link: '/technical-summary/mongo/'
+                    },
+                    {
+                        text: 'vue-webpack', link: '/technical-summary/vue-webpack/'
+                    },
+                    {
+                        text: 'Vue.js 组件精讲', link: '/technical-summary/vue-component/'
+                    },
+                    {
+                        text: 'ubuntu', link: '/technical-summary/ubuntu/'
+                    },
+                    {
+                        text: 'eslint', link: '/technical-summary/eslint/'
+                    },
+                    {
+                        text: 'nuxt', link: '/technical-summary/nuxt/'
+                    },
+                    {
+                        text: 'node', link: '/technical-summary/node/'
+                    },
+                    {
+                        text: 'css', link: '/technical-summary/css/'
+                    },
+                    {
+                        text: 'github', link: '/technical-summary/github/'
+                    },
+                    {
+                        text: 'es6', link: '/technical-summary/es6/'
+                    },
+                    {
+                        text: 'vuejs官方文档', link: '/technical-summary/vue-document/'
+                    },
                 ]
             },
             {
-                text: 'front-end',
-                items: [
-                    {text: 'tutorial', link: '/front-end/tutorial/'},
-                    {text: 'libs', link: '/front-end/libs/'}
-                ]
+                text: '每日总结', link: '/daliy-summary/'
             },
             {
-                text: 'back-end', link: '/back-end/'
+                text: '毕业设计', link: '/graduation-project/'
+            },
+            {
+                text: '视频总结', link: '/video-summary/'
+            },
+            {
+                text: '谷逸项目', link: '/guyi-item/'
+            },
+            {
+                text: '面试', link: '/interview/'
             }
         ],
         sidebar: 'auto',

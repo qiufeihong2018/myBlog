@@ -19,4 +19,7 @@ https://studio3t.com/download/
 ## 安装
 
 ![avatar](../public/mongo.png)
+
+::: tip
 默认是没有密码的,所以认证设为none
+:::
