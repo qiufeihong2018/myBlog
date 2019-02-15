@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8344741a-f00e-4541-903a-3b0990356ae3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/github/public/github9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/technical-summary/es6/public/es6.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,8 +19,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/.vuepress/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="45" column="34" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="34" />
+            <state relative-caret-position="378">
+              <caret line="51" column="34" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/technical-summary/es6/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="113">
+                <caret line="121" column="16" lean-forward="true" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -46,7 +49,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/technical-summary/github/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -86,6 +89,7 @@
         <option value="$PROJECT_DIR$/docs/technical-summary/node/README.md" />
         <option value="$PROJECT_DIR$/docs/technical-summary/css/README.md" />
         <option value="$PROJECT_DIR$/docs/technical-summary/github/README.md" />
+        <option value="$PROJECT_DIR$/docs/technical-summary/es6/README.md" />
       </list>
     </option>
   </component>
@@ -125,15 +129,7 @@
               <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
               <item name="docs" type="462c0819:PsiDirectoryNode" />
               <item name="technical-summary" type="462c0819:PsiDirectoryNode" />
-              <item name="github" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="technical-summary" type="462c0819:PsiDirectoryNode" />
-              <item name="github" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="es6" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -155,11 +151,11 @@
       <recent name="$PROJECT_DIR$/technical-summary/mongo" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/technical-summary/es6/public" />
       <recent name="$PROJECT_DIR$/docs/technical-summary/github/public" />
       <recent name="$PROJECT_DIR$/docs/technical-summary/ubuntu/pubilc" />
       <recent name="$PROJECT_DIR$/docs/technical-summary/public" />
       <recent name="$PROJECT_DIR$/technical-summary/public" />
-      <recent name="$PROJECT_DIR$/docs/.vuepress/public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -184,12 +180,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1550197343214</updated>
-      <workItem from="1550197344703" duration="14184000" />
+      <workItem from="1550197344703" duration="14921000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14184000" />
+    <option name="totallyTimeSpent" value="14921000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -197,7 +193,7 @@
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.25" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.33019853" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -322,13 +318,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/.vuepress/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="45" column="34" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/technical-summary/css/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -344,6 +333,23 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="368">
             <caret line="528" lean-forward="true" selection-start-line="528" selection-end-line="528" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/.vuepress/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="51" column="34" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/technical-summary/es6/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="113">
+            <caret line="121" column="16" lean-forward="true" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
           </first_editor>
           <second_editor />
         </state>
