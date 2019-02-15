@@ -20,7 +20,7 @@ module.exports = {
                 ]
             },
             {
-                text: '优文转载', link: '/Reprint/'
+                text: '优文转载', link: '/reprint/'
             },
             {
                 text: '技术总结',
