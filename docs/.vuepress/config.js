@@ -10,10 +10,14 @@ module.exports = {
     themeConfig: {
         nav: [
             {
-                text: 'home', link: '/'
+                text: '首页', link: '/'
             },
             {
-                text: '我的资源', link: '/resource/'
+                text: '我的资源',
+                items: [
+                    {text: '前端学习路线', link: 'http://www.imooc.com/article/261756'},
+                    {text:'全栈学习资源',link:'/resource/'}
+                ]
             },
             {
                 text: '优文转载', link: '/Reprint/'
@@ -52,7 +56,7 @@ module.exports = {
                         text: 'es6', link: '/technical-summary/es6/'
                     },
                     {
-                        text: 'vuejs官方文档', link: '/technical-summary/vue-document/'
+                        text: 'vuejs官方文档', link: 'https://cn.vuejs.org/'
                     },
                 ]
             },
