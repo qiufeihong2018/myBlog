@@ -1,5 +1,5 @@
 module.exports = {
-    title: '博客',
+    title: '飞鸿的博客',
     description: '我的心路历程',
     head: [
         ['link', {rel: 'icon', href: '/logo.gif'}]
