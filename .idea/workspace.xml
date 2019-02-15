@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8344741a-f00e-4541-903a-3b0990356ae3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/nuxt/public/nuxt1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/nuxt/public/nuxt2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/technical-summary/nuxt/public/nuxt3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/technical-summary/nuxt/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/technical-summary/nuxt/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,8 +28,8 @@
         <entry file="file://$PROJECT_DIR$/docs/technical-summary/nuxt/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="155">
-                <caret line="123" column="4" lean-forward="true" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
+              <first_editor relative-caret-position="399">
+                <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
               </first_editor>
               <second_editor />
             </state>
@@ -153,12 +150,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1550197343214</updated>
-      <workItem from="1550197344703" duration="8904000" />
+      <workItem from="1550197344703" duration="9222000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8904000" />
+    <option name="totallyTimeSpent" value="9222000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -166,11 +163,11 @@
     <layout>
       <window_info id="npm" side_tool="true" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.33019853" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.33019853" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -281,8 +278,8 @@
     <entry file="file://$PROJECT_DIR$/docs/technical-summary/nuxt/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="155">
-            <caret line="123" column="4" lean-forward="true" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
+          <first_editor relative-caret-position="399">
+            <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
           </first_editor>
           <second_editor />
         </state>

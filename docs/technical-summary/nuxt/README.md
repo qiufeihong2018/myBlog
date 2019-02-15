@@ -5,7 +5,15 @@
 vue init nuxt-community/starter-template <project-name>
 ```
 
-随着现在vue和react的流行，许多网站都做成了SPA，确实提升了用户体验，但SPA也有两个弱点，就是SEO和首屏渲染速度。为了解决单页应用的痛点，基于vue和react的服务端渲染应运而生。由于公司的框架采用的是vue，所以就简单的研究了一下基于vue的服务端渲染框架——NUXT。在vue的官网有关于服务端渲染的详细介绍，而NUXT集成了利用Vue开发服务端渲染的应用所需要的各种配置，也集成了Vue2、vue-router、vuex、vux-meta（管理页面meta信息的），利用官方的脚手架，基本上是傻瓜式操作，不用写路由配置，不用写webpcak配置就可以跑起来一个基于服务端渲染的SPA。
+随着现在vue和react的流行，许多网站都做成了SPA，确实提升了用户体验，
+但SPA也有两个弱点，就是SEO和首屏渲染速度。为了解决单页应用的痛点，
+基于vue和react的服务端渲染应运而生。由于公司的框架采用的是vue，
+所以就简单的研究了一下基于vue的服务端渲染框架——NUXT。
+在vue的官网有关于服务端渲染的详细介绍，
+而NUXT集成了利用Vue开发服务端渲染的应用所需要的各种配置，
+也集成了Vue2、vue-router、vuex、vux-meta（管理页面meta信息的），
+利用官方的脚手架，基本上是傻瓜式操作，不用写路由配置，
+不用写webpcak配置就可以跑起来一个基于服务端渲染的SPA。
 
 ### Nuxt特性
 NUXT的特性包括：
@@ -21,11 +29,18 @@ NUXT的特性包括：
 - 集成ESLint
 - 列表项目
 - 支持各种样式预处理器： SASS、LESS、 Stylus等等
+
 ### Nuxt目录结构
-通过vue init nuxt-community/starter-template <project-name>生成的文件目录结构如下：
+通过
+```
+vue init nuxt-community/starter-template <project-name>
+```
+生成的文件目录结构如下：
+
 ![avatar](./public/nuxt1.png)
 
 其中有一些目录（layouts、pages、static、store、nuxt.config.js、package.json）是Nuxt保留的，不可以更改，需要注意一下。
+
 ### Nuxt路由
 Nuxt中的一大特点就是路由无需手动配置，会根据pages下的文件路径自动生成一套路由。如果路由中需要带参数，只需将pages下的文件已下划线_作为前缀即可。例如pages下的目录结构如下：
 ```
