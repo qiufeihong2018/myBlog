@@ -16,7 +16,8 @@ npm run dev
 # build for production with minification
 npm run build
 
-
+# deploy https://username.github.io
+npm run d
 ```
 
 ## directory
