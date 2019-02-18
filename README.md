@@ -18,6 +18,9 @@ npm run build
 
 # deploy https://username.github.io
 npm run d
+
+# pm2 deploy
+npm run server 
 ```
 
 ## directory

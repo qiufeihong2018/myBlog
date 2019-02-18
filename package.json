@@ -7,9 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
+    "server": "npm run build && pm2 start app.js",
     "d": "bash deploy.sh"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "element-ui": "^2.5.4",
+    "express": "^4.16.4",
+    "pm2": "^3.2.9",
+    "vuepress": "^0.14.9"
+  }
 }
