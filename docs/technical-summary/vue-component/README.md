@@ -11,7 +11,7 @@ cn.vuejs.org/v2/api/#pro…
 provide 和 inject 主要为高阶插件/组件库提供用例。并不推荐直接用于应用程序代码中。
 看不懂上面的介绍没有关系，不过上面的这句提示应该明白，就是说 Vue.js 不建议在业务中使用这对 API，而是在插件 / 组件库（比如 iView，事实上 iView 的很多组件都在用）。不过建议归建议，如果你用好了，这个 API 会非常有用。
 我们先来看一下这个 API 怎么用，假设有两个组件： A.vue 和 B.vue，B 是 A 的子组件。
-```
+``` js 
 // A.vue
 export default {
   provide: {
@@ -27,7 +27,7 @@ export default {
   }
 }
 
-```
+``` 
 
 
 可以看到，在 A.vue 里，我们设置了一个 provide: name，值为 Aresn，它的作用就是将 name 这个变量提供给它的所有子组件。而在 B.vue 中，通过 inject 注入了从 A 组件中提供的 name 变量，那么在组件 B 中，就可以直接通过 this.name 访问这个变量了，它的值也是 Aresn。这就是 provide / inject API 最核心的用法。
@@ -39,7 +39,7 @@ provide 和 inject 绑定并不是可响应的。这是刻意为之的。然而�
 那了解了 provide / inject 的用法，下面来看怎样替代 Vuex。当然，我们的目的并不是为了替代 Vuex，它还是有相当大的用处，这里只是介绍另一种可行性。
 使用 Vuex，最主要的目的是跨组件通信、全局数据维护、多人协同开发。需求比如有：用户的登录信息维护、通知信息维护等全局的状态和数据。
 一般在 webpack 中使用 Vue.js，都会有一个入口文件 main.js，里面通常导入了 Vue、VueRouter、iView 等库，通常也会导入一个入口组件 app.vue 作为根组件。一个简单的 app.vue 可能只有以下代码：
-```
+``` js
 <template>
   <div>
     <router-view></router-view>
@@ -50,11 +50,11 @@ provide 和 inject 绑定并不是可响应的。这是刻意为之的。然而�
 
   }
 </script>
-```
+``` 
 
 使用 provide / inject 替代 Vuex，就是在这个 app.vue 文件上做文章。
 我们把 app.vue 理解为一个最外层的根组件，用来存储所有需要的全局数据和状态，甚至是计算属性（computed）、方法（methods）等。因为你的项目中所有的组件（包含路由），它的父组件（或根组件）都是 app.vue，所以我们把整个 app.vue 实例通过 provide 对外提供。
-```
+``` js
 
 app.vue：
 <template>
@@ -73,11 +73,11 @@ app.vue：
 </script>
 
 
-```
+``` 
 上面，我们把整个 app.vue 的实例 this 对外提供，命名为 app（这个名字可以自定义，推荐使用 app，使用这个名字后，子组件不能再使用它作为局部属性）。接下来，任何组件（或路由）只要通过 inject 注入 app.vue 的 app 的话，都可以直接通过 this.app.xxx 来访问 app.vue 的 data、computed、methods 等内容。
 app.vue 是整个项目第一个被渲染的组件，而且只会渲染一次（即使切换路由，app.vue 也不会被再次渲染），利用这个特性，很适合做一次性全局的状态数据管理，例如，我们将用户的登录信息保存起来：
 app.vue，部分代码省略：
-```
+``` js
 <script>
   export default {
     provide () {
@@ -104,9 +104,9 @@ app.vue，部分代码省略：
   }
 </script>
 
-```
+``` 
 这样，任何页面或组件，只要通过 inject 注入 app 后，就可以直接访问 userInfo 的数据了，比如：
-```
+``` js
 <template>
   <div>
     {{ app.userInfo }}
@@ -117,11 +117,11 @@ app.vue，部分代码省略：
     inject: ['app']
   }
 </script>
-```
+``` 
 
 是不是很简单呢。除了直接使用数据，还可以调用方法。比如在某个页面里，修改了个人资料，这时一开始在 app.vue 里获取的 userInfo 已经不是最新的了，需要重新获取。可以这样使用：
 某个页面：
-```
+``` js
 <template>
   <div>
     {{ app.userInfo }}
@@ -141,12 +141,12 @@ app.vue，部分代码省略：
     }
   }
 </script>
-```
+``` 
 同样非常简单。只要理解了 this.app 是直接获取整个 app.vue 的实例后，使用起来就得心应手了。想一想，配置复杂的 Vuex 的全部功能，现在是不是都可以通过 provide / inject 来实现了呢？
 ## 进阶技巧
 如果你的项目足够复杂，或需要多人协同开发时，在 app.vue 里会写非常多的代码，多到结构复杂难以维护。这时可以使用 Vue.js 的混合 mixins，将不同的逻辑分开到不同的 js 文件里。
 比如上面的用户信息，就可以放到混合里：
-```
+``` js
 user.js：
 export default {
   data () {
@@ -167,9 +167,9 @@ export default {
   }
 }
 
-```
+``` 
 然后在 app.vue 中混合：
-```
+``` js
 app.vue：
 <script>
   import mixins_user from '../mixins/user.js';
@@ -183,14 +183,14 @@ app.vue：
     }
   }
 </script>
-```
+``` 
 
 这样，跟用户信息相关的逻辑，都可以在 user.js 里维护，或者由某个人来维护，app.vue 也就很容易维护了。
 ## 独立组件中使用
 如果你顾忌 Vue.js 文档中所说，provide / inject 不推荐直接在应用程序中使用，那没有关系，仍然使用你熟悉的 Vuex 或 Bus 来管理你的项目就好。我们介绍的这对 API，主要还是在独立组件中发挥作用的。
 只要一个组件使用了 provide 向下提供数据，那其下所有的子组件都可以通过 inject 来注入，不管中间隔了多少代，而且可以注入多个来自不同父级提供的数据。需要注意的是，一旦注入了某个数据，比如上面示例中的 app，那这个组件中就不能再声明 app 这个数据了，因为它已经被父级占有。
 独立组件使用 provide / inject 的场景，主要是具有联动关系的组件，比如接下来很快会介绍的第一个实战：具有数据校验功能的表单组件 Form。它其实是两个组件，一个是 Form，一个是 FormItem，FormItem 是 Form 的子组件，它会依赖 Form 组件上的一些特性（props），所以就需要得到父组件 Form，这在 Vue.js 2.2.0 版本以前，是没有 provide / inject 这对 API 的，而 Form 和 FormItem 不一定是父子关系，中间很可能间隔了其它组件，所以不能单纯使用 $parent 来向上获取实例。在 Vue.js 2.2.0 之前，一种比较可行的方案是用计算属性动态获取：
-```
+``` js js
 computed: {
   form () {
     let parent = this.$parent;
@@ -200,13 +200,13 @@ computed: {
     return parent;
   }
 }
-```
+``` js
 每个组件都可以设置 name 选项，作为组件名的标识，利用这个特点，通过向上遍历，直到找到需要的组件。这个方法可行，但相比一个 inject 来说，太费劲了，而且不那么优雅和 native。如果用 inject，可能只需要一行代码：
-```
+``` js
 export default {
   inject: ['form']
 }
-```
+``` 
 
 不过，这一切的前提是你使用 Vue.js 2.2.0 以上版本。
 ## 结语

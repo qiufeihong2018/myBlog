@@ -1,5 +1,5 @@
 module.exports = {
-    title: '博客',
+    title: '飞鸿的博客',
     description: '我的心路历程',
     head: [
         ['link', {rel: 'icon', href: '/logo.gif'}]
@@ -16,7 +16,7 @@ module.exports = {
                 text: '我的资源',
                 items: [
                     {text: '前端学习路线', link: 'http://www.imooc.com/article/261756'},
-                    {text:'全栈学习资源',link:'/resource/'}
+                    {text: '全栈学习资源', link: '/resource/'}
                 ]
             },
             {
@@ -61,7 +61,15 @@ module.exports = {
                 ]
             },
             {
-                text: '每日总结', link: '/daliy-summary/'
+                text: '每日总结',
+                items: [
+                    {
+                        text: '2019.1', link: '/daliy-summary/2019/1/'
+                    },
+                    {
+                        text: '2019.2', link: '/daliy-summary/2019/2/'
+                    }
+                ]
             },
             {
                 text: '毕业设计', link: '/graduation-project/'

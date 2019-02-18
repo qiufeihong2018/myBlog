@@ -3,7 +3,10 @@
 
 ## [MarkDown添加图片的三种方式](https://www.jianshu.com/p/280c6a6f2594)
 
-## [VuePress 手摸手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)
+## VuePress 手摸手教你搭建一个类Vue文档风格的技术文档/博客
+[1](https://segmentfault.com/a/1190000016333850)
+
+[2](https://www.cnblogs.com/softidea/p/10084946.html)
 
 ## [关于import与require的区别](http://www.cnblogs.com/sunshq/p/7922182.html)
 

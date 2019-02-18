@@ -2,9 +2,9 @@
 home: true
 heroImage: /logo.gif
 actionText: 是时候展现真正的技术了 →
-actionLink: /front-end/tutorial/
+actionLink: /resource/
 features:
-- title: 比尔·盖茨经典语录/名句
+- title:  比尔·盖茨经典语录/名句
   details: 只要有坚强的持久心，一个庸俗平凡的人也会有成功的一天，否则即使是一个才识卓越的人，也只能遭遇失败的命运。
 
 - title: 乔布斯经典语录/名句
