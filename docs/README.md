@@ -36,3 +36,8 @@ npm run d
 # build&&pm2
 npm run server
 ```
+
+::: warning 注意
+
+请确保你的 Node.js 版本 >= 8。
+:::
