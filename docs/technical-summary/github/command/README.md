@@ -1,3 +1,4 @@
+# github相关命令
 ```js
 …or create a new repository on the command line
 echo "# popu" >> README.md
@@ -24,7 +25,7 @@ Workspace：工作区
 Index / Stage：暂存区
 Repository：仓库区（或本地仓库）
 Remote：远程仓库
-### 新建代码库
+## 新建代码库
 
 ```js
 # 在当前目录新建一个Git代码库
@@ -37,7 +38,7 @@ $ git init [project-name]
 $ git clone [url] 
 ```
 
-### 配置
+## 配置
 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
 
 ```js
@@ -52,7 +53,7 @@ $ git config [--global] user.name "[name]"
 $ git config [--global] user.email "[email address]"
 ```
 
-### 增加/删除文件
+## 增加/删除文件
 
 ```js
 # 添加指定文件到暂存区
@@ -78,7 +79,7 @@ $ git rm --cached [file]
 $ git mv [file-original] [file-renamed]
 ```
 
-### 代码提交
+## 代码提交
 
 ```js
 # 提交暂存区到仓库区
@@ -101,7 +102,7 @@ $ git commit --amend -m [message]
 $ git commit --amend [file1] [file2] ...
 
 ```
-### 分支
+## 分支
 ```js
 git 本地分支与远程分支
 github上已经有master分支 和dev分支
@@ -157,7 +158,7 @@ $ git push origin --delete [branch-name]
 $ git branch -dr [remote/branch]
 ```
 
-### 标签
+## 标签
 
 ```js
 # 列出所有tag
@@ -187,7 +188,7 @@ $ git push [remote] --tags
 # 新建一个分支，指向某个tag
 $ git checkout -b [branch] [tag]
 ```
-### 查看信息
+## 查看信息
 ```js
 # 显示有变更的文件
 $ git status
@@ -251,7 +252,7 @@ $ git show [commit]:[filename]
 $ git reflog
 
 ```
-### 远程同步
+## 远程同步
 
 ```js
 # 下载远程仓库的所有变动
@@ -279,7 +280,7 @@ $ git push [remote] --force
 $ git push [remote] --all
 ```
 
-### 撤销
+## 撤销
 
 ```js
 # 恢复暂存区的指定文件到工作区
@@ -315,14 +316,14 @@ $ git stash
 $ git stash pop
 ```
 
-### 其他
+## 其他
 
 ```js
 # 生成一个可供发布的压缩包
 $ git archive
 ```
 
-### git中本地与远程库的关联与取消
+## git中本地与远程库的关联与取消
 ```js
 # 在本地目录下关联远程repository 
 $ git remote add origin git@github.com:git_username/repository_name.git
@@ -330,7 +331,7 @@ $ git remote add origin git@github.com:git_username/repository_name.git
 $ git remote remove origin
 ```
 
-### git本地给远程仓库创建分支
+## git本地给远程仓库创建分支
 必须先在本地创建分支然后将该分支push到远程仓库
 ```js
 git branch dev
