@@ -97,8 +97,8 @@ module.exports = {
             }
         },
         repo: 'https://github.com/qiufeihong2018/vuepress-blog',
-        repoLabel: '查看源码',
+        repoLabel: 'myGithub',
         editLinks: true,
-        editLinkText: '帮助我们改善此页面！'
+        editLinkText: '在 GitHub 上编辑此页 ！'
     }
 }
