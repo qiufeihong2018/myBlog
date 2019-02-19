@@ -90,5 +90,11 @@ module.exports = {
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
         searchMaxSuggestoins: 10,
+        serviceWorker: {
+            updatePopup: {
+                message: "New content is available.",
+                buttonText: 'Refresh'
+            }
+        }
     }
 }
