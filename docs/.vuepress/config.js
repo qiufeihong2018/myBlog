@@ -95,6 +95,7 @@ module.exports = {
                 message: "New content is available.",
                 buttonText: 'Refresh'
             }
-        }
+        },
+        repo: 'git@github.com:qiufeihong2018/vuepress-blog.git',
     }
 }
