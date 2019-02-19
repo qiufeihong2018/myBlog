@@ -16,7 +16,7 @@ features:
 footer: MIT Licensed | Copyright © 2019-present FeiHong
 ---
 
-### 启动方式
+### 12345
 ```bash
 # clone item
 git clone git@github.com:qiufeihong2018/vuepress-blog.git

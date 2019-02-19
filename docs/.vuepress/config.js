@@ -58,8 +58,11 @@ module.exports = {
                         text: 'es6', link: '/technical-summary/es6/'
                     },
                     {
-                        text: 'vuejs官方文档', link: 'https://cn.vuejs.org/'
+                        text: 'Vue.js官方文档', link: 'https://cn.vuejs.org/'
                     },
+                    {
+                        text: 'VuePress官方文档', link: 'https://vuepress.vuejs.org/zh/'
+                    }
                 ]
             },
             {
@@ -86,7 +89,9 @@ module.exports = {
                 text: '面试', link: '/interview/'
             }
         ],
-        sidebar: 'auto',
+        sidebar: {
+            '/graduation-project/': require('../graduation-project/sidebar').sidebar
+        },
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
         searchMaxSuggestoins: 10,
