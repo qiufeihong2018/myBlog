@@ -90,7 +90,8 @@ module.exports = {
             }
         ],
         sidebar: {
-            '/graduation-project/': require('../graduation-project/sidebar').sidebar
+            '/graduation-project/': require('../graduation-project/sidebar').sidebar,
+            '/technical-summary/github/': require('../technical-summary/github/sidebar').sidebar
         },
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
