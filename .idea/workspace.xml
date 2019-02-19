@@ -2,13 +2,80 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9dfc84e7-2815-4cc5-94e2-48cc7327d7f8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vuepress/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/css/0.styles.68be1f38.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/es6.129d76e4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/github.727a1aa7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/github2.82384882.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/github3.9cc070ab.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/github4.902bc652.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/github5.e85ab48d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/github6.1f5c9cbf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/github7.e9cec157.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/github8.4e2f46e1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/language2.5618eab9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/language3.8a3bd699.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/mongo.20e718bc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/nuxt1.907e0c13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/nuxt2.e67ed509.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/nuxt3.fbaf303d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/plugin.9c406d6b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/search.83621669.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/img/ubuntu.9cb9a230.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/10.20dacd80.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/11.5f14dbd3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/12.74980529.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/13.15a612b9.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/14.e908d412.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/15.305d4cfc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/16.2427e924.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/17.5f8590db.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/18.d1f8d525.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/19.608dc604.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/2.dea66440.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/20.255717a6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/21.aae459d4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/3.1c07a31f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/4.7894b68d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/5.d798c8ed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/6.62276278.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/7.8dcf2eb5.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/8.c9cc1096.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/9.6fc3c2ac.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/js/app.3d0a4a75.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/daliy-summary/2019/1/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/daliy-summary/2019/2/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/graduation-project/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/interview/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/logo.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/reprint/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/resource/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/css/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/es6/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/eslint/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/github/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/mongo/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/node/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/nuxt/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/ubuntu/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/vue-component/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/technical-summary/vue-webpack/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/video-summary/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/lib/app/.temp/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/lib/app/.temp/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/lib/app/.temp/siteData.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/lib/app/.temp/siteData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/2b3e1f949f81820a089f68dde3b12954.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/2b3e1f949f81820a089f68dde3b12954.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/33188e1cf4fe3959c0ea1d60b06b88cf.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/33188e1cf4fe3959c0ea1d60b06b88cf.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/4adb43f44bd0f7668b7e341f3ad84982.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/4adb43f44bd0f7668b7e341f3ad84982.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/4db939ec4a6b9eafa2d3e8bedd22d8ad.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/4db939ec4a6b9eafa2d3e8bedd22d8ad.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/78b3ca3471cd6838a57de04defeede7a.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/78b3ca3471cd6838a57de04defeede7a.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/88617acc17d3c3c7efa35bf332b748e2.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/88617acc17d3c3c7efa35bf332b748e2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/b0883efb3144068e8004978e895a83df.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/b0883efb3144068e8004978e895a83df.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/c6ddaa70d3a791975ddea1aba18c5032.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/c6ddaa70d3a791975ddea1aba18c5032.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/ddff09fab0302e2641b90a0935c534f8.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/ddff09fab0302e2641b90a0935c534f8.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/f120d0418143388b864d43d3c7ccea32.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/vuepress/node_modules/.cache/vuepress/f120d0418143388b864d43d3c7ccea32.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,50 +88,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/deploy.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/.vuepress/config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="448">
-                <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="277">
+              <caret line="19" column="72" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -82,11 +110,12 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/docs/.vuepress/config.js" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/docs/README.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="65" />
+    <option name="x" value="1985" />
     <option name="y" value="-4" />
     <option name="width" value="1855" />
     <option name="height" value="1084" />
@@ -97,6 +126,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -104,16 +134,39 @@
               <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
               <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name=".vuepress" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name=".vuepress" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vuepress-blog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vuepress-blog" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name="video-summary" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="/mnt/project/pfsense" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -146,15 +199,16 @@
       <option name="presentableId" value="Default" />
       <updated>1550460411778</updated>
       <workItem from="1550460413332" duration="1219000" />
-      <workItem from="1550483130038" duration="1100000" />
+      <workItem from="1550483130038" duration="2710000" />
+      <workItem from="1550557213695" duration="770000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2319000" />
+    <option name="totallyTimeSpent" value="4699000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="1985" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -192,20 +246,11 @@
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/README.md">
+    <entry file="file://$PROJECT_DIR$/docs/video-summary/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="84">
-            <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
-          </first_editor>
+          <first_editor />
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
@@ -216,6 +261,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="532">
+            <caret line="19" column="9" lean-forward="true" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -223,20 +278,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deploy.sh">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+        <state relative-caret-position="392">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/docs/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="448">
-            <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+          <first_editor relative-caret-position="268">
+            <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deploy.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="19" column="72" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="72" />
         </state>
       </provider>
     </entry>

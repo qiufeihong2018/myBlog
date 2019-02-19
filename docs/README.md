@@ -15,3 +15,24 @@ features:
 
 footer: MIT Licensed | Copyright © 2019-present FeiHong
 ---
+
+### 启动方式
+```bash
+# clone item
+git clone git@github.com:qiufeihong2018/vuepress-blog.git
+
+# install dependencies
+npm install 
+
+# serve with hot reload at localhost:6666
+npm run dev
+
+# build for production with minification
+npm run build
+
+# deploy to github page
+npm run d
+
+# build&&pm2
+npm run server
+```
