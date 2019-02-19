@@ -96,6 +96,9 @@ module.exports = {
                 buttonText: 'Refresh'
             }
         },
-        repo: 'git@github.com:qiufeihong2018/vuepress-blog.git',
+        repo: 'https://github.com/qiufeihong2018/vuepress-blog',
+        repoLabel: '查看源码',
+        editLinks: true,
+        editLinkText: '帮助我们改善此页面！'
     }
 }
