@@ -24,7 +24,7 @@ npm run server
 ```
 
 ## directory
-```js
+```
 .
 ├── app.js
 ├── deploy.sh
