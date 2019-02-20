@@ -2,7 +2,7 @@ module.exports = {
     title: '飞鸿的博客',
     description: '我的心路历程',
     dest: './dist',
-    port: '6666',
+    port: '7777',
     head: [
         ['link', {rel: 'icon', href: '/logo.gif'}]
     ],
@@ -28,5 +28,6 @@ module.exports = {
         repoLabel: 'myGithub',
         editLinks: true,
         editLinkText: '在 GitHub 上编辑此页 ！'
-    }
+    },
+    plugins: ['@vuepress/back-to-top']
 }

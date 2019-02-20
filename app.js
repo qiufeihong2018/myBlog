@@ -5,10 +5,10 @@ const chalk = require('chalk')
 const app = express();
 app.use(express.static(path.resolve(__dirname, './dist')))
 
-app.get('*', function (req, res) {
+app.get('*', function(req, res) {
     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
     res.send(html)
 })
-app.listen(6666, res => {
-    console.log(chalk.yellow('Start Service On 6666'));
+app.listen(7777, res => {
+    console.log(chalk.yellow('Start Service On 7777'));
 });
