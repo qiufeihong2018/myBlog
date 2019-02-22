@@ -23,7 +23,7 @@ module.exports={
                     text: 'vue-webpack', link: '/technical-summary/vue-webpack/'
                 },
                 {
-                    text: 'Vue.js 组件精讲', link: '/technical-summary/'
+                    text: 'Vue.js 组件精讲', link: '/technical-summary/vue-component/'
                 },
                 {
                     text: 'ubuntu', link: '/technical-summary/ubuntu/'
