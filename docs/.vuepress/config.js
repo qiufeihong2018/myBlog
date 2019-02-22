@@ -13,7 +13,8 @@ module.exports = {
         nav: require('./nav').nav,
         sidebar: {
             '/graduation-project/': require('../graduation-project/sidebar').sidebar,
-            '/technical-summary/github/': require('../technical-summary/github/sidebar').sidebar
+            '/technical-summary/github/': require('../technical-summary/github/sidebar').sidebar,
+            '/technical-summary/vue-component/': require('../technical-summary/vue-component/sidebar').sidebar
         },
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
