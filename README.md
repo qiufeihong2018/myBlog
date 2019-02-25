@@ -26,7 +26,7 @@ npm run server
 ## directory
 ```
 .
-├── app.js
+├── blogg.js
 ├── deploy.sh
 ├── dist
 │   ├── 404.html
@@ -77,7 +77,7 @@ npm run server
 │   │       ├── 7.cb64ab79.js
 │   │       ├── 8.c34b3a80.js
 │   │       ├── 9.82f7141c.js
-│   │       └── app.59291851.js
+│   │       └── blog.59291851.js
 │   ├── daliy-summary
 │   │   └── 2019
 │   │       ├── 1
@@ -219,7 +219,7 @@ usage: tree [-acdfghilnpqrstuvxACDFJQNSUX] [-H baseHREF] [-T title ]
         [--sort[=]<name>] [--matchdirs] [--ignore-case] [--] [<directory list>]
 devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -I '*svn|*node_module*' -L 2
 .
-├── app.js
+├── blogg.js
 ├── deploy.sh
 ├── dist
 │   ├── 404.html
@@ -252,7 +252,7 @@ devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -I '*svn|*node_modu
 18 directories, 11 files
 devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 2  -I '*svn|*node_module*'
 .
-├── app.js
+├── blogg.js
 ├── deploy.sh
 ├── dist
 │   ├── 404.html
@@ -287,7 +287,7 @@ devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L -I 2 '*svn|*node
 tree: Invalid level, must be greater than 0.
 devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 1 -I  '*svn|*node_module*'
 .
-├── app.js
+├── blog.jss
 ├── deploy.sh
 ├── dist
 ├── docs
@@ -300,7 +300,7 @@ devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 1 -I  '*svn|*nod
 3 directories, 6 files
 devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 2 -I  '*svn|*node_module*'
 .
-├── app.js
+├── blog.jss
 ├── deploy.sh
 ├── dist
 │   ├── 404.html

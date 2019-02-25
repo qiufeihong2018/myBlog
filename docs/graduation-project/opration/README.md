@@ -63,7 +63,7 @@ In Laravel project:
          ---------------^
             50|   @import "~common/stylus/variable"
             51|   @import "~common/stylus/sidebar"
-            52|   .app-wrapper
+            52|   .blog-wrapper
          
          failed to locate @import file ~common/stylus/mixin.styl
          
@@ -96,4 +96,3 @@ In Laravel project:
           @import "../../common/stylus/variable"
           @import "../../common/stylus/sidebar"
  ```   
-      
