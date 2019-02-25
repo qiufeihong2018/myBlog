@@ -79,7 +79,7 @@ git pull
 ## You are not allowed to push code to protected branches on this project
 [git合并分支成功，但是push失败(remote: GitLab: You are not allowed to push code to protected branches on this project.)](https://www.cnblogs.com/hcy-fly/p/9008323.html)
 
-## ssh_key配置
+## github和gitlab ssh_key配置
 步骤
 1. 输入cd ~/.ssh——回车（看你是否有了ssh key 密钥，有了就备份）；
 ![avatar](../public/github1.png)
@@ -109,8 +109,10 @@ git pull
 
 这样，我们的git配置就完成了。
 
-
-
+### 配置另一个id_rsa
+key默认位置是id_rsa
+我现在要配置的是id_rsa_compony与第一个区分开来,之后的操作同上
+![avatar](../public/github10.png)
 ::: tip
 git不需要密码
 
