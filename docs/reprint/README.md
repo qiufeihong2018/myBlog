@@ -52,3 +52,5 @@ tree -I '*svn|*node_module*'
 ## [如何为开发项目编写规范的README文件（windows），此文详解](https://www.cnblogs.com/wj-1314/p/8547763.html)
 
 ## [vue项目实现github在线预览功能](https://www.jb51.net/article/142307.htm)
+
+## [CentOS7 pm2 部署node错误提示pm2 command not found](https://segmentfault.com/q/1010000013392948)
