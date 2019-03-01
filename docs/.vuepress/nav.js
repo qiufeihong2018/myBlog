@@ -1,4 +1,4 @@
-module.exports={
+module.exports = {
     nav: [
         {
             text: '首页', link: '/'
