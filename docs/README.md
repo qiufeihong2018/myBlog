@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /logo.gif
+heroImage: /logo-computed.gif
 actionText: 是时候展现真正的技术了 →
 actionLink: /resource/
 features:
