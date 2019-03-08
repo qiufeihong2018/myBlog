@@ -16,5 +16,11 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['theSkillofFront-end/']
+    },
+    {
+        title: '同花顺面经',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['interview-flush/']
     }
 ]
