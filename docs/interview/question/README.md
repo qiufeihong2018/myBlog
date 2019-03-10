@@ -28,7 +28,7 @@
     
 ```
    这道题简单，实现了基本框架
-        ```js{1}
+        ``` js
         
         function sortNum(a, b) {
             return a - b
