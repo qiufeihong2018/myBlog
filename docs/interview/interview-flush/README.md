@@ -13,7 +13,7 @@
 :::
 
 ::: tip 注重平时积累（尤其是基础知识和原理）
-我19届的，今年才毕业，已经在滨江实习了7、8个月了。这几个月了，我疯狂做项目，疯狂敲代码。我一边做项目，一边会去做笔记，推荐有道云笔记。之前用过印象。哎，充满金钱味的笔记（买不起会员）。我遇到过的bug，我会记载下来。在网上看到的优秀文章和优秀博客，都是放进笔记中。每天都要做总结，总结一天的学习，不仅有利于巩固复习，还锻炼了自己概括能力，何乐而不为呢？面试前将笔记刷一遍，将面经刷一遍。重要的是前端面试题刷一遍（很多多会考到，没考到就会问到）。
+我19届的，今年才毕业，已经在滨江实习了7、8个月了。这几个月里，我兢兢业业，刻苦努力完成项目任务。我一边做项目，一边会去做笔记，推荐有道云笔记。之前用过印象。哎，充满金钱味的笔记（买不起会员）。我遇到过的bug，我会记载下来。在网上看到的优秀文章和优秀博客，都是放进笔记中。每天都要做总结，不仅有利于巩固复习，还锻炼了自己概括能力，何乐而不为呢？面试前将笔记刷一遍，将面经刷一遍。重要的是前端面试题刷一遍（很多多会考到，没考到就会问到）。
 :::
 ## 面试前
 
@@ -90,20 +90,16 @@ display:none/display:block
 
 参考答案:
  ```text
- 答案：html的元素的事件就只用控件自带的的那么几个，如onclick,onmouserdown ,..等等都是调用脚本执行
+ 答案：
+ html的元素的事件就只用控件自带的的那么几个，如onclick,onmouserdown ,..等等都是调用脚本执行
 
-            方法：1、在空间上写直接激发事件
-
-                      2、在页面加载的时候就调用脚本激发控件的某个事件
-
-                      3、在后台利用后台代码强行执行控件的事件。
-
+ 方法：
+ 1、在空间上写直接激发事件
+ 2、在页面加载的时候就调用脚本激发控件的某个事件
+ 3、在后台利用后台代码强行执行控件的事件。
    或：
-
 （1） 为HTML元素的事件属性赋值
-
 （2） 在JS中使用ele.on*** = function() {…}
-
 （3） 使用DOM2的添加事件的方法 addEventListener或attachEvent
 ```
 
@@ -116,12 +112,10 @@ display:none/display:block
 
 ```text
 \n alert("text\ntext");
-
 alert("再打个招呼。这里演示了" + "\n" + "如何在消息框中添加折行。")
 ```
 > 判断一个字符串中出现次数最多的字符，统计这个次数。
 
-忘记了
 参考答案:
 
 ```html
@@ -240,11 +234,70 @@ console.log(reg.test("11a__a1a__a1a__a1a__"))
 
 > 在IE6.0下面是不支持position：fixed的，请写一个JS使用<div id="box"></div>固定在页面的右下角。
 
+参考答案：
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    .tit{position:absolute; width:100px; height:100px; background:red;}
+  </style>
+</head>
+<body>
+  <div id="box" class="tit"></div>
+  <script>
+    window.onscroll= window.onresize = window.onload = function (){
+      var getDiv = document.getElementById('box');
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      getDiv.style.left= document.documentElement.clientWidth - getDiv.offsetWidth + 'px';
+      getDiv.style.top = document.documentElement.clientHeight - getDiv.offsetHeight +scrollTop +'px';
+    }
+  </script>
+</body>
+</html>
+```
 
 
 > 请实现，鼠标移到页面中的任意标签，显示出这个标签的基本矩形轮廓。
 
-
+参考答案：
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    .tit{display:block; width:100px; height:100px; background:yellow;}
+  </style>
+</head>
+<body>
+  <div id="box" class="tit"></div>
+  <p class="tit">555</p>
+  <a class="tit" href="www.baidu.com" alt="www.baidu.com"></a>
+  <script>
+  function mouseBorder(t){
+    var c = t.childNodes;
+    for(var i = 0 ; i < c.length; i++){
+      var d = c[i];
+      if(d.nodeType == 1){
+        d.onmouseover = function(){
+          this.style.border='1px solid red';
+        };
+        d.onmouseout = function(){
+          this.style.border='';
+        };
+        mouseBorder(d);
+      }; 
+    }
+  }
+  mouseBorder(document.body);
+  </script>
+</body>
+</html>
+```
 
 > js的基础对象有哪些，window和document的常用的方法和属性列出来
 
@@ -253,6 +306,23 @@ window属性：location
 document属性：
 方法：getElementById(),getElementsByName()
 
+参考答案：
+
+```html
+  String,Number,Boolean
+
+Window:
+
+方法：setInterval,setTimeout,clearInterval,clearTimeout,alert,confirm,open
+
+属性：name,parent,screenLeft,screenTop,self,top,status
+
+Document
+
+方法：createElement,execCommand,getElementById,getElementsByName,getElementByTagName,write,writeln
+
+属性：cookie,doctype,domain,documentElement,readyState,URL,
+```
 
 > JavaScript中如何对一个对象进行深度clone
 
@@ -260,12 +330,28 @@ document属性：
 JSON.parse(JSON.stringify(obj))
 ```
 
+参考答案：
+```html
+   function cloneObject(o) {    if(!o || 'object' !== typeof o) {        return o;    }    var c = 'function' === typeof o.pop ? [] : {};    var p, v;    for(p in o) {        if(o.hasOwnProperty(p)) {            v = o[p];            if(v && 'object' === typeof v) {                c[p] = Ext.ux.clone(v);            }            else {                c[p] = v;            }        }    }    return c;};
+```
 > js中如何定义class，如何扩展protope？
 
 ```js
 FUNCTION.protope.myName=function(){
 }
 
+```
+参考答案：
+```html
+Ele.className = “***”; //***在css中定义，形式如下：.*** {…}
+
+A.prototype.B = C;
+
+A是某个构造函数的名字
+
+B是这个构造函数的属性
+
+C是想要定义的属性的值
 ```
 
 > ajax是什么？ajax的交互模型？同步和异步的区别？如何解决跨域问题？
@@ -277,20 +363,73 @@ FUNCTION.protope.myName=function(){
 
 - ACAO、nigix
 
+参考答案：
+```html
+Ajax是多种技术组合起来的一种浏览器和服务器交互技术，基本思想是允许一个互联网浏览器向一个远程页面/服务做异步的http调用，并且用收到的数据来更新一个当前web页面而不必刷新整个页面。该技术能够改进客户端的体验。包含的技术：
 
+XHTML：对应W3C的XHTML规范，目前是XHTML1.0。
+
+CSS：对应W3C的CSS规范，目前是CSS2.0
+
+DOM：这里的DOM主要是指HTML DOM，XML DOM包括在下面的XML中
+
+JavaScript：对应于ECMA的ECMAScript规范
+
+XML：对应W3C的XML DOM、XSLT、XPath等等规范
+
+XMLHttpRequest：对应WhatWG的Web Applications1.0规范（http://whatwg.org/specs/web-apps/current-work/）
+
+AJAX交互模型
+
+同步：脚本会停留并等待服务器发送回复然后再继续
+
+异步：脚本允许页面继续其进程并处理可能的回复
+
+跨域问题简单的理解就是因为JS同源策略的限制，a.com域名下的JS无法操作b.com或c.a.com下的对象，具体场景如下：
+
+PS：（1）如果是端口或者协议造成的跨域问题前端是无能为力的
+
+(2) 在跨域问题上，域仅仅通过URL的首部来识别而不会尝试判断相同的IP地址对应的域或者两个域是否对应一个IP
+
+前端对于跨域的解决办法：
+
+(1) document.domain+iframe
+
+(2) 动态创建script标签
+```
 > 请给出异步加载js方案，不少于两种？
 
 async、defer
 
 有关链接：[异步加载js的几种方式](https://www.cnblogs.com/1314-/p/6561475.html)
 
+参考答案：
+```html
+  默认情况javascript是同步加载的，也就是javascript的加载时阻塞的，后面的元素要等待javascript加载完毕后才能进行再加载，对于一些意义不是很大的javascript，如果放在页头会导致加载很慢的话，是会严重影响用户体验的。
+
+异步加载方式：
+
+(1) defer，只支持IE
+
+(2) async：
+
+(3) 创建script，插入到DOM中，加载完毕后callBack，见代码：function loadScript(url, callback){   var script = document.createElement("script")   script.type = "text/javascript";   if (script.readyState){ //IE      script.onreadystatechange = function(){         if (script.readyState == "loaded" ||            script.readyState == "complete"){            script.onreadystatechange = null;            callback();         }      };   } else { //Others: Firefox, Safari, Chrome, and Opera      script.onload = function(){          callback();      };   }   script.src = url;   document.body.appendChild(script);}
+```
+
 > 多浏览器检测通过什么？
 
 听都没听过
+参考答案：
+```html
+  （1） navigator.userAgent
+
+  （2） 不同浏览器的特性，如addEventListener
+```
+
 
 ### 面试题
 面试知识点
-两个面试官人超级好，都挺帅的。感觉没比我大多少。注意：我不是gay。
+两个面试官人超级好。
 
 > window.onload()在哪个周期中？
 
