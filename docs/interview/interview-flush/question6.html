@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    var str = "abcdefgaddda";
+    var obj = {};
+    for(var i = 0; i < str.length; i++){
+        var key = str[i];
+        if(typeof obj[key] === 'undefined'){
+            obj[key] = 1;
+        }else{
+            obj[key]++;
+        }
+    }
+    var max = -1;
+    var max_key = obj[key];
+    for(var key in obj){
+        if(max < obj[key]){
+            max = obj[key];
+            max_key = key;
+        }
+    }
+    document.write("字符:" + max_key + ",出现次数最多为:" + max + "次")
+</script>
+</body>
+</html>

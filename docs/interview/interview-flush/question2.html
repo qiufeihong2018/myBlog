@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    </head>
+    <body>
+    <input id="show" style="width:300px;"/>
+    <script>
+    function getTime(){
+        var nowDate = new Date();
+        var year = nowDate.getFullYear();
+        var month = (nowDate.getMonth() + 1) > 10 ? nowDate.getMonth() + 1 : '0' + (nowDate.getMonth() + 1);
+        var day = nowDate.getDate() > 10 ? nowDate.getDate() : '0' + nowDate.getDate();
+        var hour = nowDate.getHours() > 10 ? nowDate.getHours() : (nowDate.getHours() == 0 ? 24 : '0' + nowDate.getHours());
+        var minutes = nowDate.getMinutes() > 10 ? nowDate.getMinutes() : '0' + nowDate.getMinutes();
+        var seconds = nowDate.getSeconds() > 10 ? nowDate.getSeconds() : '0' + nowDate.getSeconds();
+        var str="当前时间为：" + year + "年" + month + "月" + day + "日" + " " + hour + ":" + minutes + ":" + seconds;
+        document.getElementById("show").value = str;
+    }
+window.setInterval("getTime()", 1000);
+</script>
+</body>
+</html>
+
