@@ -8,18 +8,16 @@
 <script>
     var str = "abcdefgaddda";
     var obj = {};
-    for(var i = 0; i < str.length; i++){
+    // 每个字符出现次数
+    for (let i = 0; i < str.length; i++) {
         var key = str[i];
-        if(typeof obj[key] === 'undefined'){
-            obj[key] = 1;
-        }else{
-            obj[key]++;
-        }
+        typeof obj[key] === 'undefined' ? obj[key] = 1 : obj[key]++
     }
     var max = -1;
-    var max_key = obj[key];
-    for(var key in obj){
-        if(max < obj[key]){
+    var max_key = key;
+    // 排序
+    for (let key in obj) {
+        if (max < obj[key]) {
             max = obj[key];
             max_key = key;
         }

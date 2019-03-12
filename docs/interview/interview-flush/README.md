@@ -24,7 +24,8 @@
 笔试题在网上可以找到
 var A='当时的答案'
 var B='现在的答案'
-> #### JavaScript包括哪些数据类型，请分别编写3种以上类型的判断函数如：isString（）？
+
+#### JavaScript包括哪些数据类型，请分别编写3种以上类型的判断函数如：isString（）？
 
 A:
 
@@ -72,7 +73,7 @@ B:
       var hour = nowDate.getHours() > 10 ? nowDate.getHours() : (nowDate.getHours() == 0 ? 24 : '0' + nowDate.getHours());
       var minutes = nowDate.getMinutes() > 10 ? nowDate.getMinutes() : '0' + nowDate.getMinutes();
       var seconds = nowDate.getSeconds() > 10 ? nowDate.getSeconds() : '0' + nowDate.getSeconds();
-      var str="当前时间为：" + year + "年" + month + "月" + day + "日" + " " + hour + ":" + minutes + ":" + seconds;
+      var str= year +"-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
       document.getElementById("show").value = str;
     }
     window.setInterval("getTime()", 1000);
@@ -106,16 +107,17 @@ B:
 
  ```text
 
- html的元素的事件就只用控件自带的的那么几个，如onclick,onmouserdown ,..等等都是调用脚本执行
+ html的元素的事件就只用控件自带的的那么几个，
+ 如onclick,onmousedown等等都是调用脚本执行
 
  方法：
- 1、在空间上写直接激发事件
- 2、在页面加载的时候就调用脚本激发控件的某个事件
- 3、在后台利用后台代码强行执行控件的事件。
+ 1. 在控件上直接激发事件
+ 2. 在页面加载的时候就调用脚本激发控件的某个事件
+ 3. 在后台利用后台代码强行执行控件的事件。
    或：
-（1） 为HTML元素的事件属性赋值
-（2） 在JS中使用ele.on*** = function() {…}
-（3） 使用DOM2的添加事件的方法 addEventListener或attachEvent
+ 1. 为HTML元素的事件属性赋值 
+ 2. 在JS中使用ele.on*** = function() {…}
+ 3. 使用DOM2的添加事件的方法 addEventListener或attachEvent
 ```
 
 > #### 如何控制alert中的换行。
@@ -147,18 +149,16 @@ B:
 <script>
     var str = "abcdefgaddda";
     var obj = {};
-    for(var i = 0; i < str.length; i++){
+    // 每个字符出现次数
+    for (let i = 0; i < str.length; i++) {
         var key = str[i];
-        if(typeof obj[key] === 'undefined'){
-            obj[key] = 1;
-        }else{
-            obj[key]++;
-        }
+        typeof obj[key] === 'undefined' ? obj[key] = 1 : obj[key]++
     }
     var max = -1;
-    var max_key = obj[key];
-    for(var key in obj){
-        if(max < obj[key]){
+    var max_key = key;
+    // 排序
+    for (let key in obj) {
+        if (max < obj[key]) {
             max = obj[key];
             max_key = key;
         }
@@ -167,7 +167,6 @@ B:
 </script>
 </body>
 </html>
-
 ```
 
 > #### 判断字符串是否是这样组成的，第一个必须是字母，后面可以是字母、数字、下划线，总长度为5-20
@@ -194,26 +193,28 @@ B:
 </head>
 <body>
 <script>
-    function parseQueryString(url){
+    function parseQueryString(url) {
         var result = {};
         var arr = url.split("?");
-        if (arr.length <= 1){
+        if (arr.length <= 1) {
             return result;
-        }else{
+        } else {
             arr = arr[1].split("&");
-            for(var i=0; i<arr.length; i++){
-                var a = arr[i].split("=");
-                result[a[0]] = a[1];
-            }
+            arr.forEach(item => {
+                let a = item.split('=')
+                result[a[0]] = a[1]
+            })
             return result;
         }
     }
+
     var url = "http://witmax.cn/index.php?key0=0&key1=1&key2=2";
     var ps = parseQueryString(url);
-    document.write(ps['key0'] + '<br>' + ps['key1'] + '<br>' + ps['key2']);
+    console.log(ps)
 </script>
 </body>
 </html>
+
 
 ```
 
@@ -231,28 +232,32 @@ B:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
 <body>
-  <div id="firld">
+<div id="firld">
     <input type="text" value="User Name"/>
-  </div>
-  <span id="red" class="red"></span>
-  <script>
-    var result = (function(){
-      var value = document.getElementById("firld").children[0].value;
-      var all = document.getElementsByTagName("span");
-      for(var i = 0; i < all.length; i++){
-        if(all[i].className == 'red'){
-          all[i].innerHTML = value;
-          break;
+</div>
+<span id="red" class="red"></span>
+<span class="red"></span>
+<span class="red"></span>
+<span class="red"></span>
+
+<script>
+    var result = (function () {
+        var value = document.getElementById("firld").children[0].value;
+        var all = document.getElementsByTagName("span");
+        for (let i = 0; i < all.length; i++) {
+            if (all[i].className == 'red') {
+                all[i].innerHTML = value;
+            }
         }
-      }
     })();
-  </script>
+</script>
 </body>
 </html>
+
 ```
 
 
@@ -264,22 +269,27 @@ B:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <style>
-    .tit{position:absolute; width:100px; height:100px; background:red;}
-  </style>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .tit {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
 </head>
 <body>
-  <div id="box" class="tit"></div>
-  <script>
-    window.onscroll= window.onresize = window.onload = function (){
-      var getDiv = document.getElementById('box');
-      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      getDiv.style.left= document.documentElement.clientWidth - getDiv.offsetWidth + 'px';
-      getDiv.style.top = document.documentElement.clientHeight - getDiv.offsetHeight +scrollTop +'px';
+<div id="box" class="tit"></div>
+<script>
+    window.onscroll = window.onresize = window.onload = () => {
+        var getDiv = document.getElementById('box');
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        getDiv.style.left = document.documentElement.clientWidth - getDiv.offsetWidth + 'px';
+        getDiv.style.top = document.documentElement.clientHeight - getDiv.offsetHeight + scrollTop + 'px';
     }
-  </script>
+</script>
 </body>
 </html>
 ```
@@ -503,14 +513,12 @@ document.body.appendChild(script);
 
 > #### 多浏览器检测通过什么？
 
-听都没听过
-参考答案：
+B：
 ```html
   （1） navigator.userAgent
 
   （2） 不同浏览器的特性，如addEventListener
 ```
-
 
 ### 面试题
 面试知识点
@@ -824,9 +832,15 @@ Koa
 
 github关注大佬动态，看他们博客。慕课网、Stack Overflow，v2、掘金等等。
 
-> #### 会用哪些linux命令？
+> #### 会用哪些[linux命令](http://www.runoob.com/linux/linux-command-manual.html)？
 
-mkdir、cd、shutdowm，当时只想到常用的一些。
+A:
+
+mkdir、cd、shutdowm、ls，当时只想到常用的一些。
+
+B:常用的
+
+cat、chmod、file、find、git、ln、mv、rcp、scp、which、whereis、grep、let、sort、cd、rm、kill、shutdowm、sudo、gzip、zip
 
 > #### 看什么书？其中有什么你要说的
 
@@ -834,15 +848,19 @@ mkdir、cd、shutdowm，当时只想到常用的一些。
 
 > #### 你为什么要从事前端？什么时候？未来展望？为什么要用vue？
 
-- 喜欢前端啊
+A:
+- 喜欢前端啊,喜欢展示的效果
 - 大二的时候
 - 未来3-5年成为前端技术大佬，具体措施是将vue原理看懂的同时js底层深入。之后往服务端靠。
 - 经朋友推荐，vue轻量级，有模板，上手快。
 
 > #### echarts如何画图？
 
+A:
 我不知道，但是我有一点点想法。
 用canvas画，比如要画一个柱状图，先给他一个x轴和y轴，然后将每个柱子往上画，柱子之间的距离和粗细要进行计算
+
+B:
 第一、echarts的实现，是通过canvas来实现的。由于canvas的限制，所以echarts在实现的时候多是绘制一些，规则的、可预期的、易于实现的东西。
 
 第二、echarts的核心就是options的配置对象。一般而言，我们使用最多的是直角坐标图、极点图、以及地图。
@@ -853,22 +871,104 @@ mkdir、cd、shutdowm，当时只想到常用的一些。
 
 参考网上链接:[echarts绘图](https://blog.csdn.net/mapbar_front/article/details/78444477)
 
-> #### 你用什么布局？
+>#### 你用什么布局？
+
+A:
 
 flex布局和grid布局
 
+B:
+```text
+1、边距与浮动布局
+1.1、负边距
+1.1.1、向上移动
+1.1.2、去除列表右边框
+1.1.3、负边距+定位，实现水平垂直居中
+1.1.4、去除列表最后一个li元素的border-bottom
+1.2、双飞翼布局
+1.3、多栏布局
+1.3.1、栅格系统
+1.3.2、多列布局
+2、流式布局（Fluid）
+3、瀑布流布局
+3.1、常见瀑布流布局网站
+3.2、特点
+3.3、masonry实现瀑布流布局
+3.3.1、下载并引用masonry
+3.3.2、准备内容
+3.3.3、初始化插件
+3.3.4、使用了图片的瀑布流
+3.3.5、图片基础
+3.4、图片加载处理
+3.4.1、imagesLoaded 图片加载进度监听
+3.4.2、图片延迟加载
+3.5、Infinite Scroll 滚动分页
+3.5.1、异步加载普通页面
+3.5.2、异步加载json并解析
+4、响应式布局（Responsive）
+4.1、媒介类型
+4.2、媒介查询的应用位置（Media Queries）
+4.3、Media Queries Hello World
+4.4、媒介查询语法
+4.5、响应式栅格系统（Responsive）
+4.6、respond.js
+4.7、移动优先（Mobile First）
+4.8、视区（viewport）
+4.8.1、需要设置viewport的原因
+4.8.2、设置viewport的方法
+4.8.3、小节
+5、REM实现响应式布局
+5.1、使用javascript设置相对尺寸
+5.2、使用媒介查询设置字体尺寸
+6、弹性布局（Flexbox）
+
+
+```
+
 参考网上链接:[页面布局大全](https://www.cnblogs.com/best/p/6136165.html)
 
-> #### 把ui图给你，你要怎么操作？没有UI库呢？
+> #### 把UI图给你，你要怎么操作？没有UI库呢？
 
+A:
 先选UI库，将UI图拆分，拆分成一个个组件。选择布局，flex，grid布局。用html和css实现框架，完成细枝末节。
+
+B:
+拿到UI图，我们就需要快速分割页面布局。再进行考虑是用哪种布局方式，如响应式、网格、FlexBox布局等。而有些时候，我们就需要自己规划，制作一个基本的线框图（Wireframe）等等。
 
 > #### 如何SEO?
 
+A:
+
 除了服务端渲染，还可以通过语义化标签：article、section
+
+B:
+
+- 页面中杜绝出现死链接（404页面）（服务器处理）
+
+- 避免浏览器中异常错误的抛出
+
+- 增加关键词优化
+
+- 对于不经常更新的数据，最好采用浏览器的304缓存做处理
+
+- 使用字体图标代替一些页面中的位置
+
+- 合理的title、description、keywords
+
+- 语义化的HTML代码
+
+- 重要内容HTML代码放在最前
+
+- 少用iframe：搜索引擎不会抓取iframe中的内容
+
+- 非装饰性图片必须用alt
+
+- 提高网站速度
 
 我的问题：
 > #### 技术栈？
+
+目前是Vue，之后会转向React+typescript。
 
 > #### 团建？打球？
 
@@ -877,12 +977,13 @@ flex布局和grid布局
 
 > #### 996吗？
 
-不是，弹性工作制度。
-潜台词：会很迟。
+不是，是弹性工作制度。
 
 > #### 如果我进来，我做什么？
 
-你可以做公司的活动页，小程序的...忘记了。
+你可以做公司的活动页，小程序的等等。
 
 ## 面试后
 面试完后千万记得要做笔记，就算没通过，也是一份面试经验，要把它当作学习。水滴石穿 :100: 。
+
+五险一金，考核标准，福利，社保

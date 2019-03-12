@@ -6,23 +6,24 @@
 </head>
 <body>
 <script>
-    function parseQueryString(url){
+    function parseQueryString(url) {
         var result = {};
         var arr = url.split("?");
-        if (arr.length <= 1){
+        if (arr.length <= 1) {
             return result;
-        }else{
+        } else {
             arr = arr[1].split("&");
-            for(var i=0; i<arr.length; i++){
-                var a = arr[i].split("=");
-                result[a[0]] = a[1];
-            }
+            arr.forEach(item => {
+                let a = item.split('=')
+                result[a[0]] = a[1]
+            })
             return result;
         }
     }
+
     var url = "http://witmax.cn/index.php?key0=0&key1=1&key2=2";
     var ps = parseQueryString(url);
-    document.write(ps['key0'] + '<br>' + ps['key1'] + '<br>' + ps['key2']);
+    console.log(ps)
 </script>
 </body>
 </html>

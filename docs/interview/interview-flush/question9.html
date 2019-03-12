@@ -17,8 +17,7 @@
     var result = (function () {
         var value = document.getElementById("firld").children[0].value;
         var all = document.getElementsByTagName("span");
-        console.log(all.length)
-        for (var i = 0; i < all.length; i++) {
+        for (let i = 0; i < all.length; i++) {
             if (all[i].className == 'red') {
                 all[i].innerHTML = value;
             }
