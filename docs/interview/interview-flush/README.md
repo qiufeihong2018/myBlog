@@ -5,7 +5,7 @@
 ## 面试前注意点
 
 ::: tip 一份漂亮的简历很重要
-简历就是你的脸，能将简历写得好这说明一个人概括和表达能力不错。这些都是能力的体现，一定要重视，以前我就是忽视了这一点。好的简历都是改出来的。注意：千万不要给自己挖坑，不要写自己答不上来的东东。要在面试之前，把简历上的东西都弄懂，如果你连简历上的写的知识点都弄不懂，别人是不会录取你的。
+简历就是你的脸，能将简历写得好这说明一个人概括和表达能力不错。这些都是能力的体现，一定要重视，以前我就是忽视了这一点（间接导致面试不成功）。好的简历都是改出来的。注意：千万不要给自己挖坑，不要写自己答不上来的知识点。要在面试之前，把简历上的知识点和延伸点都弄懂，如果你连简历上的写的知识点都弄不懂，别人凭什么录取你。
 :::
 
 ::: tip 跳槽和离职理由要恰当。
@@ -13,7 +13,7 @@
 :::
 
 ::: tip 注重平时积累（尤其是基础知识和原理）
-我19届的，今年才毕业，已经在滨江实习了7、8个月了。这几个月里，我兢兢业业，刻苦努力完成项目任务。我一边做项目，一边会去做笔记，推荐有道云笔记。之前用过印象。哎，充满金钱味的笔记（买不起会员）。我遇到过的bug，我会记载下来。在网上看到的优秀文章和优秀博客，都是放进笔记中。每天都要做总结，不仅有利于巩固复习，还锻炼了自己概括能力，何乐而不为呢？面试前将笔记刷一遍，将面经刷一遍。重要的是前端面试题刷一遍（很多多会考到，没考到就会问到）。
+我19届的，今年才毕业，已经在滨江实习了7、8个月了。这几个月里，我兢兢业业，刻苦努力完成公司里的项目任务。我一边做项目，一边做笔记。推荐有道云笔记。之前用过印象。哎，充满金钱味的笔记（买不起会员）。我遇到过的bug，我会记载下来。在网上看到的优秀文章和优秀博客，都是放进笔记中。我每天都会做总结，不仅有利于巩固复习，还锻炼了自己概括能力，何乐而不为呢？面试前将笔记刷一遍，将面经刷一遍。重要的是前端面试题刷一遍（很多多会考到，没考到就会问到，没问到那也是你的隐形财富）。
 :::
 ## 面试前
 
@@ -116,7 +116,7 @@ B:
  3. 在后台利用后台代码强行执行控件的事件。
    或：
  1. 为HTML元素的事件属性赋值 
- 2. 在JS中使用ele.on*** = function() {…}
+ 2. 在JS中使用el.on*** = function() {…}
  3. 使用DOM2的添加事件的方法 addEventListener或attachEvent
 ```
 
@@ -132,7 +132,7 @@ B:
 
 ```text
 \n alert("text\ntext");
-alert("再打个招呼。这里演示了" + "\n" + "如何在消息框中添加折行。")
+alert("再打个招呼。这里演示了" + "\n" + "如何在消息框中添加换行。")
 ```
 > #### 判断一个字符串中出现次数最多的字符，统计这个次数。
 
@@ -303,34 +303,43 @@ B:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <style>
-    .tit{display:block; width:100px; height:100px; background:yellow;}
-  </style>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .tit {
+            display: block;
+            width: 100px;
+            height: 100px;
+            background: blue;
+        }
+    </style>
 </head>
 <body>
-  <div id="box" class="tit"></div>
-  <p class="tit">555</p>
-  <a class="tit" href="www.baidu.com" alt="www.baidu.com"></a>
-  <script>
-  function mouseBorder(t){
-    var c = t.childNodes;
-    for(var i = 0 ; i < c.length; i++){
-      var d = c[i];
-      if(d.nodeType == 1){
-        d.onmouseover = function(){
-          this.style.border='1px solid red';
-        };
-        d.onmouseout = function(){
-          this.style.border='';
-        };
-        mouseBorder(d);
-      }; 
+<div id="box" class="tit">div</div>
+<p class="tit">p</p>
+<a class="tit" href="www.baidu.com" alt="www.baidu.com">a</a>
+<script>
+    function mouseBorder(t) {
+        var c = t.childNodes
+
+        for (let i = 0; i < c.length; i++) {
+            var d = c[i];
+
+            if (d.nodeType == 1) {
+                d.onmouseover = function () {
+                    this.style.border = '1px solid red'
+                }
+                d.onmouseout = function () {
+                    this.style.border = ''
+                }
+                mouseBorder(d);
+            }
+        }
+
     }
-  }
-  mouseBorder(document.body);
-  </script>
+
+    mouseBorder(document.body);
+</script>
 </body>
 </html>
 ```
@@ -986,4 +995,8 @@ B:
 ## 面试后
 面试完后千万记得要做笔记，就算没通过，也是一份面试经验，要把它当作学习。水滴石穿 :100: 。
 
-五险一金，考核标准，福利，社保
+## 入职前（可参考[手把手教你跟HR谈工资](https://www.douban.com/note/442255900/?type=like)[HR和我谈五险一金，我该知道哪些以防被坑？](HR和我谈五险一金，我该知道哪些以防被坑？)）
+在和HR聊到薪资问题的时候，不妨大胆问个清楚：除了工资之外，还有其他的薪资福利吗？比如
+五险一金，考核标准，福利，社保，补贴和奖金。
+1. 补贴是指车贴、饭贴、房贴、汽油补贴、出差津贴、通讯费、置装费、过节费等工资以外的现金福利，另外一些企业还会设立各种名目繁多的奖金，如半年奖、季度奖、加班奖、先进奖、考勤奖等。 
+2. 五险一金，包括医疗保险、养老保险、失业保险、工伤保险、生育保险、住房公积金。
