@@ -19,13 +19,12 @@
 
 其实笔试和面试各1个小时，在路上竟然花了4个小时。下午4点约的面试，我早早就到了同花顺，发现才1点多，是我太早了，突然想到一句话：准时是礼貌，早到是修养 :100: 。
  
-## 面试中
-### [笔试题](https://my.oschina.net/u/2332658/blog/466893)
+## [笔试题](https://my.oschina.net/u/2332658/blog/466893)
 笔试题在网上可以找到
 var A='当时的答案'
 var B='现在的答案'
 
-#### JavaScript包括哪些数据类型，请分别编写3种以上类型的判断函数如：isString（）？
+> ### JavaScript包括哪些数据类型，请分别编写3种以上类型的判断函数如：isString（）？
 
 A:
 
@@ -38,7 +37,7 @@ B:
 字符串、数字、布尔、数组、对象、null、undefined
 typeof, instanceof, isArray()?
 
-> #### 编写一个JavaScript函数，实时显示当前时间，格式‘年-月-日 时：分：秒’?
+> ### 编写一个JavaScript函数，实时显示当前时间，格式‘年-月-日 时：分：秒’?
 
 A:
 
@@ -82,7 +81,7 @@ B:
 </html>
 ```
 
-> #### 如何显示/隐藏一个DOM元素？
+> ### 如何显示/隐藏一个DOM元素？
 
 A:
 
@@ -97,7 +96,7 @@ B:
 隐藏：object.style.display="none";
 ```
 
-> #### 如何添加html元素的事件处理，有几种方法。
+> ### 如何添加html元素的事件处理，有几种方法。
 
 A:
 
@@ -120,7 +119,7 @@ B:
  3. 使用DOM2的添加事件的方法 addEventListener或attachEvent
 ```
 
-> #### 如何控制alert中的换行。
+> ### 如何控制alert中的换行。
 
 A:
 
@@ -134,7 +133,7 @@ B:
 \n alert("text\ntext");
 alert("再打个招呼。这里演示了" + "\n" + "如何在消息框中添加换行。")
 ```
-> #### 判断一个字符串中出现次数最多的字符，统计这个次数。
+> ### 判断一个字符串中出现次数最多的字符，统计这个次数。
 
 B:
 
@@ -169,7 +168,7 @@ B:
 </html>
 ```
 
-> #### 判断字符串是否是这样组成的，第一个必须是字母，后面可以是字母、数字、下划线，总长度为5-20
+> ### 判断字符串是否是这样组成的，第一个必须是字母，后面可以是字母、数字、下划线，总长度为5-20
 
 B:
 
@@ -180,7 +179,7 @@ console.log(reg.test("11a__a1a__a1a__a1a__"))
 ```
 
 
-> #### 请编写一个JavaScript函数parseQueryString，他的用途是把URL参数解析为一个对象，如：var url=“http://witmax.cn/index.php?key0=0&key1=1&key2=2”；
+> ### 请编写一个JavaScript函数parseQueryString，他的用途是把URL参数解析为一个对象，如：var url=“http://witmax.cn/index.php?key0=0&key1=1&key2=2”；
 
 B:
 
@@ -218,7 +217,7 @@ B:
 
 ```
 
-> #### 在页面中有如下html：
+> ### 在页面中有如下html：
 ```html
 <div id="field">
 <input type="text" value="User Name"/>
@@ -261,7 +260,7 @@ B:
 ```
 
 
-> #### 在IE6.0下面是不支持position：fixed的，请写一个JS使用<div id="box"></div>固定在页面的右下角。
+> ### 在IE6.0下面是不支持position：fixed的，请写一个JS使用<div id="box"></div>固定在页面的右下角。
 
 B:
 
@@ -295,7 +294,7 @@ B:
 ```
 
 
-> #### 请实现，鼠标移到页面中的任意标签，显示出这个标签的基本矩形轮廓。
+> ### 请实现，鼠标移到页面中的任意标签，显示出这个标签的基本矩形轮廓。
 
 B:
 
@@ -344,7 +343,7 @@ B:
 </html>
 ```
 
-> #### js的基础对象有哪些，window和document的常用的方法和属性列出来
+> ### js的基础对象有哪些，window和document的常用的方法和属性列出来
 
 A:
 
@@ -371,7 +370,7 @@ Document
 属性：cookie,doctype,domain,documentElement,readyState,URL,
 ```
 
-> #### JavaScript中如何对一个对象进行深度clone
+> ### JavaScript中如何对一个对象进行深度clone
 
 A:
 
@@ -383,7 +382,7 @@ B：
 ```html
    function cloneObject(o) {    if(!o || 'object' !== typeof o) {        return o;    }    var c = 'function' === typeof o.pop ? [] : {};    var p, v;    for(p in o) {        if(o.hasOwnProperty(p)) {            v = o[p];            if(v && 'object' === typeof v) {                c[p] = Ext.ux.clone(v);            }            else {                c[p] = v;            }        }    }    return c;};
 ```
-> #### js中如何定义class，如何扩展protope？
+> ### js中如何定义class，如何扩展protope？
 
 A:
 
@@ -406,7 +405,7 @@ B是这个构造函数的属性
 C是想要定义的属性的值
 ```
 
-> #### ajax是什么？ajax的交互模型？同步和异步的区别？如何解决跨域问题？
+> ### ajax是什么？ajax的交互模型？同步和异步的区别？如何解决跨域问题？
 
 A:
 
@@ -452,7 +451,7 @@ PS：（1）如果是端口或者协议造成的跨域问题前端是无能为�
 
 (2) 动态创建script标签
 ```
-> #### 请给出异步加载js方案，不少于两种？
+> ### 请给出异步加载js方案，不少于两种？
 
 A:
 
@@ -520,7 +519,7 @@ document.body.appendChild(script);
 (3) 创建script，插入到DOM中，加载完毕后callBack，见代码：function loadScript(url, callback){   var script = document.createElement("script")   script.type = "text/javascript";   if (script.readyState){ //IE      script.onreadystatechange = function(){         if (script.readyState == "loaded" ||            script.readyState == "complete"){            script.onreadystatechange = null;            callback();         }      };   } else { //Others: Firefox, Safari, Chrome, and Opera      script.onload = function(){          callback();      };   }   script.src = url;   document.body.appendChild(script);}
 ```
 
-> #### 多浏览器检测通过什么？
+> ### 多浏览器检测通过什么？
 
 B：
 ```html
@@ -529,11 +528,11 @@ B：
   （2） 不同浏览器的特性，如addEventListener
 ```
 
-### 面试题
+## 面试题
 面试知识点
 两个面试官人超级好。
 
-> #### window.onload()在哪个周期中？
+> ### window.onload()在哪个周期中？
 
 A:
 
@@ -543,11 +542,11 @@ B：
 
 当文档内容完全加载完成会触发该事件。可以为此事件注册事件处理函数，并将要执行的脚本代码放在事件处理函数中，于是就可以避免获取不到对象的情况。
 
-> #### 如何异步加载js？
+> ### 如何异步加载js？
 
 见笔试题
 
-> #### vue生命周期？
+> ### vue生命周期？
 
 A:
 
@@ -561,7 +560,7 @@ keep-alive：切换组件之后，组件放进activated，之前的组件放进d
 beforeDestory：在组件销毁之前调用，可以解决内存泄露的问题，如setTimeout和setInterval造成的问题。
 destory：组件销毁之后调用。
 
-> #### [缓存](https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5c06769251882516cd70cfe9)
+> ### [缓存](https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5c06769251882516cd70cfe9)
 
 B:
 
@@ -576,7 +575,7 @@ B:
 实际场景应用缓存策略
 
 
-> #### socket-io与http请求的区别?
+> ### socket-io与http请求的区别?
 
 B:
 
@@ -621,7 +620,7 @@ Socket适用场景：网络游戏，银行交互，支付。
 http适用场景：公司OA服务，互联网服务。
 ```
 
-> #### [generator](http://es6.ruanyifeng.com/#docs/generator)如何执行？如何让generator自动next（不通过next.next.next）？
+> ### [generator](http://es6.ruanyifeng.com/#docs/generator)如何执行？如何让generator自动next（不通过next.next.next）？
 
 A:
 
@@ -673,7 +672,7 @@ let result3 = it.next()
 
 ```
 
-> #### 遇到过的兼容性问题？
+> ### 遇到过的兼容性问题？
 
 A:
 
@@ -760,7 +759,7 @@ IE6浏览器在读到height:300px的时候会认为高时300px；继续往下读
 
 IE7和遨游也是一样的从高度300px的设置往下读。当它们读到*height200px的时候就停下了，因为它们不认识_height。所以它们会把高度解析为200px，剩下的浏览器只认识第一个height:300px;所以他们会把高度解析为300px。因为优先级相同且想冲突的属性设置后一个会覆盖掉前一个，所以书写的次序是很重要的。
 ```
-> #### promise原理？
+> ### promise原理？
 
 A:
 
@@ -813,7 +812,7 @@ ajax(url)
   }).then(res => console.log(res))
 前面都是在讲述 Promise 的一些优点和特点，其实它也是存在一些缺点的，比如无法取消 Promise，错误需要通过回调函数捕获。
 ```
-> #### koa和express？
+> ### koa和express？
 
 A:
 
@@ -833,15 +832,15 @@ Express
 Koa
 优点：首先，借助 co 和 generator，很好地解决了异步流程控制和异常捕获问题。其次，Koa 把 Express 中内置的 router、view 等功能都移除了，使得框架本身更轻量。 缺点：社区相对较小
 
-> #### 你有哪些优秀代码可以讲讲？哪些好项目？
+> ### 你有哪些优秀代码可以讲讲？哪些好项目？
 
 我提到的是我做得的项目中的贡献。
 
-> #### 你怎么学习？
+> ### 你怎么学习？
 
 github关注大佬动态，看他们博客。慕课网、Stack Overflow，v2、掘金等等。
 
-> #### 会用哪些[linux命令](http://www.runoob.com/linux/linux-command-manual.html)？
+> ### 会用哪些[linux命令](http://www.runoob.com/linux/linux-command-manual.html)？
 
 A:
 
@@ -851,11 +850,11 @@ B:常用的
 
 cat、chmod、file、find、git、ln、mv、rcp、scp、which、whereis、grep、let、sort、cd、rm、kill、shutdowm、sudo、gzip、zip
 
-> #### 看什么书？其中有什么你要说的
+> ### 看什么书？其中有什么你要说的
 
 犀牛书和红皮书当字典查。generator不太懂其原理。
 
-> #### 你为什么要从事前端？什么时候？未来展望？为什么要用vue？
+> ### 你为什么要从事前端？什么时候？未来展望？为什么要用vue？
 
 A:
 - 喜欢前端啊,喜欢展示的效果
@@ -863,7 +862,7 @@ A:
 - 未来3-5年成为前端技术大佬，具体措施是将vue原理看懂的同时js底层深入。之后往服务端靠。
 - 经朋友推荐，vue轻量级，有模板，上手快。
 
-> #### echarts如何画图？
+> ### echarts如何画图？
 
 A:
 我不知道，但是我有一点点想法。
@@ -880,7 +879,7 @@ B:
 
 参考网上链接:[echarts绘图](https://blog.csdn.net/mapbar_front/article/details/78444477)
 
->#### 你用什么布局？
+>### 你用什么布局？
 
 A:
 
@@ -936,7 +935,7 @@ B:
 
 参考网上链接:[页面布局大全](https://www.cnblogs.com/best/p/6136165.html)
 
-> #### 把UI图给你，你要怎么操作？没有UI库呢？
+> ### 把UI图给你，你要怎么操作？没有UI库呢？
 
 A:
 先选UI库，将UI图拆分，拆分成一个个组件。选择布局，flex，grid布局。用html和css实现框架，完成细枝末节。
@@ -944,7 +943,7 @@ A:
 B:
 拿到UI图，我们就需要快速分割页面布局。再进行考虑是用哪种布局方式，如响应式、网格、FlexBox布局等。而有些时候，我们就需要自己规划，制作一个基本的线框图（Wireframe）等等。
 
-> #### 如何SEO?
+> ### 如何SEO?
 
 A:
 
@@ -975,28 +974,28 @@ B:
 - 提高网站速度
 
 我的问题：
-> #### 技术栈？
+> ### 技术栈？
 
 目前是Vue，之后会转向React+typescript。
 
-> #### 团建？打球？
+> ### 团建？打球？
 
 - 一周一次团建，还没有技术分享会
 - 楼上有足球场、旁边是篮球场
 
-> #### 996吗？
+> ### 996吗？
 
 不是，是弹性工作制度。
 
-> #### 如果我进来，我做什么？
+> ### 如果我进来，我做什么？
 
 你可以做公司的活动页，小程序的等等。
 
 ## 面试后
 面试完后千万记得要做笔记，就算没通过，也是一份面试经验，要把它当作学习。水滴石穿 :100: 。
 
-## 入职前（可参考[手把手教你跟HR谈工资](https://www.douban.com/note/442255900/?type=like)[HR和我谈五险一金，我该知道哪些以防被坑？](HR和我谈五险一金，我该知道哪些以防被坑？)）
+## 入职前
 在和HR聊到薪资问题的时候，不妨大胆问个清楚：除了工资之外，还有其他的薪资福利吗？比如
 五险一金，考核标准，福利，社保，补贴和奖金。
-1. 补贴是指车贴、饭贴、房贴、汽油补贴、出差津贴、通讯费、置装费、过节费等工资以外的现金福利，另外一些企业还会设立各种名目繁多的奖金，如半年奖、季度奖、加班奖、先进奖、考勤奖等。 
-2. 五险一金，包括医疗保险、养老保险、失业保险、工伤保险、生育保险、住房公积金。
+1. 补贴是指车贴、饭贴、房贴、汽油补贴、出差津贴、通讯费、置装费、过节费等工资以外的现金福利，另外一些企业还会设立各种名目繁多的奖金，如半年奖、季度奖、加班奖、先进奖、考勤奖等。 [手把手教你跟HR谈工资](https://www.douban.com/note/442255900/?type=like)
+2. 五险一金，包括医疗保险、养老保险、失业保险、工伤保险、生育保险、住房公积金。[HR和我谈五险一金，我该知道哪些以防被坑？](HR和我谈五险一金，我该知道哪些以防被坑？)
