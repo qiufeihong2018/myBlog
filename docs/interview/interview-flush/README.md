@@ -45,7 +45,7 @@ A:
 ```js
 var date=new Date()
 var year=date.getFullYear()
-var month=date.getMonth()
+var month=date.getMonth()+1
 var day=date.getDate()
 var hour=date.getHours()
 var minute=date.getMinutes()
@@ -380,8 +380,32 @@ JSON.parse(JSON.stringify(obj))
 ```
 
 B：
-```html
-   function cloneObject(o) {    if(!o || 'object' !== typeof o) {        return o;    }    var c = 'function' === typeof o.pop ? [] : {};    var p, v;    for(p in o) {        if(o.hasOwnProperty(p)) {            v = o[p];            if(v && 'object' === typeof v) {                c[p] = Ext.ux.clone(v);            }            else {                c[p] = v;            }        }    }    return c;};
+```js
+function cloneObject(o) {
+    // 1. 是否是object,是否为空
+    if (!o || 'object' !== typeof o) {
+        return o;
+    }
+    // 2. 判断其是数组还是对象,并创建新的对象或数组
+    var c = 'function' === typeof o.pop ? [] : {};
+
+    // 3. 遍历对象或数组
+    for (let p in o) {
+        // 4. 判断o中的属性p是否存在
+        if (o.hasOwnProperty(p)) {
+            let v = o[p];
+            v && 'object' === typeof v ? c[p] = Ext.ux.clone(v) : c[p] = v
+        }
+    }
+    return c;
+}
+
+a = {'name': 'qiufeihong'}
+b = cloneObject(a)
+a.name = 'youyuxi'
+console.log('a', a)
+console.log('b', b)
+
 ```
 > ### js中如何定义class，如何扩展protope？
 
