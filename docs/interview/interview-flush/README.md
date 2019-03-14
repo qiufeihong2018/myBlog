@@ -237,7 +237,7 @@ B:
 </head>
 <body>
 <div id="firld">
-    <input type="text" value="User Name"/>
+    <input type="text" value="qiufeihong"/>
 </div>
 <span id="red" class="red"></span>
 <span class="red"></span>
@@ -258,8 +258,11 @@ B:
 </body>
 </html>
 
-```
 
+```
+结果：
+
+![avatar](../public/bibao.JPG)
 
 > ### 在IE6.0下面是不支持position：fixed的，请写一个JS使用<div id="box"></div>固定在页面的右下角。
 
