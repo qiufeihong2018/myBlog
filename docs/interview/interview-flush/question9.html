@@ -8,21 +8,29 @@
 <div id="firld">
     <input type="text" value="qiufeihong"/>
 </div>
-<span id="red" class="red"></span>
 <span class="red"></span>
-<span class="red"></span>
-<span class="red"></span>
+
 
 <script>
     var result = (function () {
         var value = document.getElementById("firld").children[0].value;
         var all = document.getElementsByTagName("span");
-        for (let i = 0; i < all.length; i++) {
-            if (all[i].className == 'red') {
-                all[i].innerHTML = value;
+
+        function change() {
+            for (let i = 0; i < all.length; i++) {
+                if (all[i].className == 'red') {
+                    all[i].innerHTML = value;
+                }
+            }
+        }
+
+        return {
+            load: function () {
+                change()
             }
         }
     })();
+    result.load()
 </script>
 </body>
 </html>
