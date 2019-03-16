@@ -21,8 +21,6 @@ module.exports = {
                 buttonText: 'Refresh'
             }
         },
-        repo: 'https://github.com/qiufeihong2018/vuepress-blog',
-        repoLabel: 'myGithub',
         editLinks: true,
         editLinkText: '在 GitHub 上编辑此页 ！'
     },

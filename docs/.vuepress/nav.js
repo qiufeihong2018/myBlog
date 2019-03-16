@@ -76,6 +76,23 @@ module.exports = {
         },
         {
             text: '面试', link: '/interview/'
+        },
+        {
+            text: '个人主页',
+            items: [
+                {
+                    text: 'GitHub', link: 'https://github.com/qiufeihong2018'
+                },
+                {
+                    text: '掘金', link: 'https://juejin.im/user/5bf4d63cf265da61561ee241/posts'
+                },
+                {
+                    text: 'CSDN', link: 'https://blog.csdn.net/weixin_38465623'
+                },
+                {
+                    text: 'segmentfault', link: 'https://segmentfault.com/u/qiufeihong2018'
+                }
+            ]
         }
     ]
 }
