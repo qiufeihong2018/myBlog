@@ -262,7 +262,7 @@ B:
 ```
 结果：
 
-![avatar](../public/bibao.JPG)
+![avatar](../public/bibao.jpg)
 
 > ### 在IE6.0下面是不支持position：fixed的，请写一个JS使用<div id="box"></div>固定在页面的右下角。
 
