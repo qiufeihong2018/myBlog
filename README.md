@@ -23,6 +23,16 @@ npm run d
 npm run server 
 ```
 
+## main page
+![avatar](./shotPic/main.png)
+
+## feature
+- [x] 可以统计阅读量
+- [x] 支持评论
+- [ ] Algolia搜索
+- [ ] 在 GitHub 上编辑此页
+- [ ] SEO
+
 ## directory
 ```
 .
@@ -331,5 +341,3 @@ devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 2 -I  '*svn|*nod
 └── todo.md
 
 ```
-## main page
-![avatar](./shotPic/main.png)
