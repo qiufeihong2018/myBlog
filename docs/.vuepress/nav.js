@@ -91,6 +91,9 @@ module.exports = {
                 },
                 {
                     text: 'segmentfault', link: 'https://segmentfault.com/u/qiufeihong2018'
+                },
+                {
+                    text: '知乎', link: 'https://www.zhihu.com/people/chou-fei-hong/activities'
                 }
             ]
         }
