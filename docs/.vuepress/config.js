@@ -10,7 +10,7 @@ module.exports = {
         lineNumbers: true
     },
     themeConfig: {
-        nav: require('./nav').nav,
+        nav: require('./nav'),
         sidebar: require('./sidebar'),
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
