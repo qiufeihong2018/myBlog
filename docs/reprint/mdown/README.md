@@ -70,10 +70,11 @@ demo
 ### 图片
 
 demo
-![avatar](../.vuepress/public/logo-computed.gif)
+
+![avatar](shotPic/main.png)
 
 ```text
-![avatar](../.vuepress/public/logo-computed.gif)
+![avatar](shotPic/main.png)
 ```
 
 ### 超链接

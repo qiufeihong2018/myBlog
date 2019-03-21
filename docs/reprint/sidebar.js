@@ -15,6 +15,6 @@ module.exports = [
         title: '关于import与require的区别',
         collapsable: false,
         sidebarDepth: 2,
-        children: ['mdown/']
+        children: ['import-require/']
     }
 ]
