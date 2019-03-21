@@ -3,11 +3,11 @@ module.exports = [
         text: '首页', link: '/'
     },
     {
-        text: '我的资源',
+        text: '学习资源',
         items: [
             {text: '前端学习路线', link: 'http://www.imooc.com/article/261756'},
             {text: '前端学习视频', link: '/front-end-video/'},
-            {text: '全栈学习资源', link: '/resource/'}
+            {text: '全栈', link: '/resource/'}
         ]
     },
     {
@@ -50,24 +50,7 @@ module.exports = [
         ]
     },
     {
-        text: '每日总结',
-        items: [
-            {
-                text: '2019.1', link: '/daliy-summary/2019/1/'
-            },
-            {
-                text: '2019.2', link: '/daliy-summary/2019/2/'
-            }
-        ]
-    },
-    {
-        text: '毕业设计', link: '/graduation-project/'
-    },
-    {
         text: '视频总结', link: '/video-summary/'
-    },
-    {
-        text: '谷逸项目', link: '/guyi-item/'
     },
     {
         text: '面试', link: '/interview/'
