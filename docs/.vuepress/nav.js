@@ -45,13 +45,8 @@ module.exports = [
             },
             {
                 text: 'es6', link: '/technical-summary/es6/'
-            },
-            {
-                text: 'Vue.js官方文档', link: 'https://cn.vuejs.org/'
-            },
-            {
-                text: 'VuePress官方文档', link: 'https://vuepress.vuejs.org/zh/'
             }
+
         ]
     },
     {
@@ -78,6 +73,74 @@ module.exports = [
         text: '面试', link: '/interview/'
     },
     {
+        text: '官网链接',
+        items: [
+            {
+                text: 'MDN Web 文档', link: 'https://developer.mozilla.org/zh-CN/'
+            },
+            {
+                text: 'Vue.js', link: 'https://cn.vuejs.org/'
+            },
+            {
+                text: 'Nuxt.js', link: 'https://zh.nuxtjs.org/'
+            },
+            {
+                text: 'VuePress', link: 'https://vuepress.vuejs.org/zh/'
+            },
+            {
+                text: 'vue-element-admin', link: 'https://panjiachen.github.io/vue-element-admin-site/zh/'
+            },
+            {
+                text: 'D3', link: 'https://d3js.org/'
+            },
+            {
+                text: 'D2日报', link: 'https://daily.fairyever.com/'
+            },
+            {
+                text: 'element', link: 'http://element-cn.eleme.io/#/zh-CN'
+            },
+            {
+                text: 'iView', link: 'https://www.iviewui.com/'
+            },
+            {
+                text: '前端库', link: 'https://www.awesomes.cn/'
+            },
+            {
+                text: 'TypeScript', link: 'https://www.tslang.cn/index.html'
+            },
+            {
+                text: 'inMap', link: 'http://inmap.talkingdata.com/#/index'
+            },
+            {
+                text: 'Koa', link: 'https://koa.bootcss.com/#context'
+            },
+            {
+                text: 'mongodb', link: 'https://www.mongodb.com/'
+            },
+            {
+                text: '阿里云', link: 'https://www.aliyun.com/?spm=a2c4e.11154921.1280361.1.668724dcivLtu3'
+            },
+            {
+                text: '百度地图', link: 'http://lbsyun.baidu.com/index.php?title=%E9%A6%96%E9%A1%B5'
+            },
+            {
+                text: 'ikcamp', link: 'https://www.ikcamp.com/'
+            },
+            {
+                text: 'Easy Mock', link: 'https://www.easy-mock.com/'
+            },
+            {
+                text: '码云', link: 'https://gitee.com/'
+            },
+            {
+                text: '图灵社区', link: 'http://www.ituring.com.cn/'
+            },
+            {
+                text: 'Valine', link: 'https://valine.js.org/'
+            }
+        ]
+    },
+    {
         text: '个人主页',
         items: [
             {
@@ -97,6 +160,9 @@ module.exports = [
             },
             {
                 text: '简书', link: 'https://www.jianshu.com/'
+            },
+            {
+                text: 'v2ex', link: 'https://www.v2ex.com/'
             }
         ]
     }
