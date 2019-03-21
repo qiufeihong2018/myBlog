@@ -165,5 +165,8 @@ module.exports = [
                 text: 'v2ex', link: 'https://www.v2ex.com/'
             }
         ]
+    },
+    {
+        text: '那些年的电影', link: '/movie/'
     }
 ]
