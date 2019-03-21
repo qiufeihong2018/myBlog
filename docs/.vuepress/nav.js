@@ -56,10 +56,21 @@ module.exports = [
         text: '面试', link: '/interview/'
     },
     {
+        text: '优秀博客',
+        items: [
+            {
+                text: '张鑫旭-鑫空间-鑫生活', link: 'https://www.zhangxinxu.com/'
+            }
+        ]
+    },
+    {
         text: '官网链接',
         items: [
             {
                 text: 'MDN Web 文档', link: 'https://developer.mozilla.org/zh-CN/'
+            },
+            {
+                text: 'npm 中文文档', link: 'https://www.npmjs.cn/'
             },
             {
                 text: 'Vue.js', link: 'https://cn.vuejs.org/'
@@ -69,6 +80,9 @@ module.exports = [
             },
             {
                 text: 'VuePress', link: 'https://vuepress.vuejs.org/zh/'
+            },
+            {
+                text: 'DCloud', link: 'http://www.dcloud.io/'
             },
             {
                 text: 'vue-element-admin', link: 'https://panjiachen.github.io/vue-element-admin-site/zh/'
@@ -120,6 +134,9 @@ module.exports = [
             },
             {
                 text: 'Valine', link: 'https://valine.js.org/'
+            },
+            {
+                text: 'Weex', link: 'https://weex.apache.org/zh/'
             }
         ]
     },

@@ -1,5 +1,17 @@
 ## 手把手带你搭建VuePress的技术博客
+先看效果图:
+
+![avatar](../../../shotPic/main.png)
+
+![avatar](../../../shotPic/vuepress3.png)
+
 [[toc]]
+
+> 需要node环境和npm支持
+
+如果不会安装npm请转到[如何安装 npm 并管理 npm 版本](https://www.npmjs.cn/getting-started/installing-node/)
+
+
 ### [vuepress](https://vuepress.vuejs.org/zh/)
 
 这个还是蛮不错的,尤大出品,必属精品.

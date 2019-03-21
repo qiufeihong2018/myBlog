@@ -43,3 +43,6 @@ tree -I '*svn|*node_module*'
 ## [vue项目实现github在线预览功能](https://www.jb51.net/article/142307.htm)
 
 ## [CentOS7 pm2 部署node错误提示pm2 command not found](https://segmentfault.com/q/1010000013392948)
+
+
+## [如何安装 npm 并管理 npm 版本](https://www.npmjs.cn/getting-started/installing-node/)
