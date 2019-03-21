@@ -1,11 +1,11 @@
 # 手摸手带你搭建VuePress的技术博客
-[1](https://segmentfault.com/a/1190000016333850)
-
-[2](https://www.cnblogs.com/softidea/p/10084946.html)
-
+[[toc]]
 ## [vuepress](https://vuepress.vuejs.org/zh/)
-这个主题,还是蛮不错的,尤大必属精品.
+
+这个还是蛮不错的,尤大出品,必属精品.
+::: tip what
 vuepress是什么?
+:::
 >Vue 驱动的静态网站生成器
 
 >简洁至上
@@ -25,7 +25,32 @@ VuePress 会为每个页面预渲染生成静态的 HTML，同时，每个页面
 
 npm install -g vuepress
 
-## 添加markdown文件
+## 创建项目vuepess-blog
+```markdown
+mkdir vuepress-blog
+```
+
+## 项目初始化
+```markdown
+npm init -y
+```
+完了,会创建一个package.json
+```js
+{
+  "name": "vuepess-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+## 其中添加主README.md文件
 ```markdown
 touch README.md
 ```
@@ -81,8 +106,8 @@ mkdir docs
 cd docs
 mkdir .vuepress
 ```
-这个文件夹中你就可以放配置了
-1. 新建config.js文件
+这个文件夹中你就可以放[配置](https://vuepress.vuejs.org/zh/config/)了
+### 新建config.js文件
 
 主要配置都写在这里
 ```js
@@ -124,9 +149,9 @@ module.exports = {
 
 ```
 
-2. 新建nav.js
+### 新建导航栏nav.js
 
-导航栏放在这个文件中
+导航栏配置放在这个文件中
 ```js
 module.exports = [
     {
@@ -283,9 +308,9 @@ module.exports = [
 
 ```
 
-3. 创建sidebar.js
+### 创建侧边栏sidebar.js
 
-侧边栏放在这里,将其他文件夹中的侧边栏配置require进来
+侧边栏配置放在这里,将其他文件夹中的侧边栏配置require进来
 ```js
 module.exports = {
     '/graduation-project/': require('../graduation-project/sidebar'),
@@ -294,6 +319,27 @@ module.exports = {
     '/interview/': require('../interview/sidebar'),
     '/reprint/':require('../reprint/sidebar')
 }
+
+```
+
+## 在docs文件夹下面创建一个README.md文件
+
+默认的主题提供了一个首页,跟VuePress一样的主页
+
+```markdown
+
+home: true
+heroImage: /logo.jpg
+actionText: 快速上手 →
+actionLink: /zh/guide/
+features:
+- title: 简洁至上
+  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
+- title: Vue驱动
+  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。
+- title: 高性能
+  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
+footer: MIT Licensed | Copyright © 2018-present Evan You
 
 ```
 
@@ -613,3 +659,17 @@ npm install -save valine
 ::: warning home
 目前暂不支持首页去除,每个页面最底下都有
 :::
+
+## 其余配置
+
+[Markdown 拓展](https://vuepress.vuejs.org/zh/guide/markdown.html#header-anchors)
+
+![avatat](../../../shotPic/vuepress2.png)
+
+## 参考文献
+>[VuePress 手摸手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)
+
+>[手把手教你使用 VuePress 搭建个人博客](https://www.cnblogs.com/softidea/p/10084946.html)
+
+>[vuepress和valine搭建带评论的博客](https://juejin.im/post/5c2e0b2f5188257c30462a21)
+
