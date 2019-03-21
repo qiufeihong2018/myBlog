@@ -1,6 +1,6 @@
-# 手摸手带你搭建VuePress的技术博客
+## 手把手带你搭建VuePress的技术博客
 [[toc]]
-## [vuepress](https://vuepress.vuejs.org/zh/)
+### [vuepress](https://vuepress.vuejs.org/zh/)
 
 这个还是蛮不错的,尤大出品,必属精品.
 ::: tip what
@@ -19,18 +19,18 @@ VuePress 会为每个页面预渲染生成静态的 HTML，同时，每个页面
 
 具体就不介绍了,详情请看官网[vuepress](https://vuepress.vuejs.org/zh/)
 
-既然是手摸手,当然我得一步一步下来
+既然是手把手,当然我得一步一步下来
 
-## 全局安装
+### 全局安装
 
 npm install -g vuepress
 
-## 创建项目vuepess-blog
+### 创建项目vuepess-blog
 ```markdown
 mkdir vuepress-blog
 ```
 
-## 项目初始化
+### 项目初始化
 ```markdown
 npm init -y
 ```
@@ -50,7 +50,7 @@ npm init -y
 }
 ```
 
-## 其中添加主README.md文件
+### 其中添加主README.md文件
 ```markdown
 touch README.md
 ```
@@ -60,7 +60,7 @@ touch README.md
 # vuepress-blog
 > a vuepress blog about qiufeihong
 
-## Build Setup
+### Build Setup
 
 
 # clone item
@@ -82,10 +82,10 @@ npm run d
 npm run server 
 
 
-## main page
+### main page
 ![avatar](./shotPic/main.png)
 
-## feature
+### feature
 - [x] 可以统计阅读量
 - [x] 支持评论
 - [ ] Algolia搜索
@@ -95,19 +95,19 @@ npm run server
 
 ```
 
-##  添加docs文件夹
+###  添加docs文件夹
 ```markdown
 mkdir docs
 ```
 这个文件夹中主要放些你的配置和所写的博客内容
 
-##  在docs文件夹中创建.vuepress文件夹
+###  在docs文件夹中创建.vuepress文件夹
 ```markdown
 cd docs
 mkdir .vuepress
 ```
 这个文件夹中你就可以放[配置](https://vuepress.vuejs.org/zh/config/)了
-### 新建config.js文件
+#### 新建config.js文件
 
 主要配置都写在这里
 ```js
@@ -149,7 +149,7 @@ module.exports = {
 
 ```
 
-### 新建导航栏nav.js
+#### 新建导航栏nav.js
 
 导航栏配置放在这个文件中
 ```js
@@ -235,7 +235,7 @@ module.exports = [
                 text: 'D2日报', link: 'https://daily.fairyever.com/'
             },
             {
-                text: 'element', link: 'http://element-cn.eleme.io/## /zh-CN'
+                text: 'element', link: 'http://element-cn.eleme.io/### /zh-CN'
             },
             {
                 text: 'iView', link: 'https://www.iviewui.com/'
@@ -247,10 +247,10 @@ module.exports = [
                 text: 'TypeScript', link: 'https://www.tslang.cn/index.html'
             },
             {
-                text: 'inMap', link: 'http://inmap.talkingdata.com/## /index'
+                text: 'inMap', link: 'http://inmap.talkingdata.com/### /index'
             },
             {
-                text: 'Koa', link: 'https://koa.bootcss.com/## context'
+                text: 'Koa', link: 'https://koa.bootcss.com/### context'
             },
             {
                 text: 'mongodb', link: 'https://www.mongodb.com/'
@@ -308,7 +308,7 @@ module.exports = [
 
 ```
 
-### 创建侧边栏sidebar.js
+#### 创建侧边栏sidebar.js
 
 侧边栏配置放在这里,将其他文件夹中的侧边栏配置require进来
 ```js
@@ -322,7 +322,7 @@ module.exports = {
 
 ```
 
-## 在docs文件夹下面创建一个README.md文件
+### 在docs文件夹下面创建一个README.md文件
 
 默认的主题提供了一个首页,跟VuePress一样的主页
 
@@ -343,40 +343,40 @@ footer: MIT Licensed | Copyright © 2018-present Evan You
 
 ```
 
-##  现在就可以在docs文件夹中写博客内容了
+###  现在就可以在docs文件夹中写博客内容了
 我就举一个最简单的例子
 1. 创建front-end-video文件,在文件夹中创建README.md,这里面写博客啦
 ```markdown
-##  前端学习视频
-[https://pan.baidu.com/disk/home?## /all?vmode=list&path=%2F](https://pan.baidu.com/disk/home?## /all?vmode=list&path=%2F)
+###  前端学习视频
+[https://pan.baidu.com/disk/home?### /all?vmode=list&path=%2F](https://pan.baidu.com/disk/home?### /all?vmode=list&path=%2F)
 
 ::: tip 恭喜
  下面这些资料学完-----中级前端
 :::
-## ##  vue
+### ###  vue
 
 链接: [https://pan.baidu.com/s/1THokB17TXT0L4LgsuFFuAA](https://pan.baidu.com/s/1THokB17TXT0L4LgsuFFuAA) 提取码: dxk4 复制这段内容后打开百度网盘手机App，操作更方便哦
 
-## ##  react
+### ###  react
 
 链接: [https://pan.baidu.com/s/1A6XLwzwMa3N6dz5NyemdDg](https://pan.baidu.com/s/1A6XLwzwMa3N6dz5NyemdDg) 提取码: uuhx 复制这段内容后打开百度网盘手机App，操作更方便哦
 
-## ##  node
+### ###  node
 
 链接: [https://pan.baidu.com/s/1lTY0hAexN7KF7P4epX2jYA](https://pan.baidu.com/s/1lTY0hAexN7KF7P4epX2jYA) 提取码: gxig 复制这段内容后打开百度网盘手机App，操作更方便哦
 
-## ##  javascript
+### ###  javascript
 
 链接: [https://pan.baidu.com/s/1NrXJ0pX6Wqx8pipBFRhQjg](https://pan.baidu.com/s/1NrXJ0pX6Wqx8pipBFRhQjg) 提取码: uqfq 复制这段内容后打开百度网盘手机App，操作更方便哦
 
-## ##  ES6
+### ###  ES6
 
 链接: [https://pan.baidu.com/s/1oaMI6sus6YNZ4Qn0y6YF6A](https://pan.baidu.com/s/1oaMI6sus6YNZ4Qn0y6YF6A) 提取码: 26uz 复制这段内容后打开百度网盘手机App，操作更方便哦
 
 __
 ```
 
-##  在package.json中添加启动命令
+###  在package.json中添加启动命令
 
 1. 启动项目:npm run dev
 这条命令就等于vuepress dev docs
@@ -415,7 +415,7 @@ __
 你的项目就run起来了
 ![avatar](../../../shotPic/main.png)
 
-## 推送到远程仓库
+### 推送到远程仓库
 1. 在GitHub中新建仓库
 2. 在根目录下添加.gitignore忽略一些文件
 3. 推送上去
@@ -436,7 +436,7 @@ git push
 
 ```
 
-## 挂载到GitHub Pages
+### 挂载到GitHub Pages
 1. 在根目录中创建脚本deploy.sh
 ::: tip #
 这里的'#'是注释
@@ -447,34 +447,34 @@ git push
 4. 在package.json中添加命令npm run d,这条命令就是bash deploy.sh,这条命令的意思是启动这个脚本
 5. 你的vueress的博客就成功挂载GitHub Pages上了
 ```markdown
-##!/usr/bin/env sh
+###!/usr/bin/env sh
 
-## 确保脚本抛出遇到的错误
+### 确保脚本抛出遇到的错误
 set -e
 
-## 生成静态文件
+### 生成静态文件
 npm run build
 
-## 进入生成的文件夹
+### 进入生成的文件夹
 cd dist
 
-## 如果是发布到自定义域名
-## echo 'www.yourwebsite.com' > CNAME
+### 如果是发布到自定义域名
+### echo 'www.yourwebsite.com' > CNAME
 
 git init
 git add -A
 git commit -m 'deploy'
 
-## 如果你想要部署到 https://USERNAME.github.io
+### 如果你想要部署到 https://USERNAME.github.io
 git push -f git@github.com:qiufeihong2018/qiufeihong2018.github.io.git master
 
-## 如果发布到 https://USERNAME.github.io/<REPO>  REPO=github上的项目
-## git push -f git@github.com:USERNAME/<REPO>.git master:gh-pages
+### 如果发布到 https://USERNAME.github.io/<REPO>  REPO=github上的项目
+### git push -f git@github.com:USERNAME/<REPO>.git master:gh-pages
 
 cd -
 ```
 
-## pm2守护程序
+### pm2守护程序
 1. 安装pm2,将其写进package.json中
 ```markdown
 npm install -save pm2
@@ -507,7 +507,7 @@ blog.listen(7777, res => {
 
 npm run server:这条命令是npm run build && pm2 start blog.js,意思是打包并且启动pm2
 
-## 添加valine评论和阅读量统计
+### 添加valine评论和阅读量统计
 1. 安装valine模块
 ```js
 npm install -save valine
@@ -660,14 +660,14 @@ npm install -save valine
 目前暂不支持首页去除,每个页面最底下都有
 :::
 
-## 其余配置
+### 其余配置
 
 [Markdown 拓展](https://vuepress.vuejs.org/zh/guide/markdown.html#header-anchors)
 
 ![avatat](../../../shotPic/vuepress2.png)
 
-## 参考文献
->[VuePress 手摸手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)
+### 参考文献
+>[VuePress 手把手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)
 
 >[手把手教你使用 VuePress 搭建个人博客](https://www.cnblogs.com/softidea/p/10084946.html)
 
