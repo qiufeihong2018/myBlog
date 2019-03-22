@@ -6,7 +6,7 @@ module.exports = [
         children: ['mdown/']
     },
     {
-        title: '手摸手带你搭建VuePress的技术博客',
+        title: '手把手带你搭建VuePress的技术博客',
         collapsable: false,
         sidebarDepth: 2,
         children: ['vuepress/']
@@ -18,3 +18,4 @@ module.exports = [
         children: ['import-require/']
     }
 ]
+

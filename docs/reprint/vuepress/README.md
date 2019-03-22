@@ -1,7 +1,12 @@
 ## 手把手带你搭建VuePress的技术博客
+
 先看效果图:
 
+- 首页
+
 ![avatar](../../../shotPic/main.png)
+
+- 评论区域
 
 ![avatar](../../../shotPic/vuepress3.png)
 
@@ -15,27 +20,31 @@
 ### [vuepress](https://vuepress.vuejs.org/zh/)
 
 这个还是蛮不错的,尤大出品,必属精品.
-::: tip what
-vuepress是什么?
-:::
+::: tip vuepress是什么?
 >Vue 驱动的静态网站生成器
 
->简洁至上
+1. 简洁至上
 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
 
->Vue驱动
+2. Vue驱动
 享受 Vue + webpack 的开发体验，可以在 Markdown 中使用 Vue 组件，又可以使用 Vue 来开发自定义主题。
 
->高性能
+3. 高性能
 VuePress 会为每个页面预渲染生成静态的 HTML，同时，每个页面被加载的时候，将作为 SPA 运行。
 
-具体就不介绍了,详情请看官网[vuepress](https://vuepress.vuejs.org/zh/)
+:::
+
+具体就不介绍了
+
+详情请看官网[vuepress](https://vuepress.vuejs.org/zh/)
 
 既然是手把手,当然我得一步一步下来
 
 ### 全局安装
 
+```markdown
 npm install -g vuepress
+```
 
 ### 创建项目vuepess-blog
 ```markdown
@@ -114,14 +123,21 @@ mkdir docs
 这个文件夹中主要放些你的配置和所写的博客内容
 
 ###  在docs文件夹中创建.vuepress文件夹
+
 ```markdown
 cd docs
 mkdir .vuepress
 ```
-这个文件夹中你就可以放[配置](https://vuepress.vuejs.org/zh/config/)了
-#### 新建config.js文件
 
-主要配置都写在这里
+这个文件夹中你就可以放[配置](https://vuepress.vuejs.org/zh/config/)了
+
+### 新建总配置config.js文件
+```markdown
+cd .vuepress
+touch config.js
+```
+
+主要配置都写在这里，我将侧边栏和导航懒配置抽离出来，实现模块化
 ```js
 module.exports = {
     title: '飞鸿的博客',
@@ -148,22 +164,31 @@ module.exports = {
         },
         editLinks: true,
         editLinkText: '在 GitHub 上编辑此页 ！'
-    },
-    plugins: [
-        [
-            '@vuepress/register-components',
-            {
-                componentsDir: './components'
-            }
-        ]
-    ]
+    }
 }
 
 ```
 
-#### 新建导航栏nav.js
+### 新建导航栏nav.js
+
+效果：
+1. 闭合
+
+![avatar](./public/nav2.png)
+2. 展开
+
+![avatar](./public/nav.jpg)
+```markdown
+touch nav.js
+```
 
 导航栏配置放在这个文件中
+
+1. 数组中的每个对象指的是每个导航标签;
+2. text就是导航标签名;
+3. link就是该文件的路径，docs是该路径的根目录，所以要‘/’开头。如果是外部链接，那就直接放进去即可。
+4. 导航标签下拉菜单，就要配置items，里面也是一个数组对象，同上。
+
 ```js
 module.exports = [
     {
@@ -223,70 +248,10 @@ module.exports = [
         text: '面试', link: '/interview/'
     },
     {
-        text: '官网链接',
+        text: '优秀博客',
         items: [
             {
-                text: 'MDN Web 文档', link: 'https://developer.mozilla.org/zh-CN/'
-            },
-            {
-                text: 'Vue.js', link: 'https://cn.vuejs.org/'
-            },
-            {
-                text: 'Nuxt.js', link: 'https://zh.nuxtjs.org/'
-            },
-            {
-                text: 'VuePress', link: 'https://vuepress.vuejs.org/zh/'
-            },
-            {
-                text: 'vue-element-admin', link: 'https://panjiachen.github.io/vue-element-admin-site/zh/'
-            },
-            {
-                text: 'D3', link: 'https://d3js.org/'
-            },
-            {
-                text: 'D2日报', link: 'https://daily.fairyever.com/'
-            },
-            {
-                text: 'element', link: 'http://element-cn.eleme.io/### /zh-CN'
-            },
-            {
-                text: 'iView', link: 'https://www.iviewui.com/'
-            },
-            {
-                text: '前端库', link: 'https://www.awesomes.cn/'
-            },
-            {
-                text: 'TypeScript', link: 'https://www.tslang.cn/index.html'
-            },
-            {
-                text: 'inMap', link: 'http://inmap.talkingdata.com/### /index'
-            },
-            {
-                text: 'Koa', link: 'https://koa.bootcss.com/### context'
-            },
-            {
-                text: 'mongodb', link: 'https://www.mongodb.com/'
-            },
-            {
-                text: '阿里云', link: 'https://www.aliyun.com/?spm=a2c4e.11154921.1280361.1.668724dcivLtu3'
-            },
-            {
-                text: '百度地图', link: 'http://lbsyun.baidu.com/index.php?title=%E9%A6%96%E9%A1%B5'
-            },
-            {
-                text: 'ikcamp', link: 'https://www.ikcamp.com/'
-            },
-            {
-                text: 'Easy Mock', link: 'https://www.easy-mock.com/'
-            },
-            {
-                text: '码云', link: 'https://gitee.com/'
-            },
-            {
-                text: '图灵社区', link: 'http://www.ituring.com.cn/'
-            },
-            {
-                text: 'Valine', link: 'https://valine.js.org/'
+                text: '张鑫旭-鑫空间-鑫生活', link: 'https://www.zhangxinxu.com/'
             }
         ]
     },
@@ -315,17 +280,32 @@ module.exports = [
                 text: 'v2ex', link: 'https://www.v2ex.com/'
             }
         ]
+    },
+    {
+        text: '那些年的电影', link: '/movie/'
     }
 ]
 
 ```
 
-#### 创建侧边栏sidebar.js
+::: warning nav
+当你们像我这样配置时，目录结构最好和我一样
+:::
 
-侧边栏配置放在这里,将其他文件夹中的侧边栏配置require进来
+目录结构如下：
+
+![avatar](./public/jiegou.png)
+
+### 创建侧边栏sidebar.js
+
+效果：
+
+![avatar](./public/sidebar.png)
+
+
+侧边栏配置放在这里,将其他文件夹中的侧边栏配置引进来
 ```js
 module.exports = {
-    '/graduation-project/': require('../graduation-project/sidebar'),
     '/technical-summary/github/': require('../technical-summary/github/sidebar'),
     '/technical-summary/vue-component/': require('../technical-summary/vue-component/sidebar'),
     '/interview/': require('../interview/sidebar'),
@@ -334,10 +314,29 @@ module.exports = {
 
 ```
 
+上述的具体文件的目录结构如下：
+ 
+- technical-summary
+
+![avatar](./public/jiegou2.png)
+
+- interview
+
+![avatar](./public/jiegou3.png)
+
+- reprint
+
+![avatar](./public/jiegou4.png)
+
+
+
 ### 在docs文件夹下面创建一个README.md文件
 
-默认的主题提供了一个首页,跟VuePress一样的主页
+- 默认的主题提供了一个首页，跟VuePress一样的主页
 
+效果如下：
+
+![avatar](./public/vuepress.png)
 ```markdown
 
 home: true
@@ -355,37 +354,72 @@ footer: MIT Licensed | Copyright © 2018-present Evan You
 
 ```
 
+- 也可以像我这样配置：你可以将首页图片换成gif格式的，骚一点
+
+效果如下：
+
+![avatar](./public/vuepress2.png)
+
+```markdown
+---
+home: true
+heroImage: /logo-computed.gif
+actionText: 是时候展现真正的技术了 →
+actionLink: /resource/
+features:
+- title:  比尔·盖茨经典语录/名句
+  details: 只要有坚强的持久心，一个庸俗平凡的人也会有成功的一天，否则即使是一个才识卓越的人，也只能遭遇失败的命运。
+
+- title: 乔布斯经典语录/名句
+  details: 你的时间有限，所以不要为别人而活。不要被教条所限，不要活在别人的观念里。不要让别人的意见左右自己内心的声音。最重要的是，勇敢的去追随自己的心灵和直觉，只有自己的心灵和直觉才知道你自己的真实想法，其他一切都是次要。
+
+- title: 李嘉诚经典语录/名句
+  details: 当你放下面子赚钱的时候，说明你已经懂事了。当你用钱赚回面子的时候，说明你已经成功了。当你用面子可以赚钱的时候，说明你已经是人物了。当你还停留在那里喝酒、吹牛，啥也不懂还装懂，只爱所谓的面子的时候，说明你这辈子也就这样了。
+
+footer: MIT Licensed | Copyright © 2019-present FeiHong
+---
+
+### 12345
+```bash
+# clone item
+git clone git@github.com:qiufeihong2018/vuepress-blog.git
+
+# install dependencies
+npm install 
+
+# serve with hot reload at localhost:6666
+npm run dev
+
+# build for production with minification
+npm run build
+
+# deploy to github page
+npm run d
+
+# build&&pm2
+npm run server
+```
+
+::: warning 注意
+
+请确保你的 Node.js 版本 >= 8。
+:::
+
+```
+
 ###  现在就可以在docs文件夹中写博客内容了
 我就举一个最简单的例子
 1. 创建front-end-video文件,在文件夹中创建README.md,这里面写博客啦
 ```markdown
-###  前端学习视频
-[https://pan.baidu.com/disk/home?### /all?vmode=list&path=%2F](https://pan.baidu.com/disk/home?### /all?vmode=list&path=%2F)
+mkdir front-end-video
+cd front-end-video
+touch README.md
+```
 
-::: tip 恭喜
- 下面这些资料学完-----中级前端
-:::
-### ###  vue
+```markdown
+###  前端学习
+技术博客
 
-链接: [https://pan.baidu.com/s/1THokB17TXT0L4LgsuFFuAA](https://pan.baidu.com/s/1THokB17TXT0L4LgsuFFuAA) 提取码: dxk4 复制这段内容后打开百度网盘手机App，操作更方便哦
-
-### ###  react
-
-链接: [https://pan.baidu.com/s/1A6XLwzwMa3N6dz5NyemdDg](https://pan.baidu.com/s/1A6XLwzwMa3N6dz5NyemdDg) 提取码: uuhx 复制这段内容后打开百度网盘手机App，操作更方便哦
-
-### ###  node
-
-链接: [https://pan.baidu.com/s/1lTY0hAexN7KF7P4epX2jYA](https://pan.baidu.com/s/1lTY0hAexN7KF7P4epX2jYA) 提取码: gxig 复制这段内容后打开百度网盘手机App，操作更方便哦
-
-### ###  javascript
-
-链接: [https://pan.baidu.com/s/1NrXJ0pX6Wqx8pipBFRhQjg](https://pan.baidu.com/s/1NrXJ0pX6Wqx8pipBFRhQjg) 提取码: uqfq 复制这段内容后打开百度网盘手机App，操作更方便哦
-
-### ###  ES6
-
-链接: [https://pan.baidu.com/s/1oaMI6sus6YNZ4Qn0y6YF6A](https://pan.baidu.com/s/1oaMI6sus6YNZ4Qn0y6YF6A) 提取码: 26uz 复制这段内容后打开百度网盘手机App，操作更方便哦
-
-__
 ```
 
 ###  在package.json中添加启动命令
@@ -449,6 +483,8 @@ git push
 ```
 
 ### 挂载到GitHub Pages
+
+
 1. 在根目录中创建脚本deploy.sh
 ::: tip #
 这里的'#'是注释
@@ -486,7 +522,14 @@ git push -f git@github.com:qiufeihong2018/qiufeihong2018.github.io.git master
 cd -
 ```
 
+完了后，就可以[https://qiufeihong2018.github.io/](https://qiufeihong2018.github.io/)访问了
+
 ### pm2守护程序
+
+![avatar](./public/pm2.png)
+
+效果自行脑补，后台一直运行
+
 1. 安装pm2,将其写进package.json中
 ```markdown
 npm install -save pm2
@@ -519,7 +562,15 @@ blog.listen(7777, res => {
 
 npm run server:这条命令是npm run build && pm2 start blog.js,意思是打包并且启动pm2
 
+想要知道更多pm2操作，请移步[pm2](https://pm2.io/doc/en/runtime/overview/)
+
 ### 添加valine评论和阅读量统计
+
+效果如下：
+
+![avatar](./public/valine.png)
+
+
 1. 安装valine模块
 ```js
 npm install -save valine
@@ -593,7 +644,9 @@ npm install -save valine
 4. 获取APP ID 和 APP Key,请先登录或注册 [LeanCloud](https://leancloud.cn/dashboard/login.html#/signin), 进入控制台后点击左下角创建应用
 5. 在.vuepress中创建theme文件夹
 6. 将node_modules中的Layout拷贝到theme文件夹中
+
 ![avatar](../../../shotPic/vuepress1.png)
+
 7. 将引用的文件路径改成指向node_modules去
 ```js
     import Vue from 'vue'
@@ -671,6 +724,9 @@ npm install -save valine
 ::: warning home
 目前暂不支持首页去除,每个页面最底下都有
 :::
+
+想要知道更多Valine操作，请移步[Valine](https://valine.js.org/)
+
 
 ### 其余配置
 
