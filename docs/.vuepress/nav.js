@@ -60,8 +60,11 @@ module.exports = [
         items: [
             {
                 text: '张鑫旭-鑫空间-鑫生活', link: 'https://www.zhangxinxu.com/'
-            }
-        ]
+            },
+            {
+                text: '美团技术博客', link: 'https://tech.meituan.com/'
+
+            }]
     },
     {
         text: '官网链接',
