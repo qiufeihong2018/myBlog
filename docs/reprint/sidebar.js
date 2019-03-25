@@ -16,6 +16,12 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['import-require/']
+    },
+    {
+        title: '前端命名规范',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['naming-rules/']
     }
 ]
 

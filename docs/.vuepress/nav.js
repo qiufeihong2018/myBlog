@@ -64,6 +64,9 @@ module.exports = [
             {
                 text: '美团技术博客', link: 'https://tech.meituan.com/'
 
+            },
+            {
+                text: 'Cherry\'s Blog', link: 'https://cherryblog.site/'
             }]
     },
     {
