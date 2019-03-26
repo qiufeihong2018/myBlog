@@ -67,6 +67,8 @@ module.exports = [
             },
             {
                 text: 'Cherry\'s Blog', link: 'https://cherryblog.site/'
+            }, {
+                text: 'ECMAScript 6 入门', link: 'http://es6.ruanyifeng.com/'
             }]
     },
     {
@@ -104,6 +106,9 @@ module.exports = [
             },
             {
                 text: 'iView', link: 'https://www.iviewui.com/'
+            },
+            {
+                text: '菜鸟教程', link: 'http://www.runoob.com/'
             },
             {
                 text: '前端库', link: 'https://www.awesomes.cn/'

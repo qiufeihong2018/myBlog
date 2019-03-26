@@ -732,7 +732,7 @@ npm install -save valine
 
 [Markdown 拓展](https://vuepress.vuejs.org/zh/guide/markdown.html#header-anchors)
 
-![avatat](public/vuepress4.png)
+![avatar](public/vuepress4.png)
 
 ### 参考文献
 >[VuePress 手把手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)
