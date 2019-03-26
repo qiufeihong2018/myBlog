@@ -1,8 +1,3 @@
-
-## [MongoDB 导入Json和Bson](https://blog.csdn.net/lwc5411117/article/details/79675326)
-
-## [阿里云ECS安装MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
-
 ## [阿里云服务器发布项目后无法访问](https://blog.csdn.net/runner1920/article/details/79035651)
 
 ## [Could not read from remote repository](https://blog.csdn.net/donkor_/article/details/77502800)

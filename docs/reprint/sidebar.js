@@ -28,6 +28,12 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['pm2/']
+    },
+    {
+        title: 'MongoDB深入浅出',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['mongo/']
     }
 ]
 

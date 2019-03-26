@@ -11,7 +11,7 @@ module.exports = [
         ]
     },
     {
-        text: '优文转载', link: '/reprint/'
+        text: '知识大全', link: '/reprint/'
     },
     {
         text: '技术总结',
