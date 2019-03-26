@@ -94,3 +94,19 @@ mysql : 无法将“mysql”项识别为 cmdlet、函数、脚本文件或可运
 ## [轻松学node.js系列(实战系列前篇,全18讲)](http://note.youdao.com/noteshare?id=2e5aa3ad9cc6058c229a6b6f3244de38&sub=WEB0a0658b9bf49dbdc368f5c6866ad70fd)
 
 ## [HTTP协议原理+实践 Web开发工程师必学](http://note.youdao.com/noteshare?id=588cd6b02a3ea29f72fba8db3b8e2266&sub=WEB262057eeaee5fd30a5ed36c43f6635c6)
+
+
+## ES6 (慕课网_购买的)ES6零基础教学 解析彩票项目
+![avatar](./public/es6_1.png)
+
+![avatar](./public/es6_2.png)
+涉及到块级作用域，对象代理，promise等
+
+![avatar](./public/es6_3.png)
+
+![avatar](./public/es6_4.png)
+babel es6编译成es5
+
+![avatar](./public/es6_5.png)
+热更新
+8：00
