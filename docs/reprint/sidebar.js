@@ -22,6 +22,12 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['naming-rules/']
+    },
+    {
+        title: 'pm2的研究',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['pm2/']
     }
 ]
 

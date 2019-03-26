@@ -91,4 +91,5 @@ main();
 
 ## 参考文献
 [关于import与require的区别](http://www.cnblogs.com/sunshq/p/7922182.html)
+
 [ECMAScript 6 入门](http://es6.ruanyifeng.com/)

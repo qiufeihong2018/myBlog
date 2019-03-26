@@ -32,6 +32,8 @@ npm run server
 - [ ] Algolia搜索
 - [ ] 在 GitHub 上编辑此页
 - [ ] SEO
+- [ ] 去掉首页评论
+- [ ] 使用SSH轻松部署
 
 ## directory
 ```

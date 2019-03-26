@@ -29,8 +29,6 @@
 
 ## ['@/'路径和'./'路径是什么意思](https://blog.csdn.net/qq_28319203/article/details/81004836)
 
-## [vue-cli pm2 开机自启](https://www.jianshu.com/p/d2a640b8661c)
-
 ## [tree命令大全](https://blog.csdn.net/askbai666888/article/details/9995837)
 ```
 tree忽略node_modules
@@ -42,7 +40,6 @@ tree -I '*svn|*node_module*'
 
 ## [vue项目实现github在线预览功能](https://www.jb51.net/article/142307.htm)
 
-## [CentOS7 pm2 部署node错误提示pm2 command not found](https://segmentfault.com/q/1010000013392948)
 
 
 ## [如何安装 npm 并管理 npm 版本](https://www.npmjs.cn/getting-started/installing-node/)
