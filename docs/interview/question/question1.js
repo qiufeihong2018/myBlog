@@ -18,3 +18,4 @@ function f(total, arr) {
 
 console.log(f(100, [50, 50]))//100
 console.log(f(188, [50, 42, 9, 15, 105, 63, 14, 30]))//160
+
