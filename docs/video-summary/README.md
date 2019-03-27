@@ -96,7 +96,7 @@ mysql : 无法将“mysql”项识别为 cmdlet、函数、脚本文件或可运
 ## [HTTP协议原理+实践 Web开发工程师必学](http://note.youdao.com/noteshare?id=588cd6b02a3ea29f72fba8db3b8e2266&sub=WEB262057eeaee5fd30a5ed36c43f6635c6)
 
 
-## ES6 (慕课网_购买的)ES6零基础教学 解析彩票项目
+## ES6 (慕课网_购买的)[ES6零基础教学 解析彩票项目](https://coding.imooc.com/class/chapter/98.html#Anchor)
 ![avatar](./public/es6_1.png)
 
 ![avatar](./public/es6_2.png)
@@ -109,4 +109,14 @@ babel es6编译成es5
 
 ![avatar](./public/es6_5.png)
 热更新
-8：00
+
+
+![avatar](./public/es6_6.png)
+
+提供插件，多个tesk实现自动化 
+
+![avatar](./public/es6_7.png)
+babel的核心用法：
+解决兼容性问题
+
+ 2-3 命令行处理，创建JS编译任务脚本

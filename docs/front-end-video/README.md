@@ -1,6 +1,4 @@
 # 前端学习视频
-[https://pan.baidu.com/disk/home?#/all?vmode=list&path=%2F](https://pan.baidu.com/disk/home?#/all?vmode=list&path=%2F)
-
 ::: tip 恭喜
  下面这些资料学完-----中级前端
 :::
@@ -24,4 +22,4 @@
 
 链接: [https://pan.baidu.com/s/1oaMI6sus6YNZ4Qn0y6YF6A](https://pan.baidu.com/s/1oaMI6sus6YNZ4Qn0y6YF6A) 提取码: 26uz 复制这段内容后打开百度网盘手机App，操作更方便哦
 
-__
+
