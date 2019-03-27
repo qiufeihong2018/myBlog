@@ -347,6 +347,107 @@ let arr = [1, 2, [3, 4, [5, [6, 7]], 8], 9, 10, [11, [12, 13]]]
 const flatten = array => array.reduce((acc, cur) => (Array.isArray(cur) ? [...acc, ...flatten(cur)] : [...acc, cur]), [])
 console.log(flatten(arr))
 ```
+
+## 下面代码中 a 在什么情况下会打印 1？
+>隐式转换
+
+```js
+var a = ?;
+if(a == 1 && a == 2 && a == 3){
+ 	console.log(1);
+}
+
+```
+
+- toString
+
+重写Object的toString或者valueOf
+Object类型与Number类型的==比较，Object类型会转换为数字类型后再和数字比较。
+
+A为Object类型，B为Number类型，A==B实际是
+
+ToPrimitive(A) == B
+ToPrimitive(A)会尝试调用A.toString()和A.valueOf()方法来获取A对应的数字基本类型。
+
+```js
+let a = {
+    i: 1,
+    toString () {
+        return a.i++
+    }
+}
+
+if(a == 1 && a == 2 && a == 3) {
+    console.log(1);
+}
+```
+- valueOf
+```js
+let a = {
+    i: 1,
+    valueOf () {
+        return a.i++
+    }
+}
+
+if(a == 1 && a == 2 && a == 3) {
+    console.log(1);
+}
+
+```
+
+- 数组这个就有点妖了
+  
+
+```js
+
+var a = [1,2,3];
+a.join = a.shift;
+if(a == 1 && a == 2 && a == 3) {
+    console.log(1);
+}
+
+```
+- ES6的symbol
+```js
+
+let a = {
+    [Symbol.toPrimitive]: (i => () => ++i) (0)
+};
+if(a == 1 && a == 2 && a == 3) {
+    console.log(1);
+}
+
+```
+
+- Object.defineProperty 
+
+定义"a"属性，并重写它的getter方法
+Object.defineProperty()定义"a"为this的属性，并定义了a属性的getter方法。这样在条件语句里使用的a，实际为this的属性a。
+
+这里使用了ES6新增的特性：Generator函数来产生value。
+```js
+Object.defineProperty(window, 'a', {
+    get: function() {
+        return this.value = this.value ? (this.value += 1) : 1;
+    }
+});
+if(a == 1 && a == 2 && a == 3) {
+    console.log(1);
+}
+```
+- 字符编码
+有很好几个答案都是利用了Unicode的字符编码：同义字和隐形字符。
+
+同义字示例
+```js
+var aﾠ = 1;
+var a = 2;
+var a = 3;
+if (aﾠ == 1 && a == 2 && ﾠa == 3) {
+    console.log(1)
+}
+```
 ## 参考文献
 [IIFE](https://developer.mozilla.org/zh-CN/docs/Glossary/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F)
 
@@ -355,3 +456,5 @@ console.log(flatten(arr))
 [中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)](https://juejin.im/post/5c64d15d6fb9a049d37f9c20)
 
 [头条日常实习生面经](https://www.cnblogs.com/lhh520/p/10321103.html)
+
+[有意思的JavaScript面试题：如何让(a ==1 && a== 2 && a==3) 的值为true](https://majing.io/posts/10000006051204)
