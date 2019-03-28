@@ -21,7 +21,7 @@ let info2 = {
 let target = {};
 Object.assign(target, info1, info2);
 ```
-![avatar](./public/es6.png)
+![avatar](public/es6.png)
 
 ## es6一共有6种声明变量的方法
 es6一共有6种声明变量的方法

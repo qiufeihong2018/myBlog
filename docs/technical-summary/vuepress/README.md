@@ -209,34 +209,34 @@ module.exports = [
         text: '技术总结',
         items: [
             {
-                text: 'mongo', link: '/technical-summary/mongo/'
+                text: 'mongo', link: A
             },
             {
-                text: 'vue-webpack', link: '/technical-summary/vue-webpack/'
+                text: 'vue-webpack', link: A
             },
             {
                 text: 'Vue.js 组件精讲', link: '/technical-summary/vue-component/'
             },
             {
-                text: 'ubuntu', link: '/technical-summary/ubuntu/'
+                text: 'ubuntu', link: A
             },
             {
-                text: 'eslint', link: '/technical-summary/eslint/'
+                text: 'eslint', link: A
             },
             {
-                text: 'nuxt', link: '/technical-summary/nuxt/'
+                text: 'nuxt', link: A
             },
             {
-                text: 'node', link: '/technical-summary/node/'
+                text: 'node', link: A
             },
             {
-                text: 'css', link: '/technical-summary/css/'
+                text: 'css', link: A
             },
             {
                 text: 'github', link: '/technical-summary/github/'
             },
             {
-                text: 'es6', link: '/technical-summary/es6/'
+                text: 'es6', link: A
             }
 
         ]
@@ -306,10 +306,10 @@ module.exports = [
 侧边栏配置放在这里,将其他文件夹中的侧边栏配置引进来
 ```js
 module.exports = {
-    '/technical-summary/github/': require('../technical-summary/github/sidebar'),
-    '/technical-summary/vue-component/': require('../technical-summary/vue-component/sidebar'),
+    '/technical-summary/github/': require(A),
+    '/technical-summary/vue-component/': require(A),
     '/interview/': require('../interview/sidebar'),
-    '/reprint/':require('../reprint/sidebar')
+    '/reprint/':require(technical-summary)
 }
 
 ```

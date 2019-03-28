@@ -1,7 +1,7 @@
 ## tree是什么
-Linux tree命令用于以树状图列出目录的内容。
+`Linux tree`命令用于以树状图列出目录的内容。
 
-执行tree指令，它会列出指定目录下的所有文件，包括子目录里的文件。
+执行`tree`指令，它会列出指定目录下的所有文件，包括子目录里的文件。
 
 ## 安装tree
 ```
@@ -40,7 +40,7 @@ tree -L n
 ```
 tree -dirsfirst 
 ```
-- tree忽略node_modules
+- `tree`忽略`node_modules`
 ```
 tree -I '*svn|*node_module*'
 ```

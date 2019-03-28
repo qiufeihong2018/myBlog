@@ -37,7 +37,7 @@ vue init nuxt-community/starter-template <project-name>
 ```
 生成的文件目录结构如下：
 
-![avatar](./public/nuxt1.png)
+![avatar](public/nuxt1.png)
 
 其中有一些目录（layouts、pages、static、store、nuxt.config.js、package.json）是Nuxt保留的，不可以更改，需要注意一下。
 
@@ -144,10 +144,10 @@ async asyncData ({ params, error }) {
 。
 
 附一张Nuxt渲染的流程图：
-![avatar](./public/nuxt2.png)
+![avatar](public/nuxt2.png)
 
 
 ## 问题：[nodemon] blog crashed - waiting for file changes before starting...
 问题：[nodemon] blog crashed - waiting for file changes before starting...
 等你改完之后重启
-![avatar](./public/nuxt3.png)
+![avatar](public/nuxt3.png)

@@ -1,4 +1,4 @@
-# axios中data和param
+## axios中data和param
 data：加在下面
 传递相关配置来创建请求
  // `data` 是作为请求主体被发送的数据
@@ -21,7 +21,7 @@ param是加在api后面
   
   
   
- # BASE_API的location
+## BASE_API的location
  生产环境是在
  
  ![avatar](../public/dev.png)
@@ -36,4 +36,3 @@ param是加在api后面
  
  导入的.
 
- 

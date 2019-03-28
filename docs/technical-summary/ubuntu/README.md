@@ -51,14 +51,14 @@ export QT_IM_MODULE=fcitx
 
 1. 当项目中需要中文输入开发时,可以不用第三方输入法,用fcitx-小企鹅
 
-![avatar](./pubilc/language.png)
+![avatar](pubilc/language.png)
 
-![avatar](./pubilc/language2.png)
+![avatar](pubilc/language2.png)
 
 2. 点击右上角的小企鹅
 
-![avatar](./pubilc/language3.png)
+![avatar](pubilc/language3.png)
 
 3. 点击+从里面找到Pinyin
 
-![avatar](./pubilc/language4.png)
+![avatar](pubilc/language4.png)

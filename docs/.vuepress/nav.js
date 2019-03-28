@@ -11,43 +11,7 @@ module.exports = [
         ]
     },
     {
-        text: '知识大全', link: '/reprint/'
-    },
-    {
-        text: '技术总结',
-        items: [
-            {
-                text: 'mongo', link: '/technical-summary/mongo/'
-            },
-            {
-                text: 'vue-webpack', link: '/technical-summary/vue-webpack/'
-            },
-            {
-                text: 'Vue.js 组件精讲', link: '/technical-summary/vue-component/'
-            },
-            {
-                text: 'ubuntu', link: '/technical-summary/ubuntu/'
-            },
-            {
-                text: 'eslint', link: '/technical-summary/eslint/'
-            },
-            {
-                text: 'nuxt', link: '/technical-summary/nuxt/'
-            },
-            {
-                text: 'node', link: '/technical-summary/node/'
-            },
-            {
-                text: 'css', link: '/technical-summary/css/'
-            },
-            {
-                text: 'github', link: '/technical-summary/github/'
-            },
-            {
-                text: 'es6', link: '/technical-summary/es6/'
-            }
-
-        ]
+        text: '技术总结', link: '/technical-summary/'
     },
     {
         text: '视频总结', link: '/video-summary/'
