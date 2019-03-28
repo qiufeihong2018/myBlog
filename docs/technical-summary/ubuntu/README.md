@@ -62,3 +62,5 @@ export QT_IM_MODULE=fcitx
 3. 点击+从里面找到Pinyin
 
 ![avatar](pubilc/language4.png)
+
+[ubuntu sudo update与upgrade的作用及区别](http://www.baiyuxiong.com/?p=529)
