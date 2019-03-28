@@ -50,8 +50,18 @@ mongorestore -d <db_name> <bson_folder>
 ```
 mongorestore.exe -d <db_name> <bson_folder>
 ```
+
+## Studio 3T下操作MongoDB的基本命令
+
+## 用node来操作MongoDB完成增、删、改、查、排序、分页功能
+
+
+
 ## 参考文献
 [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 
 [MongoDB 导入Json和Bson](https://blog.csdn.net/lwc5411117/article/details/79675326)
 
+[node-express项目的搭建并通过mongoose操作MongoDB实现增删改查分页排序（四）](https://www.cnblogs.com/wangmaoling/p/10339222.html)
+
+[Studio 3T下操作MongoDB的基本命令](https://www.jianshu.com/p/577cb638787c)

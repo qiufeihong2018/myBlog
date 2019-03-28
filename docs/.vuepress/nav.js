@@ -63,7 +63,6 @@ module.exports = [
             },
             {
                 text: '美团技术博客', link: 'https://tech.meituan.com/'
-
             },
             {
                 text: 'Cherry\'s Blog', link: 'https://cherryblog.site/'
@@ -85,6 +84,9 @@ module.exports = [
             },
             {
                 text: 'Nuxt.js', link: 'https://zh.nuxtjs.org/'
+            },
+            {
+                text: 'uniapp', link: 'https://uniapp.dcloud.io/'
             },
             {
                 text: 'VuePress', link: 'https://vuepress.vuejs.org/zh/'

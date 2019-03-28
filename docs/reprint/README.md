@@ -6,11 +6,7 @@
 
 ## [前端学习算法1 ：老虎和羊，吃不吃问题（动态规划入门）](https://react-juejin.foreversnsd.cn/post/5c5ba697f265da2d8b6319f6)
 
-## [node-express项目的搭建并通过mongoose操作MongoDB实现增删改查分页排序（四）](https://www.cnblogs.com/wangmaoling/p/10339222.html)
-
 ## [git删除远程.idea目录](https://blog.csdn.net/maxiaoyin111111/article/details/81781550)
-
-## [Studio 3T下操作MongoDB的基本命令](https://www.jianshu.com/p/577cb638787c)
 
 ## [Vue前端处理跨域](https://www.jianshu.com/p/190417491124)
 
@@ -24,17 +20,10 @@
 
 ## ['@/'路径和'./'路径是什么意思](https://blog.csdn.net/qq_28319203/article/details/81004836)
 
-## [tree命令大全](https://blog.csdn.net/askbai666888/article/details/9995837)
-```
-tree忽略node_modules
-tree -I '*svn|*node_module*'
-```
-
 
 ## [如何为开发项目编写规范的README文件（windows），此文详解](https://www.cnblogs.com/wj-1314/p/8547763.html)
 
 ## [vue项目实现github在线预览功能](https://www.jb51.net/article/142307.htm)
-
 
 
 ## [如何安装 npm 并管理 npm 版本](https://www.npmjs.cn/getting-started/installing-node/)

@@ -34,6 +34,12 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['mongo/']
+    },
+    {
+        title: 'linux下tree命令详解',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['tree/']
     }
 ]
 
