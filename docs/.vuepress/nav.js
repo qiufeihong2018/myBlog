@@ -23,34 +23,45 @@ module.exports = [
         text: '优秀博客',
         items: [
             {
-                text: '张鑫旭-鑫空间-鑫生活', link: 'https://www.zhangxinxu.com/'
+                text: '个人博客',
+                items: [
+                    {
+                        text: '张鑫旭-鑫空间-鑫生活', link: 'https://www.zhangxinxu.com/'
+                    },
+                    {
+                        text: 'Cherry\'s Blog', link: 'https://cherryblog.site/'
+                    },
+                    {
+                        text: 'ECMAScript 6 入门', link: 'http://es6.ruanyifeng.com/'
+                    }
+                ]
             },
             {
-                text: '美团技术博客', link: 'https://tech.meituan.com/'
-            },
-            {
-                text: 'Cherry\'s Blog', link: 'https://cherryblog.site/'
-            },
-            {
-                text: 'ECMAScript 6 入门', link: 'http://es6.ruanyifeng.com/'
-            },
-            {
-                text: '百度前端fex', link: 'http://fex.baidu.com/'
-            },
-            {
-                text: '淘宝前端团队FED', link: 'http://taobaofed.org/'
-            },
-            {
-                text: '腾讯CDC', link: 'https://cdc.tencent.com/'
-            },
-            {
-                text: '京东JDC', link: 'https://jdc.jd.com/'
-            },
-            {
-                text: '携程设计委员会Ctrip Design Committee', link: 'http://ued.ctrip.com/'
-            },
-            {
-                text: '腾讯全端AlloyTeam', link: 'http://www.alloyteam.com/2018/12/13440/'
+                text: '团队博客',
+                items: [
+
+                    {
+                        text: '美团技术博客', link: 'https://tech.meituan.com/'
+                    },
+                    {
+                        text: '百度前端fex', link: 'http://fex.baidu.com/'
+                    },
+                    {
+                        text: '淘宝前端团队FED', link: 'http://taobaofed.org/'
+                    },
+                    {
+                        text: '腾讯CDC', link: 'https://cdc.tencent.com/'
+                    },
+                    {
+                        text: '京东JDC', link: 'https://jdc.jd.com/'
+                    },
+                    {
+                        text: '携程设计委员会Ctrip Design Committee', link: 'http://ued.ctrip.com/'
+                    },
+                    {
+                        text: '腾讯全端AlloyTeam', link: 'http://www.alloyteam.com/2018/12/13440/'
+                    }
+                ]
             }
         ]
     },

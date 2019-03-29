@@ -727,6 +727,59 @@ npm install -save valine
 
 想要知道更多Valine操作，请移步[Valine](https://valine.js.org/)
 
+### 导航栏分类小技巧
+效果图
+![avatar](./public/items.png)
+如图,优秀博客分为个人博客和团队博客两大类,实验证明,items是可以一直items下去的,所以可以分得很细
+```
+    {
+        text: '优秀博客',
+        items: [
+            {
+                text: '个人博客',
+                items: [
+                    {
+                        text: '张鑫旭-鑫空间-鑫生活', link: 'https://www.zhangxinxu.com/'
+                    },
+                    {
+                        text: 'Cherry\'s Blog', link: 'https://cherryblog.site/'
+                    },
+                    {
+                        text: 'ECMAScript 6 入门', link: 'http://es6.ruanyifeng.com/'
+                    }
+                ]
+            },
+            {
+                text: '团队博客',
+                items: [
+
+                    {
+                        text: '美团技术博客', link: 'https://tech.meituan.com/'
+                    },
+                    {
+                        text: '百度前端fex', link: 'http://fex.baidu.com/'
+                    },
+                    {
+                        text: '淘宝前端团队FED', link: 'http://taobaofed.org/'
+                    },
+                    {
+                        text: '腾讯CDC', link: 'https://cdc.tencent.com/'
+                    },
+                    {
+                        text: '京东JDC', link: 'https://jdc.jd.com/'
+                    },
+                    {
+                        text: '携程设计委员会Ctrip Design Committee', link: 'http://ued.ctrip.com/'
+                    },
+                    {
+                        text: '腾讯全端AlloyTeam', link: 'http://www.alloyteam.com/2018/12/13440/'
+                    }
+                ]
+            }
+        ]
+    },
+
+```
 
 ### 其余配置
 
