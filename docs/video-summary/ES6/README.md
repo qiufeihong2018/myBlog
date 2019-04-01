@@ -1,4 +1,4 @@
-## ES6 (慕课网_购买的)[ES6零基础教学 解析彩票项目](https://coding.imooc.com/class/chapter/98.html#Anchor)
+## ES6 (慕课网)[ES6零基础教学 解析彩票项目](https://coding.imooc.com/class/chapter/98.html#Anchor)
 ![avatar](../public/es6_1.png)
 
 ![avatar](../public/es6_2.png)
