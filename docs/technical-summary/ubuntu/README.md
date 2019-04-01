@@ -1,4 +1,6 @@
 # ubuntu
+[[toc]]
+
 ## ubuntu打包解包
 
 ![avatar](../public/ubuntu.png)

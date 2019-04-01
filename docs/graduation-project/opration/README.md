@@ -1,4 +1,6 @@
 ## 毕业设计相关操作
+[[toc]]
+
 ### 在阿里云的Ubuntu ECS instance 使用Apt-get安装git
 >在阿里云的Ubuntu ECS instance 使用Apt-get安装git
  高级包装工具（英语：Advanced Packaging Tools,简称：APT）是Debian及其衍生发行版（如：ubuntu）的软件包管理器。APT可以自动下载，配置，安装二进制或者源代码格式的软 件包，因此简化了 Unix系统上管理软件的过程,apt-get命令一般需要root权限执行，所以一般跟着sudo命令。

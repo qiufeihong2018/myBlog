@@ -1,4 +1,5 @@
 # MongoDB深入浅出
+[[toc]]
 
 ## Ubuntu安装MongoDB
 ### 导入包管理系统使用的公钥

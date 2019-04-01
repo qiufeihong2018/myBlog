@@ -1,4 +1,6 @@
 # 文件夹的命名
+[[toc]]
+
 ::: tip 背景
 大驼峰:PascalCase
 

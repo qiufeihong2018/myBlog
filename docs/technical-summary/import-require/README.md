@@ -1,5 +1,5 @@
 # 关于require与import的区别
-
+[[toc]]
 ## 区别
 选项|require|import
 --|--|--

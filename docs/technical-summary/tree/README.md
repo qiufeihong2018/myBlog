@@ -8,6 +8,8 @@
 sudo apt-get install tree 
 ```
 ## tree各个命令
+[[toc]]
+
 - 显示所有文件夹和目录
 ```
 tree -a

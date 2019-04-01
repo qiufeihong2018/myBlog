@@ -1,5 +1,6 @@
 # NUXT
- 
+ [[toc]]
+
 ## nuxt教程
 ```
 vue init nuxt-community/starter-template <project-name>

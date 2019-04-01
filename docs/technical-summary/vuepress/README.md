@@ -1,16 +1,16 @@
 ## 手把手带你搭建VuePress的技术博客
+[[toc]]
 
 先看效果图:
 
 - 首页
 
-![avatar](public/main.png)
+![avatar](./public/main.png)
 
 - 评论区域
 
-![avatar](public/vuepress3.png)
+![avatar](./public/vuepress3.png)
 
-[[toc]]
 
 > 需要node环境和npm支持
 

@@ -1,4 +1,5 @@
 # github
+[[toc]]
 
 ```js
 …or create a new repository on the command line
