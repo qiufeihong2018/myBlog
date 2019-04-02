@@ -1,5 +1,6 @@
+
 ## (慕课网)[全面系统讲解CSS 工作应用+面试一步搞定](https://coding.imooc.com/class/chapter/164.html#Anchor)
-第2章 HTML基础强化
+### 第2章 HTML基础强化
 >讲解[HTML常见元素](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)、版本（HTML4/XHTML/HTML5的关系）以及HTML元素的分类和嵌套关系。关注元素默认样式和定制化。
 
 - meta
@@ -80,6 +81,24 @@ h5新特性：
 - 便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。
 > 哪些元素可以自闭合
 
+```html
+<meta>
+<base>
+<br>
+<hr>
+<img>
+<input>
+<col>在表格table中定义一个或多个列的属性
+<frame>定义框架的窗口
+<link>
+<area>带有可点击区域的图像
+<param>元素允许您为插入 XHTML 文档的对象规定 run-time 设置，也就是说，此标签可为包含它的 
+       <object> 或者<applet> 标签提供参数。 
+<embed>HTML5 中新增的,标签定义了一个容器，用来嵌入外部应用或者互动程序（插件）
+<keygen>该对象提供了一个安全的方式来验证用户
+<source> 标签为媒体元素（比如 和 ）定义媒体资源
+
+```
 > HTML和DOM的关系
 
 > property和attribute的区别
@@ -87,5 +106,5 @@ h5新特性：
 > form的作用有哪些
 
 
-## 参考文献
+### 参考文献
 [xhtml、html与html5的区别](xhtml、html与html5的区别)
