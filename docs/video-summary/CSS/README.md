@@ -1,5 +1,5 @@
-
 ## (慕课网)[全面系统讲解CSS 工作应用+面试一步搞定](https://coding.imooc.com/class/chapter/164.html#Anchor)
+
 ### 第2章 HTML基础强化
 >讲解[HTML常见元素](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)、版本（HTML4/XHTML/HTML5的关系）以及HTML元素的分类和嵌套关系。关注元素默认样式和定制化。
 
@@ -10,14 +10,17 @@
 - script
 - base
 
->嵌套关系,主要看a标签外面的元素，因为a是transport
+> 为什么a>div是合法的？
 
-![avatar](../public/css1.png)
+嵌套关系,主要看a标签外面的元素，因为a是transport
 
 > 默认样式和reset
 [CSS Tools: Reset CSS](https://meyerweb.com/eric/tools/css/reset/)
 
-![avatar](../public/css2.png)
+HTML元素默认样式
+- 默认样式的意义
+- 默认样式带来的问题
+- CSS Reset
 
 简单粗暴的css reset
 ```css
@@ -28,6 +31,8 @@ padding: 0;
 ```
 
 >doctype的意思是什么？
+
+```text
 <!DOCTYPE> 声明必须是 HTML 文档的第一行，位于 <html> 标签之前。
 
 <!DOCTYPE> 声明不是 HTML 标签；它是指示 web 浏览器关于页面使用哪个 HTML 版本进行编写的指令。
@@ -37,9 +42,11 @@ padding: 0;
 HTML5 不基于 SGML，所以不需要引用 DTD。
 
 提示：请始终向 HTML 文档添加 <!DOCTYPE> 声明，这样浏览器才能获知文档类型。
+```
 
 > HTML XHTML HTML5
 
+```text
 html:超文本标记语言 (Hyper Text Markup Language)
 
 xhtml:可扩展超文本标记语言，是一种置标语言，表现方式与超文本标记语言（HTML）类似，不过语法上更加严格。
@@ -54,10 +61,12 @@ html特性：
 - 在网页中显示图像、声音、视频、动画等多媒体信息，把网页设计得更富冲击力。
 - 可以制作表格，以便显示大量数据。
 - 可以制作表单，允许在网页内输入文本信息，执行其他用户操作，方便信息互动。
+```
 
 
 > HTML5有什么变化
 
+```text
 h5的认识：
 
 - 新特性应该基于 HTML、CSS、DOM 以及 JavaScript。
@@ -73,12 +82,16 @@ h5新特性：
 - 对本地离线存储的更好的支持
 - 新的特殊内容元素，比如 article、footer、header、nav、section
 - 新的表单控件，比如 calendar、date、time、email、url、search
+```
 > 语义化的意思是什么
 
+```text
 - 去掉或者丢失样式的时候能够让页面呈现出清晰的结构；
 - 有利于SEO：和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：爬虫依赖于标签来确定上下文和各个关键字的权重；
 - 方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；
 - 便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。
+```
+
 > 哪些元素可以自闭合
 
 ```html
@@ -101,23 +114,30 @@ h5新特性：
 ```
 > HTML和DOM的关系
 
+```text
 HTML
 HTML只能定义静态的文档，浏览器解释来展现；只写html浏览器也能解释展现一个网页；标签里可带有各类属性，最基本的就是class和id。class属性的作用是引用css样式；id的作用是配合javascript使用（获得dom元素），具有唯一性。当然根据标签的不同，还有其他的属性。
 
 DOM
 DOM：W3C定义，一个与系统平台和编程语言无关的接口（API），程序和脚本可以通过这个接口动态地对文档的内容、结构和样式进行访问和修改。它提供了对文档（HTML）的结构化的表述，并定义了一种方式可以使从程序中对该结构进行访问，从而改变文档的结构，样式和内容。DOM 将文档解析为一个由节点和对象（包含属性和方法的对象）组成的结构集合。简言之，它会将web页面和脚本或程序语言连接起来。DOM是web页面的完全的面向对象表述，它能够使用如 JavaScript等脚本语言进行修改。
+```
+
 > property和attribute的区别
 
+```text
 property是DOM中的属性，是JavaScript里的对象；
 attribute是HTML标签上的特性，它的值只能够是字符串；
+```
 
 > form的作用有哪些
 
+```text
 表单标签：这里面包含了处理表单数据所用 CGI （Common Gateway Interface，通用网关接口）程序的 URL （Uniform Resource Location，统一资源定位符）以及数据提交到服务器的方法。
 表单域：包含了文本框、密码框、隐藏域、多行文本框、复选框、单选框、下拉选择框和文件上传框等。
 表单按钮：包括提交按钮、复位按钮和一般按钮；用于将数据传送到服务器上的CGI脚本或者取消输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。
-
+```
 
 ### 参考文献
 [xhtml、html与html5的区别](xhtml、html与html5的区别)
+
 [HTML 表单 (form) 的作用解释](https://blog.csdn.net/ajianyingxiaoqinghan/article/details/77678772)

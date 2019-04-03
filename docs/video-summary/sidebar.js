@@ -42,13 +42,13 @@ module.exports = [
         children: ['iView/']
     },
     {
-        title: 'ES6零基础教学 解析彩票项目',
+        title: 'ES6零基础教学解析彩票项目',
         collapsable: false,
         sidebarDepth: 2,
         children: ['ES6/']
     },
     {
-        title: '全面系统讲解CSS 工作应用+面试一步搞定',
+        title: '全面系统讲解CSS工作应用+面试一步搞定',
         collapsable: false,
         sidebarDepth: 2,
         children: ['CSS/']
