@@ -101,10 +101,23 @@ h5新特性：
 ```
 > HTML和DOM的关系
 
+HTML
+HTML只能定义静态的文档，浏览器解释来展现；只写html浏览器也能解释展现一个网页；标签里可带有各类属性，最基本的就是class和id。class属性的作用是引用css样式；id的作用是配合javascript使用（获得dom元素），具有唯一性。当然根据标签的不同，还有其他的属性。
+
+DOM
+DOM：W3C定义，一个与系统平台和编程语言无关的接口（API），程序和脚本可以通过这个接口动态地对文档的内容、结构和样式进行访问和修改。它提供了对文档（HTML）的结构化的表述，并定义了一种方式可以使从程序中对该结构进行访问，从而改变文档的结构，样式和内容。DOM 将文档解析为一个由节点和对象（包含属性和方法的对象）组成的结构集合。简言之，它会将web页面和脚本或程序语言连接起来。DOM是web页面的完全的面向对象表述，它能够使用如 JavaScript等脚本语言进行修改。
 > property和attribute的区别
 
+property是DOM中的属性，是JavaScript里的对象；
+attribute是HTML标签上的特性，它的值只能够是字符串；
+
 > form的作用有哪些
+
+表单标签：这里面包含了处理表单数据所用 CGI （Common Gateway Interface，通用网关接口）程序的 URL （Uniform Resource Location，统一资源定位符）以及数据提交到服务器的方法。
+表单域：包含了文本框、密码框、隐藏域、多行文本框、复选框、单选框、下拉选择框和文件上传框等。
+表单按钮：包括提交按钮、复位按钮和一般按钮；用于将数据传送到服务器上的CGI脚本或者取消输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。
 
 
 ### 参考文献
 [xhtml、html与html5的区别](xhtml、html与html5的区别)
+[HTML 表单 (form) 的作用解释](https://blog.csdn.net/ajianyingxiaoqinghan/article/details/77678772)
