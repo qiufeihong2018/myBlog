@@ -1,5 +1,4 @@
 ## (慕课网)[全面系统讲解CSS 工作应用+面试一步搞定](https://coding.imooc.com/class/chapter/164.html#Anchor)
-
 ### 第2章 HTML基础强化
 >讲解[HTML常见元素](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)、版本（HTML4/XHTML/HTML5的关系）以及HTML元素的分类和嵌套关系。关注元素默认样式和定制化。
 
@@ -136,7 +135,36 @@ attribute是HTML标签上的特性，它的值只能够是字符串；
 表单域：包含了文本框、密码框、隐藏域、多行文本框、复选框、单选框、下拉选择框和文件上传框等。
 表单按钮：包括提交按钮、复位按钮和一般按钮；用于将数据传送到服务器上的CGI脚本或者取消输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。
 ```
+### 选择器
+[CSS3 选择器](http://www.w3school.com.cn/cssref/css_selectors.asp)
 
+浏览器从右往左解析CSS选择器，高效
+
+#### 分类
+- 元素选择器a{}
+- 伪元素选择器::before{}
+- 类选择器.link{}
+- 属性选择器[type=radio]{}
+- 伪类选择器:hover{}
+- ID选择器#id{}
+- 组合选择器[type=checkbox]+label{}
+- 否定选择器:not(.link){}
+- 通用选择器*{}
+
+#### 权重
+- ID选择器#id{} +100
+- 类选择器.link{} 属性选择器[type=radio]{} 伪类选择器:hover{} +10
+- 元素选择器a{} 伪元素选择器::before{} +1
+- 其他 0
+
+权重高的会覆盖权重低的，不进位
+
+>总结
+
+- !important 优先级最高
+- 元素属性 优先级高
+- 相同权重 后写的生效
+3-3
 ### 参考文献
 [xhtml、html与html5的区别](xhtml、html与html5的区别)
 
