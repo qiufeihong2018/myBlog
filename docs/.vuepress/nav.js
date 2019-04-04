@@ -92,7 +92,9 @@ module.exports = [
                     {
                         text: 'D3', link: 'https://d3js.org/'
                     },
-
+                    {
+                        text: 'webpack', link: 'https://webpack.js.org/'
+                    },
                     {
                         text: 'element', link: 'http://element-cn.eleme.io/#/zh-CN'
                     },
