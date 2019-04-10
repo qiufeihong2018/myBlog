@@ -1,5 +1,5 @@
 ## (慕课网)[全面系统讲解CSS 工作应用+面试一步搞定](https://coding.imooc.com/class/chapter/164.html#Anchor)
-### 第2章 HTML基础强化
+### HTML常见元素和理解
 >讲解[HTML常见元素](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)、版本（HTML4/XHTML/HTML5的关系）以及HTML元素的分类和嵌套关系。关注元素默认样式和定制化。
 
 - meta
@@ -8,7 +8,7 @@
 - link
 - script
 - base
-
+### 真题
 > 为什么a>div是合法的？
 
 嵌套关系,主要看a标签外面的元素，因为a是transport
@@ -164,7 +164,33 @@ attribute是HTML标签上的特性，它的值只能够是字符串；
 - !important 优先级最高
 - 元素属性 优先级高
 - 相同权重 后写的生效
-3-3
+### 非布局样式（字体）
+- font
+  - font-family
+- icon
+### 非布局样式（行高）
+- line-height
+### 非布局样式（背景）
+
+- 背景颜色
+- 渐变色背景
+  - linear-gradient(线性渐变) 
+- 多背景叠加
+- 背景图片和属性（雪碧图）
+  - background-repeat
+  - background-position 雪碧图一般是负值
+- base64和性能优化
+  - 优点：节省http连接数
+  - 缺点：难维护
+- 多分辨率适配
+### 非布局样式（边框）
+- 边框的属性：线型 大小 颜色
+- 边框背景图
+- 边框衔接（三角形）
+### 非布局样式（滚动）
+### 非布局样式（文本折行）
+### 非布局样式（装饰性属性）
+
 ### 参考文献
 [xhtml、html与html5的区别](xhtml、html与html5的区别)
 
