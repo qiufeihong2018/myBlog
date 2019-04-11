@@ -1,12 +1,13 @@
 - [x] 可以统计阅读量
 - [x] 支持评论
+- [x] 隐藏私密信息
 - [ ] Algolia搜索
 - [ ] 在 GitHub 上编辑此页
 - [ ] SEO
 - [ ] 去掉首页评论
 - [ ] 使用SSH轻松部署
-- [ ] 增加“返回顶部”按钮的插件
-- [ ] 展示demo的同时，将这段代码展示出来
+- [ ] 增加“返回顶部”按钮的插件(文档有问题)
+- [ ] 展示demo的同时，将这段代码展示出来[demo-code](https://buptsteve.github.io/vuepress-plugin-demo-code/)(文档有问题)
 
 功能
 - 只有一份代码同时生成演示和代码
@@ -18,3 +19,5 @@
 - 专门为浏览长代码进行了设计
   - Sticky的收起按钮
   - 点击收起按钮时自动滚动到代码的顶部
+
+- [ ] 导入*.vue 文件的同时，使用 [Vuese](https://buptsteve.github.io/markdown-it-vuese/zh/#install) 自动生成文档。
