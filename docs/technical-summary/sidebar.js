@@ -85,6 +85,11 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['css/']
+    }, {
+        title: '大数据量优化性能',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['vue-virtual-scroll-list/']
     }
 ]
 
