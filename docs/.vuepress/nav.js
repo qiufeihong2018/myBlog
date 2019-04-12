@@ -87,6 +87,9 @@ module.exports = [
                         text: 'VuePress', link: 'https://vuepress.vuejs.org/zh/'
                     },
                     {
+                        text: 'git', link: 'https://git-scm.com/'
+                    },
+                    {
                         text: 'vue-element-admin', link: 'https://panjiachen.github.io/vue-element-admin-site/zh/'
                     },
                     {

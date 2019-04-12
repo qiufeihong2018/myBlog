@@ -46,6 +46,7 @@ import VirtualList from 'vue-virtual-scroll-list'
 #### 结果
 数据总共有50来条，不会一次性渲染出来，而在dom中出现8条数据
 ![avatar](../public/vue-virtual-scroll-list1.png)
+
 所以大大降低了浏览器的压力
 
 ### 碰到的问题
