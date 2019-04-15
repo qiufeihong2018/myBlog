@@ -350,7 +350,6 @@ let arr = [1, 2, [3, 4, [5, [6, 7]], 8], 9, 10, [11, [12, 13]]]
 const flatten = array => array.reduce((acc, cur) => (Array.isArray(cur) ? [...acc, ...flatten(cur)] : [...acc, cur]), [])
 console.log(flatten(arr))
 ```
-
 ## 下面代码中 a 在什么情况下会打印 1？
 >隐式转换
 
@@ -451,8 +450,6 @@ if (aﾠ == 1 && a == 2 && ﾠa == 3) {
     console.log(1)
 }
 ```
-
-
 ## 介绍下 BFC 及其应用
 BFC是CSS布局的一个概念，是一块独立的渲染区域，是一个环境，里面的元素不会影响到外部的元素 。
 
@@ -475,7 +472,63 @@ BFC是CSS布局的一个概念，是一块独立的渲染区域，是一个环�
   - 2.可以阻止元素被浮动元素覆盖
   - 3.可以包含浮动元素---清除内部浮动 原理：触发父div的BFC属性，使下面的子div都处在父div的同一个BFC区域之内
   - 4.分属于不同的BFC时，可以阻止margin重叠
+## 无重复字符的最长子串
+给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
 
+示例 1:
+
+输入: "abcabcbb"
+输出: 3 
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+示例 2:
+
+输入: "bbbbb"
+输出: 1
+解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+示例 3:
+
+输入: "pwwkew"
+输出: 3
+解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+     
+
+我的答案：
+```javascript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    // 判断是否是空字符串
+    if(s===''){
+        return 0
+    }
+    // 最终要返回的结果的初始值
+    let result = 1;        
+    // 用于存放无重复子串
+    let norepeatStr = '';  
+    // 字符串长度
+    let len = s.length;
+    for(let i = 0; i < len; i++){
+        // charAt()获取的是字符串索引对应的具体字符
+        let specStr = s.charAt(i);
+        // indexOf()查找的是某个字符第一次出现并返回这个索引值，若没有这个字符，返回-1
+        let index = norepeatStr.indexOf(specStr);
+        if(index === -1){
+            // 将遍历得到的字符（未重复）拼接在norepeatStr后面
+            norepeatStr = norepeatStr + specStr;
+            result = result < norepeatStr.length ? norepeatStr.length : result;
+        }else{
+            // 若遇到重复的字符，那么将已出现在norepeatStr里的字符删除，并将新的（重复的）添加到末尾
+            norepeatStr = norepeatStr.substr(index+1) + specStr;
+        }
+    }
+    return result;
+};
+```
+
+![avatar](../public/question.png)
 ## 参考文献
 [IIFE](https://developer.mozilla.org/zh-CN/docs/Glossary/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F)
 
