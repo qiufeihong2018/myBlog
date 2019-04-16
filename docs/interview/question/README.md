@@ -527,8 +527,52 @@ var lengthOfLongestSubstring = function(s) {
     return result;
 };
 ```
-
 ![avatar](../public/question.png)
+
+ ## 最长公共前缀
+编写一个函数来查找字符串数组中的最长公共前缀。
+
+如果不存在公共前缀，返回空字符串 ""。
+
+示例 1:
+
+输入: ["flower","flow","flight"]
+输出: "fl"
+示例 2:
+
+输入: ["dog","racecar","car"]
+输出: ""
+解释: 输入不存在公共前缀。
+说明:
+
+所有输入只包含小写字母 a-z 。
+
+我的答案：
+```javascript
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    var firstStr = strs[0];
+   var comStr ='';
+   if(!strs.length){
+       return comStr;
+   }
+   for (var i = 0; i < firstStr.length; i++) {
+       for (var j =  1; j < strs.length; j++) {
+           if(firstStr[i] != strs[j][i]){
+               return comStr;
+           }
+        }
+        comStr += firstStr[i];
+    }
+    return comStr;
+};
+```
+![avatar](../public/question2.png)
+
+
 ## 参考文献
 [IIFE](https://developer.mozilla.org/zh-CN/docs/Glossary/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F)
 
