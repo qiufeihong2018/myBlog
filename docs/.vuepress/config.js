@@ -1,11 +1,14 @@
+// const pluginConf = require('./config/plugin')
+// const sidebarConf = require('./config/sidebar')
+// const navConf = require('./config/nav')
+const headConf = require('./config/head')
+
 module.exports = {
     title: '飞鸿的博客',
     description: '我的心路历程',
     dest: './dist',
     port: '7777',
-    head: [
-        ['link', {rel: 'icon', href: '/logo.gif'}]
-    ],
+    head: headConf,
     markdown: {
         lineNumbers: true
     },

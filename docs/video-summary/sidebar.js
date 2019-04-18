@@ -18,12 +18,6 @@ module.exports = [
         children: ['node/']
     },
     {
-        title: 'Node.js入门到企业Web开发中的应用',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['Node/']
-    },
-    {
         title: 'Vue核心技术 Vue Vue-Router Vuex SSR实战精讲',
         collapsable: false,
         sidebarDepth: 2,
