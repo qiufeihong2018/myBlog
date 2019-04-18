@@ -1,17 +1,20 @@
+const pluginConf = require('./config/plugin')
+const sidebarConf = require('./config/sidebar')
+const navConf = require('./config/nav')
+const headConf = require('./config/head')
+
 module.exports = {
     title: '飞鸿的博客',
     description: '我的心路历程',
     dest: './dist',
     port: '7777',
-    head: [
-        ['link', {rel: 'icon', href: '/logo.gif'}]
-    ],
+    head: headConf,
     markdown: {
         lineNumbers: true
     },
     themeConfig: {
-        nav: require('./nav'),
-        sidebar: require('./sidebar'),
+        nav: navConf,
+        sidebar: sidebarConf,
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
         searchMaxSuggestoins: 10,
@@ -24,12 +27,5 @@ module.exports = {
         editLinks: true,
         editLinkText: '在 GitHub 上编辑此页 ！'
     },
-    plugins: [
-        [
-            '@vuepress/register-components',
-            {
-                componentsDir: './components'
-            }
-        ]
-    ]
+    plugins: pluginConf
 }
