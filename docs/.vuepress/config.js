@@ -1,6 +1,6 @@
-// const pluginConf = require('./config/plugin')
-// const sidebarConf = require('./config/sidebar')
-// const navConf = require('./config/nav')
+const pluginConf = require('./config/plugin')
+const sidebarConf = require('./config/sidebar')
+const navConf = require('./config/nav')
 const headConf = require('./config/head')
 
 module.exports = {
@@ -13,8 +13,8 @@ module.exports = {
         lineNumbers: true
     },
     themeConfig: {
-        nav: require('./nav'),
-        sidebar: require('./sidebar'),
+        nav: navConf,
+        sidebar: sidebarConf,
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
         searchMaxSuggestoins: 10,
@@ -27,12 +27,5 @@ module.exports = {
         editLinks: true,
         editLinkText: '在 GitHub 上编辑此页 ！'
     },
-    plugins: [
-        [
-            '@vuepress/register-components',
-            {
-                componentsDir: './components'
-            }
-        ]
-    ]
+    plugins: pluginConf
 }

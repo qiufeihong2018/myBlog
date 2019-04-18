@@ -121,6 +121,9 @@ module.exports = [
                     },
                     {
                         text: 'Weex', link: 'https://weex.apache.org/zh/'
+                    },
+                    {
+                        text: 'nginx', link: 'https://www.nginx.com/'
                     }
                 ]
             },
