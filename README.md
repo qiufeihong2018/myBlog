@@ -30,11 +30,12 @@ npm run server
 - [x] 可以统计阅读量
 - [x] 支持评论
 - [x] 隐藏私密信息
+- [x] 在 GitHub 上编辑此页
 - [ ] Algolia搜索
-- [ ] 在 GitHub 上编辑此页
 - [ ] SEO
 - [ ] 去掉首页评论
-- [ ] 使用SSH轻松部署
+- [ ] 自动化部署
+- [ ] 刷新内容的弹窗
 - [ ] 增加“返回顶部”按钮的插件(文档有问题)
 - [ ] 展示demo的同时，将这段代码展示出来[demo-code](https://buptsteve.github.io/vuepress-plugin-demo-code/)(文档有问题)
 
@@ -50,6 +51,7 @@ npm run server
   - 点击收起按钮时自动滚动到代码的顶部
 
 - [ ] 导入*.vue 文件的同时，使用 [Vuese](https://buptsteve.github.io/markdown-it-vuese/zh/#install) 自动生成文档。
+
 
 
 ## directory
