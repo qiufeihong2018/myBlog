@@ -46,11 +46,6 @@ module.exports = [
         sidebarDepth: 2,
         children: ['vue-webpack/']
     }, {
-        title: 'vue-component',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['vue-component/']
-    }, {
         title: 'linux命令',
         collapsable: false,
         sidebarDepth: 2,
@@ -90,6 +85,12 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['vue-virtual-scroll-list/']
+    },
+    {
+        title: 'linux系统下jenkins根据github自动部署',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['jenkins/']
     }
 ]
 

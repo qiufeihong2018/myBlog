@@ -1,3 +1,5 @@
+# tree
+[[toc]]
 ## tree是什么
 `Linux tree`命令用于以树状图列出目录的内容。
 
@@ -8,7 +10,6 @@
 sudo apt-get install tree 
 ```
 ## tree各个命令
-[[toc]]
 
 - 显示所有文件夹和目录
 ```
