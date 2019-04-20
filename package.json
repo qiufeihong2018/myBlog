@@ -22,7 +22,6 @@
     "vuepress": "^0.14.9"
   },
   "devDependencies": {
-    "@vuepress/plugin-back-to-top": "^1.0.0-alpha.47",
     "vuepress-plugin-demo-block": "^0.7.2"
   }
 }

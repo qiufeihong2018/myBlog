@@ -7,7 +7,11 @@
 - [ ] 去掉首页评论
 - [ ] 自动化部署
 - [ ] 刷新内容的弹窗
-- [ ] 增加“返回顶部”按钮的插件(文档有问题)
+- [ ] 增加“返回顶部”按钮的插件
+  - 版本问题
+    - vuepress 0.x
+    - plugin-back-to-top 1.x(只在vuepress 1.x中才有)
+
 - [ ] 展示demo的同时，将这段代码展示出来[demo-code](https://buptsteve.github.io/vuepress-plugin-demo-code/)(文档有问题)
 
 功能
