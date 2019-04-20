@@ -1,7 +1,7 @@
 #  陷入jenkins自动化部署的坑
 [[toc]]
 ![avatar](../public/jk.jpeg)
-[原文地址]()
+[原文地址](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/jenkins)
 ## 背景
 [Jenkins官网](https://jenkins.io/)
  > Build great things at any scale 
