@@ -139,3 +139,7 @@ n
 ```
 n rm 6.4.0
 ```
+
+## npm 问题
+npm install 安装 node_modules中的vue-virtual-scroll-list包缺少index.js
+

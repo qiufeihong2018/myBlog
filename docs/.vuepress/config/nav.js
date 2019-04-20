@@ -72,6 +72,9 @@ module.exports = [
                 text: '官方文档',
                 items: [
                     {
+                        text: 'jenkins', link: 'https://jenkins.io/'
+                    },
+                    {
                         text: 'npm 中文文档', link: 'https://www.npmjs.cn/'
                     },
                     {
