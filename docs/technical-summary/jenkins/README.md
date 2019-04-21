@@ -93,11 +93,79 @@ Setting up jenkins (2.164.2) ...
 Processing triggers for systemd (229-4ubuntu21.2) ...
 Processing triggers for ureadahead (0.100.0-19) ...
 ```
+## 修改默认端口8080
+- 修改 `/etc/init.d/jenkins` 脚本
+```
+sudo vim /etc/init.d/jenkins
+```
+修改`$HTTP_PORT`改成所需的端口
+```
+  # Verify that the jenkins port is not already in use, winstone does not exit
+    # even for BindException
+    check_tcp_port "http" "$HTTP_PORT" "1314" "$HTTP_HOST" "0.0.0.0" || return 2
+
+    # If the var MAXOPENFILES is enabled in /etc/default/jenkins then set the max open files to the
+    # proper value
+
+```
+- 修改 `/etc/default/jenkins` 文件
+
+```
+sudo vim  /etc/default/jenkins
+```
+修改`HTTP_PORT`改成所需的端口
+```
+ration, build records,
+#   that sort of things.
+#
+#   If commented out, the value from the OS is inherited,  which is normally 022 (as of Ubuntu 12.04,
+#   by default umask comes from pam_umask(8) and /etc/login.defs
+
+# UMASK=027
+
+# port for HTTP connector (default 8080; disable with -1)
+HTTP_PORT=1314
+
+
+# servlet context, important if you want to use apache proxying
+PREFIX=/$NAME
+
+# arguments to pass to jenkins.
+# --javahome=$JAVA_HOME
+# --httpListenAddress=$HTTP_HOST (default 0.0.0.0)
+# --httpPort=$HTTP_PORT (default 8080; disable with -1)
+# --httpsPort=$HTTP_PORT
+# --argumentsRealm.passwd.$ADMIN_USER=[password]
+     
+```
+
+- 重启服务器
+```
+sudo systemctl restart jenkins
+```
+
+::: warnning改完后会重启出现bug
+```
+Warning: jenkins.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+```
+解决方法：
+1. 
+```
+systemctl daemon-reload
+```
+2.
+```
+systemctl start jenkins
+```
+:::
+
+新端口是1314
+![avatar](../public/jk40.png)
 ## 启动jenkins
 ```
 sudo systemctl start jenkins
 ```
-- 用下面命令测试或者直接0.0.0.0:8080访问`jenkins`
+- 用下面命令测试或者直接ip+端口（0.0.0.0:8080）访问`jenkins`
 ```
 sudo systemctl status jenkins
 ```
@@ -136,13 +204,29 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ![avatar](../public/jk3.png)
 
 - 安装完成，会提示设置管理用户。不要跳过，密码未知，但是最好还是创建用户。
-![avatar](../public/jenkins4.png)
+![avatar](../public/jk4.png)
 
 - 创建好用户
-![avatar](../public/jenkins5.png)
+![avatar](../public/jk5.png)
 
 - jenkins面板
 ![avatar](../public/jk6.png)
+
+::: warrning
+jenkins无法登录或者空白页面
+```
+vim /var/lib/jenkins/config.xml
+```
+在其中版本信息后加入
+```
+<authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.SecurityRealm$None"/>
+```
+重启服务器即可
+```
+sudo systemctl restart jenkins
+```
+:::
 ## 连接github
 ### 在jenkin上的操作：安装相关插件
 - 安装插件'Publish Over SSH',连接远程服务器的插件。下图是已经安装后的
@@ -172,7 +256,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - 绑定项目的下载链接
 ![avatar](../public/jk9.png)
   - 选择'Git'
-  - 在'Repositories'中的'Repository URL'填入项目下载链接
+  - 在'Repositories'中的'Repository URL'填入项目下载链接(http)
   - 'Credentials'中添加身份信息
     - 在类型中选择'Username with password'
     - 用户名和密码就是github的账号和密码，最后'确定'
