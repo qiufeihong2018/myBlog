@@ -72,6 +72,9 @@ module.exports = [
                 text: '官方文档',
                 items: [
                     {
+                        text: 'gitlab', link: 'https://docs.gitlab.com/'
+                    },
+                    {
                         text: 'jenkins', link: 'https://jenkins.io/'
                     },
                     {

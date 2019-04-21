@@ -31,3 +31,5 @@
 ## [CSS布局(六) 对齐方式](https://www.cnblogs.com/chaixiaozhi/p/8490725.html)
 
 ## [HTML/CSS代码快速生成](https://blog.csdn.net/zhw0596/article/details/79584937)
+
+[git commit前检测husky与pre-commit](https://www.jianshu.com/p/f0d31f92bfab)

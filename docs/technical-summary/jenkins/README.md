@@ -1,6 +1,7 @@
 #  陷入jenkins自动化部署的坑
 [[toc]]
 ![avatar](../public/jk.jpeg)
+
 [原文地址](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/jenkins)
 ## 背景
 [Jenkins官网](https://jenkins.io/)
@@ -12,7 +13,7 @@
 - 项目和远程仓库
     - 将最新的代码推送到远程仓库
 - 远程仓库和Jenkins
-    - 获取远程仓库上最新的完整项目下载到本地 
+    - 定时获取远程仓库上最新的完整项目下载到本地 
 - Jenkins与远程服务器
     - 通过jenkins上传到远程服务器
 
@@ -97,10 +98,10 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - 安装插件'Publish Over SSH',连接远程服务器的插件。下图是已经安装后的
 ![avatar](../public/jk19.png)
 - 安装插件'[GitHub Integration Plugin](https://github.com/KostyaSha/github-integration-plugin/blob/master/README.adoc)',GitHub集成插件
-### 在github上的操作：配置Webhooks
+### 在github上的操作：配置webhook
 - github项目中点击'Settings'选项卡
-  - 点击'Webhooks'菜单项
-    - 添加'Webhooks'
+  - 点击'webhook'菜单项
+    - 添加'webhook'
     ![avatar](../public/jk14.png)
       - 'Payload URL'中'http://'+jenkins部署的ip和端口号+'/github-webhook/'
       - 'Content type'中选择'application/json'
@@ -108,8 +109,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
       - 选择'Active'  
       - 点击'Update webhook'
       ![avatar](../public/jk13.png)
-### 创建任务
-#### jenkins拉取github上vue代码在本地启动
+### jenkins拉取github上vue代码在本地启动
 
 - 新建任务
   - 任务名随意
@@ -127,7 +127,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
     - 在类型中选择'Username with password'
     - 用户名和密码就是github的账号和密码，最后'确定'
 ![avatar](../public/jk10.png)
-  - 'Branches to build' 选择部署的分支
+  - 'Branches to build' 选择部署的分支(*/分支名)
 
 - 构建触发器
   - 选择'GitHub hook trigger for GITScm polling'
@@ -146,7 +146,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
     
 - 保存    
 任务创建完成，'jenkins'大功告成
-#### jenkins拉取github上vue代码在远程服务器启动
+### jenkins拉取github上vue代码在远程服务器启动
 - 连接远程服务器
   - 系统管理->系统设置->Publish over SSH
    	- Passphrase:输入jenkins的密码
@@ -195,12 +195,49 @@ chmod 600 authorized_keys
    ![avatar](../public/jk24.png)
 
      	
+### jenkins轮询github
+
 ## 连接gitlab
 ### 源码管理
 ![avatar](../public/jk22.png)
 `Repository URL`必须要http请求
 ### 构建
 ![avatar](../public/jk23.png)
+### jenkins轮询gitlab(必须要是管理员身份)
+::: warnning
+如果没有安装Gitlab Hook和gitlab上增加webhook的话，会报错
+:::
+![avatar](../public/jk29.png)
+- gitlab项目侧边栏中Settings-Integrations增加webhook
+![avatar](../public/jk30.png)
+- 添加Gitlab Hook插件
+![avatar](../public/jk31.png)、
+## 轮询
+- 定时构建：无论有无最新代码，都按时构建
+- 轮询SCM：只要代码有更新，都会构建
+----
+- 构建语法说明：
+
+  - 首先格式为：* * * * *（五个星）
+
+选项|意思
+--|--
+第一个*表示分钟|取值0~59
+第二个*表示小时|取值0~23
+第三个*表示一个月的第几天|取值1~31
+第四个*表示第几月|取值1~12
+第五个*表示一周中的第几天|取值0~7，其中0和7代表的都是周日
+
+  - 使用举例（不加H为时刻之前）：
+  
+选项|意思
+--|--
+每隔1分钟构建一次|H/1 * * * *
+每隔1小时构建一次|H H/1 * * *
+每月1号构建一次|H H 1 * *
+
+  - 定时构建和轮询SCM使用互不冲突，具体如何组合，需要根据项目情况合理配置；
+
 ## 测试
 - 本地push代码到github
 ![avatar](../public/jk15.png)
@@ -322,3 +359,7 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
 [jenkins配置publish over ssh遇到的问题](https://zhuanlan.zhihu.com/p/39549204)
 
 [jenkins使用publishover ssh插件连接应用机器时，报Message Auth fail的问题](https://blog.csdn.net/u010947098/article/details/61922969)
+
+[Jenkins+git+webhook自动触发部署和测试任务](https://www.jianshu.com/p/ad018160aff9)
+
+[Jenkins定时构建和轮询SCM设置说明](https://blog.csdn.net/MenofGod/article/details/81288987)

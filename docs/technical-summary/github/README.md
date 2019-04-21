@@ -104,6 +104,7 @@ $ git commit --amend -m [message]
 $ git commit --amend [file1] [file2] ...
 
 ```
+
 ## 分支
 ```js
 git 本地分支与远程分支
@@ -190,6 +191,7 @@ $ git push [remote] --tags
 # 新建一个分支，指向某个tag
 $ git checkout -b [branch] [tag]
 ```
+
 ## 查看信息
 ```js
 # 显示有变更的文件
@@ -254,6 +256,7 @@ $ git show [commit]:[filename]
 $ git reflog
 
 ```
+
 ## 远程同步
 
 ```js
@@ -361,7 +364,7 @@ $ git reset --hard fae6966548e3ae76cfa7f38a461c438cf75ba965
 ```
 
 
-3. 把修改推到远程服务器
+3. 把修改推到远程服务器，-f代表--force，-u默认机子，后面无需加参数使用git push
 ```
 $ git push -f -u origin master  
 ```
