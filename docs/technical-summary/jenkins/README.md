@@ -187,13 +187,16 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
   - 执行shell
     - 命令
     ```
-    cd /var/lib/jenkins/workspace/vue #进入test项目目录
-    npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
+    cd /var/lib/jenkins/workspace/vue 
+    npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver 
     npm install
     npm run dev
     ```
     ![avatar](../public/jk12.png)
-    
+    - 命令不能缺，否则包下不完整
+    ```
+        npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver 
+    ```    
 - 保存    
 任务创建完成，'jenkins'大功告成
 ### jenkins拉取github上vue代码在远程服务器启动
@@ -382,7 +385,6 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
 - 项目启动成功
 - 修改提交后，一键`立即构建`，就可以将最新提交的代码运行起来
 ## 参考文献
-[自动化构建vue项目然后发布到远程服务器](https://app.csdn.net/ansu2009/article/details/83584796)
 
 [Github配合Jenkins，实现vue等前端项目的自动构建与发布](https://app.csdn.net/t6546545/article/details/88771403)
 
