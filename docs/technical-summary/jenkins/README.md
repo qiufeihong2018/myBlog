@@ -27,21 +27,71 @@
 ```
 sudo apt-get install openjdk-8-jdk
 ```
+如下安装完成
+```
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/appletviewer to provide /usr/bin/appletviewer (appletviewer) in auto mode
+update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/jconsole to provide /usr/bin/jconsole (jconsole) in auto mode
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Processing triggers for systemd (229-4ubuntu21.2) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+Processing triggers for ca-certificates (20170717~16.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+
+done.
+done.
+```
 ### 存储库密钥添加到系统
 ```
 wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
 ```
-### Debian包存储库地址附加到服务器`sources.list`
+出现`ok`，添加成功
+### Debian包存储库地址添加到服务器`sources.list`
 ```
 echo deb http://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
+```
+添加成功
+```
+deb http://pkg.jenkins.io/debian-stable binary/
 ```
 ### 更新存储库
 ```
 sudo apt-get update
 ```
+如下更新成功
+```
+Ign:17 http://pkg.jenkins.io/debian-stable binary/ InRelease                   
+Get:18 http://pkg.jenkins.io/debian-stable binary/ Release [2042 B]
+Get:19 http://pkg.jenkins.io/debian-stable binary/ Release.gpg [181 B]
+Ign:20 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 InRelease
+Hit:21 https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 Release
+Get:23 http://pkg.jenkins.io/debian-stable binary/ Packages [14.7 kB]
+Fetched 6813 kB in 3s (2187 kB/s)     
+Reading package lists... Done
+```
 ### 安装jenkins
 ```
 sudo apt-get install jenkins
+```
+如下安装成功
+```
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+locale: Cannot set LC_ALL to default locale: No such file or directory
+Selecting previously unselected package daemon.
+(Reading database ... 136881 files and directories currently installed.)
+Preparing to unpack .../daemon_0.6.4-1_amd64.deb ...
+Unpacking daemon (0.6.4-1) ...
+Selecting previously unselected package jenkins.
+Preparing to unpack .../jenkins_2.164.2_all.deb ...
+Unpacking jenkins (2.164.2) ...
+Processing triggers for man-db (2.7.5-1) ...
+Processing triggers for systemd (229-4ubuntu21.2) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+Setting up daemon (0.6.4-1) ...
+Setting up jenkins (2.164.2) ...
+Processing triggers for systemd (229-4ubuntu21.2) ...
+Processing triggers for ureadahead (0.100.0-19) ...
 ```
 ## 启动jenkins
 ```
