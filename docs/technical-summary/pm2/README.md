@@ -69,7 +69,7 @@ pm2 logs
 
 - 重命名
 ```
-pm2 start app.js --name='paa'
+pm2 start app.js --name='paa'//paa就是进程名
 
 pm2 restart paa
 ```
@@ -86,7 +86,7 @@ pm2|访问量大且需要监控的站点
 
 ### 安装
 ```
-npm install pm2 -g
+npm install pm2 --save
 ```
 
 ### 在vue项目中使用pm2
@@ -124,7 +124,7 @@ xxx.listen(7777, res => {
 
 先打包，后调用
 ```js
-   "server": "npm run build && pm2 start blog.js"
+   "server": "npm run build && pm2 start appjs"
 ```
 
 

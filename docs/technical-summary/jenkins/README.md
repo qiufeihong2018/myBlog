@@ -2,7 +2,7 @@
 [[toc]]
 ![avatar](../public/jk.jpeg)
 
-[原文地址](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/jenkins)
+[原文地址](https://github.com/qiufeihong2018/vuepress-app/tree/master/docs/technical-summary/jenkins)
 ## 背景
 [Jenkins官网](https://jenkins.io/)
  > Build great things at any scale 
@@ -261,17 +261,17 @@ Building in workspace /var/lib/jenkins/workspace/vue
 using credential 12dc8386-52e8-4c57-b667-bd8d263626cd
  > git rev-parse --is-inside-work-tree # timeout=10
 Fetching changes from the remote Git repository
- > git config remote.origin.url https://github.com/qiufeihong2018/vuepress-blog.git # timeout=10
-Fetching upstream changes from https://github.com/qiufeihong2018/vuepress-blog.git
+ > git config remote.origin.url https://github.com/qiufeihong2018/vuepress-app.git # timeout=10
+Fetching upstream changes from https://github.com/qiufeihong2018/vuepress-app.git
  > git --version # timeout=10
 using GIT_ASKPASS to set credentials 
- > git fetch --tags --progress https://github.com/qiufeihong2018/vuepress-blog.git +refs/heads/*:refs/remotes/origin/*
+ > git fetch --tags --progress https://github.com/qiufeihong2018/vuepress-app.git +refs/heads/*:refs/remotes/origin/*
  > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
  > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
 Checking out Revision ab0c6b6de9b810dcd9fd107c6329d1e782054976 (refs/remotes/origin/master)
  > git config core.sparsecheckout # timeout=10
  > git checkout -f ab0c6b6de9b810dcd9fd107c6329d1e782054976
-Commit message: "Merge branch 'master' of github.com:qiufeihong2018/vuepress-blog"
+Commit message: "Merge branch 'master' of github.com:qiufeihong2018/vuepress-app"
  > git rev-list --no-walk 9b7e2475ffaef9a60cc38cec1c660d0f9d8dc490 # timeout=10
 [vue] $ /bin/sh -xe /tmp/jenkins5471132310334499324.sh
 + cd /var/lib/jenkins/workspace/vue
@@ -287,8 +287,8 @@ ChromeDriver is already available at '/tmp/73.0.3683.20/chromedriver/chromedrive
 Copying to target path /var/lib/jenkins/workspace/vue/node_modules/chromedriver/lib/chromedriver
 Fixing file permissions
 Done. ChromeDriver binary available at /var/lib/jenkins/workspace/vue/node_modules/chromedriver/lib/chromedriver/chromedriver
-npm WARN vuepress-blog@1.0.0 No repository field.
-npm WARN vuepress-blog@1.0.0 scripts['server'] should probably be scripts['start'].
+npm WARN vuepress-app@1.0.0 No repository field.
+npm WARN vuepress-app@1.0.0 scripts['server'] should probably be scripts['start'].
 npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.7 (node_modules/fsevents):
 npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.7: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
 
@@ -297,8 +297,8 @@ updated 1 package and audited 14738 packages in 13.642s
 found 15 vulnerabilities (1 low, 7 moderate, 7 high)
   run `npm audit fix` to fix them, or `npm audit` for details
 + npm install
-npm WARN vuepress-blog@1.0.0 No repository field.
-npm WARN vuepress-blog@1.0.0 scripts['server'] should probably be scripts['start'].
+npm WARN vuepress-app@1.0.0 No repository field.
+npm WARN vuepress-app@1.0.0 scripts['server'] should probably be scripts['start'].
 npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.7 (node_modules/fsevents):
 npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.7: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
 
@@ -307,7 +307,7 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
   run `npm audit fix` to fix them, or `npm audit` for details
 + npm run dev
 
-> vuepress-blog@1.0.0 dev /var/lib/jenkins/workspace/vue
+> vuepress-app@1.0.0 dev /var/lib/jenkins/workspace/vue
 > vuepress dev docs
 
 
@@ -332,9 +332,9 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
 - 项目启动成功
 - 修改提交后，一键`立即构建`，就可以将最新提交的代码运行起来
 ## 参考文献
-[自动化构建vue项目然后发布到远程服务器](https://blog.csdn.net/ansu2009/article/details/83584796)
+[自动化构建vue项目然后发布到远程服务器](https://app.csdn.net/ansu2009/article/details/83584796)
 
-[Github配合Jenkins，实现vue等前端项目的自动构建与发布](https://blog.csdn.net/t6546545/article/details/88771403)
+[Github配合Jenkins，实现vue等前端项目的自动构建与发布](https://app.csdn.net/t6546545/article/details/88771403)
 
 [如何在Ubuntu 16.04上安装Jenkins](https://www.jianshu.com/p/845f267aec52)
 
@@ -352,14 +352,16 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
 
 [Jenkins+github 前端自动化部署](https://segmentfault.com/a/1190000010200161)
 
-[Jenkins自动化构建vue项目然后发布到远程服务器](https://blog.csdn.net/ansu2009/article/details/83584796)
+[Jenkins自动化构建vue项目然后发布到远程服务器](https://app.csdn.net/ansu2009/article/details/83584796)
 
-[Jenkins自动化发布前端代码VUE (配置模式)](https://blog.csdn.net/rankawin/article/details/81699460)
+[Jenkins自动化发布前端代码VUE (配置模式)](https://app.csdn.net/rankawin/article/details/81699460)
 
 [jenkins配置publish over ssh遇到的问题](https://zhuanlan.zhihu.com/p/39549204)
 
-[jenkins使用publishover ssh插件连接应用机器时，报Message Auth fail的问题](https://blog.csdn.net/u010947098/article/details/61922969)
+[jenkins使用publishover ssh插件连接应用机器时，报Message Auth fail的问题](https://app.csdn.net/u010947098/article/details/61922969)
 
 [Jenkins+git+webhook自动触发部署和测试任务](https://www.jianshu.com/p/ad018160aff9)
 
-[Jenkins定时构建和轮询SCM设置说明](https://blog.csdn.net/MenofGod/article/details/81288987)
+[Jenkins定时构建和轮询SCM设置说明](https://app.csdn.net/MenofGod/article/details/81288987)
+
+[第四十一章 微服务CICD（3）- jenkins + gitlab + webhooks + publish-over-ssh（1）](http://www.bubuko.com/infodetail-1823810.html)

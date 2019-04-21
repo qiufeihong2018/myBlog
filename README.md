@@ -1,11 +1,11 @@
-# vuepress-blog
-> a vuepress blog about qiufeihong
+# vuepress-app
+> a vuepress app about qiufeihong
 
 ## Build Setup
 
 ```
 # clone item
-git clone git@github.com:qiufeihong2018/vuepress-blog.git
+git clone git@github.com:qiufeihong2018/vuepress-app.git
 
 # install dependencies
 npm install
@@ -108,7 +108,7 @@ npm run server
 │   │       ├── 7.cb64ab79.js
 │   │       ├── 8.c34b3a80.js
 │   │       ├── 9.82f7141c.js
-│   │       └── blog.59291851.js
+│   │       └── app.59291851.js
 │   ├── daliy-summary
 │   │   └── 2019
 │   │       ├── 1
@@ -241,14 +241,14 @@ npm run server
 └── todo.md
 
 60 directories, 122 files
-devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -I '*svn|*node_module*' -2
+devue@devue-System-Product-Name:~/myItem/vuepress-app$ tree -I '*svn|*node_module*' -2
 tree: Invalid argument -`2'.
 usage: tree [-acdfghilnpqrstuvxACDFJQNSUX] [-H baseHREF] [-T title ]
         [-L level [-R]] [-P pattern] [-I pattern] [-o filename] [--version]
         [--help] [--inodes] [--device] [--noreport] [--nolinks] [--dirsfirst]
         [--charset charset] [--filelimit[=]#] [--si] [--timefmt[=]<f>]
         [--sort[=]<name>] [--matchdirs] [--ignore-case] [--] [<directory list>]
-devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -I '*svn|*node_module*' -L 2
+devue@devue-System-Product-Name:~/myItem/vuepress-app$ tree -I '*svn|*node_module*' -L 2
 .
 ├── blogg.js
 ├── deploy.sh
@@ -281,7 +281,7 @@ devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -I '*svn|*node_modu
 └── todo.md
 
 18 directories, 11 files
-devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 2  -I '*svn|*node_module*'
+devue@devue-System-Product-Name:~/myItem/vuepress-app$ tree -L 2  -I '*svn|*node_module*'
 .
 ├── blogg.js
 ├── deploy.sh
@@ -314,11 +314,11 @@ devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 2  -I '*svn|*nod
 └── todo.md
 
 18 directories, 11 files
-devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L -I 2 '*svn|*node_module*'
+devue@devue-System-Product-Name:~/myItem/vuepress-app$ tree -L -I 2 '*svn|*node_module*'
 tree: Invalid level, must be greater than 0.
-devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 1 -I  '*svn|*node_module*'
+devue@devue-System-Product-Name:~/myItem/vuepress-app$ tree -L 1 -I  '*svn|*node_module*'
 .
-├── blog.jss
+├── app.jss
 ├── deploy.sh
 ├── dist
 ├── docs
@@ -329,9 +329,9 @@ devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 1 -I  '*svn|*nod
 └── todo.md
 
 3 directories, 6 files
-devue@devue-System-Product-Name:~/myItem/vuepress-blog$ tree -L 2 -I  '*svn|*node_module*'
+devue@devue-System-Product-Name:~/myItem/vuepress-app$ tree -L 2 -I  '*svn|*node_module*'
 .
-├── blog.jss
+├── app.jss
 ├── deploy.sh
 ├── dist
 │   ├── 404.html

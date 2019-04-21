@@ -86,7 +86,7 @@ https://studio3t.com/download/
 ## 参考文献
 [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 
-[MongoDB 导入Json和Bson](https://blog.csdn.net/lwc5411117/article/details/79675326)
+[MongoDB 导入Json和Bson](https://app.csdn.net/lwc5411117/article/details/79675326)
 
 [node-express项目的搭建并通过mongoose操作MongoDB实现增删改查分页排序（四）](https://www.cnblogs.com/wangmaoling/p/10339222.html)
 

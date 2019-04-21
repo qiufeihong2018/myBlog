@@ -46,9 +46,9 @@ VuePress 会为每个页面预渲染生成静态的 HTML，同时，每个页面
 npm install -g vuepress
 ```
 
-### 创建项目vuepess-blog
+### 创建项目vuepess-app
 ```markdown
-mkdir vuepress-blog
+mkdir vuepress-app
 ```
 
 ### 项目初始化
@@ -58,7 +58,7 @@ npm init -y
 完了,会创建一个package.json
 ```js
 {
-  "name": "vuepess-blog",
+  "name": "vuepess-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -78,14 +78,14 @@ touch README.md
 在这个文件中主要写一些这是什么项目啊,这个项目有什么特性啊,这个项目怎么启动啊等等
 
 ```markdown
-# vuepress-blog
-> a vuepress blog about qiufeihong
+# vuepress-app
+> a vuepress app about qiufeihong
 
 ### Build Setup
 
 
 # clone item
-git clone git@github.com:qiufeihong2018/vuepress-blog.git
+git clone git@github.com:qiufeihong2018/vuepress-app.git
 
 # install dependencies
 npm install
@@ -265,7 +265,7 @@ module.exports = [
                 text: '掘金', link: 'https://juejin.im/user/5bf4d63cf265da61561ee241/posts'
             },
             {
-                text: 'CSDN', link: 'https://blog.csdn.net/weixin_38465623'
+                text: 'CSDN', link: 'https://app.csdn.net/weixin_38465623'
             },
             {
                 text: 'segmentfault', link: 'https://segmentfault.com/u/qiufeihong2018'
@@ -382,7 +382,7 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
 ### 12345
 ```bash
 # clone item
-git clone git@github.com:qiufeihong2018/vuepress-blog.git
+git clone git@github.com:qiufeihong2018/vuepress-app.git
 
 # install dependencies
 npm install 
@@ -431,7 +431,7 @@ touch README.md
 
 ```js
 {
-  "name": "vuepress-blog",
+  "name": "vuepress-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -439,7 +439,7 @@ touch README.md
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
-    "server": "npm run build && pm2 start blog.js",
+    "server": "npm run build && pm2 start appjs",
     "d": "bash deploy.sh"
   },
   "keywords": [],
@@ -476,7 +476,7 @@ git init
 
 git add .
 
-git commit -m "my first push vuepess blog"
+git commit -m "my first push vuepess app"
 
 git push
 
@@ -546,21 +546,21 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const chalk = require('chalk')
-const blog = express();
-blog.use(express.static(path.resolve(__dirname, './dist')))
+const app = express();
+app.use(express.static(path.resolve(__dirname, './dist')))
 
-blog.get('*', function(req, res) {
+app.get('*', function(req, res) {
     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
     res.send(html)
 })
-blog.listen(7777, res => {
+app.listen(7777, res => {
     console.log(chalk.yellow('Start Service On 7777'));
 });
 
 ```
 3. 添加启动命令
 
-npm run server:这条命令是npm run build && pm2 start blog.js,意思是打包并且启动pm2
+npm run server:这条命令是npm run build && pm2 start app.js意思是打包并且启动pm2
 
 想要知道更多pm2操作，请移步[pm2](https://pm2.io/doc/en/runtime/overview/)
 

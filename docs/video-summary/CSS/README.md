@@ -204,4 +204,4 @@ attribute是HTML标签上的特性，它的值只能够是字符串；
 ### 参考文献
 [xhtml、html与html5的区别](xhtml、html与html5的区别)
 
-[HTML 表单 (form) 的作用解释](https://blog.csdn.net/ajianyingxiaoqinghan/article/details/77678772)
+[HTML 表单 (form) 的作用解释](https://app.csdn.net/ajianyingxiaoqinghan/article/details/77678772)
