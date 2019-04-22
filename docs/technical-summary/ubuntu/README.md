@@ -66,3 +66,13 @@ export QT_IM_MODULE=fcitx
 ![avatar](pubilc/language4.png)
 
 [ubuntu sudo update与upgrade的作用及区别](http://www.baiyuxiong.com/?p=529)
+
+## 杀死僵尸进程
+```
+ps -ef        //查看进程,发现里面有个PPID选项,对这个就是他的父进程.
+ 
+kill --PPID  //杀掉他的父进程
+```
+
+## 参考文献
+[如何杀死僵尸进程](https://blog.51cto.com/wiliiwin/202015)
