@@ -468,6 +468,24 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
 ```
 - 项目启动成功
 - 修改提交后，一键`立即构建`，就可以将最新提交的代码运行起来
+
+## 解决构建完成后自动杀掉衍生进程的问题
+修改BUILD_ID:jenkins默认会在构建完成后杀掉构建过程中shell命令触发的衍生进程。jenkins根据BUILD_ID识别某个进程是否为构建过程的衍生进程，故修改BUILD_ID后，jenkins就无法识别是否为衍生进程，则此进程能在后台保留运行*
+```
+OLD_BUILD_ID=$BUILD_ID
+echo $OLD_BUILD_ID
+BUILD_ID=dontKillMe
+cd /var/lib/jenkins/workspace/ceres-cms-vue
+npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
+npm install
+npm run build
+npm run pm2
+pm2 list
+BUILD_ID=$OLD_BUILD_ID
+echo $BUILD_ID
+```
+
+
 ## 参考文献
 
 [Github配合Jenkins，实现vue等前端项目的自动构建与发布](https://app.csdn.net/t6546545/article/details/88771403)
@@ -503,3 +521,5 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
 [第四十一章 微服务CICD（3）- jenkins + gitlab + webhooks + publish-over-ssh（1）](http://www.bubuko.com/infodetail-1823810.html)
 
 [jenkins配置权限不对导致无法登陆或者空白页面解决办法](https://blog.csdn.net/gaochao1995/article/details/41897141)
+
+[jenkins解决构建完成后自动杀掉衍生进程](https://blog.csdn.net/wzqnls/article/details/78506055)
