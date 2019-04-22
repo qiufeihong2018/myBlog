@@ -487,9 +487,6 @@ echo $BUILD_ID
 
 
 ## 参考文献
-
-[Github配合Jenkins，实现vue等前端项目的自动构建与发布](https://app.csdn.net/t6546545/article/details/88771403)
-
 [如何在Ubuntu 16.04上安装Jenkins](https://www.jianshu.com/p/845f267aec52)
 
 [Jenkins卸载方法（Windows/Linux/MacOS）](https://www.cnblogs.com/EasonJim/p/6277708.html)
