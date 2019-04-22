@@ -501,3 +501,5 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
 [Jenkins定时构建和轮询SCM设置说明](https://app.csdn.net/MenofGod/article/details/81288987)
 
 [第四十一章 微服务CICD（3）- jenkins + gitlab + webhooks + publish-over-ssh（1）](http://www.bubuko.com/infodetail-1823810.html)
+
+[jenkins配置权限不对导致无法登陆或者空白页面解决办法](https://blog.csdn.net/gaochao1995/article/details/41897141)
