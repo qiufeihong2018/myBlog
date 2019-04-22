@@ -142,4 +142,18 @@ n rm 6.4.0
 
 ## npm 问题
 npm install 安装 node_modules中的vue-virtual-scroll-list包缺少index.js
+## 升级node
+[Install Node.js to install n to install Node.js?](https://stackoverflow.com/questions/19451851/install-node-js-to-install-n-to-install-node-js)
+从源码中安装n
+```
+mkdir ~/tmp
+cd ~/tmp
+git clone https://github.com/tj/n
+cd n
+make install
+```
+安装完后，安装最新node版本
+```
+n stable
+```
 
