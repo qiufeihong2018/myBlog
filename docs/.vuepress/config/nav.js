@@ -200,6 +200,9 @@ module.exports = [
             },
             {
                 text: 'v2ex', link: 'https://www.v2ex.com/'
+            },
+            {
+                text: '语雀', link: 'https://www.yuque.com/dashboard'
             }
         ]
     },

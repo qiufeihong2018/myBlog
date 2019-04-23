@@ -22,5 +22,12 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['interview-flush/']
+    },
+    {
+        title: '工具',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['cv-ftqq/']
+
     }
 ]
