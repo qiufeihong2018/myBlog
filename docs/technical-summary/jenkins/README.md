@@ -144,7 +144,7 @@ PREFIX=/$NAME
 sudo systemctl restart jenkins
 ```
 
-::: warnning改完后会重启出现bug
+::: danger 改完后会重启出现bug
 ```
 Warning: jenkins.service changed on disk. Run 'systemctl daemon-reload' to reload units.
 ```
@@ -341,7 +341,7 @@ chmod 600 authorized_keys
 ### 构建
 ![avatar](../public/jk23.png)
 ### jenkins轮询gitlab(必须要是管理员身份)
-::: warnning
+::: danger
 如果没有安装Gitlab Hook和gitlab上增加webhook的话，会报错
 :::
 ![avatar](../public/jk29.png)
