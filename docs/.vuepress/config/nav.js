@@ -72,6 +72,9 @@ module.exports = [
                 text: '官方文档',
                 items: [
                     {
+                        text: 'socket.io', link: 'https://socket.io/#examples'
+                    },
+                    {
                         text: 'gitlab', link: 'https://docs.gitlab.com/'
                     },
                     {
