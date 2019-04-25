@@ -33,6 +33,9 @@ module.exports = [
                     },
                     {
                         text: 'ECMAScript 6 入门', link: 'http://es6.ruanyifeng.com/'
+                    },
+                    {
+                        text: 'WebStack.cc - 设计师网址导航', link:'http://yangweijie.cn/webstack#'
                     }
                 ]
             },
@@ -142,7 +145,6 @@ module.exports = [
                     {
                         text: 'MDN Web 文档', link: 'https://developer.mozilla.org/zh-CN/'
                     },
-
                     {
                         text: 'DCloud', link: 'http://www.dcloud.io/'
                     },
