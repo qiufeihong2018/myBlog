@@ -8,6 +8,9 @@
  > Build great things at any scale 
  The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
 
+![avatar](../public/jk28.jpeg)
+
+
 其是一款开源自动化部署服务器，由java编写，目的是为了持久集成。
 ## 具体步骤
 - 项目和远程仓库
@@ -17,7 +20,8 @@
 - Jenkins与远程服务器
     - 通过jenkins上传到远程服务器
 
-![avatar](../public/jk28.jpeg)
+![avatar](../public/process.jpg)
+
 
 ## 安装
 先添加其`Debian`软件包，然后更新存储库,最后使用存储库`apt-get`安装`jenkins`。
@@ -27,7 +31,7 @@
 ```
 sudo apt-get install openjdk-8-jdk
 ```
-如下安装完成
+安装完成如下
 ```
 update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/appletviewer to provide /usr/bin/appletviewer (appletviewer) in auto mode
 update-alternatives: using /usr/lib/jvm/java-8-openjdk-amd64/bin/jconsole to provide /usr/bin/jconsole (jconsole) in auto mode
@@ -51,7 +55,7 @@ wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add
 ```
 echo deb http://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
 ```
-添加成功
+添加成功如下
 ```
 deb http://pkg.jenkins.io/debian-stable binary/
 ```
@@ -59,7 +63,7 @@ deb http://pkg.jenkins.io/debian-stable binary/
 ```
 sudo apt-get update
 ```
-如下更新成功
+更新成功如下
 ```
 Ign:17 http://pkg.jenkins.io/debian-stable binary/ InRelease                   
 Get:18 http://pkg.jenkins.io/debian-stable binary/ Release [2042 B]
@@ -74,7 +78,7 @@ Reading package lists... Done
 ```
 sudo apt-get install jenkins
 ```
-如下安装成功
+安装成功如下
 ```
 perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
 locale: Cannot set LC_ALL to default locale: No such file or directory
@@ -99,7 +103,7 @@ Processing triggers for ureadahead (0.100.0-19) ...
 sudo vim /etc/init.d/jenkins
 ```
 修改`$HTTP_PORT`改成所需的端口
-```
+``` {3}
   # Verify that the jenkins port is not already in use, winstone does not exit
     # even for BindException
     check_tcp_port "http" "$HTTP_PORT" "1314" "$HTTP_HOST" "0.0.0.0" || return 2
@@ -114,7 +118,7 @@ sudo vim /etc/init.d/jenkins
 sudo vim  /etc/default/jenkins
 ```
 修改`HTTP_PORT`改成所需的端口
-```
+``` {10}
 ration, build records,
 #   that sort of things.
 #
@@ -145,10 +149,10 @@ sudo systemctl restart jenkins
 ```
 
 ::: danger 改完后会重启出现bug
-```
 Warning: jenkins.service changed on disk. Run 'systemctl daemon-reload' to reload units.
-```
+:::
 解决方法：
+
 1. 
 ```
 systemctl daemon-reload
@@ -157,19 +161,17 @@ systemctl daemon-reload
 ```
 systemctl start jenkins
 ```
-:::
-
 新端口是1314
 ![avatar](../public/jk40.png)
 ## 启动jenkins
 ```
 sudo systemctl start jenkins
 ```
-- 用下面命令测试或者直接ip+端口（0.0.0.0:8080）访问`jenkins`
+- 用下面命令测试或者直接ip+端口或者0.0.0.0:8080访问`jenkins`
 ```
 sudo systemctl status jenkins
 ```
-- 成功如下：不成功就是unactive
+- 成功如下：
 ```
 ● jenkins.service - LSB: Start Jenkins at boot time
    Loaded: loaded (/etc/init.d/jenkins; bad; vendor preset: enabled)
@@ -200,20 +202,22 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - 点击安装建议的插件
 ![avatar](../public/jk2.png)
 
-- 开始安装
+- 开始安装，等的时间会比较久
 ![avatar](../public/jk3.png)
 
-- 安装完成，会提示设置管理用户。不要跳过，密码未知，但是最好还是创建用户。
+- 安装完成，会提示设置管理用户。可以选择跳过，但是密码未知。最好还是创建用户。
 ![avatar](../public/jk4.png)
 
-- 创建好用户
+- 创建好用户后，进入实例配置
 ![avatar](../public/jk5.png)
 
-- jenkins面板
+- 欢迎来到jenkins面板，开始我们的表演
 ![avatar](../public/jk6.png)
 
-::: warrning
+::: warning
 jenkins无法登录或者空白页面
+:::
+解决方案：
 ```
 vim /var/lib/jenkins/config.xml
 ```
@@ -226,28 +230,29 @@ vim /var/lib/jenkins/config.xml
 ```
 sudo systemctl restart jenkins
 ```
-:::
 ## 连接github
 ### 在jenkin上的操作：安装相关插件
-- 安装插件'Publish Over SSH',连接远程服务器的插件。下图是已经安装后的
+- 安装插件'Publish Over SSH',连接远程服务器的插件。
+
+下图是已经安装后的
 ![avatar](../public/jk19.png)
 - 安装插件'[GitHub Integration Plugin](https://github.com/KostyaSha/github-integration-plugin/blob/master/README.adoc)',GitHub集成插件
 ### 在github上的操作：配置webhook
-- github项目中点击'Settings'选项卡
-  - 点击'webhook'菜单项
-    - 添加'webhook'
+- github项目中点击`Settings`选项卡
+  - 点击`webhook`菜单项
+    - 添加`webhook`
     ![avatar](../public/jk14.png)
-      - 'Payload URL'中'http://'+jenkins部署的ip和端口号+'/github-webhook/'
-      - 'Content type'中选择'application/json'
-      - 'Which events would you like to trigger this webhook?'选择'just the push event'
-      - 选择'Active'  
-      - 点击'Update webhook'
+      - `Payload URL`中`http://`+jenkins部署的ip和端口号+`/github-webhook/`
+      - `Content type`中选择`application/json`
+      - `Which events would you like to trigger this webhook?`选择`just the push event`
+      - 选择`Active`  
+      - 点击`Update webhook`
       ![avatar](../public/jk13.png)
 ### jenkins拉取github上vue代码在本地启动
 
 - 新建任务
   - 任务名随意
-  - 选择'构建一个自由风格的软件项目'，最后'确定'
+  - 选择`构建一个自由风格的软件项目`，最后`确定`
 ![avatar](../public/jk8.png)
  
 - 绑定github项目
@@ -255,16 +260,16 @@ sudo systemctl restart jenkins
 
 - 绑定项目的下载链接
 ![avatar](../public/jk9.png)
-  - 选择'Git'
-  - 在'Repositories'中的'Repository URL'填入项目下载链接(http)
-  - 'Credentials'中添加身份信息
-    - 在类型中选择'Username with password'
-    - 用户名和密码就是github的账号和密码，最后'确定'
+  - 选择`Git`
+  - 在`Repositories`中的`Repository URL`填入项目下载链接(http)
+  - `Credentials`中添加身份信息
+    - 在类型中选择`Username with password`
+    - 用户名和密码就是github的账号和密码，最后`确定`
 ![avatar](../public/jk10.png)
-  - 'Branches to build' 选择部署的分支(*/分支名)
+  - `Branches to build`选择部署的分支(*/分支名)
 
 - 构建触发器
-  - 选择'GitHub hook trigger for GITScm polling'
+  - 选择`GitHub hook trigger for GITScm polling`
 ![avatar](../public/jk11.png)
 
 - 构建
@@ -282,7 +287,7 @@ sudo systemctl restart jenkins
         npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver 
     ```    
 - 保存    
-任务创建完成，'jenkins'大功告成
+任务创建完成，`jenkins`大功告成
 ### jenkins拉取github上vue代码在远程服务器启动
 - 连接远程服务器
   - 系统管理->系统设置->Publish over SSH
@@ -292,12 +297,10 @@ sudo systemctl restart jenkins
    	- Hostname:服务器ip
    	- Username:服务器中的用户名
    	- Remote Directory:项目地址
-   	- 点击'Test Configuration',success那么连接成功
+   	- 点击`Test Configuration`,出现`success`，那么连接成功
 ![avatar](../public/jk20.png)
   - 远程服务器
     - 设置公钥  	
-    
-  
   
   > 获取公钥和私钥  
   ```
@@ -342,12 +345,12 @@ chmod 600 authorized_keys
 ![avatar](../public/jk23.png)
 ### jenkins轮询gitlab(必须要是管理员身份)
 ::: danger
-如果没有安装Gitlab Hook和gitlab上增加webhook的话，会报错
+如果没有安装`Gitlab Hook`和gitlab上增加`webhook`的话，会报错
 :::
 ![avatar](../public/jk29.png)
-- gitlab项目侧边栏中Settings-Integrations增加webhook
+- gitlab项目侧边栏中`Settings-Integrations`增加`webhook`
 ![avatar](../public/jk30.png)
-- 添加Gitlab Hook插件
+- 添加`Gitlab Hook`插件
 ![avatar](../public/jk31.png)、
 ## 轮询
 - 定时构建：无论有无最新代码，都按时构建
@@ -379,13 +382,13 @@ chmod 600 authorized_keys
 - 本地push代码到github
 ![avatar](../public/jk15.png)
 
-- 点击'立即构建'
+- 点击`立即构建`
 ![avatar](../public/jk16.png)
 
 - 构建执行状态
   ![avatar](../public/jk17.png)
 
-- 点击'#13',进入工程详情
+- 点击`#13`,进入工程详情
   ![avatar](../public/jk18.png)
 
 - 控制台输出结果
@@ -470,8 +473,10 @@ found 15 vulnerabilities (1 low, 7 moderate, 7 high)
 - 修改提交后，一键`立即构建`，就可以将最新提交的代码运行起来
 
 ## 解决构建完成后自动杀掉衍生进程的问题
-修改BUILD_ID:jenkins默认会在构建完成后杀掉构建过程中shell命令触发的衍生进程。jenkins根据BUILD_ID识别某个进程是否为构建过程的衍生进程，故修改BUILD_ID后，jenkins就无法识别是否为衍生进程，则此进程能在后台保留运行*
-```
+- 修改`BUILD_ID`
+
+jenkins默认会在构建完成后杀掉构建过程中shell命令触发的衍生进程。jenkins根据`BUILD_ID`识别某个进程是否为构建过程的衍生进程，故修改`BUILD_ID`后，jenkins就无法识别是否为衍生进程，则此进程能在后台保留运行
+``` {4,5,6,7,8,9}
 OLD_BUILD_ID=$BUILD_ID
 echo $OLD_BUILD_ID
 BUILD_ID=dontKillMe
@@ -484,8 +489,11 @@ pm2 list
 BUILD_ID=$OLD_BUILD_ID
 echo $BUILD_ID
 ```
-
-
+### 杀掉改变id的衍生进程
+```
+netstat -lntp
+kill -g {id}
+```
 ## 参考文献
 [如何在Ubuntu 16.04上安装Jenkins](https://www.jianshu.com/p/845f267aec52)
 
