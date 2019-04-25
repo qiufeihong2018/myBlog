@@ -368,7 +368,7 @@ jenkins想要执行下一个构建任务的时候，是必须等上一个任务�
 ![avatar](../public/jk32.png)
 - 构建中的执行shell为
 ``` {4,5}
-cd /var/lib/jenkins/workspace/ceres-cms-vue
+cd /var/lib/jenkins/workspace/ceres-cms-vue                                                     
 npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
 npm install
 npm run build
