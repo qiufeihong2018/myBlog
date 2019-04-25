@@ -33,3 +33,5 @@
  [HTML/CSS代码快速生成](https://app.csdn.net/zhw0596/article/details/79584937)
 
  [git commit前检测husky与pre-commit](https://www.jianshu.com/p/f0d31f92bfab)
+
+[Ubuntu Error: ENOSPC:System limit for number of file watchers reached](https://blog.csdn.net/weixin_43760383/article/details/84326032)

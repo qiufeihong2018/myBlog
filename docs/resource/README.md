@@ -39,6 +39,8 @@ guyikeji20160927
 
 ## VUE
 
+### [尤雨溪Vue教程](https://www.bilibili.com/video/av48152676/?p=3)
+
 ### [Vue核心技术 Vue+Vue-Router+Vuex+SSR实战精讲](https://coding.imooc.com/lesson/196.html#mid=12212)
 
 ### [传智2018vue.js基础+项目实战](https://www.bilibili.com/video/av24826984/?p=64)
