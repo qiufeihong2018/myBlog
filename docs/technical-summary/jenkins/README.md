@@ -2,7 +2,8 @@
 [[toc]]
 ![avatar](../public/jk.jpeg)
 
-[原文地址](https://github.com/qiufeihong2018/vuepress-app/tree/master/docs/technical-summary/jenkins)
+[原文地址](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/jenkins)
+
 ## 背景
 [Jenkins官网](https://jenkins.io/)
  > Build great things at any scale 
@@ -324,26 +325,26 @@ cat id_rsa.pub >> authorized_keys
 chmod 600 authorized_keys
 ```  
   
-    
+  将公钥放进远程服务器 
   ```
     vim ~/.ssh/authorized_keys 
   ```
-![avatar](../public/jk21.png)
+
 
 - 立即构建
 传输失败
    ![avatar](../public/jk24.png)
 
-     	
-### jenkins轮询github
+
+
+
 
 ## 连接gitlab
 ### 源码管理
 ![avatar](../public/jk22.png)
 `Repository URL`必须要http请求
 ### 构建
-![avatar](../public/jk23.png)
-### jenkins轮询gitlab(必须要是管理员身份)
+### 安装`Gitlab Hook`
 ::: danger
 如果没有安装`Gitlab Hook`和gitlab上增加`webhook`的话，会报错
 :::
@@ -351,7 +352,29 @@ chmod 600 authorized_keys
 - gitlab项目侧边栏中`Settings-Integrations`增加`webhook`
 ![avatar](../public/jk30.png)
 - 添加`Gitlab Hook`插件
-![avatar](../public/jk31.png)、
+![avatar](../public/jk31.png)
+
+
+![avatar](../public/jk23.png)
+### jenkins轮询gitlab(必须要是管理员身份)
+jenkins想要执行下一个构建任务的时候，是必须等上一个任务完成的（没有勾选并发执行任务）
+
+由于`npm run dev`，所以在定时构建的时候，并没有收到理想效果。
+需求是：维护进程，定时执行
+步骤如下：
+- 加上pm2构建项目，[pm2入口](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/pm2)
+
+- 构建触发器，定时构建和轮询SCM二选一
+![avatar](../public/jk32.png)
+- 构建中的执行shell为
+``` {4,5}
+cd /var/lib/jenkins/workspace/ceres-cms-vue
+npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
+npm install
+npm run build
+npm run pm2
+pm2 list
+```
 ## 轮询
 - 定时构建：无论有无最新代码，都按时构建
 - 轮询SCM：只要代码有更新，都会构建
@@ -378,6 +401,7 @@ chmod 600 authorized_keys
 
   - 定时构建和轮询SCM使用互不冲突，具体如何组合，需要根据项目情况合理配置；
 
+目前出现的问题是：无法根据远程仓库是否更新来拉取代码和部署。
 ## 测试
 - 本地push代码到github
 ![avatar](../public/jk15.png)
