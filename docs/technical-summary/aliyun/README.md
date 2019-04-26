@@ -53,6 +53,11 @@ server {
 
         }
 ```
+标签|用法
+--|--
+$http_host和$remote_addr|这里的$http_host和$remote_addr都是nginx的导出变量，可以再配置文件中直接使用。如果Host请求头部没有出现在请求头中，则$http_host值为空，但是$host值为主域名。因此，一般而言，会用$host代替$http_host变量，从而避免http请求中丢失Host头部的情况下Host不被重写的失误。
+proxy_set_header X-Real-IP $remote_addr|将$remote_addr的值放进变量X-Real-IP中，此变量名可变，$remote_addr的值为客户端的ip
+proxy_pass|只需要提供域名或ip地址和端口。可以理解为端口转发，可以是tcp端口，也可以是udp端口
 - 修改nginx配置后，重新启动nginx
 ```bash
 /etc/init.d/nginx reload
