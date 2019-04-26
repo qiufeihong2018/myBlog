@@ -95,6 +95,11 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['tools/']
+    }, {
+        title: 'nginx服务器配置+二级域名搭建项目',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['aliyun/']
     }
 ]
 
