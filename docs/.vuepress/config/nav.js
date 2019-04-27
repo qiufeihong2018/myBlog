@@ -1,18 +1,37 @@
-module.exports = [
-  {
+module.exports = [{
     text: "首页",
     link: "/"
   },
   {
     text: "学习资源",
-    items: [
-      { text: "前端学习视频", link: "/front-end-video/" },
-      { text: "全栈", link: "/resource/" },
-      { text: "新闻", link: "/news/" },
-      { text: "开源项目", link: "/openItem/" },
-      { text: "分享", link: "/share/" },
-      { text: "网站", link: "/network/" },
-      { text: "设计", link: "/design/" }
+    items: [{
+        text: "前端学习视频",
+        link: "/front-end-video/"
+      },
+      {
+        text: "全栈",
+        link: "/resource/"
+      },
+      {
+        text: "新闻",
+        link: "/news/"
+      },
+      {
+        text: "开源项目",
+        link: "/openItem/"
+      },
+      {
+        text: "分享",
+        link: "/share/"
+      },
+      {
+        text: "网站",
+        link: "/network/"
+      },
+      {
+        text: "设计",
+        link: "/design/"
+      }
     ]
   },
   {
@@ -29,11 +48,9 @@ module.exports = [
   },
   {
     text: "优秀博客",
-    items: [
-      {
+    items: [{
         text: "个人博客",
-        items: [
-          {
+        items: [{
             text: "张鑫旭-鑫空间-鑫生活",
             link: "https://www.zhangxinxu.com/"
           },
@@ -48,13 +65,15 @@ module.exports = [
           {
             text: "WebStack.cc - 设计师网址导航",
             link: "http://yangweijie.cn/webstack#"
+          }, {
+            text: 'D2 Admin',
+            link: 'https://doc.d2admin.fairyever.com/zh/'
           }
         ]
       },
       {
         text: "团队博客",
-        items: [
-          {
+        items: [{
             text: "美团技术博客",
             link: "https://tech.meituan.com/"
           },
@@ -88,11 +107,9 @@ module.exports = [
   },
   {
     text: "官网链接",
-    items: [
-      {
+    items: [{
         text: "官方文档",
-        items: [
-          {
+        items: [{
             text: "socket.io",
             link: "https://socket.io/#examples"
           },
@@ -180,8 +197,7 @@ module.exports = [
       },
       {
         text: "学习社区",
-        items: [
-          {
+        items: [{
             text: "MDN Web 文档",
             link: "https://developer.mozilla.org/zh-CN/"
           },
@@ -203,8 +219,7 @@ module.exports = [
           },
           {
             text: "阿里云",
-            link:
-              "https://www.aliyun.com/?spm=a2c4e.11154921.1280361.1.668724dcivLtu3"
+            link: "https://www.aliyun.com/?spm=a2c4e.11154921.1280361.1.668724dcivLtu3"
           },
           {
             text: "百度地图",
@@ -232,8 +247,7 @@ module.exports = [
   },
   {
     text: "个人主页",
-    items: [
-      {
+    items: [{
         text: "GitHub",
         link: "https://github.com/qiufeihong2018"
       },
