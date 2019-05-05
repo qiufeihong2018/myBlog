@@ -18,10 +18,16 @@ module.exports = [
         children: ['theSkillofFront-end/']
     },
     {
-        title: '同花顺面经',
+        title: '杭州同花顺面经',
         collapsable: false,
         sidebarDepth: 2,
         children: ['interview-flush/']
+    },
+    {
+        title: '宁波金唐软件面试',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['interview-jintang/']
     },
     {
         title: '工具',
