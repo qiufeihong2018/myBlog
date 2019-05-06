@@ -46,5 +46,11 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['CSS/']
+    },
+    {
+        title: 'Javascript 设计模式系统讲解与应用',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['javascript-design/']
     }
 ]
