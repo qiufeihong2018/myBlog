@@ -442,3 +442,96 @@ console.log(p.addClass())
 - 程序执行：顺序/判断/循环——结构化
 - 面向对象——数据结构化
 - 对于计算机来说，结构化的才是最简单的
+- 编程应该简单和抽象
+
+### UML类图
+- 统一建模语言
+- 类图
+- 关系——泛化和关联
+- 代码和类图结合
+
+## 设计原则
+### 何为设计
+- 描述
+  - 按照一种思路或者标准来实现功能
+  - 不同方案实现相同功能
+  - 随着需求的增加，设计的作用才能体现出来
+- 结合《unix/linux设计哲学》
+  - 大准则
+    - 准则1：小即是美
+    - 准则2：让每个程序只做好一件事
+    - 准则3：快速建立模型
+    - 准则4：舍弃高效率而取可移植性
+    - 准则5：采用纯文本来存储数据
+    - 准则6：充分利用软件的杠杆效应（软件复用）
+    - 准则7：使用shell脚本来提高杠杆效应和可移植性
+    - 准则8：避免强制性的用户界面
+    - 准则9：让每个程序都称为过滤器
+  - 小准则
+    - 允许用户定制环境
+    - 尽量使操作系统内核小而轻量化
+    - 使用小写字母并尽量简短
+    - 沉默是金
+    - 各部分之和大于整体
+    - 寻求90%的解决方案
+
+linux的每个命令都是通过程序运行的
+
+准则2：让每个程序只做好一件事+准则9：让每个程序都称为过滤器
+```bash
+ls | grep *.js | grep 'webpack'
+```
+
+SOLID五大设计原则
+S-单一职责原则
+- 一个程序只做一件事情
+- 如果功能过于复杂则拆分
+O-开放封闭原则
+- 对扩展开放，对修改封闭
+- 增加需求时，扩展新代码，而非修改已有代码
+- 这是软件设计的终极目标
+L-李氏置换原则
+- 子类能覆盖父类
+- 父类能出现的地方子类就能出现
+- js中使用较少
+I-接口独立原则
+- 保持接口的单一独立，避免出现“胖接口”
+- js中没有接口
+- 类似于单一原则
+D-依赖导致原则
+- 依赖于抽象而不是具体
+- 使用方只关注接口而不关注具体类的实现
+- js中使用较少
+
+promise实现SO原则
+- 每个then只做一件事情
+- 如果要增加需求,只要增加then即可
+```javascript
+function loadImg(src) {
+  return new Promise(function (resolve, reject) {
+    let img = document.createElement('img')
+    img.onload = function () {
+      resolve(img)
+    }
+    img.onerror = function () {
+      reject('error')
+    }
+    img.src = src
+  })
+}
+let src = 'https://avatars1.githubusercontent.com/u/12479470?s=460&v=4'
+let res = loadImg(src)
+res.then(function (img) {
+  alert(`img's height:${img.height}`)
+  return img
+}).then(function (img) {
+  alert(`img's width:${img.width}`)
+  return img
+}).then(function(img){
+  alert(img.src)
+}).catch(function (ex) {
+  alert(`errorrrrr${ex}`)
+})
+
+
+```
