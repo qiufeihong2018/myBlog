@@ -349,7 +349,96 @@ wang.study();
 
 ```
 ### 封装
+
 - public 完全开放
 - protected 对子类开放
 - private 对自己开放
 - （ES6尚不支持，typesript可以）
+1. 减少耦合，不该外露的不外露
+2. 利于数据/接口的权限管理
+3. ES6目前不支持，一般认为_开头的属性是private
+支持变量声明
+[TypeScript](https://www.tslang.cn/play/index.html)
+
+### 多态
+- 同一接口，不同表现
+- js应用极少
+- 需要结合java等语言的接口/重写/重载等功能
+1. 保持子类的开放性和灵活性
+2. 面向接口编程
+
+```javascript
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+}
+class A extends Person {
+  constructor(name) {
+    super(name)
+    this.name=name
+  }
+  getName() {
+    alert(`我是a${this.name}`)
+  }
+}
+class B extends Person {
+  constructor(name) {
+    super(name)
+    this.name=name
+  }
+  getName() {
+    alert(`我是b${this.name}`)
+  }
+}
+
+const a = new A('a')
+a.getName()
+
+const b = new B('b')
+b.getName()
+```
+
+### 应用举例
+- jQuery就是一个class
+- $('p')就是一个实例
+- jQuery就是面向对象实现的
+```javascript
+class jquery {
+  constructor(selector) {
+    let slice = Array.prototype.slice //抽取当前数组中的一段元素组合成一个新数组。
+    let dom = slice.call(document.querySelectorAll(selector)) //返回与指定的选择器匹配的文档中的元素列表，变成数组
+    let len = dom ? dom.length : 0
+    for (let i = 0; i < len; i++) {
+      this[i] = dom[i]
+    }
+    this.length = len
+    this.selector = selector || ''
+  }
+  append(node) {
+    // ...
+  }
+  addClass(name) {
+    // ...
+  }
+  html(data) {
+    // ...
+  }
+  // 省略
+}
+
+window.$ = function (selector) {
+  return new jquery(selector)
+}
+
+var p = $('p')
+console.log(p)
+console.log(p.append())
+console.log(p.addClass())
+
+```
+
+### 为何使用面向对象
+- 程序执行：顺序/判断/循环——结构化
+- 面向对象——数据结构化
+- 对于计算机来说，结构化的才是最简单的
