@@ -59,7 +59,7 @@ pm2 stop <app>
 
 - 删除
 ```
-pm2 delete <app>
+pm2 delete <app>/<id>
 ```
 
 - 显示日志
