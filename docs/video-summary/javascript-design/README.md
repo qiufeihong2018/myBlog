@@ -483,22 +483,22 @@ ls | grep *.js | grep 'webpack'
 ```
 
 SOLID五大设计原则
-S-单一职责原则
+1. S-单一职责原则
 - 一个程序只做一件事情
 - 如果功能过于复杂则拆分
-O-开放封闭原则
+2. O-开放封闭原则
 - 对扩展开放，对修改封闭
 - 增加需求时，扩展新代码，而非修改已有代码
 - 这是软件设计的终极目标
-L-李氏置换原则
+3. L-李氏置换原则
 - 子类能覆盖父类
 - 父类能出现的地方子类就能出现
 - js中使用较少
-I-接口独立原则
+4. I-接口独立原则
 - 保持接口的单一独立，避免出现“胖接口”
 - js中没有接口
 - 类似于单一原则
-D-依赖导致原则
+5. D-依赖导致原则
 - 依赖于抽象而不是具体
 - 使用方只关注接口而不关注具体类的实现
 - js中使用较少
@@ -535,3 +535,104 @@ res.then(function (img) {
 
 
 ```
+
+### 从设计到模式
+1. 创建型(5)
+- 工厂模式
+  - 工厂方法模式
+  - 抽象工厂模式
+  - 建造者模式
+- 单例模式
+- 原型模式
+
+2. 结构型(7)
+- 适配器模式
+- 装饰器模式
+- 代理模式
+- 外观模式
+- 桥接模式
+- 组合模式
+- 享元模式
+
+3. 行为型(11)
+- 策略模式
+- 模板方法模式
+- 观察者模式(js watch)
+- 迭代器模式(ES6)
+- 职责连模式
+- 命令模式
+- 备忘录模式
+- 状态模式
+- 访问者模式
+- 中介者模式
+- 解释器模式
+
+### 面试题示例
+#### 第一题
+1. 打车时,可以打专车或者快车,任何车都有车牌号和名称
+2. 不同车价格不同,快车每公里1元,专车每公里2元
+3. 行程开始时,显示车辆信息
+4. 行车结束时,显示打车金额(假定行程就5公里)
+问题:
+- 画出UML类图
+- 用ES6语法写出该示例
+
+我的版本:
+![avatar](../public/UML.jpg)
+```javascript
+class car {
+  constructor(name, id) {
+    this.name = name
+    this.id = id
+  }
+  start() {
+    alert(`我在乘坐${this.name},车牌是${this.id}`)
+  }
+  end(){}
+}
+
+class quickCar extends car {
+  constructor(name, id, free, length) {
+    super(name, id)
+    this.total = free * length
+  }
+  end() {
+    alert(`费用是${this.total}`)
+  }
+}
+
+class specialCar extends car {
+  constructor(name, id, free, length) {
+    super(name, id)
+    this.total = free * length
+  }
+  end() {
+    alert(`费用是${this.total}`)
+  }
+}
+
+const qCar = new quickCar('aodi', '23423dfasdfasd', 1, 5)
+qCar.start()
+qCar.end()
+const sCar = new specialCar('benchi', '2fdssd', 2, 5)
+sCar.start()
+sCar.end()
+```
+
+
+#### 第二题
+1. 某停车场,分3层,每层100车位
+2. 每个车位都能监控到车辆的驶入和离开
+3. 车辆进入前,显示每层的空余车位数量
+4. 车辆进入时,摄像头可识别车牌号和时间
+5. 车辆出来时,出口显示器显示车牌号和停车时长
+
+问题
+- 画出UML类图
+- 编码
+![avatar](../public/UML2.jpg)
+
+## 材料
+[《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
+
+链接: https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow 提取码: bup5 复制这段内容后打开百度网盘手机App，操作更方便哦

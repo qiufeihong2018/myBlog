@@ -1,3 +1,3 @@
 module.exports =[
-    ['link', {rel: 'icon', href: '/logo.gif'}]
+    ['link', {rel: 'icon', href: '/qiaoba.png'}]
 ]

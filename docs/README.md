@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /logo-computed.gif
+heroImage: /qiaoba.gif
 actionText: 是时候展现真正的技术了 →
 actionLink: /resource/
 features:
@@ -12,6 +12,15 @@ features:
 
 - title: 李嘉诚经典语录/名句
   details: 当你放下面子赚钱的时候，说明你已经懂事了。当你用钱赚回面子的时候，说明你已经成功了。当你用面子可以赚钱的时候，说明你已经是人物了。当你还停留在那里喝酒、吹牛，啥也不懂还装懂，只爱所谓的面子的时候，说明你这辈子也就这样了。
+
+- title:  Javascript
+  details: JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。
+
+- title: Vue.js
+  details: 渐进式JavaScript框架。
+
+- title: Node.js
+  details: Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。
 
 footer: MIT Licensed | Copyright © 2019-present FeiHong
 ---

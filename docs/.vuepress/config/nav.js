@@ -68,6 +68,9 @@ module.exports = [{
           }, {
             text: 'D2 Admin',
             link: 'https://doc.d2admin.fairyever.com/zh/'
+          },{
+            text: 'Javascript之父',
+            link:'https://brendaneich.com/'
           }
         ]
       },
