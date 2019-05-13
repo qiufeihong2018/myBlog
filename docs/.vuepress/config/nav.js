@@ -195,6 +195,14 @@ module.exports = [{
           {
             text: "nginx",
             link: "https://www.nginx.com/"
+          },
+          {
+            text: "vue-router",
+            link: "https://router.vuejs.org/zh/"
+          },
+          {
+            text: "echarts",
+            link: "https://echarts.baidu.com/"
           }
         ]
       },
