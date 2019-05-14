@@ -632,6 +632,94 @@ sCar.end()
 - 编码
 ![avatar](../public/UML2.jpg)
 
+
+## 工厂模式
+```javascript
+class Car{
+  constructor(name,money){
+    this.name=name
+    this.money=money
+  }
+  getName(){
+    alert(`这是一辆${this.name}`)
+  }
+  getMoney(){
+alert(`这辆车值${this.money}`)
+  }
+}
+class Factory{
+  create(name,money) {
+    return new Car(name,money)
+  }
+}
+
+//测试
+let factory=new Factory()
+let car1=factory.create('benchi','100w')
+car1.getName()
+car1.getMoney()
+let car2=factory.create('biyadi','10w')
+car2.getName()
+car2.getMoney()
+```
+### 使用场景
+1. jQuery
+- $('div')和new $('div')有何区别?
+- 第一:书写麻烦,jQuery的链式操作将成为噩梦
+- 第二:一旦jQuery名字变化,将是灾难性的
+
+- 聊聊阅读经典lib源码的意义
+  - 功能
+  - 设计
+
+- 聊聊创新和拿来主义
+  - 多看
+
+2. React.createElement
+3. vue异步组件
+
+> 构造函数和创建者分离
+
+> 符合开发封闭原则
+
+## 单例模式
+```javascript
+class SingleObj{
+  say(){
+    alert('我是一个单例')
+  }
+}
+SingleObj.getInstance=(function(){
+  let instance
+  return function(){
+    if(!instance){
+      instance=new SingleObj()
+    }
+    return instance
+  }
+})()
+
+let obj1=SingleObj.getInstance()
+obj1.say()
+let obj2=SingleObj.getInstance()
+obj2.say()
+console.log('obj1',obj1)//SingleObj{}
+let obj3=new SingleObj()
+let obj4=new SingleObj()
+console.log('obj1===obj2?',obj1 === obj2)//true
+console.log('obj3===obj4?',obj3 === obj4)//false
+
+```
+### 场景
+- jQuery只有一个$
+- 模拟登录框
+- 购物车
+- vuex和redux中的store
+
+
+> 符合单一职责原则,只实例化唯一的对象
+
+> 没法具体开放封闭原则,但是绝对不违反开放封闭原则
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
 
