@@ -42,10 +42,10 @@ module.exports = [{
     text: "视频总结",
     link: "/video-summary/"
   },
-  {
-    text: "面试",
-    link: "/interview/"
-  },
+  // {
+  //   text: "面试",
+  //   link: "/interview/"
+  // },
   {
     text: "优秀博客",
     items: [{
@@ -203,6 +203,10 @@ module.exports = [{
           {
             text: "echarts",
             link: "https://echarts.baidu.com/"
+          },
+          {
+            text: "git学习------> Gitlab如何进行备份恢复与迁移？",
+            link: "https://blog.csdn.net/ouyang_peng/article/details/77070977"
           }
         ]
       },
@@ -292,8 +296,8 @@ module.exports = [{
       }
     ]
   },
-  {
-    text: "那些年的电影",
-    link: "/movie/"
-  }
+  // {
+  //   text: "那些年的电影",
+  //   link: "/movie/"
+  // }
 ];
