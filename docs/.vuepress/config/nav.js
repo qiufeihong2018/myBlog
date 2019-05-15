@@ -71,6 +71,10 @@ module.exports = [{
           },{
             text: 'Javascript之父',
             link:'https://brendaneich.com/'
+          },
+          {
+            text:'yck面试图谱',
+            link:'https://yuchengkai.cn/docs/'
           }
         ]
       },

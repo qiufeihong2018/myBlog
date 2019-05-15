@@ -23,3 +23,7 @@
 [flex.css声明式布局](https://www.cnblogs.com/ben-li/p/8876616.html)
 
 [原生js颜色A过渡到颜色B这动画怎么做?](https://segmentfault.com/q/1010000018654461)
+
+[ssh使用scp: /目录: Permission denied](https://blog.csdn.net/konglongaa/article/details/77481932)
+[Ubuntu开启或重启ssh服务](https://blog.csdn.net/qq_38228254/article/details/78543840)
+[]()

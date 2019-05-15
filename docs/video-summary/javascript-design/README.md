@@ -720,6 +720,139 @@ console.log('obj3===obj4?',obj3 === obj4)//false
 > 符合单一职责原则,只实例化唯一的对象
 
 > 没法具体开放封闭原则,但是绝对不违反开放封闭原则
+
+## 适配器
+想象成插座的适配:美国插座和中国插座不兼容,加适配器
+
+![avatar](../public/adaptee.png)
+```javascript
+class Adaptee{
+  specificRequest(){
+    return '美国插座'
+  }
+}
+class Target{
+  constructor(name){
+    this.name=name
+    this.adaptee=new Adaptee
+  }
+  request(){
+    alert(`${this.name}-适配器-${this.adaptee.specificRequest()}`)
+  }
+}
+
+let target=new Target('中国插头')
+
+target.request()//中国插头-适配器-美国插座
+```
+### 背景
+封装旧接口
+- jQuery的ajax
+- vue computed
+
+## 装饰器
+- 为对象添加新功能
+- 不改变其原有的结构和功能
+
+ ![avatar](../public/decorator.png)
+```javascript
+class Car {
+  drive() {
+   alert('车能开')
+  }
+}
+class Decorator {
+  constructor(car){
+    this.car=car
+  }
+  drive() {
+    this.car.drive()
+    this.sing(car)
+  }
+  sing(car){
+    alert('加一个音箱，来唱歌')
+  }
+}
+let car=new Car()
+car.drive()
+alert('----')
+let user=new Decorator(car)
+user.drive()
+```
+### 场景
+- ES7装饰器
+- core-decorator
+  - 第三方开源lib
+  - 提供常用的装饰器
+
+```bash
+npm install babel-plugin-transform-decorators-legacy --save-dev --registry=https://registry.npm.taobao.org
+```
+1. 有参数的装饰器
+```javascript
+@testDec(false)
+class Demo{
+
+}
+function testDec(isDec){
+  return function(target){
+    target.isDec=isDec
+  }
+}
+alert(Demo.isDec)//false
+```
+2. @readonly演示
+```javascript
+function readonly(target,name,descriptor){
+  descriptor.writable=false
+  return descriptor
+}
+class People{
+  constructor(name,age){
+    this.name=name
+    this.age=age
+  }
+
+  @readonly
+  getName(){
+    alert(`${this.name}是我的名字,${this.age}是我的年龄`)
+  }
+}
+let people=new People('qfh',123)
+people.getName()//qfh是我的名字,123是我的年龄
+people.getName=function(){
+  alert('update')
+}
+//Uncaught TypeError: Cannot assign to read only property 'getName' of object '#<People>'
+```
+3. @log
+
+用上[core-decorator](https://github.com/jayphelps/core-decorators#nonconfigurable)
+```javascript
+import {
+  readonly
+} from 'core-decorators'
+class People {
+  constructor(name, age) {
+    this.name = name
+    this.age = age
+  }
+
+  @readonly
+  getName() {
+    alert(`${this.name}是我的名字,${this.age}是我的年龄`)
+  }
+}
+let people = new People('qfh', 123)
+people.getName() //qfh是我的名字,123是我的年龄
+people.getName = function () {
+  alert('update')
+}
+//Uncaught TypeError: Cannot assign to read only property 'getName' of object '#<People>'
+```
+
+> 将现有对象和装饰器分离，两者独立
+> 开放原则
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
 
