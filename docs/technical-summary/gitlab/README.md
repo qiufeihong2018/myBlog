@@ -1,371 +1,91 @@
+# gitlab的安装和备份
+结果是将gitlab-ee_10.7.2-ee.0_amd64.deb版本在新服务器上安装好后，将原服务器上的gitlab备份到新服务器上。
+如果不是root用户请在命令前+sudo
+## 安装gitlab1
+### gitlab官网安装gitlab
+首先想用gitlab官网安装gitlab
+[gitlab的官方网站](https://about.gitlab.com/install/)
 
-更改备份路径
+![avatar](../public/gitlab1.png)
+由于的我系统是ubuntu，所以我选择ubuntu
+安装步骤就出现在下面了
+> 安装和配置必须的依赖
 ```bash
- sudo vim /etc/gitlab/gitlab.rb
+sudo apt-get update
+sudo apt-get install -y curl openssh-server ca-certificates
 ```
-
-将备份路径改为/data/gitlab/backups
+下一步，安装`Postfix`来发送通知邮件。如果你想要用另一个方式去发送邮件，请在gitlab安装好后，下一步就是配置一个额外的SMTP服务。
 ```bash
-gitlab_rails['backup_path']="/data/gitlab/backups"
+sudo apt-get install -y postfix
 ```
-修改完成之后使用下面命令重载配置文件即可
+在安装``Postfix`时一个配置屏幕会出现。选择`Internet Site`并且回车。`mail name`为你的服务器的DNS并且回车。如果额外的屏幕出现，继续接受默认配置并且回车。
+> 添加gitlab安装包仓库并安装
+添加gitlab包仓库
 ```bash
-gitlab-ctl reconfigure
+curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
 ```
+下一步，安装gitlab包。选择`https://gitlab.example.com`更改为要访问gitlab实例的url。安装将自动配置并启动gitlab到url。
 
-现将原服务器上的gitlab进行备份
+为了`https://`gitlab将自动请求带有`Let's Encrypt`的证书，这需要入栈http访问和有效的主机名。
 ```bash
-sudo gitlab-rake gitlab:backup:create
+sudo EXTERNAL_URL="https://gitlab.example.com" apt-get install gitlab-ee
 ```
-结果：
+此时你会发现慢的要死，速度是100k/s，毕竟两者隔了一堵墙。
+### 清华镜像安装gitlab
+[Gitlab Community Edition 镜像使用帮助](https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/)
+既然官网太慢，那么我们选择清华镜像安装gitlab，我这边是速度达到30mb/s。
+[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
+![avatar](../public/gitlab2.png)
+gitlab-ce是社区版
+gitlab-ee是企业版
+里面有各种版本
+备份需要和原服务器的gitlab版本一致，否则无法安装。
+在搜索栏里搜索gitlab，就会跳出相关gitlab的版本。
+我的`gitlab-ee_10.7.2-ee.0_amd64.deb`版本在`/ubuntu/pool/bionic/main/g/gitlab-ee/`下
+或者是直接访问`https://mirrors.tuna.tsinghua.edu.cn/gitlab-ee/ubuntu/pool/bionic/main/g/gitlab-ee/`到gitlab-ee版本下，
+直接访问`https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/bionic/main/g/gitlab-ce/`到gitlab-ce版本下。
+
+> 加入gitlab的GPG公钥
 ```bash
-Dumping database ... 
+curl https://packages.gitlab.com/gpg.key 2> /dev/null | sudo apt-key add - &>/dev/null
+```
+> 写进再选择你的 Debian/Ubuntu 版本，文本框中内容写进`/etc/apt/sources.list.d/gitlab-ce.list`,我是写进`/etc/apt/sources.list.d/gitlab-ee.list`,
+写`deb https://mirrors.tuna.tsinghua.edu.cn/gitlab-ee/ubuntu xenial main`
+安装 gitlab-ee:
+```bash
+sudo apt-get update
+sudo apt-get install gitlab-ee=10.7.2-ee.0
+```
+更新apt仓库
+![avatar](../public/gitlab3.png)
+下载`gitlab-ee_10.7.2-ee.0`
+![avatar](../public/gitlab4.png)
+这样就安装了10.7.2-ee.0版本了。
 
-Dumping PostgreSQL database gitlabhq_production ... [DONE]
+### 断口被占用
+端口80以及端口8080分别被Ubuntu服务器上的Apache、Tomcat和nginx等服务所占用。
 
-done
+我的做法是修改 /etc/gitlab/gitlab.rb 文件
+![avatar](../public/gitlab5.png)
 
-Dumping repositories ...
+```bash
+vim /etc/gitlab/gitlab.rb 
+```
+![avatar](../public/gitlab6.png)
 
- * root/welcome ... [DONE]
-
- * root/welcome.wiki ...  [SKIPPED]
-
- * dhb/xAlert-data ... [DONE]
-
- * dhb/xAlert-data.wiki ...  [SKIPPED]
-
- * root/xAlert-ntopng ... [DONE]
-
- * root/xAlert-ntopng.wiki ...  [SKIPPED]
-
- * root/erlangshen-web ... [DONE]
-
- * root/erlangshen-web.wiki ...  [SKIPPED]
-
- * xAlert/xAlert-web ... [DONE]
-
- * xAlert/xAlert-web.wiki ...  [SKIPPED]
-
-		
-
-			 * root/xAlert-scripts ... 
-		
-
-		
-
-			......
-		
-
-		
-
-			[DISABLED]
-
-Creating backup archive: 1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar ... done
-
-Uploading backup archive to remote storage  ... skipped
-
-Deleting tmp directories ... done
-
-done
-
-done
-
-done
-
-done
-
-done
-
-done
-
-done
-
-Deleting old backups ... done. (0 removed)
-
-```			
-内容很多很多
-		
-
-会产生类似于1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar，一般都是带上年月日，便于分别。
-
-
-默认会放在/var/opt/gitlab/backups目录下，但是我们改了存放路径
-	
-		
-		
-			
-然后就在这里找到备份文件
-```bash 
-gushenxing@ubuntu:/data/gitlab/backups$ ls
-
-1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar
-
-```				
-将备份文件传送到新服务器
-安装gitlab
-			
-下载安装包
-			
-[清华大学镜像源](https://mirrors.tuna.tsinghua.edu.cn/)
-			
-新旧服务器上的gitlab版本必须要一样
-			
-
-安装并且解压完后，开启配置
-```bash				
+### 配置并启动gitlab
+```bash
 sudo gitlab-ctl reconfigure
-```				
-
-从旧服务器上拷贝到新服务器上，放到其他目录都会报错，必须要放在tmp中
-			
-
-			
-```bash
-sudo scp 1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar system-backup@192.168.3.68:/tmp
-
-
-system-backup@systembackup-System-Product-Name:/tmp$ ls
-
-1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar
-
-将tmp中的备份包放在/var/opt/gitlab中，放在非gitlab包中会
-					
-
-system-backup@systembackup-System-Product-Name:/home/data$ sudo gitlab-rake gitlab:backup:restore BACKUP=1557975676_2019_05_16_10.7.2-ee
-
-The backup file 1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar does not exist!
-
-出现报错
-						
-sudo cp 1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar /var/opt/gitlab
-
-system-backup@systembackup-System-Product-Name:/var/opt/gitlab$ ls
-
-						
-
-1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar
-						
-
-```					
-
-							
-
-1、将备份文件权限修改为777
-							
-
-							
-
-第一步，将备份文件权限修改为777，不然可能恢复的时候会出现权限不够，不能解压的问题
-sudo chmod 777 1557975676_2019_05_16_10.7.2-ee_gitlab_backup.tar 
-2、执行命令停止相关数据连接服务
-
-第二步，执行命令停止相关数据连接服务
-
-停止相关数据连接服务
-```bash
-gitlab-ctl stop unicorn
-system-backup@systembackup-System-Product-Name:/var/opt/gitlab$ sudo gitlab-ctl stop unicorn
-
-ok: down: unicorn: 1s, normally up
-gitlab-ctl stop sidekiq
-system-backup@systembackup-System-Product-Name:/var/opt/gitlab$ sudo gitlab-ctl stop sidekiq
-
-ok: down: sidekiq: 0s, normally up
 ```
-
-3、执行命令从备份文件中恢复Gitlab
-
-第三步，执行命令从备份文件中恢复Gitlab
-gitlab-rake gitlab:backup:restore BACKUP=备份文件编号
-							
-system-backup@systembackup-System-Product-Name:/var/opt/gitlab$ sudo gitlab-rake gitlab:backup:restore BACKUP=1557975676_2019_05_16_10.7.2-ee
-
-					
-第一个yes
-```bash					
-
-Unpacking backup ... done
-
-Before restoring the database, we will remove all existing
-
-tables to avoid future upgrade problems. Be aware that if you have
-
-custom tables in the GitLab database these tables and all data will be
-
-removed.
-
-
-
-
-
-Do you want to continue (yes/no)? yes
-
-....
-ALTER TABLE
-
-WARNING:  no privileges were granted for "public"
-
-GRANT
-
-[DONE]
-
-done
-
-Restoring repositories ...
-
- * root/welcome ... rake aborted!
-
-GRPC::Unavailable: 14:Connect Failed
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/gitaly_client.rb:134:in `call'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/gitaly_client/namespace_service.rb:35:in `gitaly_client_call'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/gitaly_client/namespace_service.rb:17:in `add'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/shell.rb:300:in `block in add_namespace'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/gitaly_client.rb:268:in `block (2 levels) in migrate'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/gitaly_client.rb:308:in `allow_n_plus_1_calls'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/gitaly_client.rb:261:in `block in migrate'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/metrics/influx_db.rb:98:in `measure'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/gitaly_client.rb:259:in `migrate'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/shell.rb:297:in `add_namespace'
-
-/opt/gitlab/embedded/service/gitlab-rails/app/models/storage/legacy_project.rb:27:in `ensure_storage_path_exists'
-
-/opt/gitlab/embedded/service/gitlab-rails/app/models/project.rb:54:in `ensure_storage_path_exists'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/backup/repository.rb:95:in `block in restore'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/backup/repository.rb:90:in `restore'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/tasks/gitlab/backup.rake:89:in `block (4 levels) in <top (required)>'
-
-/opt/gitlab/embedded/service/gitlab-rails/lib/tasks/gitlab/backup.rake:62:in `block (3 levels) in <top (required)>'
-
-/opt/gitlab/embedded/bin/bundle:23:in `load'
-
-/opt/gitlab/embedded/bin/bundle:23:in `<main>'
-
-Tasks: TOP => gitlab:backup:repo:restore
-
-(See full trace by running task with --trace)
-```
-						
-4、执行命令从备份文件中恢复Gitlab
-						
-第四步，启动Gitlab
-						
+![avatar](../public/gitlab7.png)
+有时候，像上面步骤修改了GitLab的ip地址一样,临时修改了GitLab的配置之后，得执行如下的命令，应用重新配好的配置并重启GitLab,然后查看GitLab的状态
 ```bash
-
-sudo gitlab-ctl start
-
-
-
-					
-
-ok: run: alertmanager: (pid 8340) 0s
-
-ok: run: gitaly: (pid 8548) 0s
-
-ok: run: gitlab-monitor: (pid 31471) 987s
-
-ok: run: gitlab-workhorse: (pid 31476) 987s
-
-ok: run: logrotate: (pid 31493) 986s
-
-ok: run: nginx: (pid 31500) 986s
-
-ok: run: node-exporter: (pid 31512) 986s
-
-ok: run: postgres-exporter: (pid 31526) 985s
-
-ok: run: postgresql: (pid 31538) 985s
-
-ok: run: prometheus: (pid 8616) 0s
-
-ok: run: redis: (pid 31553) 991s
-
-ok: run: redis-exporter: (pid 31559) 991s
-
-ok: run: sidekiq: (pid 8625) 1s
-
-ok: run: unicorn: (pid 8633) 0s
-
-					
-命令：
-sudo gitlab-ctl reconfigure使gitlab回到最初状态
-
-				
-system-backup@systembackup-System-Product-Name:/var/opt/gitlab$ sudo gitlab-ctl reconfigure
-
-Starting Chef Client, version 13.6.4
-
-resolving cookbooks for run list: ["gitlab-ee"]
-
-Synchronizing Cookbooks:
-
-  - gitlab-ee (0.0.1)
-
-  - package (0.1.0)
-
-  - gitlab (0.0.1)
-
-  - consul (0.0.0)
-
-  - repmgr (0.1.0)
-
-  - runit (0.14.2)
-
-  - postgresql (0.1.0)
-
-  - mattermost (0.1.0)
-
-  - registry (0.1.0)
-
-  - gitaly (0.1.0)
-
-  - letsencrypt (0.1.0)
-
-  - nginx (0.1.0)
-
-  - acme (3.1.0)
-
-  - crond (0.1.0)
-
-  - compat_resource (12.19.0)
-
-					
-......
-					
-
-Running handlers:
-
-There was an error running gitlab-ctl reconfigure:
-
-
-
-
-
-env_dir[/opt/gitlab/etc/gitaly] (gitaly::enable line 47) had an error: Errno::EISDIR: file[/opt/gitlab/etc/gitaly/env] (/opt/gitlab/embedded/cookbooks/cache/cookbooks/package/resources/env_dir.rb line 30) had an error: Errno::EISDIR: Is a directory - read
-
-
-
-
-
-Running handlers complete
-
-Chef Client failed. 2 resources updated in 07 seconds
+sudo gitlab-ctl reconfigure
+sudo gitlab-ctl restart
+sudo gitlab-ctl status
 ```
-					
-# 参考文献
+<!-- ![avatar](../public/gitlab8.png) -->
+## 参考文献
 
 [Install ](https://about.gitlab.com/install/#ubuntu)
 
@@ -380,3 +100,5 @@ Chef Client failed. 2 resources updated in 07 seconds
 [Linux上Gitlab卸载](https://www.jianshu.com/p/e2e98c45c244)
 
 [git学习------> Gitlab如何进行备份恢复与迁移？](https://blog.csdn.net/ouyang_peng/article/details/77070977)
+
+[【git学习】在CenterOS系统上安装GitLab并自定义域名访问GitLab管理页面](https://blog.csdn.net/ouyang_peng/article/details/72903221)
