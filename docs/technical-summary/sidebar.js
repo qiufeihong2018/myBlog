@@ -1,108 +1,108 @@
 module.exports = [{
         title: 'Markdown的语法',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['mdown/']
     },
     {
         title: '手把手带你搭建VuePress的技术博客',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['vuepress/']
     },
     {
         title: '关于import与require的区别',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['import-require/']
     },
     {
         title: '前端命名规范',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['naming-rules/']
     },
     {
         title: 'pm2的研究',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['pm2/']
     },
     {
         title: 'MongoDB深入浅出',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['mongo/']
     },
     {
         title: 'linux下tree命令详解',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['tree/']
     }, {
         title: 'vue-webpack',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['vue-webpack/']
     }, {
         title: 'linux命令',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['ubuntu/']
     }, {
         title: 'nuxt教程大全',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['nuxt/']
     }, {
         title: 'node大全',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['node/']
     }, {
         title: 'github大全',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['github/']
     }, {
         title: 'eslint大全',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['eslint/']
     }, {
         title: 'es6大全',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['es6/']
     }, {
         title: 'css大全',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['css/']
     }, {
         title: '大数据量优化性能',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['vue-virtual-scroll-list/']
     }, {
         title: 'linux系统下jenkins根据github自动部署',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['jenkins/']
     }, {
         title: '前端工具',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['tools/']
     }, {
         title: 'nginx服务器配置+二级域名搭建项目',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['aliyun/']
     },
     {
         title: 'gitlab的安装和备份',
-        collapsable: true,
+        collapsable: false,
         sidebarDepth: 2,
         children: ['gitlab/']
     }

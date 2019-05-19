@@ -41,14 +41,61 @@ sudo apt install nginx
 $ vi /etc/nginx/conf.d/default.conf
 ```
 将自己的项目配置放入，80端口监听blog项目的7777端口
+
+多个服务并存
 ```bash
-server {
+server
+        {
                 listen  80;
-                server_name blog.qiufeihong.top;
+                server_name tack-out.qiufeihong.top;
+                location / {
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:1234;
+                }
+
+        }
+server
+        {
+                listen  80;
+                server_name www.qiufeihong.top;
                 location / {
                 proxy_set_header Host $http_host;
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_pass http://127.0.0.1:7777;
+                }
+
+        }
+server
+        {
+                listen  80;
+                server_name jenkins.qiufeihong.top;
+                location / {
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:1314;
+                }
+
+        }
+server
+        {
+                listen  80;
+                server_name resume.qiufeihong.top;
+                location / {
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:2019;
+                }
+
+        }
+server
+        {
+                listen  80;
+                server_name express-mongodb-tack-out.qiufeihong.top;
+                location / {
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:7979;
                 }
 
         }
