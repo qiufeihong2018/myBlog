@@ -105,5 +105,11 @@ module.exports = [{
         collapsable: false,
         sidebarDepth: 2,
         children: ['gitlab/']
+    },
+    {
+        title: 'node爬取某图片网站的桌面壁纸',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['node-reptile/']
     }
 ]

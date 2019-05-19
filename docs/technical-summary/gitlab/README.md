@@ -1,7 +1,7 @@
 # gitlab的安装和备份
 结果是将gitlab-ee_10.7.2-ee.0_amd64.deb版本在新服务器上安装好后，将原服务器上的gitlab备份到新服务器上。
 如果不是root用户请在命令前+sudo
-## 安装gitlab1
+## 安装gitlab
 ### gitlab官网安装gitlab
 首先想用gitlab官网安装gitlab
 [gitlab的官方网站](https://about.gitlab.com/install/)
