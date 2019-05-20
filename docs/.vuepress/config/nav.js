@@ -207,10 +207,6 @@ module.exports = [{
           {
             text: "echarts",
             link: "https://echarts.baidu.com/"
-          },
-          {
-            text: "git学习------> Gitlab如何进行备份恢复与迁移？",
-            link: "https://blog.csdn.net/ouyang_peng/article/details/77070977"
           }
         ]
       },
