@@ -75,6 +75,10 @@ module.exports = [{
           {
             text: 'yck面试图谱',
             link: 'https://yuchengkai.cn/docs/'
+          },
+          {
+            text: '软件垃圾回收师，Android搬砖小能手',
+            link: 'http://lckiss.com/'
           }
         ]
       },
