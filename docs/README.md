@@ -2,7 +2,7 @@
 home: true
 heroImage: /qiaoba.gif
 actionText: 是时候展现真正的技术了 →
-actionLink: /resource/
+actionLink: /technical-summary/
 features:
 - title:  Javascript
   details: JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。

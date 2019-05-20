@@ -1,5 +1,4 @@
-module.exports = [
-    {
+module.exports = [{
         title: 'Markdown的语法',
         collapsable: false,
         sidebarDepth: 2,
@@ -100,6 +99,17 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['aliyun/']
+    },
+    {
+        title: 'gitlab的安装和备份',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['gitlab/']
+    },
+    {
+        title: 'node爬取某图片网站的桌面壁纸',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['node-reptile/']
     }
 ]
-

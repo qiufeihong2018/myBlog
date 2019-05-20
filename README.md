@@ -1,5 +1,5 @@
-# vuepress-app
-> a vuepress app about qiufeihong
+# vuepress-blog
+> a vuepress blog about qiufeihong
 
 ## Build Setup
 
