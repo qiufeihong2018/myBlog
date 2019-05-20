@@ -68,13 +68,13 @@ module.exports = [{
           }, {
             text: 'D2 Admin',
             link: 'https://doc.d2admin.fairyever.com/zh/'
-          },{
+          }, {
             text: 'Javascript之父',
-            link:'https://brendaneich.com/'
+            link: 'https://brendaneich.com/'
           },
           {
-            text:'yck面试图谱',
-            link:'https://yuchengkai.cn/docs/'
+            text: 'yck面试图谱',
+            link: 'https://yuchengkai.cn/docs/'
           }
         ]
       },
@@ -255,6 +255,10 @@ module.exports = [{
           {
             text: "图灵社区",
             link: "http://www.ituring.com.cn/"
+          },
+          {
+            text: "github排行榜",
+            link: "https://gitstar-ranking.com/"
           }
         ]
       }
