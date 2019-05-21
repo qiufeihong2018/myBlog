@@ -853,6 +853,201 @@ people.getName = function () {
 
 > 将现有对象和装饰器分离，两者独立
 > 开放原则
+
+
+## 代理模式
+### 介绍
+- 使用者无权访问目标对象
+- 中间加代理，通过代理做授权和控制
+### 示例
+- 科学上网，
+- 明星经纪人
+
+```javascript
+class Star {
+  constructor(name) {
+    this.name = name
+    this.call = this.call(name)
+  }
+  play() {
+    console.log(`${this.name}演出真好看`)
+  }
+  call() {
+    console.log(`我可以邀请${this.name}来演出吗`)
+  }
+}
+class ProxyStar {
+  constructor(name) {
+    this.star = new Star(name)
+  }
+  play() {
+    this.star.play()
+  }
+}
+// 测试
+let proxyStar=new ProxyStar('zhuliye')
+proxyStar.play()
+
+// 我可以邀请zhuliye来演出吗
+// zhuliye演出真好看
+```
+
+### 场景
+- 网页事件代理
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>qiufeihong前端设计模式</title>
+</head>
+
+<body>
+    <div id='divProxy'>
+        <a href="#">qiufeihong前端设计模式1</a>
+        <a href="#">qiufeihong前端设计模式2</a>
+        <a href="#">qiufeihong前端设计模式3</a>
+        <a href="#">qiufeihong前端设计模式4</a>
+    </div>
+    <script type="text/javascript" src="./release/bundle.js"></script>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    let div = document.getElementById('divProxy')
+    div.addEventListener('click', (e) => {
+        let target = e.target
+        // 事件冒泡
+        if (target.nodeName === 'A') {
+            alert(target.innerHTML)
+        }
+    })
+</script>
+</html>
+```
+- jQuert $.proxy
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>qiufeihong前端设计模式</title>
+    <style>
+        .intro {
+            font-size: 100px;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='divProxy'>
+        <a href="#">qiufeihong前端设计模式1</a>
+        <a href="#">qiufeihong前端设计模式2</a>
+        <a href="#">qiufeihong前端设计模式3</a>
+        <a href="#">qiufeihong前端设计模式4</a>
+    </div>
+    <script type="text/javascript" src="./release/bundle.js"></script>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    $('#divProxy').click(function () {
+        // 1箭头函数
+        // setTimeout(()=> {
+        //     $(this).addClass('intro')
+        // }, 1000)
+        // 2.$.proxy
+        // setTimeout($.proxy(function () {
+        //     $(this).addClass('intro')
+        // }, this), 1000)
+    })
+</script>
+
+</html>
+```
+- ES6 proxy
+```javascript
+// 明星
+let Star = {
+  name: 'zhuliye',
+  age: '12',
+  height: '167',
+  weight: '90',
+  price: 1230000,
+  phone: 'star_12355553333'
+}
+// 经纪人
+let agent = new Proxy(Star, {
+  get: function (target, key) {
+    if (key === 'phone') {
+      // 返回经纪人电话
+      return 'agent_12355557666'
+    }
+    if (key === 'price') {
+      // 经纪人报价
+      return 2000000
+    }
+    return target[key]
+  },
+  set: function (target, key, val) {
+    if (key === 'cusPrice') {
+      if (val < 1000000) {
+        throw new Error('too low')
+      } else {
+        target[key] = val
+        return true
+      }
+    }
+  }
+})
+// 测试
+// console.log(agent.name)
+// console.log(agent.age)
+// console.log(agent.weight)
+// console.log(agent.price)
+// console.log(agent.phone)
+// agent.cusPrice=400000
+// console.log(agent.cusPrice)
+// zhuliye
+//   12
+//   90
+//   2000000
+//   agent_12355557666
+// Uncaught Error: too low
+
+
+
+// console.log(agent.name)
+// console.log(agent.age)
+// console.log(agent.weight)
+// console.log(agent.price)
+// console.log(agent.phone)
+// agent.cusPrice=4000000
+// console.log(agent.cusPrice)
+// zhuliye
+// 12
+//  90
+//  2000000
+//  agent_12355557666
+//  4000000
+```
+### 设计原则验证
+- 代理类和目标类分离，隔离开目标类和使用者
+- 符合开放封闭原则
+
+### 代理模式vs适配器模式
+- 适配器模式：提供不同的接口（如不同版本的插头）
+- 代理模式：提供一模一样的接口
+
+### 代理模式vs装饰器模式
+- 装饰器模式：扩展功能，原有功能不变且可直接使用
+- 代理模式：显示原有功能，但是经过限制或者阉割之后的
+
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
 
