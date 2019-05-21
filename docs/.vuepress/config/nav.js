@@ -68,13 +68,17 @@ module.exports = [{
           }, {
             text: 'D2 Admin',
             link: 'https://doc.d2admin.fairyever.com/zh/'
-          },{
+          }, {
             text: 'Javascript之父',
-            link:'https://brendaneich.com/'
+            link: 'https://brendaneich.com/'
           },
           {
-            text:'yck面试图谱',
-            link:'https://yuchengkai.cn/docs/'
+            text: 'yck面试图谱',
+            link: 'https://yuchengkai.cn/docs/'
+          },
+          {
+            text: '林亮',
+            link: 'https://blog.fritx.me/'
           }
         ]
       },
