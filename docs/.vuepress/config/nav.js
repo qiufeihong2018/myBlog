@@ -77,8 +77,13 @@ module.exports = [{
             link: 'https://yuchengkai.cn/docs/'
           },
           {
+<<<<<<< HEAD
+            text: '林亮',
+            link: 'https://blog.fritx.me/'
+=======
             text: '软件垃圾回收师，Android搬砖小能手',
             link: 'http://lckiss.com/'
+>>>>>>> origin
           }
         ]
       },
