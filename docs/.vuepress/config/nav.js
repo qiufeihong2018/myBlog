@@ -301,6 +301,10 @@ module.exports = [{
       {
         text: "语雀",
         link: "https://www.yuque.com/dashboard"
+      },
+      {
+        text: "CODEPEN",
+        link: "https://codepen.io/"
       }
     ]
   },
