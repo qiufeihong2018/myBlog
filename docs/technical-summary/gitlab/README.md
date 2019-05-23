@@ -1,4 +1,6 @@
 # gitlab的安装和备份
+![avatar](../public/gitlab.png)
+
 结果是将gitlab-ee_10.7.2-ee.0_amd64.deb版本在新服务器上安装好后，将原服务器上的gitlab备份到新服务器上。
 前提：
 

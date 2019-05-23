@@ -83,6 +83,9 @@ module.exports = [{
           {
             text: '软件垃圾回收师，Android搬砖小能手',
             link: 'http://lckiss.com/'
+          }, {
+            text: '小弟调调',
+            link: 'https://wangchujiang.com/'
           }
         ]
       },
