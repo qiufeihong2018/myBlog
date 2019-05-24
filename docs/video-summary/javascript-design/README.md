@@ -1048,6 +1048,17 @@ let agent = new Proxy(Star, {
 - 装饰器模式：扩展功能，原有功能不变且可直接使用
 - 代理模式：显示原有功能，但是经过限制或者阉割之后的
 
+## 外观模式
+- 为子系统的多个接口提供一个高级接口
+- 用户只要调用这个高级接口即可
+![avatar](../public/javascript-design1.png)
+
+不符合单一职责原则和开放封闭原则
+
+## 观察者模式
+- 发布&订阅
+- 一对多
+
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
 

@@ -50,7 +50,7 @@
 ### [记一次开源学习--D2Admin 人人企业版](https://juejin.im/post/5ce25dace51d4510be453ef9)
 ### [前端开发网址导航](http://nav.web-hub.cn/)
 ### [机器学习必备的实用工具](https://github.com/J-cabin/Awesome-ML-Tools)
-### []()
+### [Javascript偏函数与柯里化](https://blog.csdn.net/neweastsun/article/details/75947785)
 ### []()
 ### []()
 ### []()

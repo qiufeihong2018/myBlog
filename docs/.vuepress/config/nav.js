@@ -86,6 +86,10 @@ module.exports = [{
           }, {
             text: '小弟调调',
             link: 'https://wangchujiang.com/'
+          },
+          {
+            text:'腾讯 ISUX UI 工程师李洋',
+            link:'https://newbieweb.lione.me/'
           }
         ]
       },

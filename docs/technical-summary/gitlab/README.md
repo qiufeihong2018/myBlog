@@ -1,15 +1,33 @@
-# gitlab的安装和备份
+# 前端必须会的gitlab的操作——安装和备份
 ![avatar](../public/gitlab.png)
+[原文地址](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/gitlab)欢迎star
 
-结果是将gitlab-ee_10.7.2-ee.0_amd64.deb版本在新服务器上安装好后，将原服务器上的gitlab备份到新服务器上。
-前提：
+## 结果
+- 在新服务器上安装并搭建好gitlab;
+- 将原服务器上的gitlab备份到新服务器上;
+- 自动备份;
+- 逾期删除备份。
 
-- 如果不是root用户请在命令前+sudo
-- 新老服务器gitlab版本保持一致
+## todo
+- 自动发送备份压缩包至新服务器;
+- 自动将压缩包备份
+
+## 前提
+- 如果不是root用户请在命令前+sudo;
+- 新老服务器gitlab版本保持一致。
+- 我用的是`gitlab-ee_10.7.2-ee.0_amd64.deb`版本的gitlab
+
+
 ## 安装gitlab
-### gitlab官网安装gitlab
+
+- gitlab-ce是社区版
+
+- gitlab-ee是企业版
+
+### 官网安装gitlab
 首先想用gitlab官网安装gitlab
-[gitlab的官方网站](https://about.gitlab.com/install/)
+
+请戳[gitlab的官方网站](https://about.gitlab.com/install/)
 
 ![avatar](../public/gitlab1.png)
 由于的我系统是ubuntu，所以我选择ubuntu
@@ -48,9 +66,6 @@ sudo EXTERNAL_URL="https://gitlab.example.com" apt-get install gitlab-ee
 
 ![avatar](../public/gitlab2.png)
 
-gitlab-ce是社区版
-
-gitlab-ee是企业版
 
 里面有各种版本
 
@@ -100,7 +115,7 @@ sudo apt-get install gitlab-ee=10.7.2-ee.0
 ![avatar](../public/gitlab5.png)
 
 ```bash
-vim /etc/gitlab/gitlab.rb 
+vim /etc/gitlab/gitlab.rb
 ```
 ![avatar](../public/gitlab6.png)
 
@@ -194,13 +209,13 @@ sudo gitlab-rake gitlab:backup:restore BACKUP=1558509153_2019_05_22_10.7.2-ee
 ```
 安装开始
 - 是否丢掉之前的仓库
-  
+
 ![avatar](../public/gitlab13.png)
 - 是否丢掉之前的key文件
-  
+
 ![avatar](../public/gitlab14.png)
 - 安装成功
-  
+
 ![avatar](../public/gitlab15.png)
 
 ### 开启gitlab，并访问
@@ -231,7 +246,7 @@ crontab -e
 
 - 添加定时任务,每分钟执行gitlab备份
 ```bash
-sudo vim /etc/crontab 
+sudo vim /etc/crontab
 ```
 加入
 ```bash
@@ -244,9 +259,33 @@ sudo vim /etc/crontab
 #重新加载cron配置文件
 sudo /usr/sbin/service cron reload
 #重启cron服务
-sudo /usr/sbin/service cron restart 
+sudo /usr/sbin/service cron restart
 ```
+
+过了一天后，gitlab访问不了了，服务器炸了
+
+看了下备份目录
+
+![avatar](../public/gitlab19.png)
+
+猴塞雷……赶紧将他们删了
+
+然后将定时备份的时间跳到每天6点
+```bash
+* 6 * * * root /opt/gitlab/bin/gitlab-rake gitlab:backup:create CRON=1
+```
+最后需要重新启动cron服务
+
 ### 设置备份过期时间
+就算是每天6点备份，一年下来也有356份，那也不得了了
+
+那就可以设置备份过期时间，备份目录下只保存还没过期的压缩包，大大减轻了服务器的压力
+
+通过编辑`/etc/gitlab/gitlab.rb`配置文件,找到`gitlab_rails[‘backup_keep_time’]`
+
+我设置了7天内不过期
+![avatar](../public/gitlab20.png)
+
 
 ## 参考文献
 
@@ -256,7 +295,8 @@ sudo /usr/sbin/service cron restart
 
 [gitlab自动备份](https://www.jianshu.com/p/a176789fef21)
 
-[【git学习】在CenterOS系统上恢复GitLab时出现错误：tar: 由于前次错误，将以上次的错误状态退出 unpacking backup failed](https://www.jianshu.com/p/8a287f31a646)
+[【git学习】在CenterOS系统上恢复GitLab时出现错误：tar: 由于前次错误，将以上次的错误状态退出 unpacking backup
+failed](https://www.jianshu.com/p/8a287f31a646)
 
 [如何查看 GitLab 版本号](https://blog.csdn.net/wo18237095579/article/details/81106150)
 
