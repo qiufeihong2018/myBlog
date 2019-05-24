@@ -51,6 +51,7 @@
 ### [前端开发网址导航](http://nav.web-hub.cn/)
 ### [机器学习必备的实用工具](https://github.com/J-cabin/Awesome-ML-Tools)
 ### [Javascript偏函数与柯里化](https://blog.csdn.net/neweastsun/article/details/75947785)
+### [github emoji 表情列表](https://www.cnblogs.com/takeurhand/p/6940135.html)
 ### []()
 ### []()
 ### []()

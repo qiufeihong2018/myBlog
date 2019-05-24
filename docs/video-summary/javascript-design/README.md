@@ -1059,6 +1059,45 @@ let agent = new Proxy(Star, {
 - 发布&订阅
 - 一对多
 
+### 场景
+- 网页事件绑定
+所有事件监听机制都是观察者模式
+
+- promise
+
+- jquery callbacks
+每一个fire就是一个订阅，可以一对多，也可以一对一，很形象的观察者模式。
+```javascript
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    var callback = $.Callbacks()
+    callback.add(function (some) {
+        console.log(some, '--1')
+    })
+    callback.add(function (some) {
+        console.log(some, '--2')
+    })
+    callback.add(function (some) {
+        console.log(some, '--3')
+    })
+    callback.add(function (some) {
+        console.log(some, '--4')
+    })
+    callback.fire('qfh')
+    callback.fire('hfq')
+    // qfh --1
+    // qfh --2
+    // qfh --3
+    // qfh --4
+    // hfq --1
+    // hfq --2
+    // hfq --3
+    // hfq --4
+</script>
+
+```
+- nodejs自定义事件
+ 
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
 

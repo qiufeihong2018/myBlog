@@ -307,7 +307,7 @@ module.exports = [{
       },
       {
         text: "v2ex",
-        link: "https://www.v2ex.com/"
+        link: "https://www.v2ex.com/?r=qiufeihong2019"
       },
       {
         text: "语雀",
