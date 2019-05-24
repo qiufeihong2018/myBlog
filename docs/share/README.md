@@ -52,6 +52,6 @@
 ### [机器学习必备的实用工具](https://github.com/J-cabin/Awesome-ML-Tools)
 ### [Javascript偏函数与柯里化](https://blog.csdn.net/neweastsun/article/details/75947785)
 ### [github emoji 表情列表](https://www.cnblogs.com/takeurhand/p/6940135.html)
-### []()
+### [【官方双语/合集】线性代数的本质 - 系列合集](https://www.bilibili.com/video/av6731067)
 ### []()
 ### []()
