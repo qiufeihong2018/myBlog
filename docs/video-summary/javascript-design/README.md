@@ -1097,7 +1097,122 @@ let agent = new Proxy(Star, {
 
 ```
 - nodejs自定义事件
+案例一：EventEmitter
+```javascript
+const EventEmitter=require('events').EventEmitter
+
+const event=new EventEmitter()
+// 同一个事件上发生的两件事
+event.on('click',res=>{
+  console.log(`qfh${res}`)
+}).on('click',res=>{
+  console.log(`qfh2${res}`)
+})
+
+// 触发监听事件click
+event.emit('click','加油')
+// qfh加油
+// qfh2加油
+```
+
+案例二：Car继承事件监听api
+
+```javascript
+const EventEmitter = require('events').EventEmitter
+// Car继承事件监听api
+class Car extends EventEmitter {
+  constructor(name) {
+    super()
+    this.name = name
+  }
+}
+
+const car = new Car('aodi')
+// 如要取this，那么就不要用箭头函数，否则作用域不同
+car.on('open', function(){
+  console.log(this.name, '在高速飞驰')
+})
+
+car.emit('open')
+// aodi 在高速飞驰
+```
+案例三：打印每一行流的长度
+
+```javascript
+const fs = require('fs')
+const readStream = fs.createReadStream('../static/interview.docx')
+
+let total = 0
+readStream.on('data', function (data) {
+  // 打印每一行流的长度
+  console.log(data.length)
+  total += data.length
+})
+readStream.on('end', function () {
+  // 打印总共长度
+  console.log(total)
+})
+
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 65536
+// 48221
+// 900189
+```
+案例四：打印每行的长度
  
+```javascript
+const fs = require('fs')
+const readLine = require('readline')
+const rl = readLine.createInterface({
+  input: fs.createReadStream('../static/interview.docx')
+})
+let totalLine = 0
+rl.on('line', function (line) {
+  let llen = line.length
+  console.log(llen)
+  totalLine += llen
+})
+rl.on('close', function () {
+  console.log(totalLine)
+})
+// 128
+// 93
+// 109
+// 103
+// 151
+// 82
+// 225
+// 129
+// 52
+// 6
+// 93
+// 105
+// 31
+// 270
+// 137
+// 170
+……
+``` 
+### 其他场景
+- nodejs 处理http请求
+- vue react 生命周期
+- vue watch
+
+### 设计原则验证
+- 主题和观察者分离，不是主动触发而是被动监听，两者解耦
+- 符合开放封闭原则
+
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
 
