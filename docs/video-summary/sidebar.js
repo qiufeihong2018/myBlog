@@ -1,5 +1,4 @@
-module.exports = [
-    {
+module.exports = [{
         title: 'Vue2.0 Node.js MongoDB全栈打造商城系统',
         collapsable: false,
         sidebarDepth: 2,
@@ -52,5 +51,17 @@ module.exports = [
         collapsable: false,
         sidebarDepth: 2,
         children: ['javascript-design/']
+    }, 
+    {
+        title: '7天搞定Node.js微信公众号开发',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['node-wechat-public-number/']
+    }, 
+    {
+        title: 'Node.js项目线上服务器部署与发布',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['node-online-push/']
     }
 ]
