@@ -272,8 +272,10 @@ sudo /usr/sbin/service cron restart
 
 然后将定时备份的时间跳到每天6点
 ```bash
-* 6 * * * root /opt/gitlab/bin/gitlab-rake gitlab:backup:create CRON=1
+0 6 * * * root /opt/gitlab/bin/gitlab-rake gitlab:backup:create CRON=1
 ```
+
+注意：6之前是0,而不是*
 最后需要重新启动cron服务
 
 ### 设置备份过期时间

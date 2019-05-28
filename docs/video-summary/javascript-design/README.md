@@ -1213,6 +1213,200 @@ rl.on('close', function () {
 - 主题和观察者分离，不是主动触发而是被动监听，两者解耦
 - 符合开放封闭原则
 
+## 迭代器
+### 介绍
+- 顺序访问一个集合
+- 使用者不需要知道集合的内部结构(封装)
+
+### 实例
+- 用jQuery演示
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>qiufeihong前端设计模式</title>
+    <style>
+        .intro {
+            font-size: 100px;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='divProxy'>
+        <a href="#">qiufeihong前端设计模式1</a>
+        <a href="#">qiufeihong前端设计模式2</a>
+        <a href="#">qiufeihong前端设计模式3</a>
+        <a href="#">qiufeihong前端设计模式4</a>
+    </div>
+    <script type="text/javascript" src="./release/bundle.js"></script>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    const list = [1, 23, 43, 54, 12]
+    const arr = document.getElementsByTagName('a')
+    let $a = $('a')
+
+
+    // jQuery 生成迭代器
+    function each(node) {
+        $node = $(node)
+        $node.each(function (index, elem) {
+            console.log(index, elem)
+        })
+    }
+
+    each(list)
+    each(arr)
+    each($a)
+    // 三种遍历
+    // list.forEach(item => {
+    //     console.log(item)
+    // })
+
+    // for (let i = 0; i < arr.length; i++) {
+    //     console.log(arr[i])
+    // }
+
+    // $a.each(function (index, elem) {
+    // console.log(index, elem)
+    // })
+</script>
+
+</html>
+
+```
+
+### 场景
+- ES6 Iterator为何存在
+   - ES6语法中,有序集合的数据类型已经有很多
+   - Array,Map,Set,String,TypedArray,arguments,NodeList
+   - 需要有一个统一的遍历接口来遍历所有数据类型
+   - object不是有序集合,可以用map代替
+- Irterator是什么
+   - 以上数据类型,都有[Symbol.iterator]属性
+   - 属性值是函数,执行函数返回一个迭代器
+   - 这个迭代器就有next方法可顺序迭代子元素
+   - 可运行Array.prototype[Symbol.iterator]来测试
+
+#### iterator low
+```javascript
+<body>
+    <div id='divProxy'>
+        <a href="#">qiufeihong前端设计模式1</a>
+        <a href="#">qiufeihong前端设计模式2</a>
+        <a href="#">qiufeihong前端设计模式3</a>
+        <a href="#">qiufeihong前端设计模式4</a>
+    </div>
+    <script type="text/javascript" src="./release/bundle.js"></script>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    const list = [1, 23, 43, 54, 12]
+    const arr = document.getElementsByTagName('a')
+    let $a = $('a')
+    let map = new Map()
+    map.set('a', 100)
+    map.set('b', 100)
+    // iterator low
+    function each(node) {
+        let res = node[Symbol.iterator]()
+        console.log(res.next())
+        console.log(res.next())
+        console.log(res.next())
+        console.log(res.next())
+        console.log(res.next())
+        console.log(res.next())
+
+    }
+    each(list)
+    each(arr)
+    each($a)
+    each(map)
+</script>
+```
+#### iterator while
+```javascript
+
+<body>
+    <div id='divProxy'>
+        <a href="#">qiufeihong前端设计模式1</a>
+        <a href="#">qiufeihong前端设计模式2</a>
+        <a href="#">qiufeihong前端设计模式3</a>
+        <a href="#">qiufeihong前端设计模式4</a>
+    </div>
+    <script type="text/javascript" src="./release/bundle.js"></script>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    const list = [1, 23, 43, 54, 12]
+    const arr = document.getElementsByTagName('a')
+    let $a = $('a')
+    let map = new Map()
+    map.set('a', 100)
+    map.set('b', 100)
+    // iterator while
+    function each(node) {
+        let res = node[Symbol.iterator]()
+        let item={
+            done:false
+        }
+        while (!item.done) {
+            let item=res.next()
+            if(!item.done){
+                console.log(item.value)
+            }
+        }
+    }
+    each(list)
+    each(arr)
+    each($a)
+    each(map)
+</script>
+```
+#### for...of
+```javascript
+<body>
+    <div id='divProxy'>
+        <a href="#">qiufeihong前端设计模式1</a>
+        <a href="#">qiufeihong前端设计模式2</a>
+        <a href="#">qiufeihong前端设计模式3</a>
+        <a href="#">qiufeihong前端设计模式4</a>
+    </div>
+    <script type="text/javascript" src="./release/bundle.js"></script>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    const list = [1, 23, 43, 54, 12]
+    const arr = document.getElementsByTagName('a')
+    let $a = $('a')
+    let map = new Map()
+    map.set('a', 100)
+    map.set('b', 100)
+    // for...of
+    function each(node) {
+       for(let i of node){
+           console.log(i)
+       }
+    }
+    each(list)
+    each(arr)
+    each($a)
+    each(map)
+</script>
+
+```
+### 设计原则验证
+- 迭代器对象和目标对象分离
+- 迭代器将使用者与目标对象分离
+- 开放封闭原则
+
+
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
 
