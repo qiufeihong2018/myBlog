@@ -1406,8 +1406,106 @@ rl.on('close', function () {
 - 迭代器将使用者与目标对象分离
 - 开放封闭原则
 
+## 状态模式
+### 介绍和演示
+- 一个对象有状态变化
+- 每次状态变化都会触发一个逻辑
+- 不能总是用if...else来控制
+
+### 案例：红绿灯（设置状态）
+```javascript
+// 颜色状态
+class State {
+    constructor(color) {
+        this.color = color
+    }
+    handle(content){
+        console.log(`现在是${this.color}灯`)
+        // 设置状态
+        content.setState(this)
+    }
+}
+
+// 主体
+class Content {
+    constructor() {
+        this.state = null
+    }
+    getState() {
+        return this.state
+    }
+    setState(state) {
+        this.state = state
+    }
+}
+// 测试
+let content = new Content()
+const red = new State('red')
+const yellow = new State('yellow')
+const green = new State('green')
+
+red.handle(content)
+console.log(content.getState())
+
+yellow.handle(content)
+console.log(content.getState())
+
+green.handle(content)
+console.log(content.getState())
+```
+
+### 场景1——有限状态机
+- 有限个状态/以及在这些状态之间的变化
+ 
+```javascript
+import StateMachine from 'javascript-state-machine'
+import $ from 'jquery'
+var fsm=new StateMachine({
+    init:'收藏',
+    transitions:[{
+        name:'handleStore',
+        from:'收藏',
+        to:'取消收藏'
+    },{
+        name:'handleDelStore',
+        from:'取消收藏',
+        to:'收藏'
+    }],
+    methods: {
+        onHandleStore:()=>{
+            alert('收藏成功')
+            updateTxt()
+        },
+        onHandleDelStore:()=>{
+            alert('取消收藏成功')
+            updateTxt()        
+        }
+    }
+})
+
+let btn=$('#btn')
+// 按钮点击
+btn.click(function(){
+    fsm.is('收藏')?fsm.handleStore():fsm.handleDelStore()
+})
+
+// 按钮文字更新
+
+function updateTxt(){
+    btn.text(fsm.state)
+}
+
+// 初始化
+updateTxt()
+
+// methods中的onHandleStore与transitions中的handleStore要对应且首字母大写，表示监听该方法
+```
+### 场景2——promise
+
+promise可以用状态机实现，state+methods整理起来就像data+methods，不就类似于vue实例吗？
+
 
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
 
-链接: https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow 提取码: bup5 复制这段内容后打开百度网盘手机App，操作更方便哦
+链接: https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow 提取码: bup5 复制这段内容后打开百度网盘手机App，操作更方便哦 

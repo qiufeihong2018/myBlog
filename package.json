@@ -23,6 +23,12 @@
   },
   "devDependencies": {
     "commitizen": "^3.1.1",
+    "cz-conventional-changelog": "^2.1.0",
     "vuepress-plugin-demo-block": "^0.7.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
