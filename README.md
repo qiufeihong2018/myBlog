@@ -34,7 +34,7 @@ npm run server
 - [ ] Algolia搜索
 - [ ] SEO
 - [ ] 去掉首页评论
-- [ ] 自动化部署
+- [x] 自动化部署
 - [ ] 刷新内容的弹窗
 - [ ] 增加“返回顶部”按钮的插件(文档有问题)
 - [ ] 展示demo的同时，将这段代码展示出来[demo-code](https://buptsteve.github.io/vuepress-plugin-demo-code/)(文档有问题)

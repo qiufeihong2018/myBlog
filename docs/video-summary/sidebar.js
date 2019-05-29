@@ -63,5 +63,11 @@ module.exports = [{
         collapsable: false,
         sidebarDepth: 2,
         children: ['node-online-push/']
+    }, 
+    {
+        title: '基于TypeScript从零重构axios',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['typescript/']
     }
 ]
