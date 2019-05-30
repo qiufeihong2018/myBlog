@@ -1504,6 +1504,105 @@ updateTxt()
 
 promise可以用状态机实现，state+methods整理起来就像data+methods，不就类似于vue实例吗？
 
+## 其他设计模式
+### 优先级划分依据
+- 不常用
+- 对应不到经典的应用场景
+
+### 创建型
+- 原型模式
+  
+### 结构型
+- 桥接模式
+- 组合模式
+- 享元模式
+
+
+### 行为型
+- 策略模式
+- 模板方法模式
+- 职责链模式
+- 命令模式
+- 备忘录模式
+- 中介者模式
+- 访问者模式
+- 解释器模式
+
+
+### 原型模式
+#### 概念
+- new一个对象开销太大,克隆自己，生成一个新对象
+- java默认有克隆接口，不用自己实现
+
+#### 场景
+```javascript
+let prototype = {
+    getPerson() {
+        alert(`我是${this.name}，今年${this.age}`)
+    },
+    sayName() {
+        alert('你是天边最美的云彩')
+    }
+}
+// 根据原型创建对象
+let qfh = Object.create(prototype)
+qfh.name = 'qfh'
+qfh.age = 23
+qfh.getPerson()
+qfh.sayName()
+
+let lxl = Object.create(prototype)
+lxl.name = 'lxl'
+lxl.age = 234
+lxl.getPerson()
+lxl.sayName()
+```
+
+对比js中的原型protype
+- prototype可以理解为ES6 class的一种底层原理
+- 而class是实现面向对象的基础，并不是服务于某个模式
+- object.create却会长久保存
+
+### 桥接模式
+#### 概念
+- 用于把抽象化与实现化解耦
+- 使得二者可以独立变化
+  
+#### 案例
+比如 颜色图形
+
+#### 设计原则验证
+- 抽象和实现分离,解耦
+- 开放分闭原则
+
+
+### 组合模式
+#### 概念
+- 生成树形结构,表示'整体-部分'关系
+- 让整体和部分都具有一致操作
+
+#### 演示
+- 虚拟DOM中的vnode是这种形式,但是数据类型简单
+- js实现菜单,与业务相关
+
+#### 设计原则验证
+- 整体和单个抽象出来
+- 开放分闭原则
+
+
+
+### 享元模式
+#### 概念
+- 共享内存(主要考虑内存,而非效率)
+
+#### 演示
+无限下拉列表,事件绑定到容器上,而不是每个div上
+
+#### 设计原则验证
+- 将相同部分抽象出来
+- 开放分闭原则
+
+
 
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
