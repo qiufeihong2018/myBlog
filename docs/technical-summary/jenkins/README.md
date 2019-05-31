@@ -375,6 +375,12 @@ npm run build
 npm run pm2
 pm2 list
 ```
+
+## 仓库代码更新自动构建
+- 不用勾选定时构建和轮询SCM
+- 勾选`GitHub hook trigger for GITScm polling`
+
+这样你的jenkins就可以随着你的代码自动构建了
 ## 轮询
 - 定时构建：无论有无最新代码，都按时构建
 - 轮询SCM：只要代码有更新，都会构建
