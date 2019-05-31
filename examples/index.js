@@ -1,10 +1,8 @@
-function f(_a) {
-    var _b = _a === void 0 ? { b: 12321 } : _a, _c = _b.a, a = _c === void 0 ? 123123 : _c, b = _b.b;
-    console.log(a, b);
+function A(obj) {
+    console.log(obj);
 }
-f();
-f({ b: 1231231 });
-f({ a: 23123131, b: 131231231231231 });
-// 123123 12321
-// 123123 1231231
-// 23123131 131231231231231
+A({
+    name: 'qfh',
+    age: 21231231,
+    sex: 'men'
+});

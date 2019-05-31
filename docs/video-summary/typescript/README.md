@@ -225,5 +225,82 @@ f({ a: 23123131, b: 131231231231231 });
 ### 展开
 #### 数组展开
 
+```typescript
+const A = ['a', 'b', 'c', 'd']
+
+const B = ['x', 'y', ...A, 'z']
+console.log(B)
+```
+
+```javascript
+var A = ['a', 'b', 'c', 'd'];
+var B = ['x', 'y'].concat(A, ['z']);
+console.log(B);
+// [ 'x', 'y', 'a', 'b', 'c', 'd', 'z' ]
+```
 
 #### 对象展开
+
+```typescript
+const A = {
+    a: 'aaaa',
+    b: 'bbbbb',
+    c: 'ccccc'
+}
+const B = {
+    ...A,
+    d: 'ddddd',
+    a: 'AAAAA'
+}
+console.log(B)
+```
+```javascript
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var A = {
+    a: 'aaaa',
+    b: 'bbbbb',
+    c: 'ccccc'
+};
+var B = __assign({}, A, { d: 'ddddd', a: 'AAAAA' });
+console.log(B);
+// { a: 'AAAAA', b: 'bbbbb', c: 'ccccc', d: 'ddddd' }
+```
+
+### 接口
+
+```typescript
+interface isObj {
+    name: string,
+    age: number
+}
+
+function A(obj: isObj) {
+    console.log(obj)
+}
+A({
+    name: 'qfh',
+    age: 21231231,
+    sex:'men'
+})
+```
+多加一个属性就报错
+```bash
+index.ts:12:5 - error TS2345: Argument of type '{ name: string; age: number; sex: string; }' is not assignable to parameter of type 'isObj'.
+  Object literal may only specify known properties, and 'sex' does not exist in type 'isObj'.
+
+12     sex:'men'
+       ~~~~~~~~~
+
+
+Found 1 error.
+```

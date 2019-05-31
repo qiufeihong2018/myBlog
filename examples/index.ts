@@ -1,7 +1,13 @@
-function f({a=123123,b}={b:12321}):void{
-    console.log(a,b)
+interface isObj {
+    name: string,
+    age: number
 }
 
-f()
-f({b:1231231})
-f({a:23123131,b:131231231231231})
+function A(obj: isObj) {
+    console.log(obj)
+}
+A({
+    name: 'qfh',
+    age: 21231231,
+    sex:'men'
+})
