@@ -1,8 +1,7 @@
-const a: [number, number] = [1212, 32323]
-
-function B([one, two]: [number, number]) {
-    console.log(one)
-    console.log(two)
+function f({a=123123,b}={b:12321}):void{
+    console.log(a,b)
 }
 
-B(a)
+f()
+f({b:1231231})
+f({a:23123131,b:131231231231231})

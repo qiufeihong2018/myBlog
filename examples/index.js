@@ -1,7 +1,10 @@
-var a = [1212, 32323];
-function B(_a) {
-    var one = _a[0], two = _a[1];
-    console.log(one);
-    console.log(two);
+function f(_a) {
+    var _b = _a === void 0 ? { b: 12321 } : _a, _c = _b.a, a = _c === void 0 ? 123123 : _c, b = _b.b;
+    console.log(a, b);
 }
-B(a);
+f();
+f({ b: 1231231 });
+f({ a: 23123131, b: 131231231231231 });
+// 123123 12321
+// 123123 1231231
+// 23123131 131231231231231
