@@ -1602,6 +1602,252 @@ lxl.sayName()
 - 将相同部分抽象出来
 - 开放分闭原则
 
+### 册略模式
+#### 概念
+- 不同策略分开处理
+- 避免出现大量if...else或者switch...case
+
+#### 演示
+普通
+```javascript
+class Car {
+    constructor(type) {
+        this.type = type
+    }
+    drive() {
+        if (this.type === 'aodi') {
+            console.log('今天开奥迪')
+        } else if (this.type === 'benchi') {
+            console.log('今天开奔驰')
+        } else if (this.type === 'baoma') {
+            console.log('今天开宝马')
+        }
+    }
+}
+
+const car1 = new Car('aodi')
+car1.drive()
+const car2 = new Car('benchi')
+car2.drive()
+const car3 = new Car('baoma')
+car3.drive()
+// 今天开奥迪
+// 今天开奔驰
+// 今天开宝马
+
+
+```
+运用策略模式,不用多重判断
+```javascript
+class aodiCar {
+    drive() {
+        console.log('今天开奥迪')
+    }
+}
+class benchiCar {
+    drive() {
+    console.log('今天开奔驰')
+      
+    }
+}
+class baomaCar {
+    drive() {
+        console.log('今天开宝马')
+    
+    }
+}
+
+const car1 = new aodiCar()
+car1.drive()
+const car2 = new benchiCar()
+car2.drive()
+const car3 = new baomaCar()
+car3.drive()
+// 今天开奥迪
+// 今天开奔驰
+// 今天开宝马
+```
+
+
+#### 设计原则验证
+- 不同策略分开处理,不混在一块
+- 开放封闭原则
+
+### 模板方法模式
+
+### 职责链模式
+#### 演示
+```javascript
+class Action {
+    constructor(oprator) {
+        this.oprator = oprator
+        this.nextOprator = null
+    }
+    next(actions) {
+        this.nextOprator = actions
+    }
+    handle() {
+        console.log(`我正在${this.oprator}`)
+        if (this.nextOprator !== null) {
+            this.nextOprator.handle()
+        }
+    }
+}
+
+const a1 = new Action('起床')
+const a2 = new Action('洗漱')
+const a3 = new Action('上班')
+a1.next(a2)
+a2.next(a3)
+// handle触发所有方法
+a1.handle()
+// 我正在起床
+// 我正在洗漱
+// 我正在上班
+```
+
+#### 场景
+js中的链式操作
+- 职责链模式和业务结合较多,js中能联想到链式操作
+- jquery的链式操作 promise.then的链式操作
+
+### 命令模式
+#### 概念
+- 执行命令时,发布者和执行者分开
+- 中间加入中转站
+
+#### 演示
+老板招人:
+- 老板命令hr让他给员工发offer
+- hr给员工发offer,让他入职
+- 员工就来报道入职
+```javascript
+class Staff{
+    execute(){
+        console.log('入职')
+    }
+}
+
+class HR{
+    constructor(staff){
+        this.staff=staff
+    }
+    email(){
+        console.log('offer给你了,来入职吧')
+        this.staff.execute()
+    }
+}
+
+class Boss{
+    constructor(hr){
+        this.hr=hr
+    }
+    decree(){
+        console.log('来入职吧')
+        this.hr.email()
+    }
+}
+
+const staff=new Staff()
+const hr=new HR(staff)
+const boss=new Boss(hr)
+boss.decree()
+
+// 来入职吧
+// offer给你了,来入职吧
+// 入职
+```
+
+#### 场景
+- 网页富文本编辑器操作,浏览器封装了一个命令对象
+- document.execCommand('bold')
+
+#### 设计原则验证
+- 命令者和执行者分开,解耦
+- 开放封闭原则
+
+### 备忘录模式
+#### 概念
+- 随时记录一个对象的状态变化
+- 随时可以恢复之前的某个状态
+
+
+#### 演示
+<!-- 备忘录的保存和撤销 -->
+```javascript
+// 暂时备份
+class TmpBackup {
+    constructor(content) {
+        this.content = content
+    }
+    getContent() {
+        return this.content
+    }
+}
+
+// 备份列表
+class Memento {
+    constructor() {
+        this.list = []
+    }
+    add(tmpBackup) {
+        this.list.push(tmpBackup)
+    }
+    get(index) {
+        return this.list[index]
+    }
+}
+
+// 编辑器
+class Editor {
+    constructor() {
+        this.content = null
+    }
+    setContent(content) {
+        this.content = content
+    }
+    getContent() {
+        return this.content
+    }
+    // 保存
+    saveContentToTmpBackup() {
+        return new TmpBackup(this.content)
+    }
+    // 撤销
+    getContentFromTmpBackup(tmpBackup) {
+        this.content = tmpBackup.getContent()
+    }
+}
+
+// 测试
+let editor=new Editor()
+let memento=new Memento()
+// 先填内容
+editor.setContent('aaaa')
+// 再将内容暂时保存
+let tmp=editor.saveContentToTmpBackup()
+// 最后将内容保存进备忘录
+memento.add(tmp)
+editor.setContent('bbbb')
+editor.setContent('cccc')
+editor.setContent('dddd')
+editor.setContent('eeee')
+editor.setContent('ffff')
+editor.setContent('gggg')
+
+console.log(editor.getContent())//gggg
+// 撤销到第一条
+editor.getContentFromTmpBackup(memento.get(0))
+console.log(editor.getContent())//aaaa
+
+```
+
+#### 场景
+编辑工具
+
+####
+- 状态和编辑工具分离,解耦
+- 开放封闭原则
 
 
 ## 材料
