@@ -156,3 +156,45 @@ console.log(greeter(user));//hello qfh 24
 - undefined
 - nerver
 - object 
+
+### var
+#### 变量提升
+
+#### 闭包
+
+### let
+
+#### 块级作用域
+
+#### 暂时性死区
+
+#### 不能重复声明
+
+#### 屏蔽
+
+### const
+#### 不变
+
+### 解构
+元祖
+```typescript
+const a: [number, number] = [1212, 32323]
+
+function B([one, two]: [number, number]) {
+    console.log(one)
+    console.log(two)
+}
+
+B(a)
+```
+```javascript
+var a = [1212, 32323];
+function B(_a) {
+    var one = _a[0], two = _a[1];
+    console.log(one);
+    console.log(two);
+    // 1212
+// 32323
+}
+B(a);
+```
