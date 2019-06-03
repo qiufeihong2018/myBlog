@@ -191,6 +191,8 @@ sudo chown git backups/
 sudo chmod 700 backups/
 ```
 
+## gitlab恢复备份
+
 ### 修改备份文件权限
 为了避免gitlab恢复时，由于权限，而产生不能解压的问题,我们就将备份文件权限改为777
 ```bash
@@ -229,6 +231,7 @@ sudo gitlab-ctl start
 ![avatar](../public/gitlab16.png)
 
 ## gitlab自动备份
+
 ### 定时自动备份
 不会crontab，请戳[Linux crontab命令](https://www.runoob.com/linux/linux-comm-crontab.html)
 
@@ -288,6 +291,106 @@ sudo /usr/sbin/service cron restart
 我设置了7天内不过期
 ![avatar](../public/gitlab20.png)
 
+## gitlab自动发送备份包
+### 新旧服务器配对密钥
+由于scp总是出现交互,提示输入密码
+
+方案一:配对密码,取消密码
+
+方案二:expect自动交互
+
+这里我们采取方案一
+
+### 生成密钥对
+在旧服务器上,输入命令
+```bash
+ssh-keygen -t rsa
+```
+![avatar](../public/gitlab22.png)
+
+1. 生成的过程中提示输入密钥对保存位置，直接回车，接受默认值就行了。 
+2. 因为之前已经有/root/.ssh/id_rsa 文件存在，因此提示你是否覆盖，输入y表示覆盖 
+3. 接着会提示输入一个密码，直接回车，让它空着。当然，也可以输入一个密码。 
+4. 接着输入确认密码，输入完之后，回车密钥对就生成完了。
+
+
+> 在/root/.ssh下生成id_rsa 和 id_rsa.pub 两个文件， 
+其中公共密钥保存在 /root/.ssh/id_rsa.pub，私有密钥保存在/root/.ssh/id_rsa。
+
+![avatar](../public/gitlab23.png)
+
+### 在旧服务器上cp生成rsa公钥证书给新服务器
+然后在/root/.ssh下复制备份一份id_rsa.pub 命名为 id_rsa.pub.A，以便拷贝到新服务器。
+
+执行cp命令复制
+```bash
+cp id_rsa.pub id_rsa.pub.A
+```
+![avatar](../public/gitlab24.png)
+
+执行scp命令传输
+```bash
+scp /root/.ssh/id_rsa.pub.A root@新服务器ip:/root/.ssh/
+```
+![avatar](../public/gitlab25.png)
+
+这里使用scp命令需要输入密码，当我们把下面的第三步执行完毕之后，以后本地服务器A使用scp命令复制文件到远程服务器B的话，就不需要再次输入密码。
+
+### 密钥配对
+#### 创建authorized_keys文件
+当第二步将旧服务器上的id_rsa.pub.A 文件copy到新服务器的目录/root/.ssh下
+![avatar](../public/gitlab26.png)
+
+我们在新服务器的/root/.ssh下创建authorized_keys文件，使用如下命令
+```bash
+touch authorized_keys
+```
+#### 将id_rsa.pub.A文件内容追加到authorized_keys 文件中
+![avatar](../public/gitlab27.png)
+![avatar](../public/gitlab28.png)
+
+####  修改authorized_keys文件的权限
+修改authorized_keys文件的权限
+
+> authorized_keys文件的权限很重要，如果设置为777，那么登录的时候，还是需要提供密码的。
+
+
+![avatar](../public/gitlab29.png)
+
+#### 测试
+在旧服务器上使用scp命令复制文件到新服务器上是否还需要密码
+
+在新服务器上，再次使用刚才的命令，发现已经可以不需要输入密码
+![avatar](../public/gitlab30.png)
+
+### 创建Shell定时远程备份脚本
+#### 在新服务器上创建定时远程备份脚本
+
+```bash
+cd /data/gitlab
+touch auto_backup.sh
+```
+![avatar](../public/gitlab31.png)
+因为到时候，我们会将该定时远程备份脚本auto_backup_to_remote.sh执行的时间，放到Gitlab自动备份脚本auto_backup.sh之后的一小时之内，因此我们只需要每次执行远程备份脚本auto_backup_to_remote.sh的时候，只需要cp一个小时之内的生成的新的Gitlab备份文件。
+
+
+![avatar](../public/gitlab32.png)
+#### 查看日志文件
+![avatar](../public/gitlab33.png)
+#### 修改定时远程备份脚本auto_backup_to_remote.sh的权限
+要执行脚本文件，需要修改定时远程备份脚本auto_backup_to_remote.sh的权限
+
+```bash
+chmod 777 auto_backup_to_remote.sh
+```
+#### 手动执行脚本
+![avatar](../public/gitlab34.png)
+
+
+## gitlab自动恢复
+```bash
+chmod 400 authorized_keys
+```
 
 ## 参考文献
 
