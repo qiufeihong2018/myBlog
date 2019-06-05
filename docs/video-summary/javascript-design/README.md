@@ -1845,10 +1845,86 @@ console.log(editor.getContent())//aaaa
 #### 场景
 编辑工具
 
-####
+#### 设计原则验证
 - 状态和编辑工具分离,解耦
 - 开放封闭原则
 
+### 中介者模式
+
+#### 概念
+好多个对象互相交互,改用对象和对象通过中介者访问
+
+#### 演示
+```javascript
+// 买家
+class Buyer {
+    constructor() {
+        this.number = 0
+    }
+    setNum(num, m) {
+        this.number = num
+        if (m) {
+            m.setSellerNum()
+        }
+    }
+}
+// 卖家
+class Seller {
+    constructor() {
+        this.number = 0
+    }
+    setNum(num, m) {
+        this.number = num
+        if (m) {
+            m.setBuyerNum()
+        }
+    }
+}
+// 中介者
+class Medium {
+    constructor(buyer, seller) {
+        this.buyer = buyer
+        this.seller = seller
+    }
+    setBuyerNum() {
+        let number = this.seller.number
+        this.buyer.setNum(number)
+    }
+    setSellerNum() {
+        let number = this.buyer.number
+        this.seller.setNum(number)
+    }
+}
+
+// 测试
+let buyer = new Buyer()
+let seller = new Seller()
+let medium = new Medium(buyer, seller)
+buyer.setNum(9000000,medium)
+console.log(`买家说出${seller.number}买这套房子`)
+//买家说出9000000买这套房子
+
+seller.setNum(10000000,medium)
+console.log(`卖家说没有${buyer.number}不卖这套房子`)
+// 卖家说没有10000000不卖这套房子
+```
+#### 设计原则验证
+- 通过中介者隔离
+- 开放封闭原则
+
+### 访问者模式
+#### 概念
+- 将数据操作和数据结构进行分离
+
+### 解释器模式
+#### 概念
+- 描述语言语法定义
+- 用于专业场景
+
+
+## 综合应用
+
+## 课程总结
 
 ## 材料
 [《unix/linux设计哲学》](https://pan.baidu.com/s/1V0caTE3kge-uG6jtNhA0ow)
