@@ -5,13 +5,9 @@
 - [ ] Algolia搜索
 - [ ] SEO
 - [ ] 去掉首页评论
-- [ ] 自动化部署
+- [x] 自动化部署
 - [ ] 刷新内容的弹窗
-- [ ] 增加“返回顶部”按钮的插件
-  - 版本问题
-    - vuepress 0.x
-    - plugin-back-to-top 1.x(只在vuepress 1.x中才有)
-
+- [ ] 增加“返回顶部”按钮的插件(文档有问题)
 - [ ] 展示demo的同时，将这段代码展示出来[demo-code](https://buptsteve.github.io/vuepress-plugin-demo-code/)(文档有问题)
 
 功能
@@ -26,5 +22,4 @@
   - 点击收起按钮时自动滚动到代码的顶部
 
 - [ ] 导入*.vue 文件的同时，使用 [Vuese](https://buptsteve.github.io/markdown-it-vuese/zh/#install) 自动生成文档。
-
 
