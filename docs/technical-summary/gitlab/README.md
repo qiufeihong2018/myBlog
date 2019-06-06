@@ -521,7 +521,7 @@ sudo vim /etc/crontab
 ```bash
 # 仇飞鸿编辑于2019-6-04 添加定时任务，每天7点，自动执行将gitlab备份包scp到新服务
 器上的操作
-0  7    * * *   gushenxing    /var/opt/gitlab/auto_scp.sh
+0  7    * * *   gushenxing   bash /var/opt/gitlab/auto_scp.sh
 ```
 
 ![avatar](../public/gitlab36.png)
@@ -562,7 +562,7 @@ sudo vim /etc/crontab
 添加下面命令
 ```bash
 # 仇飞鸿编辑于2019-5-30 添加定时任务，每天上午8点,自动执行删除过期的gitlab备份文件操作
-0  8    * * *   root    /var/opt/gitlab/auto_remove_backup.sh
+0  8    * * *   root   bash /var/opt/gitlab/auto_remove_backup.sh
 ```
 
 编写完 /etc/crontab 文件之后，需要重新启动cron服务
@@ -672,7 +672,7 @@ sudo vim /etc/crontab
 在crontab中加入此定时任务
 ```bash
 # 仇飞鸿编辑于2019-6-3 添加定时任务，每天上午9点,自动执行从备份包中恢复gitlab操作
-0  9    * * *   root    /var/opt/gitlab/auto_recovery_backup.sh
+0  9    * * *   root    bash /var/opt/gitlab/auto_recovery_backup.sh
 ```
 ![avatar](../public/gitlab42.png)
 编写完 /etc/crontab 文件之后，需要重新启动cron服务
@@ -705,7 +705,9 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # 仇飞鸿编辑于2019-6-04 添加定时任务，每天7点，自动执行将gitlab备份包scp到新服务
 器上的操作
-0  7    * * *   gushenxing    /var/opt/gitlab/auto_scp.sh
+0 7     * * *  gushenxing  bash /var/opt/gitlab/auto_scp.sh
+
+#
 ```
 ### 新服务器上的crontab脚本
 ```bash
@@ -724,11 +726,14 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
 52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
 
-# 仇飞鸿编辑于2019-5-30 添加定时任务，每天上午8点,自动执行删除过期的gitlab备份文件操作
-0  8    * * *   root    /var/opt/gitlab/auto_remove_backup.sh
+# 仇飞鸿编辑于2019-5-30 添加定时任务，每天上午8点,自动执行删除过期的gitlab备份文
+件操作
+0  8    * * *   root    bash /var/opt/gitlab/auto_remove_backup.sh
 
-# 仇飞鸿编辑于2019-6-3 添加定时任务，每天上午9点,自动执行从备份包中恢复gitlab操作
-0  9    * * *   root    /var/opt/gitlab/auto_recovery_backup.sh
+# 仇飞鸿编辑于2019-6-3 添加定时任务，每天上午9点,自动执行从备份包中恢复gitlab操>作
+0  9    * * *   root    bash /var/opt/gitlab/auto_recovery_backup.sh
+
+~  
 ```
 
 ### 自动将gitlab备份包scp到新服务器脚本`auto_scp.sh`
