@@ -111,5 +111,29 @@ module.exports = [{
         collapsable: false,
         sidebarDepth: 2,
         children: ['node-reptile/']
+    },
+    {
+        title: 'express从入门到放弃',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['express/']
+    },
+    {
+        title: 'express项目集成mocha测试框架',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['mocha/']
+    },
+    {
+        title: '接口文档神器apiDoc',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['apiDoc/']
+    },
+    {
+        title: 'Elastic Stack 的核心',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['elasticStack/']
     }
 ]

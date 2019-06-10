@@ -839,7 +839,6 @@ REMOTEDIRBACKUPS=/var/opt/gitlab/backups
 BACKUPFILE=$(sudo find ./ -mtime -1 -name '*.tar')
 
 
-
 #当前系统日期 
 
 DATE=`date "+%Y-%m-%d-%H-%M-%S"`
@@ -877,10 +876,12 @@ echo "---------------------------------分割线--------------------------------
 echo "backup files generated on that day is $BACKUPFILE" >> $LogFile
 
 
-
-
-
 #截取出主要文件名
+
+FILE=$(echo ${BACKUPFILE#*backups/})
+
+#截取恢复文件名
+
 RESTOREFILE=$(echo ${FILE%_gitlab*})
 
 
@@ -898,18 +899,15 @@ echo "backup files generated scp to $REMOTEDIRBACKUPS" >> $LogFile
 
 cd $REMOTEDIRBACKUPS
 
-
-
 #备份文件权限修改为可读可写可执行
 
 chmod 777 $FILE
+
 #停止相关数据连接服务
 
 sudo gitlab-ctl stop unicorn
 
 sudo gitlab-ctl stop sidekiq
-
-
 
 #自动化交互,从备份文件恢复gitlab
 
@@ -927,29 +925,22 @@ expect {
 
 }
 
-
-
 expect eof"
 
 #开启gitlab
 
 sudo gitlab-ctl start
 
-
-
 echo "---------------------------------分割线---------------------------------" >> $LogFile
-
-
 
 #输出日志，从备份文件恢复gitlab
 
-echo "recovery was successful" >> $LogFile
 
+echo "recovery was successful" >> $LogFile
 
 #追加日志到日志目录
 
 echo "---------------------------------结束-----------------------------------" >> $LogFile
-
 
 
 
