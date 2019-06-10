@@ -25,7 +25,7 @@
 var A='当时的答案'
 var B='现在的答案'
 
-> ### JavaScript包括哪些数据类型，请分别编写3种以上类型的判断函数如：isString（）？
+> ### JavaScript包括哪些数据类型，请分别编写3种以上类型的判断函数如：isString()？
 
 A:
 
