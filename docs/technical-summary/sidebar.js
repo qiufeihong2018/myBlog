@@ -107,6 +107,12 @@ module.exports = [{
         children: ['gitlab/']
     },
     {
+        title: 'no space left on device 解决磁盘空间',
+        collapsable:false,
+        sidebarDepth:2,
+        children:['device/']
+    },
+    {
         title: 'node爬取某图片网站的桌面壁纸',
         collapsable: false,
         sidebarDepth: 2,

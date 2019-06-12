@@ -11,10 +11,10 @@ module.exports = [{
         children: ['Vue/']
     },
     {
-        title: 'node.js开发实战',
+        title: 'Node.js入门到企业Web开发',
         collapsable: false,
         sidebarDepth: 2,
-        children: ['node/']
+        children: ['node-web/']
     },
     {
         title: 'Vue核心技术 Vue Vue-Router Vuex SSR实战精讲',

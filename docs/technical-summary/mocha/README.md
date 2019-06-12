@@ -126,6 +126,12 @@ Tape
 
 
 
+## 其他
+### 断言库should
+Mocha本身是不包含断言库的，所以我们需要自己选择断言库。should是一个很简单的、贴近自然语言的断言库。当然，Mocha是适配所有的断言库的，如果你喜欢其他的断言库比如expect之类的，你也可以把它包含进来使用。
+### SuperTest
+单单使用Mocha和should就几乎可以满足所有JavaScript函数的单元测试。但是对于Node应用而言，不仅仅是函数的集合，比如一个web应用的测试。这时候就需要配合一个http代理，完成Http请求和路由的测试。
+Supertest是一个HTTP代理服务引擎，可以模拟一切HTTP请求行为。Supertest可以搭配任意的应用框架，从而进行应用的单元测试。
 
 ## 官网
 > 安装mocha> = v3.0.0，npm的版本应该> = v2.14.2。除此，确保使用Node.js的版本> = v4来运行mocha
@@ -135,6 +141,9 @@ Tape
 npm install --save-dev mocha
 ```
 
+describe块称为"测试套件"（test suite），表示一组相关的测试。它是一个函数，第一个参数是测试套件的名称（"加法函数的测试"），第二个参数是一个实际执行的函数。
+
+it块称为"测试用例"（test case），表示一个单独的测试，是测试的最小单位。它也是一个函数，第一个参数是测试用例的名称（"1 加 1 应该等于 2"），第二个参数是一个实际执行的函数。
 ### 开始
 
 ```bash
@@ -251,6 +260,163 @@ mocha允许你使用任意你喜欢的断言库，在上面的例子中，我们
 
 ### 异步代码
 使用Mocha测试异步代码并不简单！只需在测试完成后调用回调。通过添加一个回调（通常命名done）it()，Mocha将知道它应该等待调用此函数来完成测试。此回调接受Error实例（或其子类）或伪值; 其他任何事情都会导致测试失败。
+```javascript
+class User{
+  constructor(name){
+    this.name=name
+  }
+  save(){
+    console.log('12312')
+  }
+}
+'use strict'
+var assert = require('assert');
+describe('User', function() {
+  describe('#save()', function() {
+    it('should save without error', function(done) {
+      var user = new User('Luna');
+      user.save(function(err) {
+        if (err) done(err);
+        else done();
+      });
+    });
+  });
+});
+```
+### 使用承诺
+或者，done()您可以返回Promise，而不是使用回调。如果您正在测试的API返回promises而不是回调，这将非常有用：
+```javascript
+beforeEach(function() {
+  return db.clear()
+    .then(function() {
+      return db.save([tobi, loki, jane]);
+    });
+});
+
+describe('#find()', function() {
+  it('respond with matching records', function() {
+    return db.find({ type: 'User' }).should.eventually.have.length(3);
+  });
+});
+```
+在Mocha v3.0.0及更新版本中，返回a Promise 和调用done()将导致异常，因为这通常是一个错误：
+```javascript
+const assert = require('assert');
+
+it('should complete this test', function (done) {
+  return new Promise(function (resolve) {
+    assert.ok(true);
+    resolve();
+  })
+    .then(done);
+});
+```
+上述测试将失败Error: Resolution method is overspecified. Specify a callback *or* return a Promise; not both.。在v3.0.0之前的版本中，done()有效地忽略了调用。
+
+```javascript
+beforeEach(async function() {
+  await db.clear();
+  await db.save([tobi, loki, jane]);
+});
+
+describe('#find()', function() {
+  it('responds with matching records', async function() {
+    const users = await db.find({ type: 'User' });
+    users.should.have.length(3);
+  });
+});
+```
+
+### 同步代码
+在测试同步代码时，省略回调，Mocha将自动继续进行下一次测试。
+```javascript
+let should=require('should')
+describe('Array', function() {
+  describe('#indexOf()', function() {
+    it('should return -1 when the value is not present', function() {
+      [1,2,3].indexOf(5).should.equal(-1);
+      [1,2,3].indexOf(0).should.equal(-1);
+    });
+  });
+});
+```
+### 箭头功能
+不鼓励将箭头函数（“lambdas”）传递给Mocha。Lambdas词法绑定this，无法访问Mocha上下文。例如，以下代码将失败：
+
+如果您不需要使用 Mocha的上下文，lambdas应该可以工作。但是，如果最终需要，结果将更难以重构。
+
+### 钩
+其默认“BDD”式接口，mocha提供钩before()，after()，beforeEach()，和afterEach()。这些应该用于设置前置条件并在测试后进行清理。
+
+测试可以在钩子之前，之后或穿插时出现。钩子将按其定义的顺序运行，视情况而定; 所有before()钩子运行（一次），然后任何beforeEach()钩子，测试，任何afterEach()钩子，最后after()钩子（一次）。
+### 描述钩子
+可以使用可选描述调用任何挂钩，从而更容易查明测试中的错误。如果为钩子指定了一个命名函数，则在没有提供描述的情况下将使用该名称。
+
+### 异步挂钩
+所有的钩子（before()，after()，beforeEach()，afterEach()）可以是同步或异步为好，表现就像一个常规的测试用例。例如，您可能希望在每次测试之前使用虚拟内容填充数据库：
+
+
+### 根级挂钩
+您也可以选择任何文件并添加“root”级别挂钩。例如，beforeEach()在所有describe()块之外添加。这将导致回调beforeEach()在任何测试用例之前运行，无论它存在于哪个文件中（这是因为Mocha有一个隐含的 describe()块，称为“根套件”）。
+
+### 延迟根套件
+如果您需要在运行任何套件之前执行异步操作，则可能会延迟根套件。mocha用--delay旗帜运行。这将附加一个特殊的回调函数run()，到全局上下文：
+
+### 待测试
+“待定” - 在“有人应该最终编写这些测试用例”中 - 测试用例只是没有回调的情况：
+
+待测试将包含在测试结果中，并标记为待定。待定测试不被视为失败测试。
+
+
+### 独家测试
+排他性功能允许您通过附加到函数来仅运行指定的套件或测试用例.only()。这是仅执行特定套件的示例：
+
+注意：仍将执行所有嵌套套件。
+
+以下是执行单个测试用例的示例：
+在v3.0.0之前，.only()使用字符串匹配来决定执行哪些测试。从v3.0.0开始，情况就不再如此。在v3.0.0或更高版本中，.only()可以多次使用来定义要运行的测试子集：
+您也可以选择多个套房：
+但测试将优先：
+注意：钩子（如果存在）仍将执行。
+
+注意不要使用.only()版本控制的用法，除非你真的是这个意思！为此，可以使用--forbid-only持续集成测试命令（或git precommit hook）中的选项运行mocha 。
+### 包容性测试
+此功能与之相反.only()。通过附加.skip()，您可以告诉Mocha简单地忽略这些套件和测试用例。跳过的任何内容都将被标记为待处理，并按此报告。这是跳过整个套件的示例：
+
+最佳实践：使用.skip()而不是评论测试。
+
+您也可以在运行时跳过使用this.skip()。如果测试需要预先无法检测到的环境或配置，则运行时跳过是合适的。例如：
+
+上述测试将报告为待定。同样重要的是要注意调用this.skip()将有效中止测试。
+
+Best practice: To avoid confusion, do not execute further instructions in a test or hook after calling this.skip().
+
+Contrast the above test with the following code:
+### RETRY TESTS
+### DYNAMICALLY GENERATING TESTS
+
+鉴于Mocha使用Function.prototype.call和函数表达式来定义套件和测试用例，因此可以直接动态生成测试。不需要特殊的语法 - 普通的'JavaScript'可用于实现类似于“参数化”测试的功能，您可能已经在其他框架中看到过。
+
+
+### 测试持续时间
+
+许多记者将显示测试持续时间，以及标记缓慢的测试，如“spec”记者所示：
+### 超时
+套房级
+套件级超时可应用于整个测试“套件”，或通过其禁用this.timeout(0)。这将由所有嵌套套件和不覆盖该值的测试用例继承。
+
+
+测试级别
+也可以应用特定于测试的超时，或者this.timeout(0)一起使用以禁用超时：
+
+胡克级
+也可以应用挂钩级别超时：
+
+
+### 
+### 
+### 
+### 
 
 
 
@@ -260,3 +426,17 @@ mocha允许你使用任意你喜欢的断言库，在上面的例子中，我们
 [测试框架 Mocha 实例教程](http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html)
 
 [前端测试框架对比(js单元测试框架对比)](https://www.cnblogs.com/lihuanqing/p/8533552.html)
+
+[mocha 和 supertest](https://github.com/nswbmw/N-blog/blob/master/book/4.14%20%E6%B5%8B%E8%AF%95.md#4141-mocha-%E5%92%8C-supertest)
+
+[使用mocha给mongoose写单元测试](http://ju.outofmemory.cn/entry/86908)
+
+[nodejs使用mocha进行接口测试](https://blog.csdn.net/weixin_34308389/article/details/87441278)
+
+[node中使用 mocha + supertest + should 来写单元测试](https://github.com/xiyuyizhi/movies/blob/master/dayByday/day5.md)
+
+[【Node开发笔记】单元测试工具Mocha和SuperTest](https://www.imooc.com/article/2631)
+
+[一步一步搭建react应用-node中使用 mocha + supertest + should 来写单元测试](https://segmentfault.com/a/1190000011095213)
+
+[mocha + chai + supertest 测试 node server](https://webfem.com/post/mocha-test)
