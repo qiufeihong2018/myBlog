@@ -69,5 +69,11 @@ module.exports = [{
         collapsable: false,
         sidebarDepth: 2,
         children: ['typescript/']
+    }, 
+    {
+        title: 'NodeJs实战+mongodb+聊天系统',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['node-mongodb-chat/']
     }
 ]
