@@ -1,21 +1,747 @@
 # express项目集成mocha测试框架
-Mocha（发音"摩卡"）诞生于2011年，是一个特征丰富的javascript测试框架,可以运行在node.js和浏览器上,使异步测试更简单和有趣。Mocha测试连续运行，允许灵活和准确的报告，同时将未捕获的异常映射到正确的测试用例。
+![avatar](../public/mocha.png)
 
-## 测试框架
+> mocha诞生于2011年，是一个特征丰富的javascript测试框架,可以运行在node.js和浏览器上,使异步测试更简单和有趣。mocha测试连续运行，允许灵活和准确的报告，同时将未捕获的异常映射到正确的测试用例。
+## 背景
+公司项目中,没有自动化的单元测试,而是通过写if/else判断,多少有点懵逼
+
+所在在种种考虑之下,我们就选择mocha测试框架做单元测试
+
+![avatar](../public/mocha5.png)
+
+### 测试报告
+在terminal里运行
+```bash
+npm run mochawesome
+```
+完成项目中的单元测试
+![avatar](../public/mocha4.png)
+
+单击 `file:///`+项目所在地址+`/mochawesome-report/mochawesome.html`
+
+最终得到的就是这一份测试报告
+![avatar](../public/mocha1.png)
+
+### 待测试的接口
+需要测试的代码如下
+
+```javascript
+'use strict';
+
+const router = require('express').Router();
+const passport = require('passport');
+const User = require('../collections/user');
+const log = require('../services/logger').createLogger('userAuthentication');
+const AUTH_ERR = require('../constant/errMessage').AUTH;
+const COMM_ERR = require('../constant/errMessage').COMMON;
+
+/**
+ * @api {get} /v1/auth/ User auth information
+ * @apiName UserAuthInfo
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {null} null.
+ *
+ * @apiSuccess {String} username  The username of the current user.
+ * @apiSuccess {date} last  User last logon time.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "username": "test",
+ *       "last": "2019-06-03T06:22:53.567Z"
+ *     }
+ *
+ * @apiError NOT_LOGIN The current User was not logon.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "err": "NOT_LOGIN",
+ *       "message": "User has not logon in!"
+ *     }
+ */
+
+router.get('/', function(req, res) {
+  if (req.user) {
+    res.json({
+      username: req.user.username,
+      last: req.user.last
+    });
+  } else {
+    res.status(401).json({
+      err: 'NOT_LOGIN',
+      message: AUTH_ERR.NOT_LOGIN
+    });
+  }
+});
+
+/**
+ * @api {post} /v1/auth/register User Register
+ * @apiName UserRegister
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  New user's name.
+ * @apiParam {String} password  New user's password.
+ *
+ * @apiSuccess {String} username  The username of the register user.
+ * @apiSuccess {string} message  The registering success info.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "username": "gushen",
+ *       "message": "User registered successful"
+ *     }
+ *
+ * @apiError REGISTER_FAILURE The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Internal Server Error
+ *    {
+ *      "err": "REGISTER_FAILURE",
+ *      "message": "User register failure!"
+ *    }
+ */
+router.post('/register', function(req, res, next) {
+  User.register(new User({ username: req.body.username }), req.body.password, function(err) {
+    if (err) {
+      log.error(err);
+      res.status(500).json({
+        err: 'REGISTER_FAILURE',
+        message: AUTH_ERR.REGISTER_FAILURE
+      });
+      return;
+    }
+
+    log.info('user ' + req.body.username + ' registered successful!');
+    res.json({
+      username: req.body.username,
+      message: 'User registered successful'
+    });
+
+  });
+});
+
+/**
+ * @api {post} /v1/auth/login User login
+ * @apiName UserLogin
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  User's name.
+ * @apiParam {String} password  User's password.
+ *
+ * @apiSuccess {String} username  The username of the register user.
+ * @apiSuccess {string} message  The messgaer if the user login in successful.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *    {
+ *      "username": "test",
+ *      "message": "Authentication Success"
+ *    }
+ *
+ * @apiError REGISTER_FAILURE The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *    {
+ *      "err": "AUTHENTICATE_FAILURE",
+ *      "message": "Authenticate failure"
+ *   }
+ */
+router.post('/login', isAhenticated, passport.authenticate('local'), function(req, res) {
+  if (req.user) {
+    log.info(`${req.user.username} login in successful`);
+    res.json({
+      username: req.user.username,
+      message: 'Authentication Success'
+    });
+    return;
+  }
+  log.info(`${req.user.username} login failure`);
+  res.status(401).json({
+    err: 'AUTHENTICATE_FAILURE',
+    message: `${req.user.username} login failure`
+  });
+
+});
+
+/**
+ * @api {post} /v1/auth/user/:username User delete
+ * @apiName UserDelete
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  User's name.
+ *
+ * @apiSuccess {String} username  The username of the deleted user.
+ * @apiSuccess {string} message  The message if deleting successful.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *   {
+ *     "username": "gushen",
+ *     "message": "Delete User Successful"
+ *   }
+ *
+ * @apiError NOT_LOGIN The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *    {
+ *      "err": "NOT_LOGIN",
+ *      "message": "User has not logon in!"
+ *    }
+ */
+router.delete('/user/:username', function(req, res) {
+  if (!req.user) {
+    res.status(401).json({
+      err: 'NOT_LOGIN',
+      message: AUTH_ERR.NOT_LOGIN
+    });
+    return;
+  }
+
+  // if (!req.params.username) {
+  //   res.json({
+  //     err: 'PARAMS_NOT_CORRECT',
+  //     message: 'No deleted user name'
+  //   });
+  //   return;
+  // }
+
+  User.deleteOne({ username: req.params.username }, (err) => {
+    if (err) {
+      log.error(err);
+      res.status(500).json({
+        err: 'SERVER_ERROR',
+        message: COMM_ERR.SERVER_ERROR
+      });
+      return;
+    }
+
+    res.json({
+      username: req.params.username,
+      message: 'Delete User Successful'
+    });
+
+    log.info(`${req.params.username} has been deleted`);
+  });
+});
+
+/**
+ * @api {post} /v1/auth/changepassword User change password
+ * @apiName UserChangePassword
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  User's name.
+ * @apiParam {String} oldpassword  User's old password.
+ * @apiParam {String} newpassword  User's old password.
+ *
+ * @apiSuccess {String} username  The username of the user.
+ * @apiSuccess {string} message  The message if changing password successful.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *   {
+ *     "username": "test",
+ *     "message": "change password successful"
+ *   }
+ *
+ * @apiError AUTHENTICATE_FAILURE The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *   {
+ *     "err": "AUTHENTICATE_FAILURE",
+ *     "message": "Password or username is incorrect"
+ *   }
+ */
+router.post('/changepassword', function(req, res) {
+  User.findOne({ 'username': req.body.username }, (err, user) => {
+    if (err) {
+      log.error(err);
+      res.status(500).json({
+        err: 'SERVER_ERROR',
+        message: COMM_ERR.SERVER_ERROR
+      });
+      return;
+    }
+
+    if (!user) {
+      res.status(500).json({
+        err: 'USER_NOT_EXIST',
+        message: AUTH_ERR.USER_NOT_EXIST
+      });
+      return;
+    }
+
+    user.changePassword(req.body.oldpassword, req.body.newpassword, (err, value) => {
+      if (err) {
+        log.error(err);
+        res.status(401).json({
+          err: 'AUTHENTICATE_FAILURE',
+          message: err.message
+        });
+        return;
+      }
+
+      log.info(`${req.body.username} change password successful`);
+      res.json({
+        username: req.body.username,
+        message: 'change password successful'
+      });
+
+    });
+  });
+});
+
+/**
+ * @api {get} /v1/auth/logout User login out
+ * @apiName UserLogout
+ * @apiGroup userAuthentication
+ *
+ * @apiSuccess {String} username  The username of the user.
+ * @apiSuccess {string} message  The message if user login out successful.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "username": "test",
+ *       "message": "logout successful"
+ *     }
+ *
+ * @apiError NOT_LOGIN There is no user logon in.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *   {
+ *     "err": "NOT_LOGIN",
+ *     "message": "No user has been logon"
+ *   }
+ */
+router.get('/logout', function(req, res) {
+  const user = req.user;
+  if (!user) {
+    res.status(401).json({
+      err: 'NOT_LOGIN',
+      message: 'No user has been logon'
+    });
+    return;
+  }
+
+  // user login out
+  req.logout();
+  if (!req.user) {
+    res.json({
+      username: user.username,
+      message: 'logout successful'
+    });
+
+    log.info(`${user.username} has been logon out`);
+    return;
+  }
+
+  res.status(500).json({
+    err: 'SERVER_ERROR',
+    message: 'logout failure!'
+  });
+
+});
+
+
+function isAhenticated(req, res, next) {
+  User.findOne({ 'username': req.body.username }, (err, user) => {
+    if (err) {
+      log.error(err);
+      res.json({
+        err: 'SERVER_ERROR',
+        message: COMM_ERR.SERVER_ERROR
+      });
+      return;
+    }
+    // If user is not existed
+    if (!user) {
+      res.json({
+        err: 'USER_NOT_EXIST',
+        message: AUTH_ERR.USER_NOT_EXIST
+      });
+
+      return;
+    }
+
+
+    user.authenticate(req.body.password, (err, value) => {
+      if (err) {
+        log.error(err);
+        res.json({
+          err: 'SERVER_ERROR',
+          message: COMM_ERR.SERVER_ERROR
+        });
+      } else if (value) {
+        return next();
+      } else {
+        res.json({
+          err: 'AUTHENTICATE_FAILURE',
+          message: AUTH_ERR.AUTHENTICATE_FAILURE
+        });
+      }
+    });
+  });
+}
+
+
+module.exports = router;
+
+```
+
+这是一套常见的有关用户登录注册验证的接口
+
+
+因为文本只涉及到这个模块,所以将这个模块的接口都写在`userAuthentication`测试套件下
+```javascript
+describe('userAuthentication', function() {}
+```
+
+### 测试代码
+
+```javascript
+'use strict';
+
+const request = require('supertest');
+const url = 'http://localhost:5001';
+// eslint-disable-next-line no-unused-vars
+const should = require('should');
+
+var userCookie;
+
+// 用户名密码
+const user = {
+  username: 'name',
+  password: 'password'
+};
+
+// 测试更改密码(每次测试完调换)
+const user2 = {
+  username: 'uu2',
+  password: 'oldpassword'
+};
+
+const newUser2 = {
+  username: 'uu2',
+  oldpassword: 'oldpassword',
+  newpassword: 'newpassword'
+};
+
+// const user22={
+//   username: 'uu2',
+//   password: 'newpassword'
+// };
+// const oldUser2 = {
+//   username: 'uu2',
+//   oldpassword: 'newpassword',
+//   newpassword: 'oldpassword'
+// };
+
+describe('userAuthentication', function() {
+  // 测试注册接口
+  describe('UserRegister', function() {
+    describe('POST /register', function() {
+      // eslint-disable-next-line max-len
+      it('register success', function(done) {
+        request(url)
+          .post('/api/v1/auth/register')
+          .send(user)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'User registered successful'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      it('repeated registration failure.', function(done) {
+        request(url)
+          .post('/api/v1/auth/register')
+          .send(user)
+          .expect(500)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'REGISTER_FAILURE'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+  });
+  // 测试登录接口
+  describe('UserLogin', function() {
+    describe('POST /login', function() {
+      it('login success', function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'Authentication Success'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      it('USER_NOT_EXIST.', function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send({
+            username: 'a',
+            password: 'admin'
+          })
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'USER_NOT_EXIST'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+  });
+  // 权限验证
+  describe('UserAuthInfo', function() {
+    describe('GET /api/v1/auth/', function() {
+      // 没有登录,权限验证
+      it('The current User was not login.', function(done) {
+        request(url)
+          .get('/api/v1/auth/')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(401)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'NOT_LOGIN'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      // 权限验证前先登录
+      beforeEach(function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
+      });
+      it('The username of the current user.', function(done) {
+        request(url)
+          .get('/api/v1/auth/')
+          .set('Cookie', userCookie)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.have.keys('username');
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+  });
+  // 测试用户注销接口
+  describe('UserLogout', function() {
+    describe('GET /logout', function() {
+      // 没有登录,测试注销
+      it('NOT_LOGIN.', function(done) {
+        request(url)
+          .get('/api/v1/auth/logout')
+          .expect(401)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'NOT_LOGIN'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      // 注销成功前先登录
+      beforeEach(function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
+      });
+      it('logout successful.', function(done) {
+        request(url)
+          .get('/api/v1/auth/logout')
+          .set('Cookie', userCookie)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'logout successful'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+  });
+  // 测试更改用户密码接口
+  describe('UserChangePassword', function() {
+    describe('POST /changepassword', function() {
+      // 更改用户密码前先注册-登录
+      // eslint-disable-next-line no-undef
+      before(function(done) {
+        request(url)
+          .post('/api/v1/auth/register')
+          .send(user2)
+          .end(function(err, res) {
+            if (err) throw err;
+            done();
+          });
+      });
+      // eslint-disable-next-line no-undef
+      before(function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user2)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
+      });
+      it('change password successful', function(done) {
+        request(url)
+          .post('/api/v1/auth/changepassword')
+          .set('Cookie', userCookie)
+          .send(newUser2)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'change password successful'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      it('AUTHENTICATE_FAILURE', function(done) {
+        request(url)
+          .post('/api/v1/auth/changepassword')
+          .set('Cookie', userCookie)
+          .send(newUser2)
+          .expect(401)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'AUTHENTICATE_FAILURE'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      // after(function(done) {
+      //   request(url)
+      //   .post('/api/v1/auth/login')
+      //   .send(user22)
+      //   .set('Accept', 'application/json')
+      //   .end(function(err, res) {
+      //     if (!err) {
+      //       userCookie = res.header['set-cookie'];
+      //       done();
+      //     }
+      //   });
+      // });
+      // after(function(done) {
+      //   request(url)
+      //   .post('/api/v1/auth/changepassword')
+      //   .set('Cookie', userCookie)
+      //   .send(oldUser2)
+      //   .expect(200)
+      //   .end(function(err, res) {
+      //     res.body.should.containEql({
+      //       message: 'rechange password successful'
+      //     });
+      //     if (err) throw err;
+      //     done();
+      //   });
+      // });
+    });
+  });
+  // 测试删除用户接口
+  describe('UserDelete', function() {
+    describe('DELETE /user/:username', function() {
+      it('NOT_LOGIN.', function(done) {
+        request(url)
+          .delete(`/api/v1/auth/user/${user.username}`)
+          .expect(401)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'NOT_LOGIN'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      // 删除用户前先登录
+      beforeEach(function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
+      });
+      it('delete user success', function(done) {
+        request(url)
+          .delete(`/api/v1/auth/user/${user.username}`)
+          .set('Cookie', userCookie)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'Delete User Successful'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+  });
+});
+```
+
+## 测试前的准备
+### 测试框架
 
 所谓"测试框架"，就是运行测试的工具。通过它，可以为JavaScript应用添加测试，从而保证代码的质量。
 
-通常应用会有 单元测试(Unit tests) 和 功能测试(Functional tests)，复杂大型应用可能会有整合测试(Integration tests)。
-
-其中：
+> 通常应用会有单元测试(Unit tests)和功能测试(Functional tests)，复杂大型应用可能会有整合测试(Integration tests)。
 
 1. 单元测试：关注应用中每个零部件的正常运转，防止后续修改影响之前的组件。
 2. 功能测试：确保其整体表现符合预期，关注能否让用户正常使用。
 3. 整合测试：确保单独运行正常的零部件整合到一起之后依然能正常运行。
 
-开发人员主要关注单元测试，作为开发中的反馈。本文重点讨论的单元测试框架。
+开发人员主要关注单元测试，作为开发中的反馈。
 
 单元测试的好处：
+
 1. 如果能通过单元测试，那么通过后续测试且软件整体正常运行的概率大大提高。
 2. 单元测试发现的问题定位到细节，容易修改，节省时间。
 3. 追踪问题变得更加方便。
@@ -58,7 +784,9 @@ Mocha（发音"摩卡"）诞生于2011年，是一个特征丰富的javascript�
 2. 快照测试(snapshot testing)，测试 UI 或数据结构是否和之前完全一致，通常 UI 测试不在单元测试中
 3. 仿真(mocks, spies, and stubs)：获取方法的调用信息，模拟方法，模块，甚至服务器
 
-### 各框架特点
+### Jest/Jasmine/Mocha框架特点
+
+![avatar](../public/mocha6.png)
 - Jest
   - facebook 坐庄
   - 基于 Jasmine 至今已经做了大量修改添加了很多特性
@@ -72,26 +800,33 @@ Mocha（发音"摩卡"）诞生于2011年，是一个特征丰富的javascript�
   - 较新，社区不十分成熟
   - 全局环境，比如 describe 不需要引入直接用
   - 较多用于 React 项目(但广泛支持各种项目)
+
+![avatar](../public/mocha7.svg)
+
+- Jasmine
+  - 开箱即用(支持断言和仿真)
+  - 全局环境
+  - 比较'老',坑基本都有人踩过了
+  - AVA
+  - 异步，性能好
+  - 简约，清晰
+  - 快照测试和断言需要三方支持
+  - Tape
+  - 体积最小，只提供最关键的东西
+  - 对比其他框架，只提供最底层的 API
+
+![avatar](../public/mocha8.svg)
+
 - Mocha
   - 灵活(不包括断言和仿真，自己选对应工具)
   - 流行的选择：chai，sinon
   - 社区成熟用的人多，测试各种东西社区都有示例
   - 需要较多配置
   - 可以使用快照测试，但依然需要额外配置
-- Jasmine
+  
+综上所述，Mocha 用的人最多，社区最成熟，灵活，可配置性强易拓展，Jest 开箱即用，里边啥都有提供全面的方案，Tape 最精简，提供最基础的东西最底层的API。所以本文就选择用mocha。
 
-开箱即用(支持断言和仿真)
-全局环境
-比较'老',坑基本都有人踩过了
-AVA
-异步，性能好
-简约，清晰
-快照测试和断言需要三方支持
-Tape
-体积最小，只提供最关键的东西
-对比其他框架，只提供最底层的 API
-总结一下，Mocha 用的人最多，社区最成熟，灵活，可配置性强易拓展，Jest 开箱即用，里边啥都有提供全面的方案，Tape 最精简，提供最基础的东西最底层的API。
-## 特征
+### mocha特征
 
 1. 浏览器支持
 2. 全局变量泄漏检测
@@ -124,27 +859,56 @@ Tape
 29. 任意蒸腾器支持（coffee-script 等）
 30. TextMate bundle
 
-
-
-## 其他
 ### 断言库should
 Mocha本身是不包含断言库的，所以我们需要自己选择断言库。should是一个很简单的、贴近自然语言的断言库。当然，Mocha是适配所有的断言库的，如果你喜欢其他的断言库比如expect之类的，你也可以把它包含进来使用。
-### SuperTest
+
+### http测试模块SuperTest
 单单使用Mocha和should就几乎可以满足所有JavaScript函数的单元测试。但是对于Node应用而言，不仅仅是函数的集合，比如一个web应用的测试。这时候就需要配合一个http代理，完成Http请求和路由的测试。
 Supertest是一个HTTP代理服务引擎，可以模拟一切HTTP请求行为。Supertest可以搭配任意的应用框架，从而进行应用的单元测试。
 
-## 官网
+### 测试套件describe
+describe块称为"测试套件"（test suite），表示一组相关的测试。它是一个函数，第一个参数是测试套件的名称（"加法函数的测试"），第二个参数是一个实际执行的函数。
+
+### 测试用例it
+
+it块称为"测试用例"（test case），表示一个单独的测试，是测试的最小单位。它也是一个函数，第一个参数是测试用例的名称（"1 加 1 应该等于 2"），第二个参数是一个实际执行的函数。
+
+### 钩子hooks
+Mocha在describe块之中，提供测试用例的四个钩子：before()、after()、beforeEach()和afterEach()。它们会在指定时间执行。
+
+
+```javascript
+describe('hooks', function() {
+
+  before(function() {
+    // 在本区块的所有测试用例之前执行
+  });
+
+  after(function() {
+    // 在本区块的所有测试用例之后执行
+  });
+
+  beforeEach(function() {
+    // 在本区块的每个测试用例之前执行
+  });
+
+  afterEach(function() {
+    // 在本区块的每个测试用例之后执行
+  });
+
+  // test cases
+});
+```
+
 > 安装mocha> = v3.0.0，npm的版本应该> = v2.14.2。除此，确保使用Node.js的版本> = v4来运行mocha
-### 安装
+### mocha小例子
+#### 安装
 作为项目的依赖进行安装
 ```bash
 npm install --save-dev mocha
 ```
 
-describe块称为"测试套件"（test suite），表示一组相关的测试。它是一个函数，第一个参数是测试套件的名称（"加法函数的测试"），第二个参数是一个实际执行的函数。
-
-it块称为"测试用例"（test case），表示一个单独的测试，是测试的最小单位。它也是一个函数，第一个参数是测试用例的名称（"1 加 1 应该等于 2"），第二个参数是一个实际执行的函数。
-### 开始
+#### 开始
 
 ```bash
 mkdir test
@@ -227,198 +991,419 @@ describe('Array', function() {
 
   1 passing (4ms)
 ```
-### 检测到多个呼叫
-如果使用基于回调的异步测试，如果done()多次调用Mocha，则会抛出错误。这对于捕获意外的双重回调非常方便。
-```javascript
-'use strict'
-var assert = require('assert');
-it('double done', function (done) {
-  setImmediate(done)
-  setImmediate(done)
-})
+
+到这里,对mocha就有了初步的认识
+
+## 开始测试
+了解了背景和框架后,正式开启测试
+
+### 添加依赖
+```bash 
+npm install --save-dev mocha mochawesome should supertest
 ```
 
-结果
-```bash
-  ✓ double done
-  1) double done
-
-  1 passing (4ms)
-  1 failing
-
-  1) double done:
-     Error: done() called multiple times
+### 在scripts中添加命令
+```json
+"mochawesome": "./node_modules/.bin/mocha --reporter mochawesome",
+"dev": "node index.js"
 ```
+mochawesome生成报告
 
-### 断言
-mocha允许你使用任意你喜欢的断言库，在上面的例子中，我们使用了Node.js的内置的断言模块作为断言。如果能够抛出一个错误，它就能够运行。这意味着你能使用下面的这些仓库，比如：
-1. should.js - BDD风格贯穿始终
-2. expect.js - expect()样式断言
-3. chai - expect()，assert()和should风格的断言
-4. better-assert - C风格的自文档化的assert()
-5. unexpected - “可扩展的BDD断言工具”
+dev启动项目
 
-### 异步代码
-使用Mocha测试异步代码并不简单！只需在测试完成后调用回调。通过添加一个回调（通常命名done）it()，Mocha将知道它应该等待调用此函数来完成测试。此回调接受Error实例（或其子类）或伪值; 其他任何事情都会导致测试失败。
+### 注册接口的测试
+1. 从注册接口中,我得知该接口返回两个状态码,分别是200和500,对应的注册成功和注册失败
+2. 那么测试中就有两个注册成功和失败的测试用例
+3. 每个测试用例针对每个状态返回的值判断
+4. 通过即可
+5. 不通过,要么是接口有问题,要么是写的测试有问题
+
 ```javascript
-class User{
-  constructor(name){
-    this.name=name
-  }
-  save(){
-    console.log('12312')
-  }
-}
-'use strict'
-var assert = require('assert');
-describe('User', function() {
-  describe('#save()', function() {
-    it('should save without error', function(done) {
-      var user = new User('Luna');
-      user.save(function(err) {
-        if (err) done(err);
-        else done();
+
+/**
+ * @api {post} /v1/auth/register User Register
+ * @apiName UserRegister
+ * @apiGroup userAuthentication
+ *
+ * @apiParam {String} username  New user's name.
+ * @apiParam {String} password  New user's password.
+ *
+ * @apiSuccess {String} username  The username of the register user.
+ * @apiSuccess {string} message  The registering success info.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "username": "gushen",
+ *       "message": "User registered successful"
+ *     }
+ *
+ * @apiError REGISTER_FAILURE The register failure.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Internal Server Error
+ *    {
+ *      "err": "REGISTER_FAILURE",
+ *      "message": "User register failure!"
+ *    }
+ */
+router.post('/register', function(req, res, next) {
+  User.register(new User({ username: req.body.username }), req.body.password, function(err) {
+    if (err) {
+      log.error(err);
+      res.status(500).json({
+        err: 'REGISTER_FAILURE',
+        message: AUTH_ERR.REGISTER_FAILURE
+      });
+      return;
+    }
+
+    log.info('user ' + req.body.username + ' registered successful!');
+    res.json({
+      username: req.body.username,
+      message: 'User registered successful'
+    });
+
+  });
+});
+
+```
+1. `UserRegister`是第二层套件
+2. `POST /register`是第三层套件
+3. `register success`是测试用例名称
+4. it的方法是测试用例的方法
+5. 请求url地址
+6. 发送post请求
+7. 发送用户名和密码
+8. 断言状态码
+9. 断言返回的值
+10. 执行下一步
+
+注意: 每个测试用例结束后必须带上`done`,否则没有结束标识,会超时报错
+
+```javascript
+  // 测试注册接口
+  describe('UserRegister', function() {
+    describe('POST /register', function() {
+      // eslint-disable-next-line max-len
+      it('register success', function(done) {
+        request(url)
+          .post('/api/v1/auth/register')
+          .send(user)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'User registered successful'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      it('repeated registration failure.', function(done) {
+        request(url)
+          .post('/api/v1/auth/register')
+          .send(user)
+          .expect(500)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'REGISTER_FAILURE'
+            });
+            if (err) throw err;
+            done();
+          });
       });
     });
   });
-});
-```
-### 使用承诺
-或者，done()您可以返回Promise，而不是使用回调。如果您正在测试的API返回promises而不是回调，这将非常有用：
-```javascript
-beforeEach(function() {
-  return db.clear()
-    .then(function() {
-      return db.save([tobi, loki, jane]);
-    });
-});
-
-describe('#find()', function() {
-  it('respond with matching records', function() {
-    return db.find({ type: 'User' }).should.eventually.have.length(3);
-  });
-});
-```
-在Mocha v3.0.0及更新版本中，返回a Promise 和调用done()将导致异常，因为这通常是一个错误：
-```javascript
-const assert = require('assert');
-
-it('should complete this test', function (done) {
-  return new Promise(function (resolve) {
-    assert.ok(true);
-    resolve();
-  })
-    .then(done);
-});
-```
-上述测试将失败Error: Resolution method is overspecified. Specify a callback *or* return a Promise; not both.。在v3.0.0之前的版本中，done()有效地忽略了调用。
-
-```javascript
-beforeEach(async function() {
-  await db.clear();
-  await db.save([tobi, loki, jane]);
-});
-
-describe('#find()', function() {
-  it('responds with matching records', async function() {
-    const users = await db.find({ type: 'User' });
-    users.should.have.length(3);
-  });
-});
 ```
 
-### 同步代码
-在测试同步代码时，省略回调，Mocha将自动继续进行下一次测试。
+### 登录接口的测试
+没什么好讲的,同测试注册接口步骤一致
 ```javascript
-let should=require('should')
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      [1,2,3].indexOf(5).should.equal(-1);
-      [1,2,3].indexOf(0).should.equal(-1);
+  describe('UserLogin', function() {
+    describe('POST /login', function() {
+      it('login success', function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'Authentication Success'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      it('USER_NOT_EXIST.', function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send({
+            username: 'a',
+            password: 'admin'
+          })
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'USER_NOT_EXIST'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
     });
   });
-});
 ```
-### 箭头功能
-不鼓励将箭头函数（“lambdas”）传递给Mocha。Lambdas词法绑定this，无法访问Mocha上下文。例如，以下代码将失败：
-
-如果您不需要使用 Mocha的上下文，lambdas应该可以工作。但是，如果最终需要，结果将更难以重构。
-
-### 钩
-其默认“BDD”式接口，mocha提供钩before()，after()，beforeEach()，和afterEach()。这些应该用于设置前置条件并在测试后进行清理。
-
-测试可以在钩子之前，之后或穿插时出现。钩子将按其定义的顺序运行，视情况而定; 所有before()钩子运行（一次），然后任何beforeEach()钩子，测试，任何afterEach()钩子，最后after()钩子（一次）。
-### 描述钩子
-可以使用可选描述调用任何挂钩，从而更容易查明测试中的错误。如果为钩子指定了一个命名函数，则在没有提供描述的情况下将使用该名称。
-
-### 异步挂钩
-所有的钩子（before()，after()，beforeEach()，afterEach()）可以是同步或异步为好，表现就像一个常规的测试用例。例如，您可能希望在每次测试之前使用虚拟内容填充数据库：
-
-
-### 根级挂钩
-您也可以选择任何文件并添加“root”级别挂钩。例如，beforeEach()在所有describe()块之外添加。这将导致回调beforeEach()在任何测试用例之前运行，无论它存在于哪个文件中（这是因为Mocha有一个隐含的 describe()块，称为“根套件”）。
-
-### 延迟根套件
-如果您需要在运行任何套件之前执行异步操作，则可能会延迟根套件。mocha用--delay旗帜运行。这将附加一个特殊的回调函数run()，到全局上下文：
-
-### 待测试
-“待定” - 在“有人应该最终编写这些测试用例”中 - 测试用例只是没有回调的情况：
-
-待测试将包含在测试结果中，并标记为待定。待定测试不被视为失败测试。
-
-
-### 独家测试
-排他性功能允许您通过附加到函数来仅运行指定的套件或测试用例.only()。这是仅执行特定套件的示例：
-
-注意：仍将执行所有嵌套套件。
-
-以下是执行单个测试用例的示例：
-在v3.0.0之前，.only()使用字符串匹配来决定执行哪些测试。从v3.0.0开始，情况就不再如此。在v3.0.0或更高版本中，.only()可以多次使用来定义要运行的测试子集：
-您也可以选择多个套房：
-但测试将优先：
-注意：钩子（如果存在）仍将执行。
-
-注意不要使用.only()版本控制的用法，除非你真的是这个意思！为此，可以使用--forbid-only持续集成测试命令（或git precommit hook）中的选项运行mocha 。
-### 包容性测试
-此功能与之相反.only()。通过附加.skip()，您可以告诉Mocha简单地忽略这些套件和测试用例。跳过的任何内容都将被标记为待处理，并按此报告。这是跳过整个套件的示例：
-
-最佳实践：使用.skip()而不是评论测试。
-
-您也可以在运行时跳过使用this.skip()。如果测试需要预先无法检测到的环境或配置，则运行时跳过是合适的。例如：
-
-上述测试将报告为待定。同样重要的是要注意调用this.skip()将有效中止测试。
-
-Best practice: To avoid confusion, do not execute further instructions in a test or hook after calling this.skip().
-
-Contrast the above test with the following code:
-### RETRY TESTS
-### DYNAMICALLY GENERATING TESTS
-
-鉴于Mocha使用Function.prototype.call和函数表达式来定义套件和测试用例，因此可以直接动态生成测试。不需要特殊的语法 - 普通的'JavaScript'可用于实现类似于“参数化”测试的功能，您可能已经在其他框架中看到过。
-
-
-### 测试持续时间
-
-许多记者将显示测试持续时间，以及标记缓慢的测试，如“spec”记者所示：
-### 超时
-套房级
-套件级超时可应用于整个测试“套件”，或通过其禁用this.timeout(0)。这将由所有嵌套套件和不覆盖该值的测试用例继承。
+### 权限验证的测试
+1. 权限验证就有点不一样了,因为验证权限前必须先登录,这时候就要用上mocha的钩子
+2. 权限是通过cookie验证,所以验证前必须要带上cookie
+3. 在`before`钩子中加入
+```javascript
+userCookie = res.header['set-cookie'];
+```
+4. 在断言的请求中带上`Cookie`
+```javascript
+.set('Cookie', userCookie)
+```
+```javascript
+// 权限验证
+  describe('UserAuthInfo', function() {
+    describe('GET /api/v1/auth/', function() {
+      // 没有登录,权限验证
+      it('The current User was not login.', function(done) {
+        request(url)
+          .get('/api/v1/auth/')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(401)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'NOT_LOGIN'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      // 权限验证前先登录
+      beforeEach(function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
+      });
+      it('The username of the current user.', function(done) {
+        request(url)
+          .get('/api/v1/auth/')
+          .set('Cookie', userCookie)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.have.keys('username');
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+  });
+```
 
 
-测试级别
-也可以应用特定于测试的超时，或者this.timeout(0)一起使用以禁用超时：
 
-胡克级
-也可以应用挂钩级别超时：
+### 用户注销接口的测试
+没什么好讲的,同测试权限验证步骤一致
+```javascript
+ describe('UserLogout', function() {
+    describe('GET /logout', function() {
+      // 没有登录,测试注销
+      it('NOT_LOGIN.', function(done) {
+        request(url)
+          .get('/api/v1/auth/logout')
+          .expect(401)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'NOT_LOGIN'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      // 注销成功前先登录
+      beforeEach(function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
+      });
+      it('logout successful.', function(done) {
+        request(url)
+          .get('/api/v1/auth/logout')
+          .set('Cookie', userCookie)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'logout successful'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+  });
+```
+### 更改用户密码的测试 
+更改用户密码前先注册-登录
 
+```javascript
+  // 测试更改用户密码接口
+  describe('UserChangePassword', function() {
+    describe('POST /changepassword', function() {
+      // 更改用户密码前先注册-登录
+      // eslint-disable-next-line no-undef
+      before(function(done) {
+        request(url)
+          .post('/api/v1/auth/register')
+          .send(user2)
+          .end(function(err, res) {
+            if (err) throw err;
+            done();
+          });
+      });
+      // eslint-disable-next-line no-undef
+      before(function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user2)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
+      });
+      it('change password successful', function(done) {
+        request(url)
+          .post('/api/v1/auth/changepassword')
+          .set('Cookie', userCookie)
+          .send(newUser2)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'change password successful'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      it('AUTHENTICATE_FAILURE', function(done) {
+        request(url)
+          .post('/api/v1/auth/changepassword')
+          .set('Cookie', userCookie)
+          .send(newUser2)
+          .expect(401)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'AUTHENTICATE_FAILURE'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      // after(function(done) {
+      //   request(url)
+      //   .post('/api/v1/auth/login')
+      //   .send(user22)
+      //   .set('Accept', 'application/json')
+      //   .end(function(err, res) {
+      //     if (!err) {
+      //       userCookie = res.header['set-cookie'];
+      //       done();
+      //     }
+      //   });
+      // });
+      // after(function(done) {
+      //   request(url)
+      //   .post('/api/v1/auth/changepassword')
+      //   .set('Cookie', userCookie)
+      //   .send(oldUser2)
+      //   .expect(200)
+      //   .end(function(err, res) {
+      //     res.body.should.containEql({
+      //       message: 'rechange password successful'
+      //     });
+      //     if (err) throw err;
+      //     done();
+      //   });
+      // });
+    });
+  });
+```
+问题是我改完后得将密码改回来,这一步我没有成功,很奇怪为什么?
 
-### 
-### 
-### 
-### 
+目前得每次测试完后将新旧密码调换,真的很麻烦
+![avatar](../public/mocha3.png)
 
+### 删除用户的测试
+没什么好讲的,同测试权限验证步骤一致
 
+```javascript
+describe('UserDelete', function() {
+    describe('DELETE /user/:username', function() {
+      it('NOT_LOGIN.', function(done) {
+        request(url)
+          .delete(`/api/v1/auth/user/${user.username}`)
+          .expect(401)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              err: 'NOT_LOGIN'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      // 删除用户前先登录
+      beforeEach(function(done) {
+        request(url)
+          .post('/api/v1/auth/login')
+          .send(user)
+          .set('Accept', 'application/json')
+          .end(function(err, res) {
+            if (!err) {
+              userCookie = res.header['set-cookie'];
+              done();
+            }
+          });
+      });
+      it('delete user success', function(done) {
+        request(url)
+          .delete(`/api/v1/auth/user/${user.username}`)
+          .set('Cookie', userCookie)
+          .expect(200)
+          .end(function(err, res) {
+            res.body.should.containEql({
+              message: 'Delete User Successful'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+  });
+```
+### 未完待续
+![avatar](../public/mocha.png)
+
+口渴了,快去喝杯mocha吧
 
 ## 参考文献
 [mocha官网](https://mochajs.org/)
@@ -440,3 +1425,13 @@ Contrast the above test with the following code:
 [一步一步搭建react应用-node中使用 mocha + supertest + should 来写单元测试](https://segmentfault.com/a/1190000011095213)
 
 [mocha + chai + supertest 测试 node server](https://webfem.com/post/mocha-test)
+
+[Should.js](http://shouldjs.github.io/)
+
+[接口自动化 开源框架学习-supertest](https://blog.csdn.net/lichao330530/article/details/51907075)
+
+[supertest](https://www.npmjs.com/package/supertest)
+
+[Nodejs单元测试小结](https://segmentfault.com/a/1190000002921481?utm_source=tag-newest)
+
+[使用mocha进行单元测试](https://www.jianshu.com/p/47575895bc54)
