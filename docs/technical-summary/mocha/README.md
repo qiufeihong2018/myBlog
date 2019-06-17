@@ -738,7 +738,7 @@ describe('userAuthentication', function() {
 2. 功能测试：确保其整体表现符合预期，关注能否让用户正常使用。
 3. 整合测试：确保单独运行正常的零部件整合到一起之后依然能正常运行。
 
-开发人员主要关注单元测试，作为开发中的反馈。
+开发人员主要是集中单元测试，作为开发中的反馈。
 
 单元测试的好处：
 
@@ -1401,7 +1401,7 @@ describe('UserDelete', function() {
   });
 ```
 ### 未完待续
-![avatar](../public/mocha.png)
+![avatar](../public/mocha9.png)
 
 口渴了,快去喝杯mocha吧
 

@@ -81,5 +81,11 @@ module.exports = [{
         collapsable:false,
         sidebarDepth:2,
         children:['qiyue/']
+    },
+    {
+        title:'解读VUE3.0',
+        collapsable:false,
+        sidebarDepth:2,
+        children:['vueconf3.0/']
     }
 ]
