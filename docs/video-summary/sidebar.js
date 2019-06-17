@@ -75,5 +75,11 @@ module.exports = [{
         collapsable: false,
         sidebarDepth: 2,
         children: ['node-mongodb-chat/']
+    },
+    {
+        title:'必备干货！程序员的自我修养&高效学习方法',
+        collapsable:false,
+        sidebarDepth:2,
+        children:['qiyue/']
     }
 ]
