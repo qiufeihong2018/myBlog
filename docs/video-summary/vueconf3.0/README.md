@@ -1,6 +1,17 @@
 ## 蒋豪群研究内容
 ### 预编译(使用Vue Loader)
 
+### @vue/dev-server
+
+### Alternative Syntaxes
+
+### Template Strings
+ 
+### vue-html
+
+### 类型安全
+
+### vue typescript
 ##  视频资源
 [尤雨溪演讲视频](https://v.youku.com/v_show/id_XNDIyNTA1MDU2OA==.html)
 
