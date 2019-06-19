@@ -82,35 +82,87 @@ const { user } = await DefaultUser.authenticate()('user', 'password');
 User.plugin(passportLocalMongoose, options);
 ```
 
-Main Options
-
-saltlen：以字节为单位指定salt长度。默认值：32
-迭代次数：指定pbkdf2哈希算法中使用的迭代次数。默认值：25000
-keylen：指定生成的密钥的长度（以字节为单位）。默认值：512
-DigestAlgorithm：指定PBKDF2摘要算法。默认值：sha256。（获取crypto.gethashes（）支持的算法列表）
-interval：指定登录尝试之间的间隔（以毫秒为单位），该间隔根据失败的尝试次数以指数形式增加，直到maxinterval。默认值：100
-MaxInterval：指定可以锁定帐户的最长时间。默认30000（5分钟）
-用户名字段：指定保存用户名的字段名。默认为“用户名”。如果要使用其他字段保存用户名，例如“email”，则可以使用此选项。
-username unique：指定是否应通过MongoDB索引强制username字段为唯一字段。默认为true。
-salt field：指定保存salt值的字段名。默认为“salt”。
-hash field：指定保存密码哈希值的字段名。默认为“hash”。
-attemptsfield：指定自上次成功登录以来保存登录失败次数的字段名。默认为“尝试”。
-last login field：指定保存上次登录尝试时间戳的字段名。默认为“last”。
-selectfields：指定要从MongoDB中选择（并存储在会话中）的模型字段。默认为“未定义”，以便选择模型的所有字段。
-用户名小写：保存查询时将用户名字段值转换为小写。默认为“false”。
-PopulateFields：指定要在findbyusername函数中填充的字段。默认为“未定义”。
-编码：指定生成的salt和散列将存储在其中的编码。默认为“hex”。
-limittents：指定是否应限制登录尝试，并处罚登录失败。默认值：假。
-maxattempts：指定阻止登录前允许的最大失败尝试次数。默认值：无穷大。
-密码验证程序：以“函数（密码，cb）”的形式指定密码的自定义验证函数。默认：验证非空密码。
-UsernameQueryFields：指定用于标识用户的模型的可选字段（例如电子邮件）。
-findbyusername：指定使用查询参数执行的查询函数，以使用额外的查询参数限制查询。例如，仅查询字段“active”设置为true的用户。默认值：函数（model，queryparameters）返回model.findone（queryparameters）；。有关用例，请参见示例部分。
+##### 主要选项|作用
+--|--
+saltlen|以字节为单位指定salt长度。默认值：32
+迭代次数|指定pbkdf2哈希算法中使用的迭代次数。默认值：25000
+keylen|指定生成的密钥的长度（以字节为单位）。默认值：512
+DigestAlgorithm|指定PBKDF2摘要算法。默认值：sha256。（获取crypto.gethashes（）支持的算法列表）
+interval|指定登录尝试之间的间隔（以毫秒为单位），该间隔根据失败的尝试次数以指数形式增加，直到maxinterval。默认值：100
+MaxInterval|指定可以锁定帐户的最长时间。默认30000（5分钟）
+用户名字段|指定保存用户名的字段名。默认为“用户名”。如果要使用其他字段保存用户名，例如“email”，则可以使用此选项。
+username unique|指定是否应通过MongoDB索引强制username字段为唯一字段。默认为true。
+salt field|指定保存salt值的字段名。默认为“salt”。
+hash field|指定保存密码哈希值的字段名。默认为“hash”。
+attemptsfield|指定自上次成功登录以来保存登录失败次数的字段名。默认为“尝试”。
+last login field|指定保存上次登录尝试时间戳的字段名。默认为“last”。
+selectfields|指定要从MongoDB中选择（并存储在会话中）的模型字段。默认为“未定义”，以便选择模型的所有字段。
+用户名小写|保存查询时将用户名字段值转换为小写。默认为“false”。
+PopulateFields|指定要在findbyusername函数中填充的字段。默认为“未定义”。
+编码|指定生成的salt和散列将存储在其中的编码。默认为“hex”。
+limittents|指定是否应限制登录尝试，并处罚登录失败。默认值：假。
+maxattempts|指定阻止登录前允许的最大失败尝试次数。默认值：无穷大。
+密码验证程序|以“函数（密码，cb）”的形式指定密码的自定义验证函数。默认：验证非空密码。
+UsernameQueryFields|指定用于标识用户的模型的可选字段（例如电子邮件）。
+findbyusername|指定使用查询参数执行的查询函数，以使用额外的查询参数限制查询。例如，仅查询字段“active”设置为true的用户。默认值：函数（model，queryparameters）返回model.findone（queryparameters）；。有关用例，请参见示例部分。
 
 注意！在生产环境中更改任何哈希选项（saltlen、迭代或keylen）都将阻止现有用户进行身份验证！
-### API 文档
 
+##### Hash Algorithm
+Passport本地Mongoose使用节点加密库的pbkdf2算法。选择pbkdf2是因为平台独立（与bcrypt相反）。为每个用户保存一个生成的salt值，使彩虹表攻击更加困难。
+
+### API 文档
+#### 实例方法
+##### setPassword(password, [cb])
+设置用户密码。不保存用户对象。如果没有提供回调cb，则返回承诺。
+##### 更改密码（oldpassword，newpassword，[cb]）
+更改用户的密码哈希和salt并保存用户对象。如果没有提供回调cb，则返回承诺。如果旧密码与用户的旧密码不匹配，将向cb传递一个不正确的密码错误，或拒绝该承诺。
+##### authenticate(password, [cb])
+验证用户对象。如果没有提供回调cb，则返回承诺。
+#### resetAttempts([cb])
+如果没有提供回调cb，则重置用户的密码尝试失败次数（仅在options.limitteries为true时定义），并返回承诺。
+##### 回调参数
+- err
+  - 除非hasing算法引发错误，否则为空
+- thisModel
+  - 如果验证成功，则获得身份验证的模型，否则为假
+- passwordErr
+  - authenticationError的一个实例，描述密码失败的原因，否则是未定义的。
+  - 
+使用setpassword（）只会更新文档的密码字段，但不会保存文档。要提交更改的文档，请记住在使用setpassword（）之后使用mongoose的document.save（）。
+#### 错误处理
+
+- `IncorrectPasswordError`：指定密码不正确时返回的错误消息。默认为“不正确的密码”。
+- `IncorrectUsernameError`：指定用户名不正确时返回的错误消息。默认为“不正确的用户名”。
+- `MissingUsernameError`：指定注册期间未设置用户名时返回的错误消息。默认为“未设置字段%s”。
+- `MissingPasswordError`:指定注册期间未设置密码时返回的错误消息。默认为“密码参数未设置！”.
+- `UserExistsError`：指定注册期间用户已存在时返回的错误消息。默认为“已存在名为%s的用户”。
+- NoAltValueStored：在MongoDB集合中未存储salt值时发生。
+- `AttemptTooSoonError`：如果选项limitattempts设置为true，并且在用户仍受到惩罚时发生登录尝试，则会发生此错误。
+- `TooManyAttemptsError`：由于登录尝试失败太多，用户帐户被锁定时返回。
+
+如果需要更一般的错误类来进行检查，那么所有这些错误都继承自`AuthenticationError`。
+#### 静态方法
+静态方法在模型构造函数上公开。例如，要使用`createstategy`函数，请使用
+```
+const user=需要（“./models/user”）；
+user.createstategy（）；
+```
+- `authenticate（）`生成在Passport的本地策略中使用的函数
+- `serializeuser（）`生成一个函数，Passport使用该函数将用户序列化到会话中。
+- `deserializeuser()`生成一个函数，Passport使用该函数将用户反序列化到会话中。
+- `register(user, password, cb) `方便方法，用给定的密码注册新的用户实例。检查用户名是否唯一。请参见登录示例。
+- `findByUsername()`通过其唯一用户名查找用户实例的方便方法。
+- `createStrategy()` 创建可在Passport中使用的已配置Passport本地本地策略实例。
 ### 例子
-插入passport local mongoose时，我们将username unique设置为避免在字段username上创建唯一的mongodb索引。为了避免MongoDB查询非活动用户，我们可以指定findbyusername选项，该选项允许我们限制查询。在我们的示例中，我们希望将查询限制为仅查询字段活动设置为true的用户。findbyusername必须返回Mongoose查询。
+仅允许“活动”用户进行身份验证
+首先，我们定义一个模式，其中有一个类型为boolean的`active`字段。
+```
+var UserSchema = new Schema({
+  active: Boolean
+});
+```
+插入`Passport-Local Mongoose`时，我们将`usernameUnique`设置为避免在字段`username`上创建唯一的`mongodb`索引。为了避免`MongoDB`查询非活动用户，我们可以指定`findByUsername`选项，该选项允许我们限制查询。在我们的示例中，我们希望将查询限制为仅查询字段`active`设置为`true`的用户。`findByUsername`必须返回`Mongoose`查询。
 ```javascript
 UserSchema.plugin(passportLocalMongoose, {
   // Needed to set usernameUnique to true to avoid a mongodb index on the username column!
@@ -123,7 +175,7 @@ UserSchema.plugin(passportLocalMongoose, {
   }
 });
 ```
-要测试实现，我们只需创建（注册）一个字段active设置为false的用户，然后在第二步中尝试对该用户进行身份验证：
+要测试实现，我们只需创建（注册）一个字段`active`设置为`false`的用户，然后在第二步中尝试对该用户进行身份验证：
 ```javascript
 var User = mongoose.model('Users', UserSchema);
  
