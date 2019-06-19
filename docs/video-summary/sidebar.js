@@ -87,5 +87,11 @@ module.exports = [{
         collapsable:false,
         sidebarDepth:2,
         children:['vueconf3.0/']
+    },
+    {
+        title:'纯正商业级应用－Node.js Koa2开发微信小程序服务端',
+        collapsable:false,
+        sidebarDepth:2,
+        children:['node-koa-wechat-server/']
     }
 ]

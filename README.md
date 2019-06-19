@@ -1,7 +1,7 @@
 # vuepress-blog
 > a vuepress blog about qiufeihong
 
-## 构建
+## [构建](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/vuepress)
 
 ```
 # clone item
@@ -38,7 +38,7 @@ npm run server
 
 加我vx,拉你进群
 
-![avatar](../shotPic/vx.jpg)
+![avatar](./shotPic/vx.jpg)
 
 ## 目录
 ```
