@@ -1,4 +1,11 @@
 # vuepress-blog
+
+[![node version](https://img.shields.io/badge/node-%3E%3D10-blue.svg)](http://nodejs.cn/download/)
+[![node version](https://img.shields.io/badge/wechaty-%3E%3D0.27-blue.svg)](https://github.com/Chatie/wechaty)
+![](https://img.shields.io/badge/Window-green.svg)
+![](https://img.shields.io/badge/Mac-yellow.svg)
+![](https://img.shields.io/badge/Centos-blue.svg)
+
 > a vuepress blog about qiufeihong
 
 ## [构建](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/vuepress)
