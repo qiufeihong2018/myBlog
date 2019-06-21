@@ -1,9 +1,25 @@
 # apiDoc生成接口文档,不费吹灰之力
 ![avatar](../public/apidoc6.jpg)
+## 效果
+![avatar](../public/apidoc4.png)
+
+## 背景
+之前做前端的时候,后端同学仗着自己是老同志,不给我接口文档
+
+苦逼如我,需要拿着笔坐在他的旁边,听他口述
+
+写下需要的api接口url和参数等等
+
+现在自己做后端了,那不能这样子胡作非为了
+
+自己吃的苦,怎能给其他同学吃呢?
+
+这时候,apiDoc你值得拥有,稳稳的输出一篇优质的接口文档
+
 ## 安装apidoc
 官网上是全局安装,我是喜欢安装到项目中,这样可以在另一个环境下,`npm install`就可以下载有所有依赖包
 ```bash
-npm install apidoc --save-dev
+npm install apidoc --save-dev/-D
 ```
 ## 写注释
 ### 注册接口的注释
@@ -13,7 +29,7 @@ npm install apidoc --save-dev
  * @apiName UserRegister
  * @apiGroup userAuthentication
  *
- * @apiParam {String} username  New user's name.
+ * @apiParam {String} username  New user's username.
  * @apiParam {String} password  New user's password.
  *
  * @apiSuccess {String} username  The username of the register user.
@@ -22,7 +38,7 @@ npm install apidoc --save-dev
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "username": "gushen",
+ *       "username": "username",
  *       "message": "User registered successful"
  *     }
  *
@@ -44,7 +60,7 @@ npm install apidoc --save-dev
  * @apiName UserDelete
  * @apiGroup userAuthentication
  *
- * @apiParam {String} username  User's name.
+ * @apiParam {String} username  User's username.
  * @apiParam {String} executor  Executor of this operation.
  *
  * @apiSuccess {String} username  The username of the deleted user.
@@ -53,7 +69,7 @@ npm install apidoc --save-dev
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *   {
- *     "username": "gushen",
+ *     "username": "username",
  *     "message": "Delete User Successful"
  *   }
  *
@@ -107,7 +123,7 @@ routers文件夹下都是路由文件
 
 ## 结构解读
 
-一个静态的文档很漂亮的生成了，但是实际控制这个现实的是api_data.js和api_project.js。但是实际上的数据显示是由api_data.json和api_project.json这两个json文件。
+一个静态的文档很漂亮的生成了，但是实际控制这个方法的是api_data.js和api_project.js。但是实际上的数据显示是由api_data.json和api_project.json这两个json文件。
 
 所以在支持将其他json格式转换成api_data.json和api_project.json，把apidoc生成的这两个文件进行替换，然后替换js文件，直接生产静态文档。
 
@@ -141,7 +157,7 @@ apidoc -h
 --encoding |设置源代码的编码。[UTF8]格式。（默认值：“utf8”）
 -h, --help|输出使用信息                    
 
-## 所用的的apiDoc的参数
+## 所用的的apiDoc的参数(翻译)
 ### @api
 ```
 @api {method} path [title]
