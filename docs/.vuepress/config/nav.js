@@ -3,6 +3,18 @@ module.exports = [{
     link: "/"
   },
   {
+    text: "技术总结",
+    link: "/technical-summary/"
+  },
+  {
+    text: "视频总结",
+    link: "/video-summary/"
+  },
+  // {
+  //   text: "面试",
+  //   link: "/interview/"
+  // },
+  {
     text: "学习资源",
     items: [{
         text: "前端学习视频",
@@ -34,18 +46,6 @@ module.exports = [{
       }
     ]
   },
-  {
-    text: "技术总结",
-    link: "/technical-summary/"
-  },
-  {
-    text: "视频总结",
-    link: "/video-summary/"
-  },
-  // {
-  //   text: "面试",
-  //   link: "/interview/"
-  // },
   {
     text: "优秀博客",
     items: [{
@@ -88,8 +88,8 @@ module.exports = [{
             link: 'https://wangchujiang.com/'
           },
           {
-            text:'腾讯 ISUX UI 工程师李洋',
-            link:'https://newbieweb.lione.me/'
+            text: '腾讯 ISUX UI 工程师李洋',
+            link: 'https://newbieweb.lione.me/'
           }
         ]
       },
@@ -278,6 +278,10 @@ module.exports = [{
         ]
       }
     ]
+  },
+  {
+    text: '我的简历',
+    link: 'http://resume.qiufeihong.top/'
   },
   {
     text: "个人主页",
