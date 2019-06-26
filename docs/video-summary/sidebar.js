@@ -5,12 +5,6 @@ module.exports = [{
         children: ['Vue2.0-Node.js-MongoDB/']
     },
     {
-        title: 'Vue.js 源码全方位深入解析',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['Vue/']
-    },
-    {
         title: 'Node.js入门到企业Web开发',
         collapsable: false,
         sidebarDepth: 2,

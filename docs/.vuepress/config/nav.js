@@ -280,8 +280,18 @@ module.exports = [{
     ]
   },
   {
-    text: '我的简历',
-    link: 'http://resume.qiufeihong.top/'
+    text: '关于我',
+    items: [{
+      text: "我的简历",
+      link: 'http://resume.qiufeihong.top/',
+
+    }, {
+      text: "我的项目",
+      items: [{
+        text: "跟着hy研读vue源码",
+        link: 'http://vue-analysis.qiufeihong.top/'
+      }]
+    }]
   },
   {
     text: "个人主页",
