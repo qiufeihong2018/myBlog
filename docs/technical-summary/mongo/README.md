@@ -52,7 +52,7 @@ mongorestore -d <db_name> <bson_folder>
 mongorestore.exe -d <db_name> <bson_folder>
 ```
 
-## 用node来操作MongoDB完成增、删、改、查、排序、分页功能
+## 用node来操作MongoDB完成增、删、改、查
 ### 增
 结合`passport-local-mongoose`插件的`register`方法实现增加用户的功能
 ```js{1}
