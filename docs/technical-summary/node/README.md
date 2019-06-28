@@ -26,7 +26,7 @@ sudo ./mongod  -dbpath /data/db/
 #都在mongodb的bin目录下
 
 
-## NPM install -save 和 -save-dev
+## npm install -save 和 -save-dev
 
 
 ```
@@ -157,3 +157,5 @@ make install
 n stable
 ```
 
+
+## 参考文献
