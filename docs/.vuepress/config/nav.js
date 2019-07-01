@@ -280,8 +280,45 @@ module.exports = [{
     ]
   },
   {
-    text: '我的简历',
-    link: 'http://resume.qiufeihong.top/'
+    text: '关于我',
+    items: [{
+      text: "我的简历",
+      link: 'http://resume.qiufeihong.top/',
+
+    }, {
+      text: "个人项目",
+      items: [{
+        text: "跟着hy研读vue源码",
+        link: 'https://qiufeihong2018.github.io/vue-analysis/'
+      },{
+        text: "外卖后台管理平台",
+        link: 'http://tack-out.qiufeihong.top'
+      },{
+        text: "我的公众号",
+        link: '/wechat-public/'
+      }]
+    }, {
+      text: "公司项目",
+      items: [{
+        text: "xAlert 工控安全态势感知平台",
+        link: 'http://resume.qiufeihong.top/'
+      },{
+        text: "DeepSphere 超融合网络存储系统",
+        link: 'http://resume.qiufeihong.top/'
+      },{
+        text: "xShied 工控防火墙",
+        link: 'http://resume.qiufeihong.top/'
+      },{
+        text: "xScanner 漏洞扫描系统",
+        link: 'http://resume.qiufeihong.top/'
+      },{
+        text: "DeepDefence-web 容器安全监测平台",
+        link: 'http://resume.qiufeihong.top/'
+      },{
+        text: "xOpAudit 运维堡垒机",
+        link: 'http://resume.qiufeihong.top/'
+      }]
+    }]
   },
   {
     text: "个人主页",

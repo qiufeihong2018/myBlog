@@ -141,5 +141,11 @@ module.exports = [{
         collapsable: false,
         sidebarDepth: 2,
         children: ['elasticStack/']
+    },
+    {
+        title: 'HTTP响应状态代码',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['httpResStatusCode/']
     }
 ]
