@@ -37,3 +37,7 @@
 [Ubuntu Error: ENOSPC:System limit for number of file watchers reached](https://blog.csdn.net/weixin_43760383/article/details/84326032)
 
 [五分钟让你彻底了解TDD、ATDD、BDD&RBE](https://mp.weixin.qq.com/s/KCrkL4NeuZeZvTu5Sc6B_g)
+
+[nodemon+cross-env+config实现支持热更新的能根据不同环境加载不同配置的nodejs环境](https://www.jianshu.com/p/7002bd47f3b0)
+
+[【Html】使用标签为你的网页加入大段代码](https://blog.csdn.net/happyhaojie/article/details/50184949)
