@@ -1,5 +1,5 @@
 import getGitalk from "./common/getGittalk"
-// import copy from './common/copy'
+import copy from './common/copyright'
 
 export default ({
   Vue, // VuePress 正在使用的 Vue 构造函数

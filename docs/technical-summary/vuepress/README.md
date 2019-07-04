@@ -727,6 +727,13 @@ npm install -save valine
 
 想要知道更多Valine操作，请移步[Valine](https://valine.js.org/)
 ### 添加gittalk评论和github的issues挂钩
+Gitalk 是一个基于 GitHub Issue 和 Preact 开发的评论插件。
+- 使用 GitHub 登录
+- 支持多语言 [en, zh-CN, zh-TW, es-ES, fr, ru]
+- 支持个人或组织
+- 无干扰模式（设置 distractionFreeMode 为 true 开启）
+- 快捷键提交评论 （cmd|ctrl + enter）
+
 在.vuepress中新建`enhanceApp.js`
 
 代码如下
