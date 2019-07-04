@@ -1,12 +1,14 @@
 export default ({pages})=> {
   const path = window.location.pathname
   // 获取当前页面信息
+  // filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。 
   const dist = pages.filter(item => {
     return item.path === path
   })[0]
 
   //只有在isNoPage是false的时候才会显示评论
   if (!dist.frontmatter || !dist.frontmatter.isNoPage) {
+    location.reload()
     const page =document.querySelector('.page-nav')
 
     const linkGitalk = document.createElement('link');

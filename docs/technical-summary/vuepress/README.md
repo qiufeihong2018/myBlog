@@ -645,7 +645,7 @@ npm install -save valine
 5. 在.vuepress中创建theme文件夹
 6. 将node_modules中的Layout拷贝到theme文件夹中
 
-![avatar](public/vuepress1.png)
+![avatar](./public/vuepress1.png)
 
 7. 将引用的文件路径改成指向node_modules去
 ```js
@@ -893,7 +893,7 @@ export default ({pages})=> {
 
 [Markdown 拓展](https://vuepress.vuejs.org/zh/guide/markdown.html#header-anchors)
 
-![avatar](public/vuepress4.png)
+![avatar](./public/vuepress4.png)
 
 ### 参考文献
 [VuePress 手把手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)

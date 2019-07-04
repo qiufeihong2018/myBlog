@@ -51,3 +51,5 @@
 [async-validator](https://github.com/yiminghe/async-validator)
 
 [对复制进行修改](https://slbyml.github.io/saves/blog.html#%E5%AF%B9%E5%A4%8D%E5%88%B6%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9)
+
+[如何使用VuePress搭建一个类型element ui文档](https://www.jb51.net/article/156264.htm)
