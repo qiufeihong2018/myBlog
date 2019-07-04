@@ -726,6 +726,107 @@ npm install -save valine
 :::
 
 想要知道更多Valine操作，请移步[Valine](https://valine.js.org/)
+### 添加gittalk评论和github的issues挂钩
+在.vuepress中新建`enhanceApp.js`
+
+代码如下
+```js
+import getGitalk from "./common/getGittalk"
+
+export default ({
+  Vue, // VuePress 正在使用的 Vue 构造函数
+  options, // 附加到根实例的一些选项
+  router, // 当前应用的路由实例
+  siteData // 站点元数据
+}) => {
+  setTimeout(() => {
+    try {
+      document && (() => {
+        getGitalk.call(this, siteData)
+        copy()
+      })()
+    } catch (e) {
+      console.error(e.message)
+    }
+  },500)
+}
+
+```
+
+要引入common中的`getGittalk.js`
+代码如下:
+```js
+export default ({pages})=> {
+    const path = window.location.pathname
+    // 获取当前页面信息
+    const dist = pages.filter(item => {
+      return item.path === path
+    })[0]
+  
+    //只有在isNoPage是false的时候才会显示评论
+    if (!dist.frontmatter || !dist.frontmatter.isNoPage) {
+      const page =document.querySelector('.page')
+  
+      const linkGitalk = document.createElement('link');
+      linkGitalk.href = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css';
+      linkGitalk.rel = 'stylesheet';
+      document.body.appendChild(linkGitalk);
+  
+      const scriptGitalk = document.createElement('script');
+      scriptGitalk.src = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js';
+      document.body.appendChild(scriptGitalk);
+  
+      scriptGitalk.onload= () => {
+        let gitalk = document.createElement('div')
+        gitalk.id = 'gitalk-container'
+        page.appendChild(gitalk)
+        var _gitalk = new Gitalk({
+          clientID: '869b2dea1c53cc9b6ddd',// 填入你的clientID
+          clientSecret: '0416acb02689088d4d2c55243a82db0582af4575',// 填入你的clientSecret
+          repo: 'vuepress-blog', // 填入你的存储评论的仓库名字
+          owner: 'qiufeihong2018',//你的用户名
+          admin: ['qiufeihong2018'],  // 你的用户名
+          id: decodeURI(path),      // 每个页面根据url生成对应的issue，保证页面之间的评论都是独立的
+        })
+        _gitalk.render('gitalk-container')
+      }
+    }
+  }
+
+```
+
+注册一个新的OAuth应用程序
+
+[地址](https://github.com/settings/applications/new)
+
+- Application name: 你的项目名
+- Homepage URL:部署项目后的在线的网址
+- Application description:网站描述
+- Authorization callback URL:部署项目后的在线的网址
+
+点击注册,后可以看到
+![avatar](./public/vuepress5.png)
+
+重定向网址
+
+该redirect_uri参数是可选的。如果省略，GitHub会将用户重定向到OAuth应用程序设置中配置的回调URL。如果提供，重定向URL的主机和端口必须与回调URL完全匹配。重定向URL的路径必须引用回调URL的子目录。
+
+![avatar](./public/vuepress7.png)
+
+但是当我们添加好gittalk容器的时候会发现,好丑啊,容器都不和主内容对齐
+
+好办
+
+![avatar](./public/vuepress6.png)
+
+通过f12拖拉dom,发现gitalk不应该在.page下,而是要在.page-nav容器里最合适
+
+改下代码
+```js
+....
+    const page =document.querySelector('.page-nav')
+....
+```
 
 ### 导航栏分类小技巧
 效果图
@@ -788,9 +889,12 @@ npm install -save valine
 ![avatar](public/vuepress4.png)
 
 ### 参考文献
->[VuePress 手把手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)
+[VuePress 手把手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)
 
->[手把手教你使用 VuePress 搭建个人博客](https://www.cnblogs.com/softidea/p/10084946.html)
+[手把手教你使用 VuePress 搭建个人博客](https://www.cnblogs.com/softidea/p/10084946.html)
 
->[vuepress和valine搭建带评论的博客](https://juejin.im/post/5c2e0b2f5188257c30462a21)
+[vuepress和valine搭建带评论的博客](https://juejin.im/post/5c2e0b2f5188257c30462a21)
 
+[一个基于 Github Issue 和 Preact 开发的评论插件](https://gitalk.github.io/)
+
+[gitalk/gitalk](https://github.com/gitalk/gitalk)

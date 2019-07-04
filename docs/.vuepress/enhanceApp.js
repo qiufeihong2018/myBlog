@@ -1,4 +1,4 @@
-import getGitalk from "./common/getGitalk"
+import getGitalk from "./common/getGittalk"
 // import copy from './common/copy'
 
 export default ({
