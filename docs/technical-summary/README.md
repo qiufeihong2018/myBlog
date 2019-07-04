@@ -39,3 +39,9 @@
 [五分钟让你彻底了解TDD、ATDD、BDD&RBE](https://mp.weixin.qq.com/s/KCrkL4NeuZeZvTu5Sc6B_g)
 
 [async-validator](https://github.com/yiminghe/async-validator)
+
+[彻底理解cookie，session，token](https://www.cnblogs.com/moyand/p/9047978.html)
+
+[express-session使用理解](https://www.cnblogs.com/xiashan17/p/5897282.html)
+
+<Utterances :id="1"/>
