@@ -26,8 +26,8 @@ export default ({pages})=> {
           clientID: '869b2dea1c53cc9b6ddd',
           clientSecret: '0416acb02689088d4d2c55243a82db0582af4575',
           repo: 'vuepress-blog', // 存储评论的仓库名字
-          owner: 'https://github.com/qiufeihong2018',
-          admin: ['https://github.com/qiufeihong2018'],  //仓库的管理员，可以有多个
+          owner: 'qiufeihong2018',
+          admin: ['qiufeihong2018'],  //仓库的管理员，可以有多个
           id: decodeURI(path),      // 每个页面根据url生成对应的issue，保证页面之间的评论都是独立的
         })
         _gitalk.render('gitalk-container')
