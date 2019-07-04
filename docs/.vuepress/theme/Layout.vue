@@ -35,7 +35,6 @@
             <slot name="page-bottom"
                   slot="bottom"/>
         </Page>
-        <Valine/>
 
         <SWUpdatePopup :updateEvent="swUpdateEvent"/>
     </div>
@@ -50,10 +49,10 @@
     import Sidebar from '../../../node_modules/vuepress/lib/default-theme/Sidebar.vue'
     import SWUpdatePopup from '../../../node_modules/vuepress/lib/default-theme/SWUpdatePopup.vue'
     import {resolveSidebarItems} from '../../../node_modules/vuepress/lib/default-theme/util'
-    import Valine from '../components/Valine'
+    // import Valine from '../components/Valine'
 
     export default {
-        components: {Valine, Home, Page, Sidebar, Navbar, SWUpdatePopup},
+        components: { Home, Page, Sidebar, Navbar, SWUpdatePopup},
         data() {
             return {
                 isSidebarOpen: false,
