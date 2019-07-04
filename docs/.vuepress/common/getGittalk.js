@@ -8,7 +8,6 @@ export default ({pages})=> {
 
   //只有在isNoPage是false的时候才会显示评论
   if (!dist.frontmatter || !dist.frontmatter.isNoPage) {
-    location.reload()
     const page =document.querySelector('.page-nav')
 
     const linkGitalk = document.createElement('link');

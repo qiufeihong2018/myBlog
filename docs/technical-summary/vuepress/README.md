@@ -835,6 +835,62 @@ export default ({pages})=> {
 ....
 ```
 
+### 复制时添加版权信息
+
+效果：
+```text
+JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。
+作者：qiufeihong
+原文：http://www.qiufeihong.top/
+来源:飞鸿的博客
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+
+
+在common.js中copyright.js，添加代码
+
+```js
+export default () => {
+    function addCopy(e) {
+      let copyTxt = ""
+      e.preventDefault(); // 取消默认的复制事件
+      copyTxt = window.getSelection(0).toString()
+      copyTxt = `${copyTxt}\n作者：qiufeihong\n原文：${window.location.href}\n来源:飞鸿的博客\n著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。`
+      const clipboardData = e.clipboardData || window.clipboardData
+      clipboardData.setData('text', copyTxt);
+    }
+    document.addEventListener("cut", e => {
+      addCopy(e)
+    });
+    document.addEventListener("copy", e => {
+      addCopy(e)
+    });
+  }
+```
+在enhanceApp.js中引入copyright的方法
+```js
+import getGitalk from "./common/getGittalk"
+import copy from './common/copyright'
+
+export default ({
+  Vue, // VuePress 正在使用的 Vue 构造函数
+  options, // 附加到根实例的一些选项
+  router, // 当前应用的路由实例
+  siteData // 站点元数据
+}) => {
+  setTimeout(() => {
+    try {
+      document && (() => {
+        getGitalk.call(this, siteData)
+        copy()
+      })()
+    } catch (e) {
+      console.error(e.message)
+    }
+  },500)
+}
+
+```
 ### 导航栏分类小技巧
 效果图
 ![avatar](./public/items.png)
