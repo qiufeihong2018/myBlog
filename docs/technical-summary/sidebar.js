@@ -98,7 +98,7 @@ module.exports = [{
         title: 'nginx服务器配置+二级域名搭建项目',
         collapsable: false,
         sidebarDepth: 2,
-        children: ['aliyun/']
+        children: ['nginx/']
     },
     {
         title: 'gitlab的安装和备份',
@@ -147,5 +147,11 @@ module.exports = [{
         collapsable: false,
         sidebarDepth: 2,
         children: ['httpResStatusCode/']
+    },
+    {
+        title: '开发中的bug',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['bug/']
     }
 ]

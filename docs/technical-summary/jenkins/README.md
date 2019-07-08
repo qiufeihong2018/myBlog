@@ -524,6 +524,13 @@ echo $BUILD_ID
 netstat -lntp
 kill -g {id}
 ```
+如果无法查看id
+
+则输入命令
+```
+ps -ef|grep
+```
+显示所有命令，连带命令行 查找文件里符合条件的字符串
 ## 参考文献
 [如何在Ubuntu 16.04上安装Jenkins](https://www.jianshu.com/p/845f267aec52)
 

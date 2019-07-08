@@ -55,3 +55,7 @@
 [如何使用VuePress搭建一个类型element ui文档](https://www.jb51.net/article/156264.htm)
 
 [博客诞生记](https://slbyml.github.io/saves/blog.html)
+
+[超详细！搭建一个前端错误监控系统](https://zhuanlan.zhihu.com/p/51446011)
+
+[nginx配置ssl证书实现https访问](https://www.cnblogs.com/tianhei/p/7726505.html)
