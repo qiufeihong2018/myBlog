@@ -1,4 +1,90 @@
 module.exports = [{
+    title: '项目中的权限验证',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['authentication-privileges/']
+},{
+        title: '读黄勇的OKR实战笔记',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['okr/']
+    },
+    {
+        title: '大数据量优化性能',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['vue-virtual-scroll-list/']
+    }, {
+        title: 'linux系统下jenkins根据github自动部署',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['jenkins/']
+    }, {
+        title: '前端工具',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['tools/']
+    }, {
+        title: 'nginx服务器配置+二级域名搭建项目',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['nginx/']
+    },
+    {
+        title: 'gitlab的安装和备份',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['gitlab/']
+    },
+    {
+        title: 'no space left on device 解决磁盘空间',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['device/']
+    },
+    {
+        title: 'node爬取某图片网站的桌面壁纸',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['node-reptile/']
+    },
+    {
+        title: 'express从入门到放弃',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['express/']
+    },
+    {
+        title: 'express项目集成mocha测试框架',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['mocha/']
+    },
+    {
+        title: '接口文档神器apiDoc',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['apiDoc/']
+    },
+    {
+        title: 'Elastic Stack 的核心',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['elasticStack/']
+    },
+    {
+        title: 'HTTP响应状态代码',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['httpResStatusCode/']
+    },
+    {
+        title: '开发中的bug',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['bug/']
+    },
+    {
         title: 'Markdown的语法',
         collapsable: false,
         sidebarDepth: 2,
@@ -79,79 +165,5 @@ module.exports = [{
         collapsable: false,
         sidebarDepth: 2,
         children: ['css/']
-    }, {
-        title: '大数据量优化性能',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['vue-virtual-scroll-list/']
-    }, {
-        title: 'linux系统下jenkins根据github自动部署',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['jenkins/']
-    }, {
-        title: '前端工具',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['tools/']
-    }, {
-        title: 'nginx服务器配置+二级域名搭建项目',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['nginx/']
-    },
-    {
-        title: 'gitlab的安装和备份',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['gitlab/']
-    },
-    {
-        title: 'no space left on device 解决磁盘空间',
-        collapsable:false,
-        sidebarDepth:2,
-        children:['device/']
-    },
-    {
-        title: 'node爬取某图片网站的桌面壁纸',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['node-reptile/']
-    },
-    {
-        title: 'express从入门到放弃',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['express/']
-    },
-    {
-        title: 'express项目集成mocha测试框架',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['mocha/']
-    },
-    {
-        title: '接口文档神器apiDoc',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['apiDoc/']
-    },
-    {
-        title: 'Elastic Stack 的核心',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['elasticStack/']
-    },
-    {
-        title: 'HTTP响应状态代码',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['httpResStatusCode/']
-    },
-    {
-        title: '开发中的bug',
-        collapsable: false,
-        sidebarDepth: 2,
-        children: ['bug/']
     }
 ]

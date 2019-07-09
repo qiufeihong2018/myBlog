@@ -347,6 +347,36 @@ server {
 #}
                
 ```
+安装步骤
+```
+
+
+Nginx https reverse proxy:
+
+1. install nginx
+> sudo apt install nginx
+
+2. create new site config file
+> /etc/nginx/sites-available/xaudit.conf
+server {
+    listen 443 ssl;
+    server_name _;
+
+    ssl_certificate /etc/guacamole/xaudit.crt;
+    ssl_certificate_key /etc/guacamole/xaudit.key;
+
+    location / {
+        proxy_pass  http://127.0.0.1:8080;
+
+   }
+
+}
+> ln -s /etc/nginx/sites-available/xaudit.conf /etc/nginx/sites-enabled/xaudit.conf
+> nginx -t
+> nginx -s reload
+
+
+```
 nginx项目结构
 ```
 gushenxing@node6:/etc/nginx$ ls
