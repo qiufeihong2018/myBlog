@@ -471,6 +471,10 @@ Enter file in which to save the key 为空的话，创建的就是空的
 :::
 
 
+## 一次输入永久不需要密码
+```
+git config --global credential.helper store
+```
 ## 上传GitHub怎么忽略node_modules
 简单说就是在根目录下创建.gitignore，然后编辑过滤规则。
 windows下怎么操作，方法如下：
