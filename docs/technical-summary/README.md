@@ -1,3 +1,11 @@
+ 
+ # 技术总结
+ ## 前言
+ 为了打造和磨练自己的技术，我在修炼每一项技术和知识后，都会进行总结和反思。
+ 
+ 我坚信：能用文字表达出来并且能让看你文章的人懂了，说明这项技术和知识我是掌握的。
+
+ ## todo
  [阿里云服务器发布项目后无法访问](https://app.csdn.net/runner1920/article/details/79035651)
 
  [Could not read from remote repository](https://app.csdn.net/donkor_/article/details/77502800)
@@ -57,5 +65,3 @@
 [博客诞生记](https://slbyml.github.io/saves/blog.html)
 
 [超详细！搭建一个前端错误监控系统](https://zhuanlan.zhihu.com/p/51446011)
-
-[nginx配置ssl证书实现https访问](https://www.cnblogs.com/tianhei/p/7726505.html)

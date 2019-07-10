@@ -1,4 +1,9 @@
 module.exports = [{
+    title: 'nginx配置ssl证书，从http升级到https',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['nginx-ssl-https/']
+},{
     title: '项目中的权限验证',
     collapsable: false,
     sidebarDepth: 2,
