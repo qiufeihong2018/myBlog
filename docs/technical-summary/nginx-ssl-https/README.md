@@ -68,6 +68,7 @@ cert          fastcgi_params  mime.types    scgi_params      snippets
 conf.d        koi-utf         nginx.conf    sites-available  uwsgi_params
 fastcgi.conf  koi-win         proxy_params  sites-enabled    win-utf
 ```
+
 ### 获取证书
 我的服务器是阿里云的，那就从阿里云的云盾中获得SSL证书
 
@@ -116,6 +117,7 @@ CaGaIY+5DXwoPjzPvfbWKIuMwthyAeyddW4XzO9/9c2Ugrr0s6AWkQ==
 ```
 
 *.pem：是证书文件
+
 ```
 -----BEGIN CERTIFICATE-----
 MIIFnTCCBIWgAwIBAgIQBLNEzXnEO46h+mG3ixM+AzANBgkqhkiG9w0BAQsFADBu
@@ -146,19 +148,16 @@ rMKWaBFLmfK/AHNF4ZihwPGOc7w6UHczBZXH5RFzJNnww+WnKuTPI0HfnVH8lg==
 在`/etc/nginx/conf.d/`文件夹中的default.conf文件，就是写一些http的服务
 
 在`/etc/nginx/sites-enabled/`的文件夹下写一些https的服务
-``` {62,63}
-# nginx.conf
+
+```
 user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
-
 events {
         worker_connections 768;
         # multi_accept on;
 }
-
 http {
-
         ##
         # Basic Settings
         ##
@@ -211,28 +210,8 @@ http {
         include /etc/nginx/conf.d/*.conf;
         include /etc/nginx/sites-enabled/*;
 }
-
-#mail {
-#       # See sample authentication script at:
-#       # http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
-#
-#       # auth_http localhost/auth.php;
-#       # pop3_capabilities "TOP" "USER";
-#       # imap_capabilities "IMAP4rev1" "UIDPLUS";
-#
-#       server {
-#               listen     localhost:110;
-#               protocol   pop3;
-#               proxy      on;
-#       }
-#
-#       server {
-#               listen     localhost:143;
-#               protocol   imap;
-#               proxy      on;
-#       }
-#}
 ```
+
 ### sites-available
 
 在sites-available中添加qiufeihong.top文件
@@ -244,7 +223,6 @@ ssl_certificate和ssl_certificate_key将两个证书文件导入
 后者是http，重定向会https
 
 ```
-# qiufeihong.top
 
 server {
 listen 443 ssl;
@@ -274,6 +252,7 @@ rewrite ^(.*)$ https://$host$1 permanent;
 ```
 
 并且，需要将`conf.d`文件夹中的`default.conf`中的关于博客的配置的代码将其删除，否则nginx重启配置时，会报两个同名服务的错误。
+
 ```
 server
         {
@@ -290,13 +269,16 @@ server
 
 ### sites-enabled
 建立软链接
+
 ```
 sudo ln sites-available/qiufeihong.top sites-enabled/qiufeihong.top
 
 ```
+
 在sites-enabled中就能看到qiufeihong.top
 
 ### 重启nginx
+
 ```
  sudo nginx -t
 
@@ -307,7 +289,43 @@ sudo ln sites-available/qiufeihong.top sites-enabled/qiufeihong.top
 
 ![avatar](../public/nginx-ssl-https8.png)
 
+
+## 百度地图与https
+百度地图JavaScript API是一套由JavaScript语言编写的应用程序接口，可帮助您在网站中构建功能丰富、交互性强的地图应用，支持PC端和移动端基于浏览器的地图应用开发，且支持HTML5特性的地图开发。
+百度地图JavaScript API支持HTTP和HTTPS，免费对外开放，可直接使用。接口使用无次数限制。在使用前，您需先[申请密钥（ak）](http://lbsyun.baidu.com/apiconsole/key?application=key)才可使用。
+
+由于之前请求的协议是http
+
+原来是：
+```
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=密钥"></script>
+
+```
+
+但是请求是失败的，是没有地图的。
+
+![avatar](../public/map1.png)
+
+那么百度地图的 JavaScript API 是否支持 HTTPS 请求呢?
+答案是当然的。
+
+### 官网
+
+> JavaScript API V2.0 及以上版本支持HTTPS。
+> 
+> 如果想使用HTTPS协议调用JavaScript API，直接将脚本引用的协议修改为HTTPS即可。
+
+```js
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=您的密钥"></script>
+```
+
+请求正常，地图也出现了。
+
+![avatar](../public/map.png)
+
 ## 参考文献
+
 [nginx配置ssl证书实现https访问](https://www.cnblogs.com/tianhei/p/7726505.html)
 
 [SSL证书安装指南](https://help.aliyun.com/knowledge_detail/95505.html?spm=a2c4g.11186623.4.1.2d804c07MPmVlx)
