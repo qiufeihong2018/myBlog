@@ -1,6 +1,7 @@
 # github
 [[toc]]
 
+
 ```js
 …or create a new repository on the command line
 echo "# popu" >> README.md
@@ -374,56 +375,26 @@ $ git push -f -u origin master
 git pull
 ```
 
-## code的外卖配送员-git
+## 问题
 
-我叫git,我每天要和很多代码和很多程序猿打交道,其实我就是一个普普通通的外卖配送员,不像美团和饿了吗,他们是配送各种美食,想想我就饿了,我配送的是代码.
-我为我的职业感到高兴.
-一般我就两条主路线和三个市一个区,如图
+### git爬坑之gitclone权限问题
+输入账号密码后提示 HTTP Basic: Access denied fatal: Authentication failed 
+[参考](https://www.cnblogs.com/VAllen/p/http-basic-access-denied-fatal-authentication-failed.html)
 
-![avatar](./public/github.png)
-
-你说巧不巧,有人点单了,程序猿小飞点了从workspace到remote的大订单,我们看看吧.
-### 那我得走workspace市->index县->repository市>remote市的路线
+尝试使用这个命令后，用TortoiseGit拉取或推送项目，输入账号密码后，终于正常拉取和推送项目了。
 ```
-如果当前订单已经在remote市,那么就要先销毁与这个订单的链接
-git remote remove origin
-然后初始化订单
-git init
-重新关联remote市的链接
-git remote add origin [仓库]
-我骑着小毛驴,遵守交通规则把订单从workspace市配送到index县,index县有一个温泉,我累死了,得休息一下,泡着舒服的温泉,我想想今天点啥外卖呢?
-git add .
-当然我也可以配送指定订单
-git add 文件名
-但是总是在我泡温泉的时候,小飞会打来电话要我带一句话,很无奈,我带着index县的订单和那句话继续骑行一百公里,向repository市进发,在路上我看见了许多同事,还可他们打了个招呼.
-git commit -m "注释内容"
-看看前面耽误的时间太多,我也就没有休息了,加足马力,带着订单和话前往remote市,我好舒服啊记得是叫做master的区吧,速度,不然的话,小飞要投诉我了.
-git push --set-upstream origin master
-当然有时候我会送到dev区
-git push origin dev
-终于将订单配送到了,而且时间刚刚好.嘿嘿,那个温泉好舒服啊.
-我到了后,碰到了同事小仇,他说中午点啥子外卖哦,去外婆家撮一顿,我一听,想起那块美滋滋的红烧肉,我就跟着小仇去了.
-你说巧不巧,我刚吃完,程序猿小鸿就给我在网上下了订单需要我将订单从remote配送到workspace去
-
+git config --system --unset credential.helper
 ```
-### 那我得往回走remote市->repository市->workspace路线
-```
-我拔掉我的爱驴的充电器,好在爱驴在每个地方都充电,电还是蛮多的,我从remote市往repository市骑行,
-git fetch /git clone 链接
-然后我从repository市往workspace市骑行,
-git checkout 
-这个是放在workspace市的master区
-当然也可以放在其他区,比如dev区,
-gitg checkout dev
-有时候特急订单我会走remote市->workspace市的路线
-我就直接将订单拿上飞速前往目的地
-git pull
 
-```
-时间真的过得快,晚饭时间到了,我火速前往餐厅吃饭,准备晚上大战
-
-## You are not allowed to push code to protected branches on this project
+### You are not allowed to push code to protected branches on this project
 [git合并分支成功，但是push失败(remote: GitLab: You are not allowed to push code to protected branches on this project.)](https://www.cnblogs.com/hcy-fly/p/9008323.html)
+
+
+### Another git process semms to be running in this repository, e.g. an editor opene
+```
+Another git process semms to be running in this repository, e.g. an editor opened by ‘git commit’. Please make sure all processes are terminated then try again. If it still fails, a git process remove the file manually to continue.
+```
+大概意思就是说，当前已经有了一个编辑器打开了“git commit”指令，请关闭所有git相关的进程重试，否则，请手动删除那个文件。
 
 ## github和gitlab ssh_key配置
 步骤
@@ -471,7 +442,7 @@ Enter file in which to save the key 为空的话，创建的就是空的
 :::
 
 
-## 一次输入永久不需要密码
+## 一次输入用户名密码永久不需要
 ```
 git config --global credential.helper store
 ```
@@ -510,14 +481,33 @@ demo.html   过滤该文件
 ```
 
 
-## [Github在readme添加gif图](https://www.jianshu.com/p/3142755e93c8)
+## Github在readme添加gif图
+[Github在readme添加gif图](https://www.jianshu.com/p/3142755e93c8)
 
+## Git 修改已提交的commit注释
+### 修改最后一次注释
+如果你只想修改最后一次注释
+```
+git commit --amend
+```
+出现有注释的界面（你的注释应该显示在第一行）， 输入i进入修改模式，修改好注释后，按Esc键 退出编辑模式，输入:wq保存并退出。ok，修改完成。
 
-## Another git process semms to be running in this repository, e.g. an editor opene
+### 修改之前的某次注释
+
 ```
-Another git process semms to be running in this repository, e.g. an editor opened by ‘git commit’. Please make sure all processes are terminated then try again. If it still fails, a git process remove the file manually to continue.
+git rebase -i HEAD~2
 ```
-大概意思就是说，当前已经有了一个编辑器打开了“git commit”指令，请关闭所有git相关的进程重试，否则，请手动删除那个文件。
+最后的数字2指的是显示到倒数第几次 比如这个输入的2就会显示倒数的两次注释（最上面两行）
+
+你想修改哪条注释 就把哪条注释前面的pick换成edit。方法就是上面说的编辑方式：i---编辑，把pick换成edit---Esc---:wq.
+然后：（接下来的步骤Terminal会提示）
+git commit --amend
+
+修改注释，保存并退出后，输入：
+git rebase --continue
+
+其实这个原理我的理解就是先版本回退到你想修改的某次版本，然后修改当前的commit注释，然后再回到本地最新的版本
+
 ## git merge
 ```
 git meger 指定分支后
@@ -527,12 +517,6 @@ git add -u
 git push即可。
 ```
 
-## git爬坑之gitclone权限问题
-输入账号密码后提示 HTTP Basic: Access denied fatal: Authentication failed 
-[参考](https://www.cnblogs.com/VAllen/p/http-basic-access-denied-fatal-authentication-failed.html)
 
-尝试使用这个命令后，用TortoiseGit拉取或推送项目，输入账号密码后，终于正常拉取和推送项目了。
-```
-git config --system --unset credential.helper
-```
-
+## 参考文献
+[Git 修改已提交的commit注释](https://www.jianshu.com/p/098d85a58bf1)
