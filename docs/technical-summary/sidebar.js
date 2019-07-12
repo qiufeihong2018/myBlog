@@ -1,4 +1,9 @@
 module.exports = [{
+    title: '没有vue-cli就没有qfh-cli',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['qfh-cli/']
+},{
     title: 'nginx配置ssl证书，从http升级到https',
     collapsable: false,
     sidebarDepth: 2,
