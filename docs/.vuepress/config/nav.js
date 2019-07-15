@@ -327,6 +327,10 @@ module.exports = [{
         link: "https://github.com/qiufeihong2018"
       },
       {
+        text: "知乎",
+        link: "https://www.zhihu.com/people/chou-fei-hong/activities"
+      },
+      {
         text: "掘金",
         link: "https://juejin.im/user/5bf4d63cf265da61561ee241/posts"
       },
@@ -339,8 +343,8 @@ module.exports = [{
         link: "https://segmentfault.com/u/qiufeihong2018"
       },
       {
-        text: "知乎",
-        link: "https://www.zhihu.com/people/chou-fei-hong/activities"
+        text: "npm",
+        link: "https://www.npmjs.com/settings/qiufeihong/packages"
       },
       {
         text: "简书",

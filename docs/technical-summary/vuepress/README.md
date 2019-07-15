@@ -944,6 +944,20 @@ export default ({
     },
 
 ```
+### 添加elementUI组件
+在`vuepress-blog/docs/.vuepress/enhanceApp.js`中添加
+
+```js
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+```
+
+抛出
+```js
+  Vue.use(ElementUI)
+```
+
+就可以在markdown文件中使用了
 
 ### 其余配置
 

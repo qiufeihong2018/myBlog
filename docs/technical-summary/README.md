@@ -1,12 +1,134 @@
  
  # 技术总结
- ## 前言
+
+
+<template>
+    <el-carousel :interval="4000" type="card" height="200px" interval="1000">
+        <el-carousel-item v-for="item in arrPng" :key="item">
+            <img :src="item" />
+        </el-carousel-item>
+    </el-carousel>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                arrPng: [
+                    'https://user-gold-cdn.xitu.io/2019/6/17/16b647bd65968947?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1',
+                    'https://user-gold-cdn.xitu.io/2019/6/5/16b2546faf9430c4?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1',
+                    'https://user-gold-cdn.xitu.io/2019/6/5/16b2571e13dbbdc6?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
+                    'https://user-gold-cdn.xitu.io/2019/6/5/16b25770c4917f2f?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
+                    'https://user-gold-cdn.xitu.io/2019/6/5/16b25790977cb749?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1'
+                ]
+            }
+        }
+    }
+</script>
+
+<style>
+    .el-carousel__item h3 {
+        color: #475669;
+        font-size: 14px;
+        opacity: 0.75;
+        line-height: 200px;
+        margin: 0;
+    }
+
+    .el-carousel__item:nth-child(2n) {
+        background-color: #99a9bf;
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+        background-color: #d3dce6;
+    }
+</style>
+
+## 前言
  为了打造和磨练自己的技术，我在修炼每一项技术和知识后，都会进行总结和反思。
  
  我坚信：能用文字表达出来并且能让看你文章的人懂了，说明这项技术和知识我是掌握的。
 
- ## todo
- [阿里云服务器发布项目后无法访问](https://app.csdn.net/runner1920/article/details/79035651)
+
+<el-collapse>
+  <el-collapse-item title="doc" name="1">
+  
+[没有vue-cli就没有qfh-cli](./qfh-cli/)
+
+[nginx配置ssl证书，从http升级到https](./nginx-ssl-https/)
+
+[项目中的权限验证](./authentication-privileges/)
+
+[读黄勇的OKR实战笔记](./okr/)
+
+[大数据量优化性能](./vue-virtual-scroll-list/)
+
+[linux系统下jenkins根据github自动部署](./jenkins/)
+
+[前端工具](./tools/)
+
+[nginx服务器配置+二级域名搭建项目](./nginx/)
+
+[gitlab的安装和备份](./gitlab/)
+
+[no space left on device 解决磁盘空间](./device/)
+
+[node爬取某图片网站的桌面壁纸](./node-reptile/)
+
+[express从入门到放弃](./express/)
+
+[express项目集成mocha测试框架](./mocha/)
+
+[接口文档神器apiDoc](./apiDoc/)
+
+[Elastic Stack 的核心](./elasticStack/)
+
+[HTTP响应状态代码](./httpResStatusCode/)
+
+[开发中的bug](./bug/)
+
+[Markdown的语法](./mdown/)
+
+[手把手带你搭建VuePress的技术博客](./vuepress/)
+
+[关于import与require的区别](./import-require/)
+
+[前端命名规范](./naming-rules/)
+
+[pm2的研究](./pm2/)
+
+[MongoDB深入浅出](./mongo/)
+
+
+[linux下tree命令详解](./tree/)
+
+[vue-webpack](./vue-webpack/)
+
+
+[linux命令](./ubuntu/)
+
+
+[nuxt教程大全](./nuxt/)
+
+
+[node大全](./node/)
+
+
+[github大全](./github/)
+
+
+[eslint大全](./eslint/)
+
+
+[es6大全](./es6/)
+
+[css大全](./css/)
+
+
+  </el-collapse-item>
+  <el-collapse-item title="todo" name="2">
+
+[阿里云服务器发布项目后无法访问](https://app.csdn.net/runner1920/article/details/79035651)
 
  [Could not read from remote repository](https://app.csdn.net/donkor_/article/details/77502800)
 
@@ -65,3 +187,7 @@
 [博客诞生记](https://slbyml.github.io/saves/blog.html)
 
 [超详细！搭建一个前端错误监控系统](https://zhuanlan.zhihu.com/p/51446011)
+
+  </el-collapse-item>
+</el-collapse>
+
