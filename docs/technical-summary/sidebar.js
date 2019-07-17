@@ -1,4 +1,9 @@
 module.exports = [{
+    title: 'Array',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['array/']
+},{
     title: '没有vue-cli就没有qfh-cli',
     collapsable: false,
     sidebarDepth: 2,
