@@ -337,6 +337,222 @@ every 不会改变原数组。
 every 遍历的元素范围在第一次调用 callback 之前就已确定了。在调用 every 之后添加到数组中的元素不会被 callback 访问到。如果数组中存在的元素被更改，则他们传入 callback 的值是 every 访问到他们那一刻的值。那些被删除的元素或从来未被赋值的元素将不会被访问到。
 
 every 和数学中的"所有"类似，当所有的元素都符合条件才会返回true。正因如此，若传入一个空数组，无论如何都会返回 true。
+## Array.prototype.fill()
+fill() 方法用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引。
+```js
+var array1 = [1, 2, 3, 4];
+
+// fill with 0 from position 2 until position 4
+console.log(array1.fill(0, 2, 4));
+// expected output: [1, 2, 0, 0]
+
+// fill with 5 from position 1
+console.log(array1.fill(5, 1));
+// expected output: [1, 5, 5, 5]
+
+console.log(array1.fill(6));
+// expected output: [6, 6, 6, 6]
+```
+
+### 语法
+```js
+arr.fill(value[, start[, end]])
+```
+- value
+用来填充数组元素的值。
+
+- start 可选
+起始索引，默认值为0。
+
+- end 可选
+终止索引，默认值为 this.length。
+
+### 描述
+ill 方法接受三个参数 value, start 以及 end. start 和 end 参数是可选的, 其默认值分别为 0 和 this 对象的 length 属性值。
+
+如果 start 是个负数, 则开始索引会被自动计算成为 length+start, 其中 length 是 this 对象的 length 属性值。如果 end 是个负数, 则结束索引会被自动计算成为 length+end。
+
+fill 方法故意被设计成通用方法, 该方法不要求 this 是数组对象。
+
+fill 方法是个可变方法, 它会改变调用它的 this 对象本身, 然后返回它, 而并不是返回一个副本。
+
+当一个对象被传递给 fill方法的时候, 填充数组的是这个对象的引用。
+
+## Array.prototype.filter()
+filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。 
+
+```js
+
+var arr = [12,1,3,445,67,45];
+
+const result = arr.filter(n => n > 44);
+
+console.log(result);
+//> Array [445, 67, 45]
+```
+### 语法
+```js
+var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])
+```
+- callback
+用来测试数组的每个元素的函数。返回 true 表示该元素通过测试，保留该元素，false 则不保留。它接受以下三个参数：
+- element
+数组中当前正在处理的元素。
+- index可选
+正在处理的元素在数组中的索引。
+- array可选
+调用了 filter 的数组本身。
+- thisArg可选
+执行 callback 时，用于 this 的值。
+
+### 描述
+
+filter 为数组中的每个元素调用一次 callback 函数，并利用所有使得 callback 返回 true 或等价于 true 的值的元素创建一个新数组。callback 只会在已经赋值的索引上被调用，对于那些已经被删除或者从未被赋值的索引不会被调用。那些没有通过 callback 测试的元素会被跳过，不会被包含在新数组中。
+
+callback 被调用时传入三个参数：
+
+- 元素的值
+- 元素的索引
+- 被遍历的数组本身
+
+如果为 filter 提供一个 thisArg 参数，则它会被作为 callback 被调用时的 this 值。否则，callback 的 this 值在非严格模式下将是全局对象，严格模式下为 undefined。callback 函数最终观察到的 this 值是根据通常函数所看到的 "this"的规则确定的。
+
+filter 不会改变原数组，它返回过滤后的新数组。
+
+filter 遍历的元素范围在第一次调用 callback 之前就已经确定了。在调用 filter 之后被添加到数组中的元素不会被 filter 遍历到。如果已经存在的元素被改变了，则他们传入 callback 的值是 filter 遍历到它们那一刻的值。被删除或从来未被赋值的元素不会被遍历到。
+
+## Array.prototype.find()
+ find() 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。
+ ```js
+arr.find(callback[, thisArg])
+ ```
+
+- callback
+在数组每一项上执行的函数，接收 3 个参数：
+- element
+当前遍历到的元素。
+- index可选
+当前遍历到的索引。
+- array可选
+数组本身。
+- thisArg可选
+执行回调时用作this 的对象。
+
+### 描述
+find方法对数组中的每一项元素执行一次 callback 函数，直至有一个 callback 返回 true。当找到了这样一个元素后，该方法会立即返回这个元素的值，否则返回 undefined。注意 callback 函数会为数组中的每个索引调用即从 0 到 length - 1，而不仅仅是那些被赋值的索引，这意味着对于稀疏数组来说，该方法的效率要低于那些只遍历有值的索引的方法。
+
+callback函数带有3个参数：当前元素的值、当前元素的索引，以及数组本身。
+
+如果提供了 thisArg参数，那么它将作为每次 callback函数执行时的this ，如果未提供，则使用 undefined。
+
+find方法不会改变数组。
+
+在第一次调用 callback函数时会确定元素的索引范围，因此在 find方法开始执行之后添加到数组的新元素将不会被 callback函数访问到。如果数组中一个尚未被callback函数访问到的元素的值被callback函数所改变，那么当callback函数访问到它时，它的值是将是根据它在数组中的索引所访问到的当前值。被删除的元素仍旧会被访问到。
+
+## Array.prototype.findIndex()
+findIndex()方法返回数组中满足提供的测试函数的第一个元素的索引。否则返回-1。
+
+以下示例查找数组中素数的元素的索引（如果不存在素数，则返回-1）。
+```js
+function isPrime(element, index, array) {
+  var start = 2;
+  while (start <= Math.sqrt(element)) {
+    if (element % start++ < 1) {
+      return false;
+    }
+  }
+  return element > 1;
+}
+
+console.log([4, 6, 8, 12].findIndex(isPrime)); // -1, not found
+console.log([4, 6, 7, 12].findIndex(isPrime)); // 2
+```
+### 语法
+```js
+arr.findIndex(callback[, thisArg])
+```
+
+- callback
+针对数组中的每个元素, 都会执行该回调函数, 执行时会自动传入下面三个参数:
+- element
+当前元素。
+- index
+当前元素的索引。
+- array
+调用findIndex的数组。
+- thisArg
+可选。执行callback时作为this对象的值.
+
+### 描述
+findIndex方法对数组中的每个数组索引0..length-1（包括）执行一次callback函数，直到找到一个callback函数返回真实值（强制为true）的值。如果找到这样的元素，findIndex会立即返回该元素的索引。如果回调从不返回真值，或者数组的length为0，则findIndex返回-1。 与某些其他数组方法（如Array#some）不同，在稀疏数组中，即使对于数组中不存在的条目的索引也会调用回调函数。
+
+回调函数调用时有三个参数：元素的值，元素的索引，以及被遍历的数组。
+
+如果一个 thisArg 参数被提供给 findIndex, 它将会被当作this使用在每次回调函数被调用的时候。如果没有被提供，将会使用undefined。
+
+findIndex不会修改所调用的数组。
+
+在第一次调用callback函数时会确定元素的索引范围，因此在findIndex方法开始执行之后添加到数组的新元素将不会被callback函数访问到。如果数组中一个尚未被callback函数访问到的元素的值被callback函数所改变，那么当callback函数访问到它时，它的值是将是根据它在数组中的索引所访问到的当前值。被删除的元素仍然会被访问到。
+
+## Array.prototype.flat()
+flat() 方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
+
+使用 reduce 与 concat可以替代
+### 语法
+```js
+var newArray = arr.flat(depth)
+```
+depth 可选
+指定要提取嵌套数组的结构深度，默认值为 1。
+
+### 示例
+- 扁平化嵌套数组
+```js
+var arr1 = [1, 2, [3, 4]];
+arr1.flat(); 
+// [1, 2, 3, 4]
+
+var arr2 = [1, 2, [3, 4, [5, 6]]];
+arr2.flat();
+// [1, 2, 3, 4, [5, 6]]
+
+var arr3 = [1, 2, [3, 4, [5, 6]]];
+arr3.flat(2);
+// [1, 2, 3, 4, 5, 6]
+
+//使用 Infinity 作为深度，展开任意深度的嵌套数组
+arr3.flat(Infinity); 
+// [1, 2, 3, 4, 5, 6]
+```
+- 扁平化与空项
+```js
+
+var arr4 = [1, 2, , 4, 5];
+arr4.flat();
+// [1, 2, 4, 5]
+```
+
+## Array.prototype.flatMap()
+flatMap() 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。
+
+### 语法
+```js
+var new_array = arr.flatMap(function callback(currentValue[, index[, array]]) {
+    // 返回新数组的元素
+}[, thisArg])
+```
+
+- callback
+可以生成一个新数组中的元素的函数，可以传入三个参数：
+ 
+- currentValue
+当前正在数组中处理的元素
+- index可选
+可选的。数组中正在处理的当前元素的索引。
+- array可选
+可选的。被调用的 map 数组
+- thisArg可选
+可选的。执行 callback 函数时 使用的this 值。
 
 ## 参考文献
 
