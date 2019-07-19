@@ -376,7 +376,33 @@ git pull
 ```
 
 ## 问题
+### Host key verification failed.
+```
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+SHA256:XfRhNYJub0IjykGB+4RanL6i1hlYkfvkq1Qj53ySoxA.
+Please contact your system administrator.
+Add correct host key in /home/devue/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /home/devue/.ssh/known_hosts:2
+  remove with:
+  ssh-keygen -f "/home/devue/.ssh/known_hosts" -R 192.168.3.2
+ECDSA host key for 192.168.3.2 has changed and you have requested strict checking.
+Host key verification failed.
+```
 
+因为服务端重装系统,公钥不对了
+
+删除客户端中保存的服务端的公钥
+
+解决方法
+```
+rm -rf ~/.ssh/known_hosts
+```
 ### git爬坑之gitclone权限问题
 输入账号密码后提示 HTTP Basic: Access denied fatal: Authentication failed 
 [参考](https://www.cnblogs.com/VAllen/p/http-basic-access-denied-fatal-authentication-failed.html)

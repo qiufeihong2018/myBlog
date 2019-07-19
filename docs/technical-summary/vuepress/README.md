@@ -975,3 +975,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 [一个基于 Github Issue 和 Preact 开发的评论插件](https://gitalk.github.io/)
 
 [gitalk/gitalk](https://github.com/gitalk/gitalk)
+
+[如何使用VuePress搭建一个类型element ui文档](https://www.jb51.net/article/156264.htm)
+
+[博客诞生记](https://slbyml.github.io/saves/blog.html)

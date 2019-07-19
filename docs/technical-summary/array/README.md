@@ -554,6 +554,132 @@ var new_array = arr.flatMap(function callback(currentValue[, index[, array]]) {
 - thisArg可选
 可选的。执行 callback 函数时 使用的this 值。
 
+## Array.prototype.forEach()
+
+forEach() 方法对数组的每个元素执行一次提供的函数。
+
+### 语法
+```
+arr.forEach(callback[, thisArg]);
+```
+
+- callback
+为数组中每个元素执行的函数，该函数接收三个参数：
+- currentValue
+数组中正在处理的当前元素。
+- index可选
+数组中正在处理的当前元素的索引。
+- array可选
+forEach() 方法正在操作的数组。
+- thisArg可选
+可选参数。当执行回调函数时用作 this 的值(参考对象)。
+
+### 描述
+forEach 方法按升序为数组中含有效值的每一项执行一次callback 函数，那些已删除或者未初始化的项将被跳过（例如在稀疏数组上）。
+
+callback 函数会被依次传入三个参数：
+
+数组当前项的值
+数组当前项的索引
+数组对象本身
+如果 thisArg 参数有值，则每次 callback 函数被调用的时候，this 都会指向 thisArg 参数上的这个对象。如果省略了 thisArg 参数,或者赋值为 null 或 undefined，则 this 指向全局对象。callback 函数最终可观察到 this 值，这取决于函数观察到 this 的常用规则。
+
+forEach 遍历的范围在第一次调用 callback 前就会确定。调用 forEach 后添加到数组中的项不会被 callback 访问到。如果已经存在的值被改变，则传递给 callback 的值是 forEach 遍历到他们那一刻的值。已删除的项不会被遍历到。如果已访问的元素在迭代时被删除了（例如使用 shift()），之后的元素将被跳过 - 参见下面的示例。
+
+forEach() 为每个数组元素执行callback函数；不像 map() 或者 reduce()，它总是返回 undefined 值，并且不可链式调用。典型用例是在一个链的最后执行副作用。
+
+forEach() 被调用时，不会改变原数组（即调用它的数组），即使传递的参数里的 callback被调用时可能会改变原数组。（译注：此处说法似不够准确，可参考EMCA语言规范：'forEach does not directly mutate the object on which it is called but the object may be mutated by the calls to callbackfn.'，即forEach不直接改变调用它的对象，但是对象可能会被callback改变。）
+
+注意： 没有办法中止或者跳出 forEach() 循环，除了抛出一个异常。如果你需要这样，使用 forEach() 方法是错误的。
+
+若你需要提前终止循环，你可以使用：
+
+简单循环
+for...of 循环
+Array.prototype.every()
+Array.prototype.some()
+Array.prototype.find()
+Array.prototype.findIndex()
+这些数组方法可以对数组元素判断，以便确定是否需要继续遍历：every()，some()，find()，findIndex()
+
+译者注：若条件允许，也可以使用 filter() 提前过滤出需要遍历的部分，再用 forEach() 处理。
+
+## Array.prototype.includes()
+includes() 方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false。
+
+### 语法
+```
+arr.includes(valueToFind[, fromIndex])
+```
+
+valueToFind
+需要查找的元素值。
+
+Note:  使用 includes()比较字符串和字符时是区分大小写。
+
+fromIndex 可选
+从fromIndex 索引处开始查找 valueToFind。如果为负值，则按升序从 array.length + fromIndex 的索引开始搜 （即使从末尾开始往前跳 fromIndex 的绝对值个索引，然后往后搜寻）。默认为 0。
+
+## Array.prototype.indexOf()
+indexOf()方法返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。
+### 语法
+
+```js
+arr.indexOf(searchElement)
+arr.indexOf(searchElement[, fromIndex = 0])
+```
+- searchElement
+要查找的元素
+- fromIndex
+开始查找的位置。如果该索引值大于或等于数组长度，意味着不会在数组里查找，返回-1。如果参数中提供的索引值是一个负值，则将其作为数组末尾的一个抵消，即-1表示从最后一个元素开始查找，-2表示从倒数第二个元素开始查找 ，以此类推。 注意：如果参数中提供的索引值是一个负值，并不改变其查找顺序，查找顺序仍然是从前向后查询数组。如果抵消后的索引值仍小于0，则整个数组都将会被查询。其默认值为0.
+
+### 描述
+indexOf 使用strict equality (无论是 ===, 还是 triple-equals操作符都基于同样的方法)进行判断 searchElement与数组中包含的元素之间的关系。
+
+## Array.prototype.join()
+
+join() 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。如果数组只有一个项目，那么将返回该项目而不使用分隔符。
+
+### 语法
+```
+arr.join([separator])
+```
+
+separator
+指定一个字符串来分隔数组的每个元素。如果需要，将分隔符转换为字符串。如果省略()，数组元素用逗号分隔。默认为 ","。如果separator是空字符串("")，则所有元素之间都没有任何字符。
+
+
+### 描述
+所有的数组元素被转换成字符串，再用一个分隔符将这些字符串连接起来。
+
+如果一个元素为 undefined 或 null，它会被转换为空字符串。
+
+## Array.prototype.keys()
+ keys() 方法返回一个包含数组中每个索引键的Array Iterator对象。
+### 语法
+
+```
+arr.keys()
+```
+
+```js
+var arr = ["a", , "c"];
+var denseKeys = [...arr.keys()];
+console.log(denseKeys);  // [0, 1, 2]
+```
+
+## Array.prototype.lastIndexOf()
+lastIndexOf() 方法返回指定元素（也即有效的 JavaScript 值或变量）在数组中的最后一个的索引，如果不存在则返回 -1。从数组的后面向前查找，从 fromIndex 处开始。
+
+### 语法
+```js
+arr.lastIndexOf(searchElement[, fromIndex = arr.length - 1])
+```
+- searchElement
+被查找的元素。
+- fromIndex
+从此位置开始逆向查找。默认为数组的长度减 1，即整个数组都被查找。如果该值大于或等于数组的长度，则整个数组会被查找。如果为负值，将其视为从数组末尾向前的偏移。即使该值为负，数组仍然会被从后向前查找。如果该值为负时，其绝对值大于数组长度，则方法返回 -1，即数组不会被查找。
+
 ## 参考文献
 
 [Array](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)

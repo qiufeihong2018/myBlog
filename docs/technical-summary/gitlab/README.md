@@ -235,6 +235,11 @@ sudo gitlab-rake gitlab:backup:create
 ## 手动将gitlab备份包scp到新服务器上
 通过scp命令
 
+将新服务器上的backups权限升到777
+```
+sudo chmod 777 backups/
+```
+
 不会请戳[Linux scp命令](https://www.runoob.com/linux/linux-comm-scp.html)
 ```bash
 scp 1559635752_2019_06_04_10.7.2-ee_gitlab_backup.tar  gitlab-backup@192.168.3.113:/var/opt/gitlab/backups
@@ -266,10 +271,13 @@ sudo chown git backups/
 sudo chmod 700 backups/
 ```
 
+> 不要降低权限,不然文件夹进不去
+操作是降低backups操作权限
 为了避免gitlab恢复时，由于权限，而产生不能解压的问题,我们就将备份文件权限改为777(可读可写)
 ```bash
 chmod 777 1558509153_2019_05_22_10.7.2-ee_gitlab_backup.tar
 ```
+
 
 ### 停止相关数据连接服务
 ```bash
@@ -406,6 +414,10 @@ scp id_rsa.pub.A gitlab-backup@192.168.3.113:/home/gitlab-backup/.ssh
 touch authorized_keys
 ```
 #### 将id_rsa.pub.A文件内容追加到authorized_keys 文件中
+```
+cat id_rsa.pub.A >> authorized_keys 
+```
+
 ![avatar](../public/gitlab28.png)
 
 打开`authorized_keys`查看
@@ -417,7 +429,12 @@ touch authorized_keys
 
 > authorized_keys文件的权限很重要，如果设置为777，那么登录的时候，还是需要提供密码的。
 
+这个权限足够,越低越好
+```
+-rw-rw-r--  1 gitlab-backup gitlab-backup  403 7月  19 10:53 authorized_keys
+```
 
+或者是这个权限
 ![avatar](../public/gitlab29.png)
 
 #### 测试
@@ -429,7 +446,7 @@ scp 1559635752_2019_06_04_10.7.2-ee_gitlab_backup.tar gitlab-backup@192.168.3.11
 ![avatar](../public/gitlab30.png)
 
 ### 创建Shell定时远程备份脚本
-#### 在新服务器上创建定时远程备份脚本
+#### 在旧服务器上创建定时远程备份脚本
 
 创建自动scp的脚本和日志目录
 ```bash
@@ -733,7 +750,10 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 # 仇飞鸿编辑于2019-6-3 添加定时任务，每天上午9点,自动执行从备份包中恢复gitlab操>作
 0  9    * * *   root    bash /var/opt/gitlab/auto_recovery_backup.sh
 
-~  
+# 仇飞鸿编辑于2019-6-12 添加定时任务，每天上午10点,自动删除var/opt/gitlab/backups/tmp
+0  10   * * *   root    rm -rf /var/opt/gitlab/backups/tmp
+
+
 ```
 
 ### 自动将gitlab备份包scp到新服务器脚本`auto_scp.sh`

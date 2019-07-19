@@ -142,7 +142,7 @@ n rm 6.4.0
 
 ## npm 问题
 npm install 安装 node_modules中的vue-virtual-scroll-list包缺少index.js
-## 升级node
+## n管理node版本
 [Install Node.js to install n to install Node.js?](https://stackoverflow.com/questions/19451851/install-node-js-to-install-n-to-install-node-js)
 从源码中安装n
 ```
@@ -244,3 +244,5 @@ xintop.png
 
 ## 参考文献
 [Nodejs编写守护进程](https://cnodejs.org/topic/57adfadf476898b472247eac)
+
+[如何安装 npm 并管理 npm 版本](https://www.npmjs.cn/getting-started/installing-node/)

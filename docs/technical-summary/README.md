@@ -155,9 +155,6 @@
 
  [vue项目实现github在线预览功能](https://www.jb51.net/article/142307.htm)
 
-
- [如何安装 npm 并管理 npm 版本](https://www.npmjs.cn/getting-started/installing-node/)
-
  [CSS布局(六) 对齐方式](https://www.cnblogs.com/chaixiaozhi/p/8490725.html)
 
  [HTML/CSS代码快速生成](https://app.csdn.net/zhw0596/article/details/79584937)
@@ -168,26 +165,17 @@
 
 [五分钟让你彻底了解TDD、ATDD、BDD&RBE](https://mp.weixin.qq.com/s/KCrkL4NeuZeZvTu5Sc6B_g)
 
-[async-validator](https://github.com/yiminghe/async-validator)
-
 [彻底理解cookie，session，token](https://www.cnblogs.com/moyand/p/9047978.html)
 
 [express-session使用理解](https://www.cnblogs.com/xiashan17/p/5897282.html)
 
 [nodemon+cross-env+config实现支持热更新的能根据不同环境加载不同配置的nodejs环境](https://www.jianshu.com/p/7002bd47f3b0)
 
-[【Html】使用标签为你的网页加入大段代码](https://blog.csdn.net/happyhaojie/article/details/50184949)
-
 [async-validator](https://github.com/yiminghe/async-validator)
-
-[对复制进行修改](https://slbyml.github.io/saves/blog.html#%E5%AF%B9%E5%A4%8D%E5%88%B6%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9)
-
-[如何使用VuePress搭建一个类型element ui文档](https://www.jb51.net/article/156264.htm)
-
-[博客诞生记](https://slbyml.github.io/saves/blog.html)
 
 [超详细！搭建一个前端错误监控系统](https://zhuanlan.zhihu.com/p/51446011)
 
+[drwxrwxrwx权限对应数字](http://blog.sina.com.cn/s/blog_4cd978f90102y56f.html)
   </el-collapse-item>
 </el-collapse>
 

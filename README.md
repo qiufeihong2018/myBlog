@@ -7,16 +7,18 @@
 
 > a vuepress blog about qiufeihong
 
-## [构建](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/vuepress)
+## [手把手带你搭建VuePress的技术博客](https://www.qiufeihong.top/technical-summary/vuepress/#%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E6%90%AD%E5%BB%BAvuepress%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2)
+
+## 启动
 
 ```
 # clone item
-git clone git@github.com:qiufeihong2018/vuepress-app.git
+git clone git@github.com:qiufeihong2018/vuepress-blog.git
 
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:7777
 npm run dev
 
 # build for production with minification
@@ -28,16 +30,6 @@ npm run d
 # pm2 deploy
 npm run server 
 ```
-
-## 主页
-![avatar](./shotPic/main.png)
-
-## 特征
-- [x] 可以统计阅读量
-- [x] 支持评论
-- [x] 隐藏私密信息
-- [x] 在 GitHub 上编辑此页
-- [x] 自动化部署
 
 ## 团队
 我们有一个微信群,专门解决前端问题,讨论各种问题,欢迎加入
