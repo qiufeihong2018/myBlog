@@ -679,6 +679,115 @@ arr.lastIndexOf(searchElement[, fromIndex = arr.length - 1])
 被查找的元素。
 - fromIndex
 从此位置开始逆向查找。默认为数组的长度减 1，即整个数组都被查找。如果该值大于或等于数组的长度，则整个数组会被查找。如果为负值，将其视为从数组末尾向前的偏移。即使该值为负，数组仍然会被从后向前查找。如果该值为负时，其绝对值大于数组长度，则方法返回 -1，即数组不会被查找。
+## Array.prototype.map()
+map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
+
+### 语法
+```js
+var new_array = arr.map(function callback(currentValue[, index[, array]]) {
+ // Return element for new_array 
+}[, thisArg])
+```
+- callback
+生成新数组元素的函数，使用三个参数：
+- currentValue
+callback 数组中正在处理的当前元素。
+- index{{optional_inline}}
+callback 数组中正在处理的当前元素的索引。
+- array{{optional_inline}}
+callback  map 方法被调用的数组。
+- thisArg{{optional_inline}}
+执行 callback 函数时使用的this 值。
+### 描述
+map 方法会给原数组中的每个元素都按顺序调用一次  callback 函数。callback 每次执行后的返回值（包括 {{jsxref("undefined")}}）组合起来形成一个新数组。 callback 函数只会在有值的索引上被调用；那些从来没被赋过值或者使用 delete 删除的索引则不会被调用。
+
+callback 函数会被自动传入三个参数：数组元素，元素索引，原数组本身。
+
+如果 thisArg 参数有值，则每次 callback 函数被调用的时候，this 都会指向 thisArg 参数上的这个对象。如果省略了 thisArg 参数,或者赋值为 null 或 undefined，则 this 指向全局对象 。
+
+map 不修改调用它的原数组本身（当然可以在 callback 执行时改变原数组）。
+
+使用 map 方法处理数组时，数组元素的范围是在 callback 方法第一次调用之前就已经确定了。在 map 方法执行的过程中：原数组中新增加的元素将不会被 callback 访问到；若已经存在的元素被改变或删除了，则它们的传递到 callback 的值是 map 方法遍历到它们的那一时刻的值；而被删除的元素将不会被访问到。
+
+## Array.prototype.pop()
+pop()方法从数组中删除最后一个元素，并返回该元素的值。此方法更改数组的长度。
+
+### 语法
+```
+arr.pop()
+```
+
+- 返回值
+从数组中删除的元素(当数组为空时返回undefined)。
+
+### 描述
+pop 方法从一个数组中删除并返回最后一个元素。
+
+pop 方法有意具有通用性。该方法和 call() 或 apply() 一起使用时，可应用在类似数组的对象上。pop方法根据 length属性来确定最后一个元素的位置。如果不包含length属性或length属性不能被转成一个数值，会将length置为0，并返回undefined。
+
+如果你在一个空数组上调用 pop()，它返回  undefined。
+
+## Array.prototype.push()
+push() 方法将一个或多个元素添加到数组的末尾，并返回该数组的新长度。
+
+### 语法
+```js
+arr.push(element1, ..., elementN)
+```
+
+- 参数
+elementN
+被添加到数组末尾的元素。
+- 返回值
+当调用该方法时，新的 length 属性值将被返回。
+
+### 描述
+push方法将值追加到数组中。
+
+push 方法有意具有通用性。该方法和 call() 或 apply() 一起使用时，可应用在类似数组的对象上。push 方法根据 length 属性来决定从哪里开始插入给定的值。如果 length 不能被转成一个数值，则插入的元素索引为 0，包括 length 不存在时。当 length 不存在时，将会创建它。
+
+唯一的原生类数组（array-like）对象是 Strings，尽管如此，它们并不适用该方法，因为字符串是不可改变的。
+
+- 添加元素到数组
+- 合并两个数组
+- 像数组一样使用对象
+
+## Array.prototype.reduce()
+reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
+### 语法
+
+```js
+arr.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue])
+```
+
+- callback
+执行数组中每个值的函数，包含四个参数：
+- accumulator
+累计器累计回调的返回值; 它是上一次调用回调时返回的累积值，或initialValue（见于下方）。
+
+- currentValue
+数组中正在处理的元素。
+- currentIndex可选
+数组中正在处理的当前元素的索引。 如果提供了initialValue，则起始索引号为0，否则为1。
+- array可选
+调用reduce()的数组
+- initialValue可选
+作为第一次调用 callback函数时的第一个参数的值。 如果没有提供初始值，则将使用数组中的第一个元素。 在没有初始值的空数组上调用 reduce 将报错。
+### 描述
+
+reduce为数组中的每一个元素依次执行callback函数，不包括数组中被删除或从未被赋值的元素，接受四个参数：
+
+accumulator 累计器
+currentValue 当前值
+currentIndex 当前索引
+array 数组
+回调函数第一次执行时，accumulator 和currentValue的取值有两种情况：如果调用reduce()时提供了initialValue，accumulator取值为initialValue，currentValue取数组中的第一个值；如果没有提供 initialValue，那么accumulator取数组中的第一个值，currentValue取数组中的第二个值。
+
+注意：如果没有提供initialValue，reduce 会从索引1的地方开始执行 callback 方法，跳过第一个索引。如果提供initialValue，从索引0开始。
+
+如果数组为空且没有提供initialValue，会抛出TypeError 。如果数组仅有一个元素（无论位置如何）并且没有提供initialValue， 或者有提供initialValue但是数组为空，那么此唯一值将被返回并且callback不会被执行。
+
+
 
 ## 参考文献
 
