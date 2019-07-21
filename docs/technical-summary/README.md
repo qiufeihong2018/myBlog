@@ -1,58 +1,13 @@
  
  # 技术总结
 
-
-<template>
-    <el-carousel :interval="4000" type="card" height="200px" interval="1000">
-        <el-carousel-item v-for="item in arrPng" :key="item">
-            <img :src="item" />
-        </el-carousel-item>
-    </el-carousel>
-</template>
-
-<script>
-    export default {
-        data() {
-            return {
-                arrPng: [
-                    'https://user-gold-cdn.xitu.io/2019/6/17/16b647bd65968947?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1',
-                    'https://user-gold-cdn.xitu.io/2019/6/5/16b2546faf9430c4?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1',
-                    'https://user-gold-cdn.xitu.io/2019/6/5/16b2571e13dbbdc6?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
-                    'https://user-gold-cdn.xitu.io/2019/6/5/16b25770c4917f2f?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
-                    'https://user-gold-cdn.xitu.io/2019/6/5/16b25790977cb749?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1'
-                ]
-            }
-        }
-    }
-</script>
-
-<style>
-    .el-carousel__item h3 {
-        color: #475669;
-        font-size: 14px;
-        opacity: 0.75;
-        line-height: 200px;
-        margin: 0;
-    }
-
-    .el-carousel__item:nth-child(2n) {
-        background-color: #99a9bf;
-    }
-
-    .el-carousel__item:nth-child(2n+1) {
-        background-color: #d3dce6;
-    }
-</style>
-
 ## 前言
  为了打造和磨练自己的技术，我在修炼每一项技术和知识后，都会进行总结和反思。
  
  我坚信：能用文字表达出来并且能让看你文章的人懂了，说明这项技术和知识我是掌握的。
 
 
-<el-collapse>
-  <el-collapse-item title="doc" name="1">
-  
+## doc
 [没有vue-cli就没有qfh-cli](./qfh-cli/)
 
 [nginx配置ssl证书，从http升级到https](./nginx-ssl-https/)
@@ -125,9 +80,7 @@
 [css大全](./css/)
 
 
-  </el-collapse-item>
-  <el-collapse-item title="todo" name="2">
-
+## todo
 [阿里云服务器发布项目后无法访问](https://app.csdn.net/runner1920/article/details/79035651)
 
  [Could not read from remote repository](https://app.csdn.net/donkor_/article/details/77502800)
@@ -176,6 +129,3 @@
 [超详细！搭建一个前端错误监控系统](https://zhuanlan.zhihu.com/p/51446011)
 
 [drwxrwxrwx权限对应数字](http://blog.sina.com.cn/s/blog_4cd978f90102y56f.html)
-  </el-collapse-item>
-</el-collapse>
-

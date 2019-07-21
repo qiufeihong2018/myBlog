@@ -18,23 +18,23 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
             return {
                 arrPng: [
                     {
-                        pngLink:'https://user-gold-cdn.xitu.io/2019/6/17/16b647bd65968947?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1',
+                        pngLink:'http://puz03r2zg.bkt.clouddn.com/mocha.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/mocha/'
                     },
                     {
-                        pngLink:'https://user-gold-cdn.xitu.io/2019/6/5/16b2546faf9430c4?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
+                        pngLink:'http://puz03r2zg.bkt.clouddn.com/gitlab.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/gitlab/'
                     },{
-                        pngLink:'https://user-gold-cdn.xitu.io/2019/6/5/16b2571e13dbbdc6?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
+                        pngLink:'http://puz03r2zg.bkt.clouddn.com/jk.jpeg',
                         docLink:'https://www.qiufeihong.top/technical-summary/jenkins/'
                     },{
-                        pngLink:'https://user-gold-cdn.xitu.io/2019/6/5/16b25770c4917f2f?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
+                        pngLink:'http://puz03r2zg.bkt.clouddn.com/vuepress2.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/vuepress/'
                     },{
-                        pngLink:'https://user-gold-cdn.xitu.io/2019/6/20/16b7403d36b0f0a1?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
+                        pngLink:'http://puz03r2zg.bkt.clouddn.com/apidoc6.jpg',
                         docLink:'https://www.qiufeihong.top/technical-summary/apiDoc/'
                     },{
-                        pngLink:'https://user-gold-cdn.xitu.io/2019/7/10/16bd9e3c59139ab9?imageView2/1/w/1080/h/320/q/85/format/webp/interlace/1',
+                        pngLink:'http://puz03r2zg.bkt.clouddn.com/nginx-ssl-https.jpg',
                         docLink:'https://www.qiufeihong.top/technical-summary/nginx-ssl-https/'
                     }
                 ]
