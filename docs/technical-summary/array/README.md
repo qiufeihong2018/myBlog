@@ -852,6 +852,225 @@ slice 不会修改原数组，只会返回一个浅复制了原数组中的元�
 如果该元素是个对象引用 （不是实际的对象），slice 会拷贝这个对象引用到新的数组里。两个对象引用都引用了同一个对象。如果被引用的对象发生改变，则新的和原来的数组中的这个元素也会发生改变。
 对于字符串、数字及布尔值来说（不是 String、Number 或者 Boolean 对象），slice 会拷贝这些值到新的数组里。在别的数组里修改这些字符串或数字或是布尔值，将不会影响另一个数组。
 如果向两个数组任一中添加了新元素，则另一个不会受到影响。
+
+## Array.prototype.some()
+ some() 方法测试是否至少有一个元素可以通过被提供的函数方法。该方法返回一个Boolean类型的值。
+
+### 语法
+```js
+arr.some(callback(element[, index[, array]])[, thisArg])
+```
+
+1. 参数
+- callback
+用来测试每个元素的函数，接受三个参数：
+- element
+数组中正在处理的元素。
+- index 可选
+数组中正在处理的元素的索引值。
+- array可选
+some()被调用的数组。
+- thisArg可选
+执行 callback 时使用的 this 值。
+2. 返回值
+如果回调函数返回至少一个数组元素的truthy值，则返回true；否则为false。
+
+
+### 描述
+some() 为数组中的每一个元素执行一次 callback 函数，直到找到一个使得 callback 返回一个“真值”（即可转换为布尔值 true 的值）。如果找到了这样一个值，some() 将会立即返回 true。否则，some() 返回 false。callback 只会在那些”有值“的索引上被调用，不会在那些被删除或从来未被赋值的索引上调用。
+
+callback 被调用时传入三个参数：元素的值，元素的索引，被遍历的数组。
+
+将会把它传给被调用的 callback，作为 this 值。否则，在非严格模式下将会是全局对象，严格模式下是 undefined。
+
+some() 被调用时不会改变数组。
+
+some() 遍历的元素的范围在第一次调用 callback. 时就已经确定了。在调用 some() 后被添加到数组中的值不会被 callback 访问到。如果数组中存在且还未被访问到的元素被 callback 改变了，则其传递给 callback 的值是 some() 访问到它那一刻的值。
+## Array.prototype.sort()
+sort() 方法用原地算法对数组的元素进行排序，并返回数组。排序算法现在是稳定的。默认排序顺序是根据字符串Unicode码点。
+
+由于它取决于具体实现，因此无法保证排序的时间和空间复杂性。
+
+### 语法
+```js
+arr.sort([compareFunction])
+```
+1. 参数
+- compareFunction 可选
+用来指定按某种顺序进行排列的函数。如果省略，元素按照转换为的字符串的各个字符的Unicode位点进行排序。
+- firstEl
+第一个用于比较的元素。
+- secondEl
+第二个用于比较的元素。
+2. 返回值
+排序后的数组。请注意，数组已原地排序，并且不进行复制。
+
+### 描述
+如果没有指明 compareFunction ，那么元素会按照转换为的字符串的诸个字符的Unicode位点进行排序。例如 "Banana" 会被排列到 "cherry" 之前。当数字按由小到大排序时，9 出现在 80 之前，但因为（没有指明 compareFunction），比较的数字会先被转换为字符串，所以在Unicode顺序上 "80" 要比 "9" 要靠前。
+
+如果指明了 compareFunction ，那么数组会按照调用该函数的返回值排序。即 a 和 b 是两个将要被比较的元素：
+
+如果 compareFunction(a, b) 小于 0 ，那么 a 会被排列到 b 之前；
+如果 compareFunction(a, b) 等于 0 ， a 和 b 的相对位置不变。备注： ECMAScript 标准并不保证这一行为，而且也不是所有浏览器都会遵守（例如 Mozilla 在 2003 年之前的版本）；
+如果 compareFunction(a, b) 大于 0 ， b 会被排列到 a 之前。
+compareFunction(a, b) 必须总是对相同的输入返回相同的比较结果，否则排序的结果将是不确定的。
+
+```js
+const arr=[10,20,3,1,4,88]
+arr.sort((a,b)=>{return a-b})
+// [1, 3, 4, 10, 20, 88]
+arr.sort((a,b)=>{return b-a})
+//  [88, 20, 10, 4, 3, 1]
+```
+
+## Array.prototype.splice()
+splice() 方法通过删除或替换现有元素或者原地添加新的元素来修改数组,并以数组形式返回被修改的内容。此方法会改变原数组。
+###语法
+```
+array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
+```
+1. 参数
+- start​
+指定修改的开始位置（从0计数）。如果超出了数组的长度，则从数组末尾开始添加内容；如果是负值，则表示从数组末位开始的第几位（从-1计数，这意味着-n是倒数第n个元素并且等价于array.length-n）；如果负数的绝对值大于数组的长度，则表示开始位置为第0位。
+- deleteCount 可选
+整数，表示要移除的数组元素的个数。
+如果 deleteCount 大于 start 之后的元素的总数，则从 start 后面的元素都将被删除（含第 start 位）。
+如果 deleteCount 被省略了，或者它的值大于等于array.length - start(也就是说，如果它大于或者等于start之后的所有元素的数量)，那么start之后数组的所有元素都会被删除。
+如果 deleteCount 是 0 或者负数，则不移除元素。这种情况下，至少应添加一个新元素。
+- item1, item2, ... 可选
+要添加进数组的元素,从start 位置开始。如果不指定，则 splice() 将只删除数组元素。
+2. 返回值
+由被删除的元素组成的一个数组。如果只删除了一个元素，则返回只包含一个元素的数组。如果没有删除元素，则返回空数组。
+
+## Array.prototype.toLocaleString()
+toLocaleString() 返回一个字符串表示数组中的元素。数组中的元素将使用各自的 toLocaleString 方法转成字符串，这些字符串将使用一个特定语言环境的字符串（例如一个逗号 ","）隔开。
+```js
+
+var array1 = [1, 'a', new Date('21 Dec 1997 14:12:00 UTC')];
+var localeString = array1.toLocaleString('en', {timeZone: "UTC"});
+
+console.log(localeString);
+// expected output: "1,a,12/21/1997, 2:12:00 PM",
+// This assumes "en" locale and UTC timezone - your results may vary
+```
+
+### 语法
+```js
+arr.toLocaleString([locales[,options]]);
+```
+1. 参数
+- locales 可选
+带有BCP 47语言标记的字符串或字符串数组，关于locales参数的形式与解释，请看Intl页面。
+- options 可选
+一个可配置属性的对象，对于数字 Number.prototype.toLocaleString()，对于日期Date.prototype.toLocaleString().
+2. 返回值
+表示数组元素的字符串。
+
+## Array.prototype.toSource()
+
+非标准
+该特性是非标准的，请尽量不要在生产环境中使用它！
+
+返回一个字符串,代表该数组的源代码.
+
+
+```js
+var arr=new Array(1,2,3,4,5)
+arr.toSource()
+```
+## Array.prototype.toString()
+toString() 返回一个字符串，表示指定的数组及其元素。 
+
+
+### 描述
+Array对象覆盖了Object的 toString 方法。对于数组对象，toString 方法连接数组并返回一个字符串，其中包含用逗号分隔的每个数组元素。
+
+当一个数组被作为文本值或者进行字符串连接操作时，将会自动调用其 toString 方法。
+
+## Array.prototype.unshift()
+unshift() 方法将一个或多个元素添加到数组的开头，并返回该数组的新长度(该方法修改原有数组)。
+
+```js
+var array1 = [1, 2, 3];
+
+console.log(array1.unshift(4, 5));
+// expected output: 5
+
+console.log(array1);
+// expected output: Array [4, 5, 1, 2, 3]
+```
+
+### 语法
+```
+arr.unshift(element1, ..., elementN)
+```
+1. 参数
+- elementN
+要添加到数组开头的元素或多个元素。
+2. 返回值
+当一个对象调用该方法时，返回其 length 属性值。
+
+### 描述
+unshift 方法会在调用它的类数组对象的开始位置插入给定的参数。
+
+unshift 特意被设计成具有通用性；这个方法能够通过 call 或 apply 方法作用于类数组对象上。不过对于没有 length 属性（代表从0开始的一系列连续的数字属性的最后一个）的对象，调用该方法可能没有任何意义。
+
+注意, 如果传入多个参数，它们会被以块的形式插入到对象的开始位置，它们的顺序和被作为参数传入时的顺序一致。 于是，传入多个参数调用一次 unshift ，和传入一个参数调用多次 unshift (例如，循环调用)，它们将得到不同的结果。例如:
+```
+let arr = [4,5,6];
+arr.unshift(1,2,3);
+console.log(arr); // [1, 2, 3, 4, 5, 6]
+
+arr = [4,5,6]; // 重置数组
+arr.unshift(1);
+arr.unshift(2);
+arr.unshift(3);
+console.log(arr); // [3, 2, 1, 4, 5, 6]
+```
+## Array.prototype.values()
+values() 方法返回一个新的 Array Iterator 对象，该对象包含数组每个索引的值
+```js
+const array1 = ['a', 'b', 'c'];
+const iterator = array1.values();
+
+for (const value of iterator) {
+  console.log(value); // expected output: "a" "b" "c"
+}
+
+```
+### 示例
+1. 使用 for...of 循环进行迭代
+```js
+let arr = ['w', 'y', 'k', 'o', 'p'];
+let eArr = arr.values();
+// 您的浏览器必须支持 for..of 循环
+// 以及 let —— 将变量作用域限定在 for 循环中
+for (let letter of eArr) {
+  console.log(letter);
+}
+```
+2. 另一种迭代方式
+```js
+let arr = ['w', 'y', 'k', 'o', 'p'];
+let eArr = arr.values();
+console.log(eArr.next().value); // w
+console.log(eArr.next().value); // y
+console.log(eArr.next().value); // k
+console.log(eArr.next().value); // o
+console.log(eArr.next().value); // p
+```
+
+## Array.prototype[@@iterator]()
+@@iterator 属性和 Array.prototype.values() 属性的初始值均为同一个函数对象。
+
+### 语法
+```
+arr[Symbol.iterator]()
+```
+1. 返回值
+数组的 iterator 方法，默认情况下与 values() 返回值相同
+
 ## 参考文献
+
 
 [Array](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)
