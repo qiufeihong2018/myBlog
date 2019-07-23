@@ -81,6 +81,11 @@
 
 
 ## todo
+
+[Nodejs 实时监控文件内容的变化及按行读取文本文件](https://segmentfault.com/a/1190000003902877?name=node&description=&isPrivate=1)
+
+[Nodejs监控文件内容变化并获取最新添加的内容](https://blog.csdn.net/qqHJQS/article/details/51780365)
+
 [阿里云服务器发布项目后无法访问](https://app.csdn.net/runner1920/article/details/79035651)
 
  [Could not read from remote repository](https://app.csdn.net/donkor_/article/details/77502800)
@@ -129,3 +134,5 @@
 [超详细！搭建一个前端错误监控系统](https://zhuanlan.zhihu.com/p/51446011)
 
 [drwxrwxrwx权限对应数字](http://blog.sina.com.cn/s/blog_4cd978f90102y56f.html)
+
+[解决在浏览器中https请求http资源而报警](https://blog.csdn.net/s_monster_/article/details/88656073)

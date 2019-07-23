@@ -1,4 +1,9 @@
 module.exports = [{
+    title: 'express监听日志文件的变化',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['watchLog/']
+},{
     title: 'Array',
     collapsable: false,
     sidebarDepth: 2,
