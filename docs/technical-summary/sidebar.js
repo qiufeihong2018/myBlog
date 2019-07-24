@@ -9,6 +9,16 @@ module.exports = [{
     sidebarDepth: 2,
     children: ['array/']
 },{
+    title: 'Object',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['object/']
+},{
+    title: 'Json',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['json/']
+},{
     title: '没有vue-cli就没有qfh-cli',
     collapsable: false,
     sidebarDepth: 2,
