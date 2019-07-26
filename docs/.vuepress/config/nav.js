@@ -10,10 +10,6 @@ module.exports = [{
     text: "视频总结",
     link: "/video-summary/"
   },
-  // {
-  //   text: "面试",
-  //   link: "/interview/"
-  // },
   {
     text: "学习资源",
     items: [{
@@ -297,28 +293,30 @@ module.exports = [{
         text: "我的公众号",
         link: '/wechat-public/'
       }]
-    }, {
-      text: "公司项目",
-      items: [{
-        text: "xAlert 工控安全态势感知平台",
-        link: 'http://resume.qiufeihong.top/'
-      },{
-        text: "DeepSphere 超融合网络存储系统",
-        link: 'http://resume.qiufeihong.top/'
-      },{
-        text: "xShied 工控防火墙",
-        link: 'http://resume.qiufeihong.top/'
-      },{
-        text: "xScanner 漏洞扫描系统",
-        link: 'http://resume.qiufeihong.top/'
-      },{
-        text: "DeepDefence-web 容器安全监测平台",
-        link: 'http://resume.qiufeihong.top/'
-      },{
-        text: "xOpAudit 运维堡垒机",
-        link: 'http://resume.qiufeihong.top/'
-      }]
-    }]
+    }
+    // , {
+    //   text: "公司项目",
+    //   items: [{
+    //     text: "xAlert 工控安全态势感知平台",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   },{
+    //     text: "DeepSphere 超融合网络存储系统",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   },{
+    //     text: "xShied 工控防火墙",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   },{
+    //     text: "xScanner 漏洞扫描系统",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   },{
+    //     text: "DeepDefence-web 容器安全监测平台",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   },{
+    //     text: "xOpAudit 运维堡垒机",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   }]
+    // }
+  ]
   },
   {
     text: "个人主页",
@@ -363,9 +361,5 @@ module.exports = [{
         link: "https://codepen.io/"
       }
     ]
-  },
-  // {
-  //   text: "那些年的电影",
-  //   link: "/movie/"
-  // }
+  }
 ];

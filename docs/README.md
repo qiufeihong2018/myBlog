@@ -5,8 +5,8 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
 ---
 
 <template>
-    <el-carousel :interval="4000" type="card" height="200px" interval="1000">
-        <el-carousel-item v-for="item in arrPng" :key="item">
+    <el-carousel type="card" height="200px" :interval=1000>
+        <el-carousel-item v-for="(item,key) in arrPng" :key="key">
          <a :href='item.docLink'><img :src="item.pngLink"/></a>
         </el-carousel-item>
     </el-carousel>

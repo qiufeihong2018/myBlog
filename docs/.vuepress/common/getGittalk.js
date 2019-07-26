@@ -8,7 +8,7 @@ export default ({
     return item.path === path
   })[0]
 
-  const page = document.querySelector('.page-nav')
+  const page = document.querySelector('.content')
   // 直接引入
   const linkGitalk = document.createElement('link');
   linkGitalk.href = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css';
