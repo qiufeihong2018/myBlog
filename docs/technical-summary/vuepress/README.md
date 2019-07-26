@@ -727,6 +727,7 @@ npm install -save valine
 
 想要知道更多Valine操作，请移步[Valine](https://valine.js.org/)
 ### 添加gittalk评论和github的issues挂钩
+
 Gitalk 是一个基于 GitHub Issue 和 Preact 开发的评论插件。
 - 使用 GitHub 登录
 - 支持多语言 [en, zh-CN, zh-TW, es-ES, fr, ru]
@@ -734,6 +735,9 @@ Gitalk 是一个基于 GitHub Issue 和 Preact 开发的评论插件。
 - 无干扰模式（设置 distractionFreeMode 为 true 开启）
 - 快捷键提交评论 （cmd|ctrl + enter）
 
+
+
+#### 旧版: 修改2019.7.1
 在.vuepress中新建`enhanceApp.js`
 
 代码如下
@@ -833,6 +837,118 @@ export default ({pages})=> {
 ....
     const page =document.querySelector('.page-nav')
 ....
+```
+
+#### 新版: 修改2019.7.26
+
+
+1. 在components文件夹中增加`Gittalk.vue`
+
+> Gittalk.vue
+
+```js
+<template>
+    <div class="page">
+        <section class="page-edit">
+            <h3>
+                <!-- id 将作为查询条件 -->
+              <span class="leancloud-visitors">
+                    <a>阅读量： </a>
+                    <a class="leancloud-visitors-count"></a>
+                </span>
+            </h3>
+            <div id="gitalk-container"></div>
+        </section>
+    </div>
+
+</template>
+<script>
+    import 'gitalk/dist/gitalk.css'
+    import Gitalk from 'gitalk'
+    import Valine from 'valine'
+    const path = window.location.pathname
+
+    export default {
+        name: 'Gittalk',
+        mounted: function () {
+            // require window
+            if (typeof window !== 'undefined') {
+                this.window = window
+                window.AV = require('leancloud-storage')
+            }
+
+            this.initGittalk()
+            this.initReadingVolume()
+
+        },
+        watch: {
+            $route(to, from) {
+                if (from.path != to.path) {
+                    this.initGittalk()
+                    this.initReadingVolume()
+                }
+            }
+        },
+        methods: {
+            initReadingVolume() {
+                document.getElementsByClassName('leancloud-visitors')[0].id = path
+                this.valine = new Valine()
+                this.valine.init({
+                    el: '#vcomments',
+                    appId: '54maloyBQ5IhlzR4zhQQcWSN-gzGzoHsz', // your appId
+                    appKey: '8wNBKl9gNeGderoEfSxiP3Si', // your appKey
+                    notify: false,
+                    verify: false,
+                    path: path,
+                    visitor: true,
+                    avatar: 'mm',
+                    placeholder: 'write here'
+                });
+
+            },
+            initGittalk() {
+
+                const gitalk = new Gitalk({
+                    clientID: '869b2dea1c53cc9b6ddd', // 填入你的clientID
+                    clientSecret: '0416acb02689088d4d2c55243a82db0582af4575', // 填入你的clientSecret
+                    repo: 'vuepress-blog', // 填入你的存储评论的仓库名字
+                    owner: 'qiufeihong2018', //你的用户名
+                    admin: ['qiufeihong2018'], // 你的用户名
+                    id: decodeURI(path), // 每个页面根据url生成对应的issue，保证页面之间的评论都是独立的
+                    distractionFreeMode: false // Facebook-like distraction free mode
+                })
+                gitalk.render('gitalk-container')
+            }
+        }
+    }
+</script>
+
+```
+
+
+Valine会自动查找页面中class值为leancloud-visitors的元素，获取其id为查询条件。并将得到的值填充到其class的值为leancloud-visitors-count的子元素里：
+```js
+
+<!-- id 将作为查询条件 -->
+<span id="<Your/Path/Name>" class="leancloud-visitors" data-flag-title="Your Article Title">
+    <em class="post-meta-item-text">阅读量 </em>
+    <i class="leancloud-visitors-count">1000000</i>
+</span>
+```
+
+2. 在Layout.vue中引入该组件
+
+```js
+import Gittalk from '../components/Gittalk'
+
+...
+
+
+components: { Home, Page, Sidebar, Navbar, SWUpdatePopup, Gittalk},
+
+...
+
+<Gittalk></Gittalk>
 ```
 
 ### 复制时添加版权信息

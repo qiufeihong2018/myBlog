@@ -3,8 +3,8 @@
         <section class="page-edit">
             <h3>
                 <!-- id 将作为查询条件 -->
-              <span class="leancloud-visitors">
-                    <a>阅读量： </a>
+                <span :id="path" class="leancloud-visitors" data-flag-title="Your Article Title">
+                    <a class="post-meta-item-text">阅读量：</a>
                     <a class="leancloud-visitors-count"></a>
                 </span>
             </h3>
@@ -17,10 +17,14 @@
     import 'gitalk/dist/gitalk.css'
     import Gitalk from 'gitalk'
     import Valine from 'valine'
-    const path = window.location.pathname
 
     export default {
         name: 'Gittalk',
+        data() {
+            return {
+                path: window.location.pathname
+            }
+        },
         mounted: function () {
             // require window
             if (typeof window !== 'undefined') {
@@ -42,7 +46,7 @@
         },
         methods: {
             initReadingVolume() {
-                document.getElementsByClassName('leancloud-visitors')[0].id = path
+                document.getElementsByClassName('leancloud-visitors')[0].id = this.path
                 this.valine = new Valine()
                 this.valine.init({
                     el: '#vcomments',
@@ -50,7 +54,7 @@
                     appKey: '8wNBKl9gNeGderoEfSxiP3Si', // your appKey
                     notify: false,
                     verify: false,
-                    path: path,
+                    path: this.path,
                     visitor: true,
                     avatar: 'mm',
                     placeholder: 'write here'
@@ -65,7 +69,7 @@
                     repo: 'vuepress-blog', // 填入你的存储评论的仓库名字
                     owner: 'qiufeihong2018', //你的用户名
                     admin: ['qiufeihong2018'], // 你的用户名
-                    id: decodeURI(path), // 每个页面根据url生成对应的issue，保证页面之间的评论都是独立的
+                    id: decodeURI(this.path), // 每个页面根据url生成对应的issue，保证页面之间的评论都是独立的
                     distractionFreeMode: false // Facebook-like distraction free mode
                 })
                 gitalk.render('gitalk-container')
