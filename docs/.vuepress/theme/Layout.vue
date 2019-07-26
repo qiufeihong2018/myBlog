@@ -35,7 +35,7 @@
             <slot name="page-bottom"
                   slot="bottom"/>
         </Page>
-
+        <Gittalk></Gittalk>
         <SWUpdatePopup :updateEvent="swUpdateEvent"/>
     </div>
 </template>
@@ -49,10 +49,10 @@
     import Sidebar from '../../../node_modules/vuepress/lib/default-theme/Sidebar.vue'
     import SWUpdatePopup from '../../../node_modules/vuepress/lib/default-theme/SWUpdatePopup.vue'
     import {resolveSidebarItems} from '../../../node_modules/vuepress/lib/default-theme/util'
-    // import Valine from '../components/Valine'
+    import Gittalk from '../components/Gittalk'
 
     export default {
-        components: { Home, Page, Sidebar, Navbar, SWUpdatePopup},
+        components: { Home, Page, Sidebar, Navbar, SWUpdatePopup, Gittalk},
         data() {
             return {
                 isSidebarOpen: false,

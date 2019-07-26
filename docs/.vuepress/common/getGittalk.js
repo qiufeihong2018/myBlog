@@ -1,14 +1,15 @@
 export default ({
   pages
 }) => {
+
   const path = window.location.pathname
+
   // 获取当前页面信息
   // filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。 
   const dist = pages.filter(item => {
     return item.path === path
   })[0]
-
-  const page = document.querySelector('.content')
+  const page = document.querySelector('.page-nav')
   // 直接引入
   const linkGitalk = document.createElement('link');
   linkGitalk.href = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css';
