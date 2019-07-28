@@ -22,7 +22,7 @@
         name: 'Gittalk',
         data() {
             return {
-                path: window.location.pathname
+                path: ''
             }
         },
         mounted: function () {
@@ -46,6 +46,7 @@
         },
         methods: {
             initReadingVolume() {
+                this.path=window.location.pathname
                 document.getElementsByClassName('leancloud-visitors')[0].id = this.path
                 this.valine = new Valine()
                 this.valine.init({
@@ -62,6 +63,7 @@
 
             },
             initGittalk() {
+                this.path=window.location.pathname
 
                 const gitalk = new Gitalk({
                     clientID: '869b2dea1c53cc9b6ddd', // 填入你的clientID
