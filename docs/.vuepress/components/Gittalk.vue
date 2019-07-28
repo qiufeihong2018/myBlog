@@ -33,34 +33,34 @@
             }
 
             this.initGittalk()
-            this.initReadingVolume()
+            // this.initReadingVolume()
 
         },
         watch: {
             $route(to, from) {
                 if (from.path != to.path) {
                     this.initGittalk()
-                    this.initReadingVolume()
+                    // this.initReadingVolume()
                 }
             }
         },
         methods: {
-            initReadingVolume() {
-                document.getElementsByClassName('leancloud-visitors')[0].id = this.path
-                this.valine = new Valine()
-                this.valine.init({
-                    el: '#vcomments',
-                    appId: '54maloyBQ5IhlzR4zhQQcWSN-gzGzoHsz', // your appId
-                    appKey: '8wNBKl9gNeGderoEfSxiP3Si', // your appKey
-                    notify: false,
-                    verify: false,
-                    path: this.path,
-                    visitor: true,
-                    avatar: 'mm',
-                    placeholder: 'write here'
-                });
+            // initReadingVolume() {
+            //     document.getElementsByClassName('leancloud-visitors')[0].id = this.path
+            //     this.valine = new Valine()
+            //     this.valine.init({
+            //         el: '#vcomments',
+            //         appId: '54maloyBQ5IhlzR4zhQQcWSN-gzGzoHsz', // your appId
+            //         appKey: '8wNBKl9gNeGderoEfSxiP3Si', // your appKey
+            //         notify: false,
+            //         verify: false,
+            //         path: this.path,
+            //         visitor: true,
+            //         avatar: 'mm',
+            //         placeholder: 'write here'
+            //     });
 
-            },
+            // },
             initGittalk() {
 
                 const gitalk = new Gitalk({
