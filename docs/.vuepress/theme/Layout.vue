@@ -49,7 +49,7 @@
     import Sidebar from '../../../node_modules/vuepress/lib/default-theme/Sidebar.vue'
     import SWUpdatePopup from '../../../node_modules/vuepress/lib/default-theme/SWUpdatePopup.vue'
     import {resolveSidebarItems} from '../../../node_modules/vuepress/lib/default-theme/util'
-    import Gittalk from '../components/Gittalk'
+    import Gittalk from '../components/Gittalk.vue'
 
     export default {
         components: { Home, Page, Sidebar, Navbar, SWUpdatePopup, Gittalk},
