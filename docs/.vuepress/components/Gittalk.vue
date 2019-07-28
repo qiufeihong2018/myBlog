@@ -27,9 +27,9 @@
         },
         mounted: function () {
             // require window
-            if (typeof window !== 'undefined') {
-                window.AV = require('leancloud-storage')
-            }
+            // if (typeof window !== 'undefined') {
+            //     window.AV = require('leancloud-storage')
+            // }
 
             this.initGittalk()
             this.initReadingVolume()
