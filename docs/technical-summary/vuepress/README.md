@@ -852,8 +852,8 @@ export default ({pages})=> {
         <section class="page-edit">
             <h3>
                 <!-- id 将作为查询条件 -->
-              <span class="leancloud-visitors">
-                    <a>阅读量： </a>
+                <span :id="path" class="leancloud-visitors" data-flag-title="Your Article Title">
+                    <a class="post-meta-item-text">阅读量：</a>
                     <a class="leancloud-visitors-count"></a>
                 </span>
             </h3>
@@ -866,10 +866,14 @@ export default ({pages})=> {
     import 'gitalk/dist/gitalk.css'
     import Gitalk from 'gitalk'
     import Valine from 'valine'
-    const path = window.location.pathname
 
     export default {
         name: 'Gittalk',
+        data() {
+            return {
+                path: window.location.pathname
+            }
+        },
         mounted: function () {
             // require window
             if (typeof window !== 'undefined') {
@@ -891,7 +895,7 @@ export default ({pages})=> {
         },
         methods: {
             initReadingVolume() {
-                document.getElementsByClassName('leancloud-visitors')[0].id = path
+                document.getElementsByClassName('leancloud-visitors')[0].id = this.path
                 this.valine = new Valine()
                 this.valine.init({
                     el: '#vcomments',
@@ -899,7 +903,7 @@ export default ({pages})=> {
                     appKey: '8wNBKl9gNeGderoEfSxiP3Si', // your appKey
                     notify: false,
                     verify: false,
-                    path: path,
+                    path: this.path,
                     visitor: true,
                     avatar: 'mm',
                     placeholder: 'write here'
@@ -914,7 +918,7 @@ export default ({pages})=> {
                     repo: 'vuepress-blog', // 填入你的存储评论的仓库名字
                     owner: 'qiufeihong2018', //你的用户名
                     admin: ['qiufeihong2018'], // 你的用户名
-                    id: decodeURI(path), // 每个页面根据url生成对应的issue，保证页面之间的评论都是独立的
+                    id: decodeURI(this.path), // 每个页面根据url生成对应的issue，保证页面之间的评论都是独立的
                     distractionFreeMode: false // Facebook-like distraction free mode
                 })
                 gitalk.render('gitalk-container')
@@ -926,14 +930,62 @@ export default ({pages})=> {
 ```
 
 
-Valine会自动查找页面中class值为leancloud-visitors的元素，获取其id为查询条件。并将得到的值填充到其class的值为leancloud-visitors-count的子元素里：
+`Valin`e会自动查找页面中`class`值为`leancloud-visitors`的元素，获取其`id`为查询条件。并将得到的值填充到其`class`的值为`leancloud-visitors-count`的子元素里：
 ```js
+    <!-- id 将作为查询条件 -->
+                <span :id="path" class="leancloud-visitors" data-flag-title="Your Article Title">
+                    <a class="post-meta-item-text">阅读量：</a>
+                    <a class="leancloud-visitors-count"></a>
+                </span>
 
-<!-- id 将作为查询条件 -->
-<span id="<Your/Path/Name>" class="leancloud-visitors" data-flag-title="Your Article Title">
-    <em class="post-meta-item-text">阅读量 </em>
-    <i class="leancloud-visitors-count">1000000</i>
-</span>
+
+                  initReadingVolume() {
+                document.getElementsByClassName('leancloud-visitors')[0].id = this.path
+                this.valine = new Valine()
+                this.valine.init({
+                    el: '#vcomments',
+                    appId: '54maloyBQ5IhlzR4zhQQcWSN-gzGzoHsz', // your appId
+                    appKey: '8wNBKl9gNeGderoEfSxiP3Si', // your appKey
+                    notify: false,
+                    verify: false,
+                    path: this.path,
+                    visitor: true,
+                    avatar: 'mm',
+                    placeholder: 'write here'
+                });
+
+            },
+```
+
+
+```js
+   <div id="gitalk-container"></div>
+
+      initGittalk() {
+
+                const gitalk = new Gitalk({
+                    clientID: '869b2dea1c53cc9b6ddd', // 填入你的clientID
+                    clientSecret: '0416acb02689088d4d2c55243a82db0582af4575', // 填入你的clientSecret
+                    repo: 'vuepress-blog', // 填入你的存储评论的仓库名字
+                    owner: 'qiufeihong2018', //你的用户名
+                    admin: ['qiufeihong2018'], // 你的用户名
+                    id: decodeURI(this.path), // 每个页面根据url生成对应的issue，保证页面之间的评论都是独立的
+                    distractionFreeMode: false // Facebook-like distraction free mode
+                })
+                gitalk.render('gitalk-container')
+            }
+```
+
+每次切换页面后,触发一下事件
+```js
+       watch: {
+            $route(to, from) {
+                if (from.path != to.path) {
+                    this.initGittalk()
+                    this.initReadingVolume()
+                }
+            }
+        },
 ```
 
 2. 在Layout.vue中引入该组件
@@ -1095,3 +1147,5 @@ import 'element-ui/lib/theme-chalk/index.css';
 [如何使用VuePress搭建一个类型element ui文档](https://www.jb51.net/article/156264.htm)
 
 [博客诞生记](https://slbyml.github.io/saves/blog.html)
+
+[Gittalk](https://www.npmjs.com/package/gitalk)

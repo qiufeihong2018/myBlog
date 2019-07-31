@@ -4,6 +4,11 @@ module.exports = [{
     sidebarDepth: 2,
     children: ['watchLog/']
 },{
+    title: 'String',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['string/']
+},{
     title: 'Array',
     collapsable: false,
     sidebarDepth: 2,
