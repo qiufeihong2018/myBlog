@@ -1,1 +1,1 @@
-![avatar](./weixin.jpeg)
+![avatar](./wechat.jpg)
