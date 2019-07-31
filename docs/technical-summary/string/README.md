@@ -1,4 +1,4 @@
-# String
+# 重读MDN-String
 
 ## String.fromCharCode()
 静态 String.fromCharCode() 方法返回由指定的UTF-16代码单元序列创建的字符串。
@@ -356,3 +356,274 @@ repeat() 构造并返回一个新字符串，该字符串包含被连接在一�
 ({toString : () => "abc", repeat : String.prototype.repeat}).repeat(2)   
 //"abcabc",repeat是一个通用方法,也就是它的调用者可以不是一个字符串对象.
 ```
+
+## String.prototype.replace()
+replace() 方法返回一个由替换值（replacement）替换一些或所有匹配的模式（pattern）后的新字符串。模式可以是一个字符串或者一个正则表达式，替换值可以是一个字符串或者一个每次匹配都要调用的回调函数。
+
+原字符串不会改变。
+
+### 语法
+str.replace(regexp|substr, newSubStr|function)
+
+#### 参数
+regexp (pattern)
+
+一个RegExp 对象或者其字面量。该正则所匹配的内容会被第二个参数的返回值替换掉。
+
+substr (pattern)
+一个将被 newSubStr 替换的 字符串。其被视为一整个字符串，而不是一个正则表达式。仅第一个匹配项会被替换。
+
+newSubStr (replacement)
+用于替换掉第一个参数在原字符串中的匹配部分的字符串。该字符串中可以内插一些特殊的变量名。参考下面的使用字符串作为参数。
+
+function (replacement)
+一个用来创建新子字符串的函数，该函数的返回值将替换掉第一个参数匹配到的结果。参考下面的指定一个函数作为参数。
+#### 返回值
+一个部分或全部匹配由替代模式所取代的新的字符串。
+### 描述
+该方法并不改变调用它的字符串本身，而只是返回一个新的替换后的字符串。
+
+在进行全局的搜索替换时，正则表达式需包含 g 标志。
+
+在 replace() 中使用 global 和 ignore 选项
+
+下面的例子中,正则表达式包含有全局替换(g)和忽略大小写(i)的选项,这使得replace方法用'oranges'替换掉了所有出现的"apples".
+
+```js
+var re = /apples/gi;
+var str = "Apples are round, and apples are juicy.";
+var newstr = str.replace(re, "oranges");
+
+// oranges are round, and oranges are juicy.
+console.log(newstr);
+```
+
+## String.prototype.search()
+
+search() 方法执行正则表达式和 String 对象之间的一个搜索匹配。
+
+### 语法
+str.search(regexp)
+####参数
+regexp
+一个正则表达式（regular expression）对象。如果传入一个非正则表达式对象 obj，则会使用 new RegExp(obj) 隐式地将其转换为正则表达式对象。
+#### 返回值
+如果匹配成功，则 search() 返回正则表达式在字符串中首次匹配项的索引;否则，返回 -1。
+
+###描述
+当你想要知道字符串中是否存在某个模式（pattern）时可使用 search()，类似于正则表达式的 test() 方法。当要了解更多匹配信息时，可使用 match()（但会更慢一些），该方法类似于正则表达式的 exec() 方法。
+
+## String.prototype.slice()
+slice() 方法提取某个字符串的一部分，并返回一个新的字符串，且不会改动原字符串。
+
+###语法
+str.slice(beginIndex[, endIndex])
+####参数
+beginIndex
+
+从该索引（以 0 为基数）处开始提取原字符串中的字符。如果值为负数，会被当做 strLength + beginIndex 看待，这里的strLength 是字符串的长度（例如， 如果 beginIndex 是 -3 则看作是：strLength - 3）
+
+endIndex
+
+可选。在该索引（以 0 为基数）处结束提取字符串。如果省略该参数，slice() 会一直提取到字符串末尾。如果该参数为负数，则被看作是 strLength + endIndex，这里的 strLength 就是字符串的长度(例如，如果 endIndex 是 -3，则是, strLength - 3)。
+
+####返回值
+返回一个从原字符串中提取出来的新字符串
+
+###描述
+slice() 从一个字符串中提取字符串并返回新字符串。在一个字符串中的改变不会影响另一个字符串。也就是说，slice 不会修改原字符串（只会返回一个包含了原字符串中部分字符的新字符串）。
+
+slice() 提取的新字符串包括beginIndex但不包括 endIndex。下面有两个例子。
+
+例 1：str.slice(1, 4) 提取第二个字符到第四个字符（被提取字符的索引值（index）依次为 1、2，和 3）。
+
+例 2：str.slice(2, -1) 提取第三个字符到倒数第一个字符。
+
+## String.prototype.split()
+split() 方法使用指定的分隔符字符串将一个String对象分割成字符串数组，以将字符串分隔为子字符串，以确定每个拆分的位置。
+
+### 语法
+str.split([separator[, limit]])
+Tip: 如果空字符串("")被用作分隔符，则字符串会在每个字符之间分割。
+
+#### 参数
+
+separator
+
+指定表示每个拆分应发生的点的字符串。separator 可以是一个字符串或正则表达式。 如果纯文本分隔符包含多个字符，则必须找到整个字符串来表示分割点。如果在str中省略或不出现分隔符，则返回的数组包含一个由整个字符串组成的元素。如果分隔符为空字符串，则将str原字符串中每个字符的数组形式返回。
+
+limit
+
+一个整数，限定返回的分割片段数量。当提供此参数
+时，split 方法会在指定分隔符的每次出现时分割该字符串，但在限制条目已放入数组时停止。如果在达到指定限制之前达到字符串的末尾，它可能仍然包含少于限制的条目。新数组中不返回剩下的文本。
+#### 返回值
+返回源字符串以分隔符出现位置分隔而成的一个 Array 
+
+## String.prototype.startsWith()
+startsWith() 方法用来判断当前字符串是否以另外一个给定的子字符串开头，并根据判断结果返回 true 或 false。
+
+
+
+### 语法
+str.startsWith(searchString[, position])
+
+#### 参数
+
+searchString
+
+要搜索的子字符串。
+
+position 可选
+
+在 str 中搜索 searchString 的开始位置，默认值为 0，也就是真正的字符串开头处。
+#### 返回值
+如果在字符串的开头找到了给定的字符则返回true;否则, 返回false.
+
+
+```js
+var str = "To be, or not to be, that is the question.";
+
+alert(str.startsWith("To be"));         // true
+alert(str.startsWith("not to be"));     // false
+alert(str.startsWith("not to be", 10)); // true
+```
+
+## String.prototype.substring()
+
+substring() 方法返回一个字符串在开始索引到结束索引之间的一个子集, 或从开始索引直到字符串的末尾的一个子集。
+
+
+### 语法
+str.substring(indexStart[, indexEnd])
+####参数
+
+indexStart
+
+需要截取的第一个字符的索引，该字符作为返回的字符串的首字母。
+
+indexEnd
+
+可选。一个 0 到字符串长度之间的整数，以该数字为索引的字符不包含在截取的字符串内。
+####返回值
+包含给定字符串的指定部分的新字符串。
+
+
+##描述
+substring 提取从 indexStart 到 indexEnd（不包括）之间的字符。特别地：
+
+如果 indexStart 等于 indexEnd，substring 返回一个空字符串。
+如果省略 indexEnd，substring 提取字符一直到字符串末尾。
+如果任一参数小于 0 或为 NaN，则被当作 0。
+如果任一参数大于 stringName.length，则被当作 stringName.length。
+如果 indexStart 大于 indexEnd，则 substring 的执行效果就像两个参数调换了一样。
+
+```js
+
+var anyString = "Mozilla";
+
+// 输出 "Moz"
+console.log(anyString.substring(0,3));
+console.log(anyString.substring(3,0));
+console.log(anyString.substring(3,-3));
+console.log(anyString.substring(3,NaN));
+console.log(anyString.substring(-2,3));
+console.log(anyString.substring(NaN,3));
+
+// 输出 "lla"
+console.log(anyString.substring(4,7));
+console.log(anyString.substring(7,4));
+
+// 输出 ""
+console.log(anyString.substring(4,4));
+
+// 输出 "Mozill"
+console.log(anyString.substring(0,6));
+
+// 输出 "Mozilla"
+console.log(anyString.substring(0,7));
+console.log(anyString.substring(0,10));
+```
+## String.prototype.toLocaleLowerCase()
+toLocaleLowerCase()方法根据任何特定于语言环境的案例映射，返回调用字符串值转换为小写的值。
+
+### 描述
+toLocaleLowerCase()方法返回调用该方法的字符串被转换成小写之后的值，转换规则根据任何本地化特定的大小写映射。toLocaleLowerCase()并不会影响字符串自身的值。在大多数情况下，该方法产生的结果和调用toLowerCase()的结果相同，但是在某些本地环境中，比如土耳其语，它的大小写映射并不遵循在Unicode中的默认的大小写映射，因此会有一个不同的结果。
+
+## String.prototype.toLocaleUpperCase()
+toLocaleUpperCase() 使用本地化（locale-specific）的大小写映射规则将输入的字符串转化成大写形式并返回结果字符串。
+
+### 描述
+同toLocaleLowerCase
+
+## String.prototype.toLowerCase()
+toLowerCase() 会将调用该方法的字符串值转为小写形式，并返回。
+## String.prototype.toUpperCase()
+
+toUpperCase() 将调用该方法的字符串值转换为大写形式，并返回。
+
+
+##String.prototype.toSource()
+toSource() 方法返回一个代表对象的源代码。
+
+## String.prototype.toString()
+
+toString() 方法返回指定对象的字符串形式。
+
+### 描述
+String 对象覆盖了Object 对象的 toString 方法；并没有继承 Object.toString()。对于 String 对象，toString 方法返回该对象的字符串形式，和 String.prototype.valueOf() 方法返回值一样。
+
+## String.prototype.trim()
+trim() 方法会从一个字符串的两端删除空白字符。在这个上下文中的空白字符是所有的空白字符 (space, tab, no-break space 等) 以及所有行终止符字符（如 LF，CR）。
+
+```js
+var orig = '   foo  ';
+console.log(orig.trim()); // 'foo'
+
+// 另一个.trim()例子，只从一边删除
+
+var orig = 'foo    ';
+console.log(orig.trim()); // 'foo'
+```
+
+## String.prototype.trimRight()
+trimRight() 方法从一个字符串的右端移除空白字符。
+## String.prototype.trimLeft()
+trimStart() 方法从字符串的开头删除空格。trimLeft()是此方法的别名。
+
+## String.prototype.valueOf()
+valueOf() 方法返回一个String对象的原始值（primitive value）。
+
+
+String 对象的 valueOf 方法返回一个String对象的原始值。该值等同于String.prototype.toString()。
+
+该方法通常在 JavaScript 内部被调用，而不是在代码里显示调用。
+
+## String.raw()-之前没用过,这个方法有点意思
+String.raw() 是一个模板字符串的标签函数，它的作用类似于 Python 中的字符串前缀 r 和 C# 中的字符串前缀 @（还是有点区别的，详见隔壁 Chromium 那边的这个 issue），是用来获取一个模板字符串的原始字符串的，比如说，占位符（例如 ${foo}）会被处理为它所代表的其他字符串，而转义字符（例如 \n）不会。
+```js
+String.raw`Hi\n${2+3}!`;
+// 'Hi\n5!'，Hi 后面的字符不是换行符，\ 和 n 是两个不同的字符
+
+String.raw `Hi\u000A!`;             
+// "Hi\\u000A!"，同上，这里得到的会是 \、u、0、0、0、A 6个字符，
+// 任何类型的转义形式都会失效，保留原样输出，不信你试试.length
+
+let name = "Bob";
+String.raw `Hi\n${name}!`;             
+// "Hi\nBob!"，内插表达式还可以正常运行
+
+
+// 正常情况下，你也许不需要将 String.raw() 当作函数调用。
+// 但是为了模拟 `t${0}e${1}s${2}t` 你可以这样做:
+String.raw({ raw: 'test' }, 0, 1, 2); // 't0e1s2t'
+// 注意这个测试, 传入一个 string, 和一个类似数组的对象
+// 下面这个函数和 `foo${2 + 3}bar${'Java' + 'Script'}baz` 是相等的.
+String.raw({
+  raw: ['foo', 'bar', 'baz'] 
+}, 2 + 3, 'Java' + 'Script'); // 'foo5barJavaScriptbaz'
+
+```
+## 参考文献
+
+
+[Array](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)

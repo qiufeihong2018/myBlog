@@ -4,22 +4,22 @@ module.exports = [{
     sidebarDepth: 2,
     children: ['watchLog/']
 },{
-    title: 'String',
+    title: '重读MDN-String',
     collapsable: false,
     sidebarDepth: 2,
     children: ['string/']
 },{
-    title: 'Array',
+    title: '重读MDN-Array',
     collapsable: false,
     sidebarDepth: 2,
     children: ['array/']
 },{
-    title: 'Object',
+    title: '重读MDN-Object',
     collapsable: false,
     sidebarDepth: 2,
     children: ['object/']
 },{
-    title: 'Json',
+    title: '重读MDN-Json',
     collapsable: false,
     sidebarDepth: 2,
     children: ['json/']
