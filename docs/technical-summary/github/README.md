@@ -256,6 +256,8 @@ $ git show [commit]:[filename]
 # 显示当前分支的最近几次提交
 $ git reflog
 
+# 查看远程仓库，以及与本地仓库的关系
+$ git remote show origin
 ```
 
 ## 远程同步
@@ -329,7 +331,9 @@ $ git stash pop
 $ git archive
 ```
 
-## git中本地与远程库的关联与取消
+## 问题
+
+### git中本地与远程库的关联与取消
 ```js
 # 在本地目录下关联远程repository 
 $ git remote add origin git@github.com:git_username/repository_name.git
@@ -337,16 +341,15 @@ $ git remote add origin git@github.com:git_username/repository_name.git
 $ git remote remove origin
 ```
 
-## git本地给远程仓库创建分支
+### git本地给远程仓库创建分支
 必须先在本地创建分支然后将该分支push到远程仓库
 ```js
 git branch dev
 git push origin dev
 ```
-[git小结](http://www.imooc.com/article/251132)
 
 
-## github平台如何回退代码到历史指定版本
+### github平台如何回退代码到历史指定版本
 github平台如何回退代码到历史指定版本
 
 前提是 本地已经有了 git的origin master库 
@@ -375,7 +378,6 @@ $ git push -f -u origin master
 git pull
 ```
 
-## 问题
 ### Host key verification failed.
 ```
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -422,57 +424,11 @@ Another git process semms to be running in this repository, e.g. an editor opene
 ```
 大概意思就是说，当前已经有了一个编辑器打开了“git commit”指令，请关闭所有git相关的进程重试，否则，请手动删除那个文件。
 
-## github和gitlab ssh_key配置
-步骤
-1. 输入cd ~/.ssh——回车（看你是否有了ssh key 密钥，有了就备份）；
-![avatar](./public/github1.png)
-2. 输入ssh-keygen -t rsa -C "your email"——直接回车，之后会让你输入github的账号密码，会出现如图所示结果，跟着上面所指示的路径，在你的电脑中找到该文件，id_rsa文件即是你的私有密钥，id_rsa.pub是共开密钥
-![avatar](./public/github2.png)
-
-3. 打开你的id_rsa.pub文件，复制下里面的内容，然后登录进去你的github；
-![avatar](./public/github3.png)
-
-4. 在右上角账户那里点击头像边上的下拉，出现如图——点击settings进去，找到左侧的SSH Keys,点击，如图；
-![avatar](./public/github4.png)
-
-![avatar](./public/github5.png)
-
-5. 在点击Add SSH Key，在title处填入任意的标识，在Key部分里面添加刚才复制的id_rsa.pub文件里的内容，点击添加即可；
-![avatar](./public/github6.png)
-
-
-6. 添加成功
-![avatar](./public/github7.png)
-
-
-
-7. 最后一步了，只需测试一下链接是否正常了，接着输入：ssh -T git@github.com，
-![avatar](./public/github8.png)
-
-
-这样，我们的git配置就完成了。
-
-### 配置另一个id_rsa
-key默认位置是id_rsa
-我现在要配置的是id_rsa_compony与第一个区分开来,之后的操作同上
-![avatar](./public/github10.png)
-::: tip
-git不需要密码
-
-Enter passphrase (empty for no passphrase)
-
-Enter file in which to save the key 为空的话，创建的就是空的
-
-![avatar](./public/github9.png)
-
-:::
-
-
-## 一次输入用户名密码永久不需要
+### 一次输入用户名密码永久不需要
 ```
 git config --global credential.helper store
 ```
-## 上传GitHub怎么忽略node_modules
+### 上传GitHub怎么忽略node_modules
 简单说就是在根目录下创建.gitignore，然后编辑过滤规则。
 windows下怎么操作，方法如下：
 1. 是常规的windows操作
@@ -507,18 +463,18 @@ demo.html   过滤该文件
 ```
 
 
-## Github在readme添加gif图
+### Github在readme添加gif图
 [Github在readme添加gif图](https://www.jianshu.com/p/3142755e93c8)
 
-## Git 修改已提交的commit注释
-### 修改最后一次注释
+### Git 修改已提交的commit注释
+#### 修改最后一次注释
 如果你只想修改最后一次注释
 ```
 git commit --amend
 ```
 出现有注释的界面（你的注释应该显示在第一行）， 输入i进入修改模式，修改好注释后，按Esc键 退出编辑模式，输入:wq保存并退出。ok，修改完成。
 
-### 修改之前的某次注释
+#### 修改之前的某次注释
 
 ```
 git rebase -i HEAD~2
@@ -534,15 +490,63 @@ git rebase --continue
 
 其实这个原理我的理解就是先版本回退到你想修改的某次版本，然后修改当前的commit注释，然后再回到本地最新的版本
 
-## git merge
+### 出现冲突后怎么办?
 ```
-git meger 指定分支后
+git merge 指定分支后
 出现冲突
 改变冲突后
 git add -u
 git push即可。
 ```
+### github和gitlab ssh_key怎么配置
+步骤
+1. 输入cd ~/.ssh——回车（看你是否有了ssh key 密钥，有了就备份）；
+![avatar](./public/github1.png)
+2. 输入ssh-keygen -t rsa -C "your email"——直接回车，之后会让你输入github的账号密码，会出现如图所示结果，跟着上面所指示的路径，在你的电脑中找到该文件，id_rsa文件即是你的私有密钥，id_rsa.pub是共开密钥
+![avatar](./public/github2.png)
+
+3. 打开你的id_rsa.pub文件，复制下里面的内容，然后登录进去你的github；
+![avatar](./public/github3.png)
+
+4. 在右上角账户那里点击头像边上的下拉，出现如图——点击settings进去，找到左侧的SSH Keys,点击，如图；
+![avatar](./public/github4.png)
+
+![avatar](./public/github5.png)
+
+5. 在点击Add SSH Key，在title处填入任意的标识，在Key部分里面添加刚才复制的id_rsa.pub文件里的内容，点击添加即可；
+![avatar](./public/github6.png)
+
+
+6. 添加成功
+![avatar](./public/github7.png)
+
+
+
+7. 最后一步了，只需测试一下链接是否正常了，接着输入：ssh -T git@github.com，
+![avatar](./public/github8.png)
+
+
+这样，我们的git配置就完成了。
+
+#### 配置另一个id_rsa
+key默认位置是id_rsa
+我现在要配置的是id_rsa_compony与第一个区分开来,之后的操作同上
+![avatar](./public/github10.png)
+::: tip
+git不需要密码
+
+Enter passphrase (empty for no passphrase)
+
+Enter file in which to save the key 为空的话，创建的就是空的
+
+![avatar](./public/github9.png)
+
+:::
+
+
 
 
 ## 参考文献
 [Git 修改已提交的commit注释](https://www.jianshu.com/p/098d85a58bf1)
+
+[git小结](http://www.imooc.com/article/251132)
