@@ -66,3 +66,8 @@ function fetchHistoryLogs(filename) {
   });
 }
 ```
+## 参考文献
+
+[Nodejs 实时监控文件内容的变化及按行读取文本文件](https://segmentfault.com/a/1190000003902877?name=node&description=&isPrivate=1)
+
+[Nodejs监控文件内容变化并获取最新添加的内容](https://blog.csdn.net/qqHJQS/article/details/51780365)

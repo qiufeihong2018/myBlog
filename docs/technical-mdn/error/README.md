@@ -1,4 +1,5 @@
-# Error
+# 重读MDN-Error
+
 ## EvalError
 本对象代表了一个关于 eval 函数的错误.此异常不再会被JavaScript抛出，但是EvalError对象仍然保持兼容性.
 

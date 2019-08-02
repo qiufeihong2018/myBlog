@@ -82,9 +82,8 @@
 
 ## todo
 
-[Nodejs 实时监控文件内容的变化及按行读取文本文件](https://segmentfault.com/a/1190000003902877?name=node&description=&isPrivate=1)
+[搞懂JavaScript引擎运行原理](https://mp.weixin.qq.com/s?__biz=MzI4NDYxNTM0OQ==&mid=2247483891&idx=1&sn=e0bc5272cd119fe92e2aa0f07fd1ae0d&chksm=ebf9f629dc8e7f3fac6030584c92949c24e01398e7e6e42e45c45628cc984d89a6446e0099ea&mpshare=1&scene=1&srcid=&sharer_sharetime=1564634905742&sharer_shareid=c6e16d86591fc6d7eac5c342d513ce8e#rd)
 
-[Nodejs监控文件内容变化并获取最新添加的内容](https://blog.csdn.net/qqHJQS/article/details/51780365)
 
 [阿里云服务器发布项目后无法访问](https://app.csdn.net/runner1920/article/details/79035651)
 

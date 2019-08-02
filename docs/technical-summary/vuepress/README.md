@@ -78,42 +78,46 @@ touch README.md
 在这个文件中主要写一些这是什么项目啊,这个项目有什么特性啊,这个项目怎么启动啊等等
 
 ```markdown
-# vuepress-app
-> a vuepress app about qiufeihong
+<h1 align="center">Welcome to vuepress-blog 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://www.qiufeihong.top/">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
+  </a>
+  <a href="https://twitter.com/qiufeihong">
+    <img alt="Twitter: qiufeihong" src="https://img.shields.io/twitter/follow/qiufeihong.svg?style=social" target="_blank" />
+  </a>
+</p>
 
-### Build Setup
+>  a vuepress blog about qiufeihong
 
+### 🏠 [Homepage](https://www.qiufeihong.top/)
 
-# clone item
-git clone git@github.com:qiufeihong2018/vuepress-app.git
+## Install
 
-# install dependencies
+```sh
 npm install
+```
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Run tests
 
-# build for production with minification
-npm run build
+```sh
+npm run test
+```
 
-# deploy https://username.github.io
-npm run d
+## Author
 
-# pm2 deploy
-npm run server 
+👤 **qiufeihong**
 
+* Twitter: [@qiufeihong](https://twitter.com/qiufeihong)
+* Github: [@qiufeihong2018](https://github.com/qiufeihong2018)
 
-### main page
-![avatar](./shotPic/main.png)
+## Show your support
 
-### feature
-- [x] 可以统计阅读量
-- [x] 支持评论
-- [ ] Algolia搜索
-- [ ] 在 GitHub 上编辑此页
-- [ ] SEO
+Give a ⭐️ if this project helped you!
 
-
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
 ```
 
 ###  添加docs文件夹
@@ -190,101 +194,99 @@ touch nav.js
 4. 导航标签下拉菜单，就要配置items，里面也是一个数组对象，同上。
 
 ```js
-module.exports = [
-    {
-        text: '首页', link: '/'
-    },
-    {
-        text: '学习资源',
-        items: [
-            {text: '前端学习路线', link: 'http://www.imooc.com/article/261756'},
-            {text: '前端学习视频', link: '/front-end-video/'},
-            {text: '全栈', link: '/resource/'}
+module.exports = [{
+    text: "首页",
+    link: "/"
+  },
+  {
+    text: "技术总结",
+    link: "/technical-summary/"
+  },
+  {
+    text: "视频总结",
+    link: "/video-summary/"
+  },
+  {
+    text: "学习资源",
+    items: [{
+        text: "前端学习视频",
+        link: "/front-end-video/"
+      },
+      {
+        text: "全栈",
+        link: "/resource/"
+      },
+      {
+        text: "新闻",
+        link: "/news/"
+      },
+      {
+        text: "开源项目",
+        link: "/openItem/"
+      },
+      {
+        text: "分享",
+        link: "/share/"
+      },
+      {
+        text: "网站",
+        link: "/network/"
+      },
+      {
+        text: "设计",
+        link: "/design/"
+      }
+    ]
+  },
+  {
+    text: "优秀博客",
+    items: [{
+        text: "个人博客",
+        items: [{
+            text: "张鑫旭-鑫空间-鑫生活",
+            link: "https://www.zhangxinxu.com/"
+          },
+          {
+            text: "Cherry's Blog",
+            link: "https://cherryblog.site/"
+          },
+          {
+            text: "ECMAScript 6 入门",
+            link: "http://es6.ruanyifeng.com/"
+          },
+          {
+            text: "WebStack.cc - 设计师网址导航",
+            link: "http://yangweijie.cn/webstack#"
+          }, {
+            text: 'D2 Admin',
+            link: 'https://doc.d2admin.fairyever.com/zh/'
+          }, {
+            text: 'Javascript之父',
+            link: 'https://brendaneich.com/'
+          },
+          {
+            text: 'yck面试图谱',
+            link: 'https://yuchengkai.cn/docs/'
+          },
+          {
+            text: '林亮',
+            link: 'https://blog.fritx.me/'
+          },
+          {
+            text: '软件垃圾回收师，Android搬砖小能手',
+            link: 'http://lckiss.com/'
+          }, {
+            text: '小弟调调',
+            link: 'https://wangchujiang.com/'
+          },
+          {
+            text: '腾讯 ISUX UI 工程师李洋',
+            link: 'https://newbieweb.lione.me/'
+          }
         ]
-    },
-    {
-        text: '优文转载', link: '/reprint/'
-    },
-    {
-        text: '技术总结',
-        items: [
-            {
-                text: 'mongo', link: A
-            },
-            {
-                text: 'vue-webpack', link: A
-            },
-            {
-                text: 'Vue.js 组件精讲', link: '/technical-summary/vue-component/'
-            },
-            {
-                text: 'ubuntu', link: A
-            },
-            {
-                text: 'eslint', link: A
-            },
-            {
-                text: 'nuxt', link: A
-            },
-            {
-                text: 'node', link: A
-            },
-            {
-                text: 'css', link: A
-            },
-            {
-                text: 'github', link: '/technical-summary/github/'
-            },
-            {
-                text: 'es6', link: A
-            }
-
-        ]
-    },
-    {
-        text: '视频总结', link: '/video-summary/'
-    },
-    {
-        text: '面试', link: '/interview/'
-    },
-    {
-        text: '优秀博客',
-        items: [
-            {
-                text: '张鑫旭-鑫空间-鑫生活', link: 'https://www.zhangxinxu.com/'
-            }
-        ]
-    },
-    {
-        text: '个人主页',
-        items: [
-            {
-                text: 'GitHub', link: 'https://github.com/qiufeihong2018'
-            },
-            {
-                text: '掘金', link: 'https://juejin.im/user/5bf4d63cf265da61561ee241/posts'
-            },
-            {
-                text: 'CSDN', link: 'https://app.csdn.net/weixin_38465623'
-            },
-            {
-                text: 'segmentfault', link: 'https://segmentfault.com/u/qiufeihong2018'
-            },
-            {
-                text: '知乎', link: 'https://www.zhihu.com/people/chou-fei-hong/activities'
-            },
-            {
-                text: '简书', link: 'https://www.jianshu.com/'
-            },
-            {
-                text: 'v2ex', link: 'https://www.v2ex.com/'
-            }
-        ]
-    },
-    {
-        text: '那些年的电影', link: '/movie/'
-    }
-]
+      },
+  ......
+];
 
 ```
 

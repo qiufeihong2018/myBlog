@@ -4,7 +4,14 @@ module.exports = [{
   },
   {
     text: "技术总结",
-    link: "/technical-summary/"
+    items: [{
+      text: "原创文章",
+      link: "/technical-summary/"
+    },
+    {
+      text: "重读MDN",
+      link: "/technical-mdn/"
+    }]
   },
   {
     text: "视频总结",
