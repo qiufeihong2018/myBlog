@@ -290,7 +290,7 @@ module.exports = [{
         text: "外卖后台管理平台",
         link: 'http://tack-out.qiufeihong.top'
       },{
-        text: "我的公众号",
+        text: "我的微信公众号",
         link: '/wechat-public/'
       }]
     }
