@@ -1,4 +1,9 @@
 module.exports = [{
+    title: '重读MDN-继承与原型链',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['inheritance_and_the_prototype_chain/']
+},{
     title: '重读MDN-Function',
     collapsable: false,
     sidebarDepth: 2,
