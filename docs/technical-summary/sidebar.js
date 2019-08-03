@@ -4,6 +4,11 @@ module.exports = [{
     sidebarDepth: 2,
     children: ['watchLog/']
 },{
+    title: '重读MDN-Error',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['error/']
+},{
     title: '重读MDN-String',
     collapsable: false,
     sidebarDepth: 2,
