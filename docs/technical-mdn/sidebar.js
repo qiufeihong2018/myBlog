@@ -1,4 +1,9 @@
 module.exports = [{
+    title: '重读MDN-严格模式',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['strict_mode/']
+},{
     title: '重读MDN-继承与原型链',
     collapsable: false,
     sidebarDepth: 2,
