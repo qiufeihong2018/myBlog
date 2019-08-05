@@ -1,51 +1,102 @@
 # 重读MDN-Object
 
+
+MDN里面涵盖了所有web开发的知识，对开发者学习和夯实基础来说就是一个宝库。
+
+将官网上的主要知识点抽离，组合成自己的知识网络。
+
+每个人的知识体系是不同的，但又是各有相同之处，希望我的整理对您有帮助。
+
+《重读MDN》系列是作者会坚持下去的，旨在查漏补缺，让自己知识的盲区能缩小些。
+
+附上我的思维导图，方便快速记忆
+
+![avatar](../public/error.png)
+
 ## Object.assign()
 Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
-
-```js
-const target = { a: 1, b: 2 };
-const source1 = { b: 4, c: 5 };
-const source2 = { b: 5, c: 3, d:3 };
-
-const returnedTarget = Object.assign(target, source1,source2);
-
-console.log(target);
-// expected output: Object { a: 1, b: 5, c: 3, d: 3 }
-
-console.log(returnedTarget);
-// expected output: Object { a: 1, b: 5, c: 3, d: 3 }
-
-```
 
 ### 语法
 ```
 Object.assign(target, ...sources)
 ```
-1. 参数
-- target
+#### 参数
+1. target
 目标对象。
-- sources
+2. sources
 源对象。
-2. 返回值
+#### 返回值
 目标对象。
 
+### 例子
+官网上的例子我就不说了，说些平时遇到过的和官网上没有的
 
-### 描述
-如果目标对象中的属性具有相同的键，则属性将被源对象中的属性覆盖。后面的源对象的属性将类似地覆盖前面的源对象的属性。
+#### 添加属性
+还可以给实例对象添加属性
 
-Object.assign 方法只会拷贝源对象自身的并且可枚举的属性到目标对象。该方法使用源对象的[[Get]]和目标对象的[[Set]]，所以它会调用相关 getter 和 setter。因此，它分配属性，而不仅仅是复制或定义新的属性。如果合并源包含getter，这可能使其不适合将新属性合并到原型中。为了将属性定义（包括其可枚举性）复制到原型，应使用Object.getOwnPropertyDescriptor()和Object.defineProperty() 。
+```JS
+class A{constructor(b,c){Object.assign(this,{b,c})}}
+let a=new A(12312,312312)
+console.log(a)
+//A {b: 12312, c: 312312}
 
-String类型和 Symbol 类型的属性都会被拷贝。
 
-在出现错误的情况下，例如，如果属性不可写，会引发TypeError，如果在引发错误之前添加了任何属性，则可以更改target对象。
+class A{constructor(b,c){}}
+let a=new A(12312,312312)
+console.log(a)
+// A {}
+```
+#### 针对数组
+Object.assign()针对数组做了一番变化：
+1. 全是数组
+后面的数组在相同位置上会将前面的数组替换。
+2. 数组在后
+数组的值在对象中抢占位置，返回对象
+3. 数组在前
+对象的值跟在数组后面，返回数组
 
-注意，Object.assign 不会在那些source对象值为 null 或 undefined 的时候抛出错误。
+看例子
+```js
+console.log(Object.assign(['a','b','c'],['d','e']))
+// ["d", "e", "c"]
 
+console.log(Object.assign({d:'abc'},[2312312,31231,3123123]))
+// {0: 2312312, 1: 31231, 2: 3123123, d: "abc"}
+
+console.log(Object.assign(['a','b','c'],{d:'abc'}))
+//  ["a", "b", "c", d: "abc"]
+
+```
+总而言之，所有的类型都是随目标对象。
+
+#### 浅拷贝
+看例子
+```js
+const o1={a:0}
+const o2=Object.assign(o1)
+o1.a=1
+console.log(o2)
+// {a: 1}
+```
+这就说明Object.assign()只拷贝了该属性的引用，而没不是深拷贝，还是同一个位置，并没有创建了一个量空间。
 
 ## Object.create()
 Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。 （请打开浏览器控制台以查看运行结果。）
 
+### 语法
+
+```js
+Object.create(proto[, propertiesObject])
+```
+#### 参数
+1. proto
+新创建对象的原型对象。
+2. propertiesObject
+可选。如果没有指定为 undefined，则是要添加到新创建对象的可枚举属性（即其自身定义的属性，而不是其原型链上的枚举属性）对象的属性描述符以及相应的属性名称。这些属性对应Object.defineProperties()的第二个参数。
+#### 返回值
+一个新对象，带着指定的原型对象和属性。
+#### 例外
+如果propertiesObject参数是 null 或非原始包装对象，则抛出一个 TypeError 异常。
 ```js
 const person = {
   isHuman: false,
@@ -56,12 +107,57 @@ const person = {
 
 const me = Object.create(person);
 
-me.name = "Matthew"; // "name" is a property set on "me", but not on "person"
-me.isHuman = true; // inherited properties can be overwritten
+me.name = "Matthew"; // "name"是 "me"的属性,不是"person"的属性
+me.isHuman = true; // 可以重写继承的属性
 
 me.printIntroduction();
 // expected output: "My name is Matthew. Am I human? true"
 
+```
+### 用 Object.create实现类式继承
+```js
+// Shape - 父类(superclass)
+function Shape() {
+  this.x = 0;
+  this.y = 0;
+}
+
+// 父类的方法
+Shape.prototype.move = function(x, y) {
+  this.x += x;
+  this.y += y;
+  console.info('Shape moved.');
+};
+
+// Rectangle - 子类(subclass)
+function Rectangle() {
+  Shape.call(this); // call super constructor.
+}
+
+// 子类续承父类
+Rectangle.prototype = Object.create(Shape.prototype);
+Rectangle.prototype.constructor = Rectangle;
+
+var rect = new Rectangle();
+
+console.log('Is rect an instance of Rectangle?',
+  rect instanceof Rectangle); // true
+console.log('Is rect an instance of Shape?',
+  rect instanceof Shape); // true
+rect.move(1, 1); // Outputs, 'Shape moved.'
+```
+
+###使用 Object.create 的 propertyObject参数
+```js
+//创建一个可写的,可枚举的,可配置的属性p
+o2 = Object.create({}, {
+  p: {
+    value: 42, 
+    writable: true,
+    enumerable: true,
+    configurable: true 
+  } 
+});
 ```
 
 ## Object.defineProperties()
