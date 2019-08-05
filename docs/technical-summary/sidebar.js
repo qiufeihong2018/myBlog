@@ -1,49 +1,24 @@
 module.exports = [{
-    title: 'express监听日志文件的变化',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['watchLog/']
-},{
-    title: '重读MDN-Error',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['error/']
-},{
-    title: '重读MDN-String',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['string/']
-},{
-    title: '重读MDN-Array',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['array/']
-},{
-    title: '重读MDN-Object',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['object/']
-},{
-    title: '重读MDN-Json',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['json/']
-},{
-    title: '没有vue-cli就没有qfh-cli',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['qfh-cli/']
-},{
-    title: 'nginx配置ssl证书，从http升级到https',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['nginx-ssl-https/']
-},{
-    title: '项目中的权限验证',
-    collapsable: false,
-    sidebarDepth: 2,
-    children: ['authentication-privileges/']
-},{
+        title: 'express监听日志文件的变化',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['watchLog/']
+    }, {
+        title: '没有vue-cli就没有qfh-cli',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['qfh-cli/']
+    }, {
+        title: 'nginx配置ssl证书，从http升级到https',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['nginx-ssl-https/']
+    }, {
+        title: '项目中的权限验证',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['authentication-privileges/']
+    }, {
         title: '读黄勇的OKR实战笔记',
         collapsable: false,
         sidebarDepth: 2,
