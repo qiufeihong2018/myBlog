@@ -38,9 +38,26 @@ npm run test
 * Twitter: [@qiufeihong](https://twitter.com/qiufeihong)
 * Github: [@qiufeihong2018](https://github.com/qiufeihong2018)
 
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/qiufeihong2018/vuepress-blog/issues).
+
+## Online Demo
+
+[Preview](http://www.qiufeihong.top)
+
 ## Show your support
 
 Give a ⭐️ if this project helped you!
+
+
+
+## Donate
+
+If you find this project useful, you can buy author a glass of juice :tropical_drink:
+
+![donate](http://puz03r2zg.bkt.clouddn.com/pay.png)
+
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
