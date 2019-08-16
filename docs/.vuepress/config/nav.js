@@ -291,6 +291,9 @@ module.exports = [{
     }, {
       text: "个人项目",
       items: [{
+        text: '网站导航平台',
+        link: 'http://navigation.qiufeihong.top'
+      },{
         text: "跟着hy研读vue源码",
         link: 'https://qiufeihong2018.github.io/vue-analysis/'
       },{
