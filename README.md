@@ -23,7 +23,7 @@ npm run dev
 
 ## Tutorial
 
-[手把手带你搭建VuePress的技术博客]（https://www.qiufeihong.top/technical-summary/vuepress/#%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E6%90%AD%E5%BB%BAvuepress%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2）
+[手把手带你搭建VuePress的技术博客](https://www.qiufeihong.top/technical-summary/vuepress/#%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E6%90%AD%E5%BB%BAvuepress%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2)
 
 ## Run tests
 
