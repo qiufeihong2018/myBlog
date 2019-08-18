@@ -15,7 +15,7 @@ connect@src/mongo/shell/mongo.js:251:13
 exception: connect failed
 ```
 是没有执行mongod,就直接执行mongo，才会报错
-
+1. 
 操作：
 
 ```
@@ -25,7 +25,13 @@ sudo ./mongod  -dbpath /data/db/
 ```
  
 ./mongo 
-#都在mongodb的bin目录下
+
+都在mongodb的bin目录下
+
+2. 
+```
+ sudo /usr/bin/mongod --config /etc/mongod.conf
+```
 
 
 ## npm install -save 和 -save-dev

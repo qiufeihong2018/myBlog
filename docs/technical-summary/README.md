@@ -83,6 +83,11 @@
 [图片懒加载原理及实现](https://www.jianshu.com/p/8e2a73638153)
 [图片懒加载的实现原理](https://www.jianshu.com/p/6d3e38728c10)
 [30行Javascript代码实现图片懒加载](https://www.imooc.com/article/46302)
+
+[ACCESS TO XMLHTTPREQUEST AT 'HTTP://LOCALHOST:8080/API/USER/LOGIN' FROM ORIGIN 'HTTP://LOCALHOST:808](http://www.freesion.com/article/348313475/)
+
+[翻译xml2js](https://github.com/Leonidas-from-XIV/node-xml2js)
+
 [搞懂JavaScript引擎运行原理](https://mp.weixin.qq.com/s?__biz=MzI4NDYxNTM0OQ==&mid=2247483891&idx=1&sn=e0bc5272cd119fe92e2aa0f07fd1ae0d&chksm=ebf9f629dc8e7f3fac6030584c92949c24e01398e7e6e42e45c45628cc984d89a6446e0099ea&mpshare=1&scene=1&srcid=&sharer_sharetime=1564634905742&sharer_shareid=c6e16d86591fc6d7eac5c342d513ce8e#rd)
 
 

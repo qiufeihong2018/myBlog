@@ -1012,6 +1012,13 @@ sudo service mongod start
 sudo systemctl start mongod
 ```
 
+
+### mongo后台运行
+--fork 赋值进程，node的守护进程
+```
+mongod -f /etc/mongod.conf --fork
+```
+
 ## 参考文献
 [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 
