@@ -19,6 +19,8 @@ exception: connect failed
 操作：
 
 ```
+cd /usr/mongodb/bin
+
 sudo ./mongod  -dbpath /data/db/
 ```
  
