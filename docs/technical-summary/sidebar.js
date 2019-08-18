@@ -1,4 +1,9 @@
 module.exports = [{
+        title: 'navigation网站收藏平台',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: ['navigation/']
+    }, {
         title: 'express监听日志文件的变化',
         collapsable: false,
         sidebarDepth: 2,
