@@ -7,6 +7,8 @@
 
 
 ## doc
+[七牛存储图片](https://developer.qiniu.com/fusion/kb/1322/how-to-configure-cname-domain-name)
+
 [没有vue-cli就没有qfh-cli](./qfh-cli/)
 
 [nginx配置ssl证书，从http升级到https](./nginx-ssl-https/)

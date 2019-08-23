@@ -18,23 +18,23 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
             return {
                 arrPng: [
                     {
-                        pngLink:'http://puz03r2zg.bkt.clouddn.com/mocha.png',
+                        pngLink:'http://images.qiufeihong.top/mocha.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/mocha/'
                     },
                     {
-                        pngLink:'http://puz03r2zg.bkt.clouddn.com/gitlab.png',
+                        pngLink:'http://images.qiufeihong.top/gitlab.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/gitlab/'
                     },{
-                        pngLink:'http://puz03r2zg.bkt.clouddn.com/jk.jpeg',
+                        pngLink:'http://images.qiufeihong.top/jk.jpeg',
                         docLink:'https://www.qiufeihong.top/technical-summary/jenkins/'
                     },{
-                        pngLink:'http://puz03r2zg.bkt.clouddn.com/vuepress2.png',
+                        pngLink:'http://images.qiufeihong.top/vuepress2.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/vuepress/'
                     },{
-                        pngLink:'http://puz03r2zg.bkt.clouddn.com/apidoc6.jpg',
+                        pngLink:'http://images.qiufeihong.top/apidoc6.jpg',
                         docLink:'https://www.qiufeihong.top/technical-summary/apiDoc/'
                     },{
-                        pngLink:'http://puz03r2zg.bkt.clouddn.com/nginx-ssl-https.jpg',
+                        pngLink:'http://images.qiufeihong.top/nginx-ssl-https.jpg',
                         docLink:'https://www.qiufeihong.top/technical-summary/nginx-ssl-https/'
                     }
                 ]
