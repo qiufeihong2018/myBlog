@@ -32,42 +32,126 @@
 
 是基于花裤衩的[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)的简单版的后台管理模板，这一款基于vue2.0的后台管理平台深受大众喜爱。
 
-### 工具包
+### vue-admin-template集成的工具包
 
 #### vuex
 
 vue状态管理工具
 
+Vuex是一个专为Vue.js应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化.
+
+自动从modules文件夹中导入文件
+```js
+
+// https://webpack.js.org/guides/dependency-management/#requirecontext
+const modulesFiles = require.context('./modules', true, /\.js$/)
+
+// you do not need `import app from './modules/app'`
+// it will auto require all vuex module from modules file
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+  // set './app.js' => 'app'
+  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+  const value = modulesFiles(modulePath)
+  modules[moduleName] = value.default
+  return modules
+}, {})
+
+const store = new Vuex.Store({
+  modules,
+  getters
+})
+```
 #### axios
 
 支持http数据通信
+
+Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+
+在其封装axios对象的request文件中，我在response响应中去掉了自定义状态码的设置。
 
 #### element-ui
 
 饿了吗的web平台UI库
 
-#### js-cookie
+Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
 
-#### normalize.css
+#### [js-cookie](https://github.com/js-cookie/js-cookie)
 
-#### nprogress
+一个简单，轻量级的JavaScript API，用于处理浏览器cookie
 
-#### path-to-regexp
+```
+import Cookies from 'js-cookie'
 
-#### stylus
+const TokenKey = 'navigation_token'
 
-#### stylus-loader
+export function getToken() {
+  return Cookies.get(TokenKey)
+}
 
-#### vue-grid-layout
+export function setToken(token) {
+  return Cookies.set(TokenKey, token)
+}
 
-#### vue-router
+export function removeToken() {
+  return Cookies.remove(TokenKey)
+}
+```
+#### [normalize.css](https://github.com/necolas/normalize.css)
+CSS重置的现代替代方案
 
-#### vue-waterfall2
+1. 与许多CSS重置不同，保留有用的默认值。
+2. 规范化各种元素的样式。
+3. 更正了错误和常见的浏览器不一致性。
+4. 通过微妙的修改提高可用性。
+5. 使用详细注释说明代码的作用。
 
+
+#### [nprogress](https://github.com/rstacruz/nprogress)
+
+适用于Ajax'y应用程序的超薄进度条。受Google，YouTube和Medium的启发。
+
+用在路由跳转文件中
+
+
+#### [path-to-regexp](https://github.com/pillarjs/path-to-regexp)
+
+将路径字符串/user/:name转换为正则表达式。
+
+#### [stylus](https://github.com/stylus/stylus)
+
+为nodejs构建的富有表现力，功能强大，功能丰富的CSS语言
+
+#### [stylus-loader](https://github.com/shama/stylus-loader)
+
+为了能够使用任何stylus软件包版本，它将不会自动安装。因此需要将其添加到package.json其中stylus-loader。
+
+#### [vue-router](https://github.com/vuejs/vue-router)
+Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。包含的功能有：
+
+嵌套的路由/视图表
+模块化的、基于组件的路由配置
+路由参数、查询、通配符
+基于 Vue.js 过渡系统的视图过渡效果
+细粒度的导航控制
+带有自动激活的 CSS class 的链接
+HTML5 历史模式或 hash 模式，在 IE9 中自动降级
+自定义的滚动条行为
+
+
+#### [screenfull](https://github.com/sindresorhus/screenfull.js)
+用于跨浏览器使用JavaScript Fullscreen API的简单包装器，可让您将页面或任何元素全屏显示。平滑浏览器实现差异，因此您不必这样做。
+### 自定义工具包
+
+#### [vue-waterfall2](https://github.com/AwesomeDevin/vue-waterfall2)
+
+适用于vue和支持延迟加载的瀑布自适应插件，非常简单！
+```
+import waterfall from 'vue-waterfall2'
+Vue.use(waterfall)
+```
 #### commitizen
 
-#### screenfull
-
+#### 抽屉组件
 ### 页面模板
 
 ```vue
@@ -717,6 +801,6 @@ router.get('/', function(req, res) {
  */
 ```
 
-### 展望
+## 展望
 
 开发扩展程序，点击网站右键添加到`navigation`
