@@ -36,6 +36,8 @@
 
 ## 前端
 
+[github前端代码仓库](https://github.com/qiufeihong2018/navigation-web)
+
 是基于花裤衩的[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)的简单版的后台管理模板，这一款基于vue2.0的后台管理平台深受大众喜爱。
 
 ### vue-admin-template集成的依赖包
@@ -94,7 +96,6 @@ const store = new Vuex.Store({
 尤大推荐用axios，让Axios进入了很多人的目光中。Axios本质上也是对原生XHR的封装，只不过它是Promise的实现版本，符合最新的ES规范
 
 他的特性之客户端支持防止CSRF，每个请求都带一个从cookie中拿到的key, 根据浏览器同源策略，假冒的网站是拿不到cookie中的key，这样，后台就可以轻松辨别出这个请求是否是用户在假冒网站上的误导输入，从而采取正确的策略。
-
 
 在其封装axios对象的request文件中，response响应中去掉了自定义状态码的设置。
 
@@ -192,6 +193,7 @@ Vue.use(ElementUI, {
 
 显示当前页面的路径，快速返回之前的任意页面。
 
+##### 抽屉组件弹出搜索信息
 
 #### [js-cookie](https://github.com/js-cookie/js-cookie)处理浏览器cookie
 
@@ -243,7 +245,6 @@ export function removeToken() {
 - 更正了错误和常见的浏览器不一致性。
 - 通过微妙的修改提高可用性。
 - 使用详细注释说明代码的作用。
-
 
 推荐阅读[Normalize.css 与传统的 CSS Reset 有哪些区别？](https://www.zhihu.com/question/20094066)
 
@@ -336,8 +337,6 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 ```
-
-
 
 往路由中心`router/index.js`导入页面,下面是截取路由-页面映射的一部分。
 
@@ -441,29 +440,13 @@ export default router
 #### [vue-waterfall2](https://github.com/AwesomeDevin/vue-waterfall2)构建瀑布流布局
 
 适用于vue和支持延迟加载的瀑布自适应插件，非常简单！
-```
+```js
 import waterfall from 'vue-waterfall2'
 Vue.use(waterfall)
 ```
-#### [commitizen](https://github.com/commitizen/cz-cli)提交git规范化
-commitizen命令行实用程序。
 
-当您在Commitizen友好存储库中工作时，系统将提示您填写任何必填字段，并且您的提交消息将根据项目维护人员定义的标准进行格式化。
-#### 抽屉组件弹出搜索信息
-
-### 页面模板
-
-```vue
-<template>
-  <div
-    v-loading.fullscreen.lock="loading"
-    class="app-container"
-    element-loading-text="别催了，我在加载中"
-    element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
-  >
-    <template v-if="navArr.length>0">
-      <waterfall
+```html
+ <waterfall
         :col="col"
         :width="itemWidth"
         :gutter-width="gutterWidth"
@@ -500,56 +483,49 @@ commitizen命令行实用程序。
           </div>
         </template>
       </waterfall>
-      <div class="pagination-container">
-        <el-pagination
-          small
-          background
-          layout="prev, pager, next"
-          :total="total"
-          :page-size="10"
-          @current-change="handleCurrentChange"
-        />
-      </div>
-    </template>
-    <div v-else>
-      <img src="@/assets/noData.png" style="margin-left: -102px;">
-    </div>
-    <el-dialog title="编辑网站" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="网站名称" prop="name">
-          <el-input v-model="form.name" />
-        </el-form-item>
-        <el-form-item label="网站分类" prop="category">
-          <el-select v-model="form.category" placeholder="请选择网站分类">
-            <el-option v-for="item in categoryOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="网站链接" prop="website">
-          <el-input v-model="form.website" />
-        </el-form-item>
-        <el-form-item label="网站LOGO" prop="logo">
-          <el-input v-model="form.logo" />
-        </el-form-item>
-        <el-form-item label="网站描述" prop="describe">
-          <el-input v-model="form.describe" type="textarea" />
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="putMap(form)">确 定</el-button>
-      </div>
-    </el-dialog>
-    <el-tooltip placement="top" content="返回顶部">
-      <back-to-top
-        :custom-style="myBackToTopStyle"
-        :visibility-height="300"
-        :back-position="50"
-        transition-name="fade"
-      />
-    </el-tooltip>
-  </div>
-</template>
+```
 
+#### [commitizen](https://github.com/commitizen/cz-cli)提交git规范化
+
+commitizen命令行实用程序。
+
+在Commitizen友好存储库中工作时，系统将提示填写必填字段，并且将提交消息根据项目维护人员定义的标准进行格式化。
+
+```js
+
+// 全局安装commitizen node模块
+npm install commitizen -g 
+// 通过键入以下命令初始化您的项目，以使用cz-convention -change - elog适配器
+commitizen init cz-conventional-changelog --save-dev --save-exact
+```
+
+##### type用于说明 commit 的类别，只允许使用下面7个标识
+
+- feat：新功能（feature）
+- fix：修补bug
+- docs：文档（documentation）
+- style： 格式（不影响代码运行的变动）
+- refactor：重构（即不是新增功能，也不是修改bug的代码变动）
+- test：增加测试
+- chore：构建过程或辅助工具的变动
+
+##### scope 用来说明本次Commit影响的范围，即简要说明修改会涉及的部分,比如数据层、控制层、视图层等
+
+##### subject comment所在的位置,这次提交的简短描述
+
+![avatar](https://raw.githubusercontent.com/commitizen/cz-cli/master/meta/screenshots/add-commit.png)
+
+### iframe
+
+```html
+                <el-form-item label="iframe链接">
+                  <router-link class="font-website" :to="{ path: 'iframeNav', query: { website: nav.website }}">
+                    {{ nav.website }}
+                  </router-link>
+                </el-form-item>
+                <el-form-item label="新窗口链接">
+                  <a class="font-website" :href="nav.website" target="_blank">{{ nav.website }}</a>
+                </el-form-item>
 ```
 页面中的`iframe链接`添加router-link指向iframe页面，但是跳转过去的链接都加上了每一个分类的路由，所以在路由文件的每一个分类的路由中都添加iframe路由。
 
@@ -579,12 +555,10 @@ commitizen命令行实用程序。
 
   ……
 
-
 ```
-### iframe
 
 所有从iframe链接点击的都跳到这个页面
-```vue
+```html
 <template>
   <iframe ref="inlineFrameExample" title="Inline Frame Example" width="100%" height="898px" :src="iframeSrc" />
 </template>
@@ -649,6 +623,7 @@ computed: {
 网站分类的数据是从router来的，但是router的数据必须要过滤才能得到分类的结果。
 
 categoryOptions数组中的最后三者不属于分类项，所以要去掉。
+
 ```js
 /**
  * get categoryOptions from routes
@@ -686,53 +661,275 @@ import {
 this.categoryOptions = getOption('label', routes)
 ```
 
-
-
 ## 后端
+
+[github后端代码仓库](https://github.com/qiufeihong2018/navigation-server)
 
 基于express框架
 
 ### 依赖包
-#### [body-parser](https://github.com/expressjs/body-parser)正文解析
-
-Node.js正文解析中间件
-
-在处理程序之前在中间件中解析传入的请求主体，在req.body属性下可用。
-
-注意由于req.body形状基于用户控制的输入，因此该对象中的所有属性和值都是不可信的，应在信任之前进行验证。例如，req.body.foo.toString()可能以多种方式失败，例如foo属性可能不存在或者可能不是字符串，并且toString可能不是函数，而是字符串或其他用户输入。
 
 #### [express](https://github.com/expressjs/express)搭建web应用
 
-强大的路由
-专注于高性能
-超高的测试覆盖率
-HTTP助手（重定向，缓存等）
-查看支持14+模板引擎的系统
-内容协商
-可快速生成应用程序的可执行文件
+##### 特征
 
-#### [express-session](https://github.com/expressjs/session)
+- 强大的路由
+- 专注于高性能
+- 超高的测试覆盖率
+- HTTP助手（重定向，缓存等）
+- 查看支持14+模板引擎的系统
+- 内容协商
+- 可快速生成应用程序的可执行文件
 
-express简单的session中间件
+##### 解析
+启动express服务
 
+```js
+const express = require('express');
+const app = express();
+const config = require('../config')();
+
+  // start server
+  // Set http port
+  app.set('port', config.expressHttpPort); 
+
+  app.listen(config.expressHttpPort, () => {
+    // 开启端口打印日志
+    log.info(`express running on ${config.expressHttpPort} port`);
+  });
+```
+
+在config文件中动态配置端口
+```js
+'use strict';
+
+var config = {
+  development: {
+    // mongodb
+    database: 'mongodb://localhost/map',
+    expressHttpPort: 1600,
+  },
+  local: {
+    // mongodb
+    database: 'mongodb://127.0.0.1/map',
+    expressHttpPort: 1600
+  },
+  production: {
+    // mongodb
+    database: 'mongodb://127.0.0.1/map',
+    expressHttpPort: 1600
+  }
+};
+
+
+module.exports = function(mode) {
+  var env;
+  if (!mode) {
+    env = process.env.NODE_ENV || 'development';
+  } else if (mode && (mode === 'development' || 'local' || 'production')) {
+    env = mode;
+  } else {
+    throw new Error(`config can only be 'development' || 'local' || 'production', 
+    but you give ${mode}`);
+  }
+  var returnVal = config[env];
+  return returnVal;
+};
+
+```
+
+#### [express-session](https://github.com/expressjs/session)之express简单的session中间件
+
+##### 解析
+- resave
+强制将会话保存回会话存储区，即使在请求期间会话从未被修改。取决于你的store这可能是必要的,但它也可以创建竞态条件,客户让两个并行请求您的服务器,在一个请求中更改会话可能会覆盖另一个请求结束时,即使它没有改变(这种行为也取决于存储你使用)。默认值为true。
+- saveUninitialized
+强制将“未初始化”的会话保存到存储区。当会话是新的但没有修改时，它是未初始化的。选择false对于实现登录会话、减少服务器存储使用或遵守在设置cookie之前需要获得许可的法律非常有用。选择false还可以帮助解决客户端在没有会话的情况下发出多个并行请求的竞态条件。默认值为true，但是不建议使用默认值，因为默认值将在将来更改。
+- secret
+这是用于对会话`ID cookie`签名的密码。这可以是单个秘密的字符串，也可以是多个秘密的数组。如果提供了一个秘密数组，则只使用第一个元素对会话`ID cookie`进行签名，而在验证请求中的签名时将考虑所有元素。
+- cookie
+每个会话都有一个惟一的cookie对象。这允许您更改每个访问者的会话cookie。
+  -  maxAge
+maxAge将返回剩余的时间(以毫秒为单位)，我们还可以重新分配一个新值来适当调整`.expires`属性。此时表示1天后过期。
+```js
+const session = require('express-session');
+
+
+  // Session configuration
+  const sess = {
+    resave: true,
+    saveUninitialized: true,
+    secret: 'I am hungry',
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000
+    }
+  };
+
+
+  app.use(session(sess)); // Set session middleware
+
+```
+
+如果有兴趣了解关于session的其他选项，请参考链接[express-session](https://github.com/expressjs/session)
+
+#### [body-parser](https://github.com/expressjs/body-parser)正文解析
+
+是一个Node.js正文解析中间件。
+
+在处理程序之前，利用中间件解析传入的请求主体，在req.body属性下可用。
+
+注意由于req.body形状基于用户控制的输入，因此该对象中的所有属性和值都是不可信的，应在信任之前进行验证。例如，`req.body.foo.toString()`可能以多种方式失败，例如foo属性可能不存在或者可能不是字符串，并且toString可能不是函数，而是字符串或其他用户输入。
+
+```js
+const bodyParser = require('body-parser');
+
+……
+
+  // parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({
+    extended: false
+  }));
+
+  // parse application/json
+  app.use(bodyParser.json());
+
+
+```
+
+`urlenencoded` ([options])返回中间件，该中间件只解析`urlencoded body`，并且只查看内容类型头部与类型选项匹配的请求。该解析器只接受正文的UTF-8编码，并支持gzip和deflate编码的自动膨胀。在中间件(即req.body)之后，在请求对象上填充一个包含已解析数据的新body对象。这个对象将包含键值对，其中的值可以是字符串或数组(当扩展为false时)，也可以是任何类型(当扩展为true时)。
+
+`extended`选项允许在使用`querystring`库解析url编码的数据(当为false时)和使用qs库(当为true时)之间进行选择。“extended”语法允许将丰富的对象和数组编码为url编码格式，允许使用类似json的url编码体验。
 
 #### [mongoose](https://github.com/Automattic/mongoose)连接数据库
 
 Mongoose是一个MongoDB对象建模工具，旨在在异步环境中工作。
+##### 特征
+
+- 堆栈溢出
+- bug报告
+- mongoose Slack Channel
+- 帮助论坛
+- MongoDB支持
+
+##### 解析
+
+连接数据库，处理连接的成功和失败的信息。
+```js
+'use strict';
+
+const mongoose = require('mongoose');
+const config = require('../config')();
+// [koa警告DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `use...](https://www.jianshu.com/p/f3128e7ae3c5)
+mongoose.set('useFindAndModify', false);
+let reconnectTimes = 0;// Mongodb reconnect times
+let reconnectInterval = 0.1;// The interval seconecd time between two reconnection;
+const maxReconnectInterval = 120;// The max interval time between two reconnection;
+
+// Connect to mongodb
+function connect() {
+  const options = {
+    socketTimeoutMS: 3000,
+    keepAlive: true,
+    reconnectTries: 4,
+    useNewUrlParser: true
+  };
+  mongoose.connect(config.database, options);
+}
+
+// Mongoose error handler
+mongoose.connection.on('error', function(err) {
+  log.error(err);
+});
+
+// Mongoose reconnect when closed
+mongoose.connection.on('disconnected', function() {
+  reconnectTimes++;
+  reconnectInterval = reconnectInterval * 2;
+  if (reconnectInterval > maxReconnectInterval) reconnectInterval = maxReconnectInterval;
+  setTimeout(() => {
+    connect();
+  }, reconnectInterval * 1000);
+});
+
+mongoose.connection.on('connected', function() {
+  reconnectTimes = 0;
+  reconnectInterval = 0.1;
+});
+
+exports.connect = connect;
+
+```
+
+创建数据库集合`AdminMap`
+
+```js
+'use strict';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const AdminMap = new Schema({
+  category: { type: String, required: true, trim: true },
+  name: { type: String, required: true, trim: true },
+  website: { type: String, required: true, trim: true },
+  describe: { type: String, trim: true },
+  logo: { type: String, trim: true },
+  way: { type: String, trim: true },
+}, {
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+});
+
+
+module.exports = mongoose.model('AdminMap', AdminMap);
+```
 
 #### [passport](https://github.com/jaredhanson/passport)身份验证
 
+##### 特征
+
 Passport是Node.js的Express兼容认证中间件。
 
-Passport的唯一目的是验证请求，它通过一组称为策略的可扩展插件来完成。Passport不会挂载路由或假设任何特定的数据库架构，这可以最大限度地提高灵活性，并允许开发人员做出应用程序级别的决策。API很简单：您为Passport提供了身份验证请求，Passport提供了用于控制身份验证成功或失败时发生的事情的挂钩。
+Passport的唯一目的是验证请求，它通过一组称为策略的可扩展插件来完成。Passport不会挂载路由或假设任何特定的数据库架构，这可以最大限度地提高灵活性，并允许开发人员做出应用程序级别的决策。API很简单：您为Passport提供了身份验证请求，Passport提供了用于控制身份验证成功或失败时的钩子。
 
+会话：Passport将维护持久的登录会话。为了使持久会话工作，必须将经过身份验证的用户序列化到会话，并在发出后续请求时反序列化。Passport对用户记录的存储方式没有任何限制。相反，您为Passport提供了一些函数，这些函数实现了必要的序列化和反序列化逻辑。在典型的应用程序中，这与序列化用户ID以及反序列化时按ID查找用户一样简单。
+
+中间件：要在基于Express或连接的应用程序中使用Passport，请使用所需的Passport .initialize()中间件对其进行配置。如果您的应用程序使用持久性登录会话(推荐使用，但不是必需的)，还必须使用passport.session()中间件。
 #### [passport-local](https://github.com/jaredhanson/passport-local)
+
+##### 特征
+
 用于使用用户名和密码进行身份验证的Passport策略。
 
 此模块允许您使用Node.js应用程序中的用户名和密码进行身份验证。通过插入Passport，可以轻松且不显眼地将本地身份验证集成到支持Connect风格中间件（包括 Express）的任何应用程序或框架中 。
+
+```js
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+……
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.use(new LocalStrategy(User.authenticate()));
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+```
+
 #### [passport-local-mongoose](https://github.com/saintedlama/passport-local-mongoose)
 
 Passport-Local Mongoose是一个Mongoose插件，它简化了使用Passport构建用户名和密码的权限
+
+```js
+const passportLocalMongoose = require('passport-local-mongoose');
+
+const options = {
+  interval: 200,
+  maxInterval: 6 * 60 * 1000,
+  maxAttempts: 6,
+  limitAttempts: true
+};
+User.plugin(passportLocalMongoose, options);
+```
+
 #### [winston](https://github.com/winstonjs/winston)记录日志
 winston被设计为一个简单和通用的日志记录库，支持多个传输。传输本质上是日志的存储设备。每个winston记录器可以具有在不同级别配置的多个传输（请参阅： 传输）（请参阅：记录级别）。例如，可能希望将错误日志存储在持久远程位置（如数据库）中，但所有日志都输出到控制台或本地文件。
 
@@ -765,303 +962,6 @@ node.js的BDD样式断言
 应该是一个富有表现力，可读，与框架无关的断言库。这个图书馆的主要目标是表达和帮助。它可以使您的测试代码保持干净，并且您的错误消息很有用
 #### [supertest](https://github.com/visionmedia/supertest)
 蜘蛛超级代理驱动的库，用于使用流畅的API测试node.js HTTP服务器。
-
-
-### 连接数据库
-
-```js
-'use strict';
-
-const mongoose = require('mongoose');
-const log = require('./logger').createLogger('mongo');
-const config = require('../config')();
-// [koa警告DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `use...](https://www.jianshu.com/p/f3128e7ae3c5)
-mongoose.set('useFindAndModify', false);
-let reconnectTimes = 0;// Mongodb reconnect times
-let reConnectInterval = 0.1;// The interval seconecd time between two reconnection;
-const maxReconnectInterval = 120;// The max interval time between two reconnection;
-
-// Connect to mongodb
-function connect() {
-  const options = {
-    socketTimeoutMS: 3000,
-    keepAlive: true,
-    reconnectTries: 4,
-    useNewUrlParser: true
-  };
-  mongoose.connect(config.database, options);
-}
-
-// Mongoose error handler
-mongoose.connection.on('error', function(err) {
-  log.error(err);
-});
-
-// Mongoose reconnect when closed
-mongoose.connection.on('disconnected', function() {
-  reconnectTimes++;
-  reConnectInterval = reConnectInterval * 2;
-  if (reConnectInterval > maxReconnectInterval) reConnectInterval = maxReconnectInterval;
-  log.warn(`mongodb will the ${reconnectTimes} times try reconnecting, ` +
-           `after ${reConnectInterval} seconds ...`);
-  setTimeout(() => {
-    connect();
-  }, reConnectInterval * 1000);
-});
-
-mongoose.connection.on('connected', function() {
-  reconnectTimes = 0;
-  reConnectInterval = 0.1;
-  log.info('mongodb connected successfull');
-});
-
-exports.connect = connect;
-
-```
-### 主程序
-
-```js
-'use strict';
-
-const express = require('express');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const path = require('path');
-
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
-const config = require('../config')();
-const mongo = require('./mongo');
-const log = require('./logger').createLogger('express');
-const app = express();
-
-exports.start = function() {
-  app.use(express.static(path.resolve(__dirname, '../public')));
-  app.get('/#*', (req, res) => {
-    const html = fs.readFileSync(path.resolve(__dirname, '../public/index.html'), 'utf-8');
-    res.send(html);
-  });
-
-  mongo.connect();
-
-  // Session configuration
-  const sess = {
-    resave: true,
-    saveUninitialized: true,
-    secret: 'I am hungry',
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000
-    }
-  };
-
-  app.use(bodyParser.json());
-  // For parsing application/json
-  // For parsing application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({
-    extended: false
-  }));
-
-  app.use(session(sess)); // Set session middleware
-
-  // passport config
-  var User = require('../collections/user');
-  app.use(passport.initialize());
-  app.use(passport.session());
-  passport.use(new LocalStrategy(User.authenticate()));
-  passport.serializeUser(User.serializeUser());
-  passport.deserializeUser(User.deserializeUser());
-
-
-  app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-    next();
-  });
-
-  app.use('/api/v1/auth', require('../routers/userAuthentication'));
-  app.use('/api/v1/admin', require('../routers/adminOperation'));
-  app.use('/api/v1/superAdmin', require('../routers/superAdminOperation'));
-
-
-  // start server
-  app.set('port', config.expressHttpPort); // Set http port
-
-  app.listen(config.expressHttpPort, () => {
-    // 开启端口打印日志
-    log.info(`express running on ${config.expressHttpPort} port`);
-  });
-};
-
-```
-
-### 记录日志
-
-```js
-'use strict';
-
-/**
- * Logger is to custom winston to provide different log pattern in 'development',
- * 'production' and other mode.
- * 'development' will use Console and File output with 'debug' level
- * 'production' will use DailyRotateFile output with 'info' level,
- *  and the maxFiles is 30d.
- *  other mode will use File output with 'info' level.
- */
-const { createLogger, format, transports } = require('winston');
-require('winston-daily-rotate-file');
-const config = require('../config')();
-const MODE = require('../constant/system').MODE;
-const { combine, timestamp, label, printf } = format;
-
-let mode = process.env.NODE_ENV;
-if (!mode) mode = MODE.DEVE;
-
-let logFile = config.logFile;
-
-// default log file is in the current log folder
-if (!logFile) logFile = './log/express.log';
-logFile = logFile.replace('.log', ''); // remove '.log' from the logFile
-
-const trans = [];
-const consoleTrans = new transports.Console({ level: 'debug' });
-const fileTrans = new transports.File({ filename: `${logFile}.log`, level: 'info' });
-// daily rotate file transport config
-const dailyRotateFileTrans = new (transports.DailyRotateFile)({
-  filename: logFile + '-%DATE%.log',
-  datePattern: 'YYYY-MM-DD-HH',
-  zippedArchive: true,
-  maxSize: '20m',
-  maxFiles: '30d'
-});
-
-if (mode === MODE.DEVE) {
-  trans.push(consoleTrans);
-  fileTrans.level = 'debug';
-  trans.push(fileTrans);
-} else if (mode === MODE.PROD) {
-  trans.push(dailyRotateFileTrans);
-} else {
-  trans.push(fileTrans);
-}
-
-exports.createLogger = function(source) {
-  const myFormat = combine(
-    label({ label: source }),
-    timestamp({ format: 'YYYY-MM-DD hh:mm:ss' }),
-    printf(({ level, message, label, timestamp }) => {
-      return `${timestamp} [${label}][${level.toUpperCase()}]: ${message}`;
-    })
-  );
-  return new (createLogger)({
-    format: myFormat,
-    transports: trans
-  });
-};
-
-```
-
-### 爬取数据
-
-```js
-'use strict';
-const request = require('request');
-const cheerio = require('cheerio');
-const mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/map');
-const superAdminMap = require('../collections/superAdminMap.js');
-
-
-function reptile(url, type) {
-  request(url, function(error, res, body) {
-    if (!error && res.statusCode == 200) {
-      const $ = cheerio.load(body);
-      const panelBlock = $('.panel');
-      const arr = [];
-
-      const map = new Map([
-        ['设计-热门推荐', 'recommendationDesign'],
-        ['设计-灵感采集', 'inspiration'],
-        ['设计-界面交互', 'interaction'],
-        ['设计-设计规范', 'designSpecifications'],
-        ['设计-在线工具', 'onlineTools'],
-        ['设计-icon图标', 'icon'],
-        ['设计-设计素材', 'designMaterial'],
-        ['设计-图库素材', 'galleryMaterial'],
-        ['设计-颜色搭配', 'colourAssortment'],
-        ['设计-字体字形', 'fontGlyph'],
-        ['设计-学习教程', 'learningTutorial'],
-        ['设计-设计团队', 'designTeam'],
-        ['运营-域名注册', 'domainName'],
-        ['运营-数据分析', 'dataAnalysis'],
-        ['运营-数据工具', 'dataTools'],
-        ['运营-数据收集', 'dataCollection'],
-        ['运营-新媒平台', 'mediaPlatform'],
-        ['运营-新媒工具', 'mediaTools'],
-        ['运营-网站收录', 'websiteInclusion'],
-        ['运营-ASO优化', 'ASOOptimization'],
-        ['产品-新品推荐', 'recommendationProduct'],
-        ['产品-产品资讯', 'productInformation'],
-        ['产品-原型工具', 'prototypeTool'],
-        ['产品-思维导图', 'mindMap'],
-        ['产品-协同工作', 'teamwork'],
-        ['产品-文档编辑', 'documentEditing'],
-        ['产品-云盘储存', 'diskStorage'],
-        ['产品-趣味产品', 'interestingProducts'],
-        ['前端-热门推荐', 'recommendationFront-end'],
-        ['前端-前端框架', 'frontFrameFront-end'],
-        ['前端-论坛社区', 'forumCommunityFront-end'],
-        ['前端-学习平台', 'learningPlatformFront-end'],
-        ['前端-个人框架', 'frontFrameFront-end'],
-        ['前端-在线编程', 'onlineProgrammingFront-end'],
-        ['前端-代码托管', 'codeHostingFront-end'],
-        ['前端-构建工具', 'buildToolFront-end'],
-        ['前端-检查测试', 'inspectionTestFront-end'],
-        ['前端-内容管理', 'frontFrameFront-end'],
-        ['前端-后端系统', 'recommendationBack-end'],
-        ['工作-招聘平台', 'recruitmentPlatform'],
-        ['工作-程序兼职', 'partTimeProgram'],
-        ['工作-设计兼职', 'partTimeDesign'],
-        ['极客-开发硬件', 'developmentHardware'],
-        ['极客-硬件系统', 'hardwareSystem'],
-        ['极客-游戏系统', 'gameSystem'],
-        ['极客-其他工具', 'otherTools'],
-        ['极客-信息查询', 'informationInquiry']
-      ]);
-      for (let i = 0; i < panelBlock.length; i++) {
-        const titleLen = $('.panel').eq(i).find('.card-title').length;
-        for (let j = 0; j < titleLen; j++) {
-          const obj = {};
-          obj.category = map.get((type + $('.panel-title.card').eq(i).text().trim()));
-          obj.name = $('.panel').eq(i).find('.card-title').eq(j).text().trim();
-          obj.website = $('.panel').eq(i).find('.card .card-heading').eq(j).attr('title');
-          obj.describe = $('.panel').eq(i).find('.card .card-body').eq(j).text().trim();
-          obj.logo = 'http://chuangzaoshi.com/' + $('.panel').eq(i).find('.card-icon img').eq(j).attr('src');
-          arr.push(obj);
-        }
-      }
-      superAdminMap.create(arr, function(err, doc) {
-        console.log(err);
-      });
-    }
-  });
-}
-
-
-async function main() {
-  await reptile('http://chuangzaoshi.com/index', '设计-');
-  await reptile('http://chuangzaoshi.com/code', '前端-');
-  await reptile('http://chuangzaoshi.com/operate', '运营-');
-  await reptile('http://chuangzaoshi.com/product', '产品-');
-  await reptile('http://chuangzaoshi.com/job', '工作-');
-  await reptile('http://chuangzaoshi.com/geek', '极客-');
-}
-
-main();
-
-```
 
 ### CRUD
 
