@@ -7,7 +7,7 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
 <template>
     <el-carousel type="card" height="200px" :interval=1000>
         <el-carousel-item v-for="(item,key) in arrPng" :key="key">
-         <a :href='item.docLink'><img :src="item.pngLink"/></a>
+         <a :href='item.docLink'><img :src="item.pngLink" style="height: 100%;width: 100%;"/></a>
         </el-carousel-item>
     </el-carousel>
 </template>
