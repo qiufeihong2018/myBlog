@@ -1,22 +1,28 @@
-# navigation网站收藏和导航平台
+# Navigation网站收藏和导航平台
 
 ![avatar](http://images.qiufeihong.top/login.png)
 
 
 ## 实现功能
 
-[网站CRUD](http://images.qiufeihong.top/nAdd.webm)
+### [网站CRUD](http://images.qiufeihong.top/nAdd.webm)
 
-[登录登出](http://images.qiufeihong.top/nLogin.webm)
+### [搜索](http://images.qiufeihong.top/nSearch.webm)
 
-[搜索](http://images.qiufeihong.top/nSearch.webm)
+### [登录登出](http://images.qiufeihong.top/nLogin.webm)
+
 
 
 ## 网站截图
+### 网站导航块瀑布流
 
-![网站导航块瀑布流](http://images.qiufeihong.top/n1.png)
+![网站导航块瀑布流](http://images.qiufeihong.top/n.png)
+
+### 网站嵌套iframe和搜索
 
 ![网站嵌套iframe](http://images.qiufeihong.top/n2.png)
+
+### 网站提交
 
 ![网站提交](http://images.qiufeihong.top/n3.png)
 
@@ -24,7 +30,7 @@
 
 [预览](http://navigation.qiufeihong.top)
 
-## 实现思路
+## 简单的实现思路
 
 ![avatar](http://images.qiufeihong.top/navigation1.png)
 
@@ -32,15 +38,33 @@
 
 是基于花裤衩的[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)的简单版的后台管理模板，这一款基于vue2.0的后台管理平台深受大众喜爱。
 
-### vue-admin-template集成的工具包
+### vue-admin-template集成的依赖包
 
-#### vuex
-
-vue状态管理工具
+#### [Vuex](https://github.com/vuejs/vuex)存储状态
 
 Vuex是一个专为Vue.js应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化.
 
 自动从modules文件夹中导入文件
+
+推荐一本老姚的正则手册[《JavaScript正则表达式迷你书（1.1版）.pdf》](http://images.qiufeihong.top/JavaScript%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%B7%E4%BD%A0%E4%B9%A6%EF%BC%881.1%E7%89%88%EF%BC%89.pdf)
+
+#####  ^（脱字符）匹配开头，在多行匹配中匹配行开头。
+
+##### $(美元符号)匹配结尾,在多行匹配中匹配行结尾。
+
+##### ^、$、.、*、+、?、|、\、/、(、)、[、]、{、}、=、!、:、- ,
+当匹配上面的字符本身时，可以一律转义：
+
+##### \w 表示 [0-9a-zA-Z_]。表示数字、大小写字母和下划线。
+记忆方式：w 是 word 的简写，也称单词字符。
+##### +等价于 {1,}，表示出现至少一次。
+记忆方式：加号是追加的意思，得先有一个，然后才考虑追加。
+##### [require.context](https://webpack.js.org/guides/dependency-management/)
+根据正则（在modules文件夹中找到结尾是js的文件）匹配所有的文件
+
+##### replace一个新的字符串
+
+
 ```js
 
 // https://webpack.js.org/guides/dependency-management/#requirecontext
@@ -61,25 +85,133 @@ const store = new Vuex.Store({
   getters
 })
 ```
-#### axios
 
-支持http数据通信
 
-Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+#### [axios](https://github.com/axios/axios)进行前后端数据通信
 
-在其封装axios对象的request文件中，我在response响应中去掉了自定义状态码的设置。
+支持http数据通信。Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
 
-#### element-ui
+尤大推荐用axios，让Axios进入了很多人的目光中。Axios本质上也是对原生XHR的封装，只不过它是Promise的实现版本，符合最新的ES规范
+
+他的特性之客户端支持防止CSRF，每个请求都带一个从cookie中拿到的key, 根据浏览器同源策略，假冒的网站是拿不到cookie中的key，这样，后台就可以轻松辨别出这个请求是否是用户在假冒网站上的误导输入，从而采取正确的策略。
+
+
+在其封装axios对象的request文件中，response响应中去掉了自定义状态码的设置。
+
+登录完成后，将用户的token通过cookie存在本地，然后在页面跳转前拦截读取token，如果token存在则说明已经登录过，刷新vuex中的token状态。每次发送请求时都会携带token。后端会通过携带的token判断是否登录或过期。
+
+```js
+import axios from 'axios'
+import {
+  Message
+} from 'element-ui'
+// production
+import store from '@/store'
+import {
+  getToken
+} from '@/utils/auth'
+
+// create an axios instance
+const service = axios.create({
+  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  // withCredentials: true, // send cookies when cross-domain requests
+  timeout: 5000 // request timeout
+})
+
+// request interceptor
+service.interceptors.request.use(
+  config => {
+    if (process.env.NODE_ENV === 'production' && store.getters.token) {
+      // do something before request is sent
+      // let each request carry token
+      // ['X-Token'] is a custom headers key
+      // please modify it according to the actual situation
+      config.headers['X-Token'] = getToken()
+    }
+    return config
+  },
+  error => {
+    // do something with request error
+    console.log(error) // for debug
+    return Promise.reject(error)
+  }
+)
+
+// response interceptor
+service.interceptors.response.use(
+  /**
+   * If you want to get http information such as headers or status
+   * Please return  response => response
+   */
+
+  /**
+   * Determine the request status by custom code
+   * Here is just an example
+   * You can also judge the status by HTTP Status Code
+   */
+  response => {
+    const res = response.data
+    return res
+  },
+  error => {
+    console.log('err' + error) // for debug
+    Message({
+      message: error.message,
+      type: 'error',
+      duration: 5 * 1000
+    })
+    return Promise.reject(error)
+  }
+)
+
+export default service
+
+
+```
+
+#### [element-ui](https://github.com/ElemeFE/element)快速搭建后台
 
 饿了吗的web平台UI库
 
 Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
 
-#### [js-cookie](https://github.com/js-cookie/js-cookie)
+在main.js中全局导入element-ui
+```js
+import Vue from 'vue'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+// import enLocale from 'element-ui/lib/locale/lang/en'
+import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+// set ElementUI lang to EN
+Vue.use(ElementUI, {
+  zhLocale
+})
+```
+
+##### Breadcrumb 面包屑
+
+显示当前页面的路径，快速返回之前的任意页面。
+
+
+#### [js-cookie](https://github.com/js-cookie/js-cookie)处理浏览器cookie
+
 
 一个简单，轻量级的JavaScript API，用于处理浏览器cookie
 
-```
+##### 特征
+
+- 适用于所有浏览器
+- 接受任何角色
+- 经过严格测试
+- 没有依赖
+- 不显眼的 JSON支持
+- 支持AMD / CommonJS
+- 符合RFC 6265
+- 启用自定义编码/解码
+
+对cookie进行CRUD
+
+```js
 import Cookies from 'js-cookie'
 
 const TokenKey = 'navigation_token'
@@ -96,62 +228,229 @@ export function removeToken() {
   return Cookies.remove(TokenKey)
 }
 ```
+
+![avatar](http://images.qiufeihong.top/navigation2.png)
+
 #### [normalize.css](https://github.com/necolas/normalize.css)
-CSS重置的现代替代方案
 
-1. 与许多CSS重置不同，保留有用的默认值。
-2. 规范化各种元素的样式。
-3. 更正了错误和常见的浏览器不一致性。
-4. 通过微妙的修改提高可用性。
-5. 使用详细注释说明代码的作用。
+在默认的HTML元素样式上提供了跨浏览器的高度一致性。相比于传统的css reset，Normalize.css是一种现代的，为HTML5准备的优质替代方案。
 
 
-#### [nprogress](https://github.com/rstacruz/nprogress)
+##### 特征
 
-适用于Ajax'y应用程序的超薄进度条。受Google，YouTube和Medium的启发。
+- 与许多CSS重置不同，保留有用的默认值，而不是删除他们。
+- 规范化各种元素的样式。
+- 更正了错误和常见的浏览器不一致性。
+- 通过微妙的修改提高可用性。
+- 使用详细注释说明代码的作用。
 
-用在路由跳转文件中
+
+推荐阅读[Normalize.css 与传统的 CSS Reset 有哪些区别？](https://www.zhihu.com/question/20094066)
+
+#### [nprogress](https://github.com/rstacruz/nprogress)进度条
+
+超薄进度条
+
+通过调用start()和done()来控制进度条。
+
+用在permission页面跳转时候
+```js
+import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css' // progress bar style
+NProgress.configure({
+  showSpinner: false
+}) // NProgress Configuration
+
+NProgress.start()
+
+NProgress.done()
+```
+
+还可以调整速度
+
+```js
+NProgress.configure({ easing: 'ease', speed: 500 });
+```
+关闭加载微调器。（默认值：true）
+
+```js
+NProgress.configure({
+  showSpinner: false
+}) // NProgress Configuration
+```
+
+更改其父容器
+
+```js
+NProgress.configure({ parent: '#container' });
+```
+
+#### [path-to-regexp](https://github.com/pillarjs/path-to-regexp)处理 url 中地址与参数
+该工具库用来处理 url 中地址与参数，能够很方便得到我们想要的数据。
+
+js 中有 RegExp 方法做正则表达式校验，而 path-to-regexp 可以看成是 url 字符串的正则表达式。
+
+应用于面包屑组件`components/Breadcrumb/index.vue`中，
+
+分析下这个组件的原理：
+
+- 拿到并且过滤当前路由中的matched属性，找到需要展示的meta属性
+- 触发点击时，获得当前路由，判断redirect属性，如果值存在，塞进路由;否则有携带params的话，将路由补充完整。
+
+```js
+import pathToRegexp from 'path-to-regexp'
 
 
-#### [path-to-regexp](https://github.com/pillarjs/path-to-regexp)
+   pathCompile(path) {
+      // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
+      const { params } = this.$route
+      var toPath = pathToRegexp.compile(path)
+      return toPath(params)
+    },
+```
 
-将路径字符串/user/:name转换为正则表达式。
+#### [vue-router](https://github.com/vuejs/vue-router)管理路由
+Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。
 
-#### [stylus](https://github.com/stylus/stylus)
+##### 特征
 
-为nodejs构建的富有表现力，功能强大，功能丰富的CSS语言
+- 嵌套的路由/视图表
+- 模块化的、基于组件的路由配置
+- 路由参数、查询、通配符
+- 基于 Vue.js 过渡系统的视图过渡效果
+- 细粒度的导航控制
+- 带有自动激活的 CSS class 的链接
+- HTML5 历史模式或 hash 模式，在 IE9 中自动降级
+- 自定义的滚动条行为
 
-#### [stylus-loader](https://github.com/shama/stylus-loader)
+##### 集成vue-router
 
-为了能够使用任何stylus软件包版本，它将不会自动安装。因此需要将其添加到package.json其中stylus-loader。
+```js
 
-#### [vue-router](https://github.com/vuejs/vue-router)
-Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。包含的功能有：
+import Vue from 'vue'
+import Router from 'vue-router'
 
-嵌套的路由/视图表
-模块化的、基于组件的路由配置
-路由参数、查询、通配符
-基于 Vue.js 过渡系统的视图过渡效果
-细粒度的导航控制
-带有自动激活的 CSS class 的链接
-HTML5 历史模式或 hash 模式，在 IE9 中自动降级
-自定义的滚动条行为
+Vue.use(Router)
 
+/* Layout */
+import Layout from '@/layout'
+
+```
+
+
+
+往路由中心`router/index.js`导入页面,下面是截取路由-页面映射的一部分。
+
+其中`getNav`是获取模板`/page/NavPage/index`路径的方法。
+```js
+function getNav() {
+  return () => import('@/page/NavPage/index')
+}
+```
+
+```js
+
+……
+
+{
+  path: '/jobs',
+  component: Layout,
+  redirect: '/jobs/recruitmentPlatform',
+  name: 'Jobs',
+  meta: {
+    title: '工作',
+    icon: 'jobs'
+  },
+  children: [{
+    path: 'recruitmentPlatform',
+    name: 'RecruitmentPlatform',
+    component: getNav(),
+    meta: {
+      title: '工作-招聘平台',
+      icon: 'recruitmentPlatform'
+    }
+  },
+  {
+    path: 'partTimeProgram',
+    name: 'PartTimeProgram',
+    component: getNav(),
+    meta: {
+      title: '工作-程序兼职',
+      icon: 'partTimeProgram'
+    }
+  },
+  {
+    path: 'partTimeDesign',
+    name: 'PartTimeDesign',
+    component: getNav(),
+    meta: {
+      title: '工作-设计兼职',
+      icon: 'partTimeDesign'
+    }
+  },
+  {
+    path: '/jobs/iframeNav',
+    name: 'jobsIframeNav',
+    hidden: true,
+    component: () => import('@/page/iframeNav/index'),
+    meta: {
+      title: '网站',
+      icon: 'iframeNav'
+    }
+  }
+  ]
+},
+
+
+……
+
+```
+
+使用router生成页面
+
+```js
+const createRouter = () => new Router({
+  // mode: 'history', // require service support
+  scrollBehavior: () => ({
+    y: 0
+  }),
+  routes: constantRoutes
+})
+
+const router = createRouter()
+
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
+
+export default router
+
+```
+
+模板`NavPage/index.vue`代码见[github仓库](https://github.com/qiufeihong2018/navigation-web/tree/master/src/page/NavPage/index.vue)
 
 #### [screenfull](https://github.com/sindresorhus/screenfull.js)
-用于跨浏览器使用JavaScript Fullscreen API的简单包装器，可让您将页面或任何元素全屏显示。平滑浏览器实现差异，因此您不必这样做。
-### 自定义工具包
 
-#### [vue-waterfall2](https://github.com/AwesomeDevin/vue-waterfall2)
+用于跨浏览器使用`JavaScript Fullscreen API`的简单包装器，可让页面或任何元素全屏显示。
+
+
+### 自定义依赖包
+
+#### [vue-waterfall2](https://github.com/AwesomeDevin/vue-waterfall2)构建瀑布流布局
 
 适用于vue和支持延迟加载的瀑布自适应插件，非常简单！
 ```
 import waterfall from 'vue-waterfall2'
 Vue.use(waterfall)
 ```
-#### commitizen
+#### [commitizen](https://github.com/commitizen/cz-cli)提交git规范化
+commitizen命令行实用程序。
 
-#### 抽屉组件
+当您在Commitizen友好存储库中工作时，系统将提示您填写任何必填字段，并且您的提交消息将根据项目维护人员定义的标准进行格式化。
+#### 抽屉组件弹出搜索信息
+
 ### 页面模板
 
 ```vue
@@ -393,28 +692,80 @@ this.categoryOptions = getOption('label', routes)
 
 基于express框架
 
-### 工具包
-#### body-parser
-#### express
-#### express-session
-#### mongoose
-#### passport
-#### passport-local
+### 依赖包
+#### [body-parser](https://github.com/expressjs/body-parser)正文解析
 
-#### passport-local-mongoose
-#### winston
-#### winston-daily-rotate-file
-#### assert
-#### cheerio
-#### commitizen
-#### eslint
-#### istanbul
-#### commitizen
-#### mocha
-#### mochawesome
-#### request
-#### should
-#### supertest
+Node.js正文解析中间件
+
+在处理程序之前在中间件中解析传入的请求主体，在req.body属性下可用。
+
+注意由于req.body形状基于用户控制的输入，因此该对象中的所有属性和值都是不可信的，应在信任之前进行验证。例如，req.body.foo.toString()可能以多种方式失败，例如foo属性可能不存在或者可能不是字符串，并且toString可能不是函数，而是字符串或其他用户输入。
+
+#### [express](https://github.com/expressjs/express)搭建web应用
+
+强大的路由
+专注于高性能
+超高的测试覆盖率
+HTTP助手（重定向，缓存等）
+查看支持14+模板引擎的系统
+内容协商
+可快速生成应用程序的可执行文件
+
+#### [express-session](https://github.com/expressjs/session)
+
+express简单的session中间件
+
+
+#### [mongoose](https://github.com/Automattic/mongoose)连接数据库
+
+Mongoose是一个MongoDB对象建模工具，旨在在异步环境中工作。
+
+#### [passport](https://github.com/jaredhanson/passport)身份验证
+
+Passport是Node.js的Express兼容认证中间件。
+
+Passport的唯一目的是验证请求，它通过一组称为策略的可扩展插件来完成。Passport不会挂载路由或假设任何特定的数据库架构，这可以最大限度地提高灵活性，并允许开发人员做出应用程序级别的决策。API很简单：您为Passport提供了身份验证请求，Passport提供了用于控制身份验证成功或失败时发生的事情的挂钩。
+
+#### [passport-local](https://github.com/jaredhanson/passport-local)
+用于使用用户名和密码进行身份验证的Passport策略。
+
+此模块允许您使用Node.js应用程序中的用户名和密码进行身份验证。通过插入Passport，可以轻松且不显眼地将本地身份验证集成到支持Connect风格中间件（包括 Express）的任何应用程序或框架中 。
+#### [passport-local-mongoose](https://github.com/saintedlama/passport-local-mongoose)
+
+Passport-Local Mongoose是一个Mongoose插件，它简化了使用Passport构建用户名和密码的权限
+#### [winston](https://github.com/winstonjs/winston)记录日志
+winston被设计为一个简单和通用的日志记录库，支持多个传输。传输本质上是日志的存储设备。每个winston记录器可以具有在不同级别配置的多个传输（请参阅： 传输）（请参阅：记录级别）。例如，可能希望将错误日志存储在持久远程位置（如数据库）中，但所有日志都输出到控制台或本地文件。
+
+winston旨在将部分日志记录过程分离，使其更加灵活和可扩展。注意支持日志格式（参见：格式）和级别的灵活性（请参阅：使用自定义日志记录级别），并确保这些API与传输日志记录的实现分离
+#### [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file)
+winston的传输，记录到旋转文件。可以根据日期，大小限制轮换日志，并且可以根据计数或经过的天数删除旧日志。
+#### [assert](https://github.com/beberlei/assert)精简断言库，用于库和业务模型
+
+#### [cheerio](https://github.com/cheeriojs/cheerio)爬虫
+快速，灵活和精简的核心jQuery实现，专为服务器而设计。
+
+#### [eslint](https://github.com/eslint/eslint)
+ESLint是一种用于识别和报告ECMAScript / JavaScript代码中的模式的工具。在许多方面，它类似于JSLint和JSHint，但有一些例外：
+
+ESLint使用Espree进行JavaScript解析。
+ESLint使用AST来评估代码中的模式。
+ESLint是完全可插拔的，每个规则都是一个插件，您可以在运行时添加更多。
+#### [istanbul](https://github.com/gotwarlost/istanbul)
+
+另一个JS代码覆盖工具，它使用模块加载器挂钩计算语句，行，函数和分支覆盖，以便在运行测试时透明地添加覆盖。支持所有JS覆盖用例，包括单元测试，服务器端功能测试和浏览器测试。专为规模而建。
+#### [mocha](https://github.com/mochajs/mocha)
+node.js和浏览器的简单，灵活，有趣的javascript测试框架
+#### [mochawesome](https://github.com/adamgruber/mochawesome)
+Mochawesome是一个用于Javascript测试框架mocha的自定义报告器。它在Node.js（> = 8）上运行，并与mochawesome-report-generator结合使用，生成独立的HTML / CSS报告，以帮助可视化您的测试运行。
+#### [request](https://github.com/request/request)
+简单的http请求客户端
+#### [should](https://github.com/shouldjs/should.js)
+node.js的BDD样式断言
+
+应该是一个富有表现力，可读，与框架无关的断言库。这个图书馆的主要目标是表达和帮助。它可以使您的测试代码保持干净，并且您的错误消息很有用
+#### [supertest](https://github.com/visionmedia/supertest)
+蜘蛛超级代理驱动的库，用于使用流畅的API测试node.js HTTP服务器。
+
 
 ### 连接数据库
 
@@ -743,7 +1094,7 @@ router.get('/', function(req, res) {
   });
 });
 ```
-### apidoc
+### apidoc文档神器
 
 为了方便查看api，所以用上apidoc是绝对要的，需要了解点此处[apiDoc生成接口文档,不费吹灰之力](https://www.qiufeihong.top/technical-summary/apiDoc/)
 
@@ -803,4 +1154,4 @@ router.get('/', function(req, res) {
 
 ## 展望
 
-开发扩展程序，点击网站右键添加到`navigation`
+下一篇《chrome开发之Navigation提交工具》
