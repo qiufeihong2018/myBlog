@@ -1150,6 +1150,55 @@ const category1 = container.get('category1');
 category1.info('logging to file and console transports');
 ```
 
+## winston-daily-rotate-file
+
+winston的传输，记录到旋转文件。可以根据日期，大小限制轮换日志，并且可以根据计数或经过的天数删除旧日志。
+
+从版本2.0.0开始，传输已经过重构以利用file-stream-rotator模块。1.x版本的传输中的某些选项已更改。请查看以下选项以确定所需的任何更改。
+### 安装
+```
+npm install winston-daily-rotate-file
+```
+### 选项
+DailyRotateFile传输可以按分钟，小时，日，月，年或工作日旋转文件。除了记录器winston-daily-rotate-file接受的选项外，还接受以下选项：
+
+* **frequency:** 表示旋转频率的字符串。如果您希望进行定时旋转，而不是在特定时刻发生旋转，则此功能非常有用。有效值为'#m'或'#h'（例如，'5m'或'3h'）。留下这个null依赖于datePattern旋转时间。（默认值：null）
+* **datePattern:** 表示要用于旋转的moment.js日期格式的字符串。此字符串中使用的元字符将指示文件旋转的频率。例如，如果您的datePattern只是“HH”，那么您最终会得到24个日志文件，这些日志文件会被拾取并附加到每天。（默认'YYYY-MM-DD'）
+* **zippedArchive:** 一个布尔值，用于定义是否对存档的日志文件进行gzip。（默认为'false'）
+* **filename:**用于登录的文件名。此文件名可以包含%DATE%占位符，该占位符将在文件名中包含格式化的datePattern。（默认：'winston.log。％DATE％）
+* **dirname:**保存日志文件的目录名称。（默认：'。'）
+* **stream:**直接写入自定义流并绕过旋转功能。（默认值：null）
+* **maxSize:** 文件的最大大小，然后旋转。这可以是多个字节，或kb，mb和gb的单位。如果使用单位，请添加'k'，'m'或'g'作为后缀。单位需要直接跟随数字。（默认值：null）
+* **maxFiles:**要保留的最大日志数。如果未设置，则不会删除任何日志。这可以是多个文件或天数。如果使用天数，请添加“d”作为后缀。（默认值：null）
+* **options:**类似于https://nodejs.org/api/fs.html#fs_fs_createwritestream_path_options的对象，指示应传递给文件流的其他选项。（默认值：{ flags: 'a' }）
+* **auditFile**: 表示审计文件名称的字符串。这可以用于覆盖通过计算选项对象的哈希生成的默认文件名。（默认：'.. json'）
+### 用法
+``` js
+  var winston = require('winston');
+  require('winston-daily-rotate-file');
+
+  var transport = new (winston.transports.DailyRotateFile)({
+    filename: 'application-%DATE%.log',
+    datePattern: 'YYYY-MM-DD-HH',
+    zippedArchive: true,
+    maxSize: '20m',
+    maxFiles: '14d'
+  });
+
+  transport.on('rotate', function(oldFilename, newFilename) {
+    // do something fun
+  });
+
+  var logger = winston.createLogger({
+    transports: [
+      transport
+    ]
+  });
+
+  logger.info('Hello World!');
+```
+
+此传输会发出三个自定义事件：new，rotate和archive。您可以侦听新的自定义事件，该事件在创建新日志文件时触发。新事件将一个参数传递给回调（newFilename）。您可以侦听旋转自定义事件，该事件在旋转日志文件时触发。rotate事件将两个参数传递给回调（oldFilename，newFilename）。您还可以侦听归档日志文件时触发的归档自定义事件。归档事件将一个参数传递给回调（zipFilename）。
 ## bug
 1. 
 ```

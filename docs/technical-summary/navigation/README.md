@@ -929,13 +929,6 @@ const AdminMap = new Schema({
 module.exports = mongoose.model('AdminMap', AdminMap);
 ```
 
-#### [winston](https://github.com/winstonjs/winston)记录日志
-winston被设计为一个简单和通用的日志记录库，支持多个传输。传输本质上是日志的存储设备。每个winston记录器可以具有在不同级别配置的多个传输（请参阅： 传输）（请参阅：记录级别）。例如，可能希望将错误日志存储在持久远程位置（如数据库）中，但所有日志都输出到控制台或本地文件。
-
-winston旨在将部分日志记录过程分离，使其更加灵活和可扩展。注意支持日志格式（参见：格式）和级别的灵活性（请参阅：使用自定义日志记录级别），并确保这些API与传输日志记录的实现分离
-#### [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file)
-winston的传输，记录到旋转文件。可以根据日期，大小限制轮换日志，并且可以根据计数或经过的天数删除旧日志。
-
 
 #### [assert](https://github.com/beberlei/assert)精简断言库，用于库和业务模型
 
@@ -969,7 +962,7 @@ node.js的BDD样式断言
 #### [supertest](https://github.com/visionmedia/supertest)
 蜘蛛超级代理驱动的库，用于使用流畅的API测试node.js HTTP服务器。
 
-### 登录注册时用户名和密码验证的依赖包
+### 登录注册时用户名和密码验证
 这三者有这密切的联系，前两者都可以归`passport-local-mongoose`管理，主要解析就放在`passport-local-mongoose`这个依赖包中
 #### [passport](https://github.com/jaredhanson/passport)
 
@@ -1045,6 +1038,17 @@ User.plugin(passportLocalMongoose, options);
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
 ```
+### 记录日志
+
+#### [winston](https://github.com/winstonjs/winston)记录日志
+winston被设计为一个简单和通用的日志记录库，支持多个传输。传输本质上是日志的存储设备。每个winston记录器可以具有在不同级别配置的多个传输（请参阅： 传输）（请参阅：记录级别）。例如，可能希望将错误日志存储在持久远程位置（如数据库）中，但所有日志都输出到控制台或本地文件。
+
+winston旨在将部分日志记录过程分离，使其更加灵活和可扩展。注意支持日志格式（参见：格式）和级别的灵活性（请参阅：使用自定义日志记录级别），并确保这些API与传输日志记录的实现分离
+
+[winston](https://www.qiufeihong.top/technical-summary/express/#winston)
+
+#### [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file)
+winston的传输，记录到旋转文件。可以根据日期，大小限制轮换日志，并且可以根据计数或经过的天数删除旧日志。
 
 ### CRUD
 
