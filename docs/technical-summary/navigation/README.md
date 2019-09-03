@@ -193,7 +193,54 @@ Vue.use(ElementUI, {
 
 显示当前页面的路径，快速返回之前的任意页面。
 
+```html
+  <el-breadcrumb class="app-breadcrumb" separator=">">
+    <transition-group name="breadcrumb">
+      <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
+        <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">{{ item.meta.title }}</span>
+        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+      </el-breadcrumb-item>
+    </transition-group>
+  </el-breadcrumb>
+```
+
 ##### 抽屉组件弹出搜索信息
+搜索栏通过改变vuex中的`openDrawer`状态来控制底层抽屉组件。在弹出的抽屉中可以通过关键词搜索mongo数据库中的导航网站的title和描述，点击iframe和外链查看收藏的网站。
+```html
+   <el-drawer title="搜索网站" :visible.sync="openDrawer" :before-close="closeDrawer" direction="btt" size="50%">
+      <div class="search-container">
+        <el-input slot="prepend" v-model="queryData.query" placeholder="请输入，例如：ppt" @keyup.enter.native="getSuperSearch">
+          <el-button slot="append" icon="el-icon-search" @click.stop="getSuperSearch" />
+        </el-input>
+      </div>
+      <el-table :data="tableData" stripe style="width: 100%" highlight-current-row>
+        <el-table-column type="index" />
+        <el-table-column prop="name" label="名字" width="200" show-overflow-tooltip />
+        <el-table-column prop="website" label="网站链接" width="200" show-overflow-tooltip>
+          <template slot-scope="slot">
+            <router-link class="font-website" :to="{ path: 'iframeNav', query: { website: slot.row.website }}">
+              {{ slot.row.website }}
+            </router-link>
+          </template>
+        </el-table-column>
+        <el-table-column prop="describe" label="描述" show-overflow-tooltip />
+        <el-table-column prop="created_at" label="创建时间" width="200" show-overflow-tooltip />
+        <el-table-column prop="category" label="分类" width="200" show-overflow-tooltip />
+        <el-table-column fixed="right" label="操作" width="100">
+          <template slot-scope="scope">
+            <router-link class="font-website" :to="{ path: 'iframeNav', query: { website: scope.row.website }}">
+              iframe链接
+            </router-link>
+            <a class="font-website" :href="scope.row.website" target="_blank">新窗口链接</a>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination-container">
+        <el-pagination small background layout="prev, pager, next" :total="total" :page-size="2" @current-change="handleCurrentChange" />
+      </div>
+    </el-drawer>
+
+```
 
 #### [js-cookie](https://github.com/js-cookie/js-cookie)处理浏览器cookie
 
@@ -882,60 +929,14 @@ const AdminMap = new Schema({
 module.exports = mongoose.model('AdminMap', AdminMap);
 ```
 
-#### [passport](https://github.com/jaredhanson/passport)身份验证
-
-##### 特征
-
-Passport是Node.js的Express兼容认证中间件。
-
-Passport的唯一目的是验证请求，它通过一组称为策略的可扩展插件来完成。Passport不会挂载路由或假设任何特定的数据库架构，这可以最大限度地提高灵活性，并允许开发人员做出应用程序级别的决策。API很简单：您为Passport提供了身份验证请求，Passport提供了用于控制身份验证成功或失败时的钩子。
-
-会话：Passport将维护持久的登录会话。为了使持久会话工作，必须将经过身份验证的用户序列化到会话，并在发出后续请求时反序列化。Passport对用户记录的存储方式没有任何限制。相反，您为Passport提供了一些函数，这些函数实现了必要的序列化和反序列化逻辑。在典型的应用程序中，这与序列化用户ID以及反序列化时按ID查找用户一样简单。
-
-中间件：要在基于Express或连接的应用程序中使用Passport，请使用所需的Passport .initialize()中间件对其进行配置。如果您的应用程序使用持久性登录会话(推荐使用，但不是必需的)，还必须使用passport.session()中间件。
-#### [passport-local](https://github.com/jaredhanson/passport-local)
-
-##### 特征
-
-用于使用用户名和密码进行身份验证的Passport策略。
-
-此模块允许您使用Node.js应用程序中的用户名和密码进行身份验证。通过插入Passport，可以轻松且不显眼地将本地身份验证集成到支持Connect风格中间件（包括 Express）的任何应用程序或框架中 。
-
-```js
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
-……
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-  passport.use(new LocalStrategy(User.authenticate()));
-  passport.serializeUser(User.serializeUser());
-  passport.deserializeUser(User.deserializeUser());
-```
-
-#### [passport-local-mongoose](https://github.com/saintedlama/passport-local-mongoose)
-
-Passport-Local Mongoose是一个Mongoose插件，它简化了使用Passport构建用户名和密码的权限
-
-```js
-const passportLocalMongoose = require('passport-local-mongoose');
-
-const options = {
-  interval: 200,
-  maxInterval: 6 * 60 * 1000,
-  maxAttempts: 6,
-  limitAttempts: true
-};
-User.plugin(passportLocalMongoose, options);
-```
-
 #### [winston](https://github.com/winstonjs/winston)记录日志
 winston被设计为一个简单和通用的日志记录库，支持多个传输。传输本质上是日志的存储设备。每个winston记录器可以具有在不同级别配置的多个传输（请参阅： 传输）（请参阅：记录级别）。例如，可能希望将错误日志存储在持久远程位置（如数据库）中，但所有日志都输出到控制台或本地文件。
 
 winston旨在将部分日志记录过程分离，使其更加灵活和可扩展。注意支持日志格式（参见：格式）和级别的灵活性（请参阅：使用自定义日志记录级别），并确保这些API与传输日志记录的实现分离
 #### [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file)
 winston的传输，记录到旋转文件。可以根据日期，大小限制轮换日志，并且可以根据计数或经过的天数删除旧日志。
+
+
 #### [assert](https://github.com/beberlei/assert)精简断言库，用于库和业务模型
 
 #### [cheerio](https://github.com/cheeriojs/cheerio)爬虫
@@ -952,16 +953,98 @@ ESLint是完全可插拔的，每个规则都是一个插件，您可以在运�
 另一个JS代码覆盖工具，它使用模块加载器挂钩计算语句，行，函数和分支覆盖，以便在运行测试时透明地添加覆盖。支持所有JS覆盖用例，包括单元测试，服务器端功能测试和浏览器测试。专为规模而建。
 #### [mocha](https://github.com/mochajs/mocha)
 node.js和浏览器的简单，灵活，有趣的javascript测试框架
+
+
 #### [mochawesome](https://github.com/adamgruber/mochawesome)
 Mochawesome是一个用于Javascript测试框架mocha的自定义报告器。它在Node.js（> = 8）上运行，并与mochawesome-report-generator结合使用，生成独立的HTML / CSS报告，以帮助可视化您的测试运行。
+
+
 #### [request](https://github.com/request/request)
 简单的http请求客户端
+
 #### [should](https://github.com/shouldjs/should.js)
 node.js的BDD样式断言
 
 应该是一个富有表现力，可读，与框架无关的断言库。这个图书馆的主要目标是表达和帮助。它可以使您的测试代码保持干净，并且您的错误消息很有用
 #### [supertest](https://github.com/visionmedia/supertest)
 蜘蛛超级代理驱动的库，用于使用流畅的API测试node.js HTTP服务器。
+
+### 登录注册时用户名和密码验证的依赖包
+这三者有这密切的联系，前两者都可以归`passport-local-mongoose`管理，主要解析就放在`passport-local-mongoose`这个依赖包中
+#### [passport](https://github.com/jaredhanson/passport)
+
+##### 特征
+
+Passport是Node.js的Express兼容认证中间件。
+
+Passport的唯一目的是验证请求，它通过一组称为策略的可扩展插件来完成。Passport不会挂载路由或假设任何特定的数据库架构，这可以最大限度地提高灵活性，并允许开发人员做出应用程序级别的决策。Passport提供了用于控制身份验证成功或失败时的钩子。
+
+会话：Passport将维护持久的登录会话。为了使持久会话工作，必须将经过身份验证的用户序列化到会话，并在发出后续请求时反序列化。Passport对用户记录的存储方式没有任何限制。相反，您为Passport提供了一些函数，这些函数实现了必要的序列化和反序列化逻辑。在典型的应用程序中，这与序列化用户ID以及反序列化时按ID查找用户一样简单。
+
+中间件：要在基于Express或连接的应用程序中使用Passport，请使用所需的Passport .initialize()中间件对其进行配置。如果您的应用程序使用持久性登录会话(推荐使用，但不是必需的)，还必须使用passport.session()中间件。
+
+#### [passport-local](https://github.com/jaredhanson/passport-local)
+
+##### 特征
+
+用于使用用户名和密码进行身份验证的Passport策略。
+
+此模块允许您使用Node.js应用程序中的用户名和密码进行身份验证。通过插入Passport，可以轻松且不显眼地将本地身份验证集成到支持Connect风格中间件（包括 Express）的任何应用程序或框架中 。
+
+做验证之前，首先需要对策略进行配置
+
+参考于github
+```js
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+```
+
+#### [passport-local-mongoose](https://github.com/saintedlama/passport-local-mongoose)
+
+#### 特征
+`passport-local-mongoose`是一个Mongoose插件，它简化了使用Passport构建用户名和密码的权限
+
+
+##### 解析
+1. 首先需要将依赖包导入schema中。
+```js
+const passportLocalMongoose = require('passport-local-mongoose');
+
+const options = {
+  interval: 200,
+  maxInterval: 6 * 60 * 1000,
+  maxAttempts: 6,
+  limitAttempts: true
+};
+User.plugin(passportLocalMongoose, options);
+```
+2. 配置Passport和Passport-Local
+
+可以简化两者的配置
+
+`passport-local-mongoose`可以通过设置`LocalStrategy`、`serializeUser`和`deserializeUser`来配置来这两者
+
+具体参数解析见[《mongoose之passport-local-mongoose》](https://www.qiufeihong.top/technical-summary/mongo/#mongoose%E4%B9%8Bpassport-local-mongoose)
+
+```js
+  // requires the model with Passport-Local Mongoose plugged in
+  var User = require('../collections/user');
+  app.use(passport.initialize());
+  app.use(passport.session());
+  // use static authenticate method of model in LocalStrategy
+  passport.use(new LocalStrategy(User.authenticate()));
+  // use static serialize and deserialize of model for passport session support
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+```
 
 ### CRUD
 
@@ -996,10 +1079,10 @@ router.get('/', function(req, res) {
 ```
 ### apidoc文档神器
 
-为了方便查看api，所以用上apidoc是绝对要的，需要了解点此处[apiDoc生成接口文档,不费吹灰之力](https://www.qiufeihong.top/technical-summary/apiDoc/)
+为了方便查看api，所以用上apidoc是绝对要的，需要了解并运用的，点此处[apiDoc生成接口文档,不费吹灰之力](https://www.qiufeihong.top/technical-summary/apiDoc/)
 
 
-
+此处是后端查找superAdmin数据库的get请求的注释
 ```js
 
 /**
@@ -1051,6 +1134,9 @@ router.get('/', function(req, res) {
  *     }
  */
 ```
+执行`npm run apidoc`命令后生成api文档
+
+![avatar](http://images.qiufeihong.top/navigation3.png)
 
 ## 展望
 

@@ -7,7 +7,6 @@
 
 
 ## doc
-[七牛存储图片](https://developer.qiniu.com/fusion/kb/1322/how-to-configure-cname-domain-name)
 
 [没有vue-cli就没有qfh-cli](./qfh-cli/)
 
@@ -82,6 +81,8 @@
 
 
 ## todo
+[七牛存储图片](https://developer.qiniu.com/fusion/kb/1322/how-to-configure-cname-domain-name)
+
 [图片懒加载原理及实现](https://www.jianshu.com/p/8e2a73638153)
 [图片懒加载的实现原理](https://www.jianshu.com/p/6d3e38728c10)
 [30行Javascript代码实现图片懒加载](https://www.imooc.com/article/46302)
