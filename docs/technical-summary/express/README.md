@@ -1149,7 +1149,7 @@ container.add('category1', {
 const category1 = container.get('category1');
 category1.info('logging to file and console transports');
 ```
-
+##
 ## winston-daily-rotate-file
 
 winston的传输，记录到旋转文件。可以根据日期，大小限制轮换日志，并且可以根据计数或经过的天数删除旧日志。

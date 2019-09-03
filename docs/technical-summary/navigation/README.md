@@ -2,6 +2,8 @@
 
 ![avatar](http://images.qiufeihong.top/login.png)
 
+## 初衷
+估计很多人和小编一样，一开始将浏览过的觉得不错的网站收藏到浏览器的收藏夹中。日积月累，网站越来越多，在收藏夹里找所需网站越来越麻烦。后来浏览器从火狐转到Chrome，收藏的网站却不能同步过来。浏览器需要登录才能同步收藏夹的内容，这很痛苦……鉴于种种原因，有这样一个收藏、搜索和分类导航平台真的是棒极了，小编就自己做了一个开源项目——Navigation网站收藏和导航平台。
 
 ## 实现功能
 
@@ -10,8 +12,6 @@
 ### [搜索](http://images.qiufeihong.top/nSearch.webm)
 
 ### [登录登出](http://images.qiufeihong.top/nLogin.webm)
-
-
 
 ## 网站截图
 ### 网站导航块瀑布流
@@ -34,9 +34,568 @@
 
 ![avatar](http://images.qiufeihong.top/navigation1.png)
 
+## 本地构建
+
+``` bash
+<!-- 下载项目 -->
+git clone https://github.com/qiufeihong2018/navigation-server.git
+
+<!-- 安装依赖 -->
+npm install
+
+<!-- 爬取数据 -->
+node ./creeper/index.js
+
+<!-- 启动程序 -->
+npm run dev
+
+```
+之后访问`http://localhost:1600`即可
+
+## 后端
+
+[navigation-server后端代码仓库](https://github.com/qiufeihong2018/navigation-server)
+
+基于express框架
+
+### 依赖包
+
+#### [express](https://github.com/expressjs/express)搭建web应用
+
+##### 特征
+
+- 强大的路由
+- 专注于高性能
+- 超高的测试覆盖率
+- HTTP助手（重定向，缓存等）
+- 查看支持14+模板引擎的系统
+- 内容协商
+- 可快速生成应用程序的可执行文件
+
+##### 解析
+启动express服务
+
+```js
+const express = require('express');
+const app = express();
+const config = require('../config')();
+
+  // start server
+  // Set http port
+  app.set('port', config.expressHttpPort); 
+
+  app.listen(config.expressHttpPort, () => {
+    // 开启端口打印日志
+    log.info(`express running on ${config.expressHttpPort} port`);
+  });
+```
+
+在config文件中动态配置端口
+
+里面的方法主要是去掉各种模式
+```js
+'use strict';
+
+var config = {
+  development: {
+    // mongodb
+    database: 'mongodb://localhost/map',
+    expressHttpPort: 1600,
+    logFile: './log/express.log'
+  },
+  local: {
+    // mongodb
+    database: 'mongodb://127.0.0.1/map',
+    expressHttpPort: 1600,
+    logFile: './log/express.log'
+  },
+  production: {
+    // mongodb
+    database: 'mongodb://127.0.0.1/map',
+    expressHttpPort: 1600,
+    logFile: './log/express.log'
+  }
+};
+
+
+module.exports = function(mode) {
+  var env;
+  if (!mode) {
+    env = process.env.NODE_ENV || 'development';
+  } else if (mode && (mode === 'development' || 'local' || 'production')) {
+    env = mode;
+  } else {
+    throw new Error(`config can only be 'development' || 'local' || 'production', 
+    but you give ${mode}`);
+  }
+  var returnVal = config[env];
+  return returnVal;
+};
+```
+
+#### [express-session](https://github.com/expressjs/session)之express简单的session中间件
+
+##### 特征
+- 强制将会话保存回会话存储区，resave即使在请求期间会话从未被修改。取决于你的store这可能是必要的,但它也可以创建竞态条件,客户让两个并行请求您的服务器,在一个请求中更改会话可能会覆盖另一个请求结束时,即使它没有改变。默认值为true。
+- saveUninitialized：强制将“未初始化”的会话保存到存储区。当会话是新的但没有修改时，它是未初始化的。选择false对于实现登录会话、减少服务器存储使用或遵守在设置cookie之前需要获得许可的法律非常有用。选择false还可以帮助解决客户端在没有会话的情况下发出多个并行请求的竞态条件。默认值为true，但是不建议使用默认值，因为默认值将在将来更改。
+- secret:这是用于对会话`ID cookie`签名的密码。这可以是单个秘密的字符串，也可以是多个秘密的数组。如果提供了一个秘密数组，则只使用第一个元素对会话`ID cookie`进行签名，而在验证请求中的签名时将考虑所有元素。
+- cookie：每个会话都有一个惟一的cookie对象。这允许您更改每个访问者的会话cookie。
+  -  maxAge：maxAge将返回剩余的时间(以毫秒为单位)，小编们还可以重新分配一个新值来适当调整`.expires`属性。此时表示1天后过期。
+
+##### 解析
+
+```js
+const session = require('express-session');
+
+
+  // Session configuration
+  const sess = {
+    resave: true,
+    saveUninitialized: true,
+    secret: 'I am hungry',
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000
+    }
+  };
+
+
+  app.use(session(sess)); // Set session middleware
+
+```
+
+想知道更多的配置，请见小编之前翻译的[express-session](https://www.qiufeihong.top/technical-summary/express/#express-session)
+#### [body-parser](https://github.com/expressjs/body-parser)正文解析
+##### 特征
+* 是一个Node.js正文解析中间件。
+##### 解析
+
+在处理程序之前，利用中间件解析传入的请求主体，在req.body属性下可用。
+
+注意由于req.body形状基于用户控制的输入，因此该对象中的所有属性和值都是不可信的，应在信任之前进行验证。例如，`req.body.foo.toString()`可能以多种方式失败，例如foo属性可能不存在或者可能不是字符串，并且toString可能不是函数，而是字符串或其他用户输入。
+
+`urlenencoded` ([options])返回中间件，该中间件只解析`urlencoded body`，并且只查看内容类型头部与类型选项匹配的请求。该解析器只接受正文的UTF-8编码，并支持gzip和deflate编码的自动膨胀。在中间件(即req.body)之后，在请求对象上填充一个包含已解析数据的新body对象。这个对象将包含键值对，其中的值可以是字符串或数组(当扩展为false时)，也可以是任何类型(当扩展为true时)。
+
+`extended`选项允许在使用`querystring`库解析url编码的数据(当为false时)和使用qs库(当为true时)之间进行选择。“extended”语法允许将丰富的对象和数组编码为url编码格式，允许使用类似json的url编码体验。
+
+```js
+const bodyParser = require('body-parser');
+
+……
+
+  // parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({
+    extended: false
+  }));
+
+  // parse application/json
+  app.use(bodyParser.json());
+
+
+```
+
+#### [mongoose](https://github.com/Automattic/mongoose)连接数据库
+
+Mongoose是一个MongoDB对象建模工具，旨在在异步环境中工作。
+##### 特征
+
+- 堆栈溢出
+- bug报告
+- mongoose Slack Channel
+- 帮助论坛
+- MongoDB支持
+
+##### 解析
+
+连接数据库，处理连接的成功和失败的信息。
+```js
+'use strict';
+
+const mongoose = require('mongoose');
+const config = require('../config')();
+// [koa警告DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `use...](https://www.jianshu.com/p/f3128e7ae3c5)
+mongoose.set('useFindAndModify', false);
+let reconnectTimes = 0;// Mongodb reconnect times
+let reconnectInterval = 0.1;// The interval seconecd time between two reconnection;
+const maxReconnectInterval = 120;// The max interval time between two reconnection;
+
+// Connect to mongodb
+function connect() {
+  const options = {
+    socketTimeoutMS: 3000,
+    keepAlive: true,
+    reconnectTries: 4,
+    useNewUrlParser: true
+  };
+  mongoose.connect(config.database, options);
+}
+
+// Mongoose error handler
+mongoose.connection.on('error', function(err) {
+  log.error(err);
+});
+
+// Mongoose reconnect when closed
+mongoose.connection.on('disconnected', function() {
+  reconnectTimes++;
+  reconnectInterval = reconnectInterval * 2;
+  if (reconnectInterval > maxReconnectInterval) reconnectInterval = maxReconnectInterval;
+  setTimeout(() => {
+    connect();
+  }, reconnectInterval * 1000);
+});
+
+mongoose.connection.on('connected', function() {
+  reconnectTimes = 0;
+  reconnectInterval = 0.1;
+});
+
+exports.connect = connect;
+
+```
+
+创建数据库集合`AdminMap`
+
+```js
+'use strict';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const AdminMap = new Schema({
+  category: { type: String, required: true, trim: true },
+  name: { type: String, required: true, trim: true },
+  website: { type: String, required: true, trim: true },
+  describe: { type: String, trim: true },
+  logo: { type: String, trim: true },
+  way: { type: String, trim: true },
+}, {
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+});
+
+
+module.exports = mongoose.model('AdminMap', AdminMap);
+```
+
+#### [eslint](https://github.com/eslint/eslint)规范代码
+##### 特征
+
+ESLint是一种用于识别和报告ECMAScript / JavaScript代码中的模式的工具。在许多方面，它类似于JSLint和JSHint，但有一些例外：
+
+ESLint使用Espree进行JavaScript解析。
+ESLint使用AST来评估代码中的模式。
+ESLint是完全可插拔的，每个规则都是一个插件，可以在运行时添加更多。
+
+
+想知道更多的配置，请见小编之前翻译的[eslint在express中的配置](https://www.qiufeihong.top/technical-summary/eslint/)
+### cheerio爬取数据
+
+
+#### [cheerio](https://github.com/cheeriojs/cheerio)爬虫
+快速，灵活和精简的核心jQuery实现，专为服务器而设计。
+
+#### [request](https://github.com/request/request)
+简单的http请求客户端
+
+
+详细介绍请见小编之前的文章[《node爬取某图片网站的桌面壁纸》](https://www.qiufeihong.top/technical-summary/node-reptile/)
+
+### pm2守护项目
+
+```js
+    "pm2": "pm2 start index.js --name='navigation'"
+```
+详细介绍请见小编之前的文章[《pm2》](https://www.qiufeihong.top/technical-summary/pm2/#pm2-command-not-found)
+
+### mocha测试
+
+#### [mocha](https://github.com/mochajs/mocha)
+node.js和浏览器的简单，灵活，有趣的javascript测试框架
+
+#### [mochawesome](https://github.com/adamgruber/mochawesome)
+Mochawesome是一个用于Javascript测试框架mocha的自定义报告器。它在Node.js上运行，并与mochawesome-report-generator结合使用，生成独立的HTML / CSS报告，以帮助可视化您的测试运行。
+
+#### [should](https://github.com/shouldjs/should.js)
+node.js的BDD样式断言
+
+应该是一个富有表现力，可读，与框架无关的断言库。这个图书馆的主要目标是表达和帮助。它可以使您的测试代码保持干净，并且您的错误消息很有用
+#### [supertest](https://github.com/visionmedia/supertest)
+用于使用流畅的API测试node.js HTTP服务器。
+
+详细介绍请见小编之前的文章[《express项目集成mocha测试框架》](https://www.qiufeihong.top/technical-summary/mocha/)
+
+### passport用户名和密码验证
+这三者有这密切的联系，前两者都可以归`passport-local-mongoose`管理，主要解析就放在`passport-local-mongoose`这个依赖包中
+#### [passport](https://github.com/jaredhanson/passport)
+
+##### 特征
+
+Passport是Node.js的Express兼容认证中间件。
+
+Passport的唯一目的是验证请求，它通过一组称为策略的可扩展插件来完成。Passport不会挂载路由或假设任何特定的数据库架构，这可以最大限度地提高灵活性，并允许开发人员做出应用程序级别的决策。Passport提供了用于控制身份验证成功或失败时的钩子。
+
+会话：Passport将维护持久的登录会话。为了使持久会话工作，必须将经过身份验证的用户序列化到会话，并在发出后续请求时反序列化。Passport对用户记录的存储方式没有任何限制。相反，您为Passport提供了一些函数，这些函数实现了必要的序列化和反序列化逻辑。在典型的应用程序中，这与序列化用户ID以及反序列化时按ID查找用户一样简单。
+
+中间件：要在基于Express或连接的应用程序中使用Passport，请使用所需的Passport .initialize()中间件对其进行配置。如果您的应用程序使用持久性登录会话(推荐使用，但不是必需的)，还必须使用passport.session()中间件。
+
+#### [passport-local](https://github.com/jaredhanson/passport-local)
+
+##### 特征
+
+用于使用用户名和密码进行身份验证的Passport策略。
+
+此模块允许您使用Node.js应用程序中的用户名和密码进行身份验证。通过插入Passport，可以轻松且不显眼地将本地身份验证集成到支持Connect风格中间件（包括 Express）的任何应用程序或框架中 。
+
+做验证之前，首先需要对策略进行配置
+
+参考于github
+
+```js
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+```
+
+#### [passport-local-mongoose](https://github.com/saintedlama/passport-local-mongoose)
+
+#### 特征
+`passport-local-mongoose`是一个Mongoose插件，它简化了使用Passport构建用户名和密码的权限
+
+
+##### 解析
+1. 首先需要将依赖包导入schema中。
+```js
+const passportLocalMongoose = require('passport-local-mongoose');
+
+const options = {
+  interval: 200,
+  maxInterval: 6 * 60 * 1000,
+  maxAttempts: 6,
+  limitAttempts: true
+};
+User.plugin(passportLocalMongoose, options);
+```
+2. 配置Passport和Passport-Local
+
+可以简化两者的配置
+
+`passport-local-mongoose`可以通过设置`LocalStrategy`、`serializeUser`和`deserializeUser`来配置来这两者
+
+具体参数解析见[《mongoose之passport-local-mongoose》](https://www.qiufeihong.top/technical-summary/mongo/#mongoose%E4%B9%8Bpassport-local-mongoose)
+
+```js
+  // requires the model with Passport-Local Mongoose plugged in
+  var User = require('../collections/user');
+  app.use(passport.initialize());
+  app.use(passport.session());
+  // use static authenticate method of model in LocalStrategy
+  passport.use(new LocalStrategy(User.authenticate()));
+  // use static serialize and deserialize of model for passport session support
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+```
+### winston记录日志
+
+#### [winston](https://github.com/winstonjs/winston)记录日志
+winston被设计为一个简单和通用的日志记录库，支持多个传输。传输本质上是日志的存储设备。每个winston记录器可以具有在不同级别配置的多个传输（请参阅： 传输）（请参阅：记录级别）。例如，可能希望将错误日志存储在持久远程位置（如数据库）中，但所有日志都输出到控制台或本地文件。
+
+winston旨在将部分日志记录过程分离，使其更加灵活和可扩展。注意支持日志格式（参见：格式）和级别的灵活性（请参阅：使用自定义日志记录级别），并确保这些API与传输日志记录的实现分离
+
+想知道更多的配置，请见小编之前翻译的[winston](https://www.qiufeihong.top/technical-summary/express/#winston)
+
+#### [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file)
+
+winston的传输，记录到旋转文件。可以根据日期，大小限制轮换日志，并且可以根据计数或经过的天数删除旧日志。
+
+想知道更多的配置，请见小编之前翻译的[winston-daily-rotate-file](https://www.qiufeihong.top/technical-summary/express/#winston-daily-rotate-file)
+
+封装winston日志，当在开发模式时，产生的日志存在`express.log`中，并且日志级别为`debug`;当在生产模式时，存在时间戳日志中，日志级别是`info`,可以存7天的文件,最大文件不得超过20兆；其他模式日志级别也是`info`
+
+```js
+'use strict';
+
+/**
+ * Logger is to custom winston to provide different log pattern in 'development',
+ * 'production' and other mode.
+ * 'development' will use Console and File output with 'debug' level
+ * 'production' will use DailyRotateFile output with 'info' level,
+ *  and the maxFiles is 7d.
+ *  other mode will use File output with 'info' level.
+ */
+const {
+  createLogger,
+  format,
+  transports
+} = require('winston');
+const {
+  combine,
+  timestamp,
+  label,
+  printf
+} = format;
+
+require('winston-daily-rotate-file');
+const config = require('../config')();
+const MODE = require('../constant/system').MODE;
+let mode = process.env.NODE_ENV;
+if (!mode) mode = MODE.DEVE;
+
+let logFile = config.logFile;
+
+logFile = logFile.replace('.log', ''); // remove '.log' from the logFile
+
+const trans = [];
+const ts = {
+  console: new transports.Console({
+    level: 'debug'
+  }),
+  file: new transports.File({
+    filename: `${logFile}.log`,
+    level: 'info'
+  })
+};
+// daily rotate file transport config
+const dailyRotateFileTrans = new (transports.DailyRotateFile)({
+  filename: `${logFile}-%DATE%.log`,
+  datePattern: 'YYYY-MM-DD-HH',
+  zippedArchive: true,
+  maxSize: '20m',
+  maxFiles: '7d'
+});
+// Dynamically change the log level of the transfer
+if (mode === MODE.DEVE) {
+  trans.push(ts.console);
+  ts.file.level = 'debug';
+  trans.push(ts.file);
+} else if (mode === MODE.PROD) {
+  trans.push(dailyRotateFileTrans);
+} else {
+  trans.push(ts.file);
+}
+exports.createLogger = function(source) {
+  const myFormat = combine(
+    label({
+      label: source
+    }),
+    timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }),
+    printf(({
+      level,
+      message,
+      label,
+      timestamp
+    }) => {
+      return `${timestamp} [${label}][${level.toUpperCase()}]: ${message}`;
+    })
+  );
+  return new (createLogger)({
+    format: myFormat,
+    transports: trans
+  });
+};
+
+```
+### CRUD
+
+增删改查的业务逻辑没什么好讲的，代码在仓库里
+
+就是注意一点：
+
+小编这里是get请求要做的是去想数据库请求某个类别的网站的某页的数据，`limit`等关键词小编是从`req._parsedOriginalUrl.query`中分割的。
+
+要获取总长度，所以此处查找了两次。
+```js
+router.get('/', function(req, res) {
+  const arr = req._parsedOriginalUrl.query.split('&');
+  const limit = arr[0].split('=')[1];
+  const offset = arr[1].split('=')[1];
+  const cate = arr[2].split('=')[1];
+  let total = 0;
+  SuperAdminMap.find({ category: cate }).then((data) => {
+    total = data.length;
+    SuperAdminMap.find({ category: cate })
+    .limit(Number(limit))
+    .skip(Number(offset))
+    .then((data) => {
+      log.info(`Get ${cate} data`);
+      res.status(200).json({
+        data,
+        total
+      });
+    });
+  });
+});
+```
+### apidoc文档神器
+
+为了方便查看api，所以用上apidoc是绝对要的，需要了解并运用的，点此处[apiDoc生成接口文档,不费吹灰之力](https://www.qiufeihong.top/technical-summary/apiDoc/)
+
+
+此处是后端查找superAdmin数据库的get请求的注释
+```js
+
+/**
+ * @api {get} /superAdmin/ SuperAdmin getMap
+ * @apiName SuperAdminGet
+ * @apiGroup superAdminOperation
+ *
+ * @apiParam {String} limit  Number of pages per page.
+ * @apiParam {String} offset  Number of skips.
+ * @apiParam {String} category  New website's category.
+ *
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *{
+ *    "data": [
+ *        {
+ *            "_id": "5d5e4206443bdd63d0f82327",
+ *            "category": "recommendationFront-end",
+ *            "name": "test1",
+ *            "website": "test4",
+ *            "describe": "test",
+ *            "logo": "test",
+ *            "created_at": "2019-08-22T07:19:34.924Z",
+ *            "updated_at": "2019-08-22T07:19:34.924Z",
+ *            "__v": 0
+ *        },
+ *        {
+ *            "_id": "5d5e4209443bdd63d0f82328",
+ *            "category": "recommendationFront-end",
+ *            "name": "test1",
+ *            "website": "test5",
+ *            "describe": "test",
+ *            "logo": "test",
+ *            "created_at": "2019-08-22T07:19:37.430Z",
+ *            "updated_at": "2019-08-22T07:19:37.430Z",
+ *            "__v": 0
+ *        }
+ *    ],
+ *    "total": 655
+ *}
+ * @apiError NOT_LOGIN The current User was not logon.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "err": "NOT_LOGIN",
+ *       "message": "User has not logon in!"
+ *     }
+ */
+```
+执行`npm run apidoc`命令后生成api文档
+
+![avatar](http://images.qiufeihong.top/navigation3.png)
+
 ## 前端
 
-[github前端代码仓库](https://github.com/qiufeihong2018/navigation-web)
+[navigation-web前端代码仓库](https://github.com/qiufeihong2018/navigation-web)
 
 是基于花裤衩的[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)的简单版的后台管理模板，这一款基于vue2.0的后台管理平台深受大众喜爱。
 
@@ -44,27 +603,30 @@
 
 #### [Vuex](https://github.com/vuejs/vuex)存储状态
 
+##### 特征
+
 Vuex是一个专为Vue.js应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化.
 
+##### 解析
 自动从modules文件夹中导入文件
 
 推荐一本老姚的正则手册[《JavaScript正则表达式迷你书（1.1版）.pdf》](http://images.qiufeihong.top/JavaScript%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%B7%E4%BD%A0%E4%B9%A6%EF%BC%881.1%E7%89%88%EF%BC%89.pdf)
 
-#####  ^（脱字符）匹配开头，在多行匹配中匹配行开头。
+* ^（脱字符）匹配开头，在多行匹配中匹配行开头。
 
-##### $(美元符号)匹配结尾,在多行匹配中匹配行结尾。
+* $(美元符号)匹配结尾,在多行匹配中匹配行结尾。
 
-##### ^、$、.、*、+、?、|、\、/、(、)、[、]、{、}、=、!、:、- ,
+* ^、$、.、*、+、?、|、\、/、(、)、[、]、{、}、=、!、:、- ,
 当匹配上面的字符本身时，可以一律转义：
 
-##### \w 表示 [0-9a-zA-Z_]。表示数字、大小写字母和下划线。
+* \w 表示 [0-9a-zA-Z_]。表示数字、大小写字母和下划线。
 记忆方式：w 是 word 的简写，也称单词字符。
-##### +等价于 {1,}，表示出现至少一次。
+* +等价于 {1,}，表示出现至少一次。
 记忆方式：加号是追加的意思，得先有一个，然后才考虑追加。
-##### [require.context](https://webpack.js.org/guides/dependency-management/)
+* [require.context](https://webpack.js.org/guides/dependency-management/)
 根据正则（在modules文件夹中找到结尾是js的文件）匹配所有的文件
 
-##### replace一个新的字符串
+* replace一个新的字符串
 
 
 ```js
@@ -91,15 +653,18 @@ const store = new Vuex.Store({
 
 #### [axios](https://github.com/axios/axios)进行前后端数据通信
 
+##### 特征
 支持http数据通信。Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
 
-尤大推荐用axios，让Axios进入了很多人的目光中。Axios本质上也是对原生XHR的封装，只不过它是Promise的实现版本，符合最新的ES规范
+尤大推荐用Axios，让Axios进入了很多人的目光中。Axios本质上也是对原生XHR的封装，只不过它是Promise的实现版本，符合最新的ES规范。
 
-他的特性之客户端支持防止CSRF，每个请求都带一个从cookie中拿到的key, 根据浏览器同源策略，假冒的网站是拿不到cookie中的key，这样，后台就可以轻松辨别出这个请求是否是用户在假冒网站上的误导输入，从而采取正确的策略。
+* 客户端支持防止CSRF，每个请求都带一个从cookie中拿到的key, 根据浏览器同源策略，假冒的网站是拿不到cookie中的key，这样，后台就可以轻松辨别出这个请求是否是用户在假冒网站上的误导输入，从而采取正确的策略。
 
-在其封装axios对象的request文件中，response响应中去掉了自定义状态码的设置。
 
-登录完成后，将用户的token通过cookie存在本地，然后在页面跳转前拦截读取token，如果token存在则说明已经登录过，刷新vuex中的token状态。每次发送请求时都会携带token。后端会通过携带的token判断是否登录或过期。
+* 登录完成后，将用户的token通过cookie存在本地，然后在页面跳转前拦截读取token，如果token存在则说明已经登录过，刷新vuex中的token状态。每次发送请求时都会携带token。后端会通过携带的token判断是否登录或过期。
+
+##### 解析
+在其封装Axios对象的request文件中，response响应中去掉了自定义状态码的设置。
 
 ```js
 import axios from 'axios'
@@ -171,10 +736,12 @@ export default service
 ```
 
 #### [element-ui](https://github.com/ElemeFE/element)快速搭建后台
+##### 特征
 
 饿了吗的web平台UI库
 
 Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库
+##### 解析
 
 在main.js中全局导入element-ui
 ```js
@@ -189,10 +756,12 @@ Vue.use(ElementUI, {
 })
 ```
 
-##### Breadcrumb 面包屑
+##### el-breadcrumb 面包屑
+##### 特征
 
 显示当前页面的路径，快速返回之前的任意页面。
 
+##### 解析
 ```html
   <el-breadcrumb class="app-breadcrumb" separator=">">
     <transition-group name="breadcrumb">
@@ -204,7 +773,8 @@ Vue.use(ElementUI, {
   </el-breadcrumb>
 ```
 
-##### 抽屉组件弹出搜索信息
+##### el-drawer抽屉组件弹出搜索信息
+##### 解析
 搜索栏通过改变vuex中的`openDrawer`状态来控制底层抽屉组件。在弹出的抽屉中可以通过关键词搜索mongo数据库中的导航网站的title和描述，点击iframe和外链查看收藏的网站。
 ```html
    <el-drawer title="搜索网站" :visible.sync="openDrawer" :before-close="closeDrawer" direction="btt" size="50%">
@@ -243,11 +813,8 @@ Vue.use(ElementUI, {
 ```
 
 #### [js-cookie](https://github.com/js-cookie/js-cookie)处理浏览器cookie
-
-
-一个简单，轻量级的JavaScript API，用于处理浏览器cookie
-
 ##### 特征
+一个简单，轻量级的JavaScript API，用于处理浏览器cookie
 
 - 适用于所有浏览器
 - 接受任何角色
@@ -281,11 +848,8 @@ export function removeToken() {
 ![avatar](http://images.qiufeihong.top/navigation2.png)
 
 #### [normalize.css](https://github.com/necolas/normalize.css)
-
-在默认的HTML元素样式上提供了跨浏览器的高度一致性。相比于传统的css reset，Normalize.css是一种现代的，为HTML5准备的优质替代方案。
-
-
 ##### 特征
+在默认的HTML元素样式上提供了跨浏览器的高度一致性。相比于传统的css reset，Normalize.css是一种现代的，为HTML5准备的优质替代方案。
 
 - 与许多CSS重置不同，保留有用的默认值，而不是删除他们。
 - 规范化各种元素的样式。
@@ -296,8 +860,9 @@ export function removeToken() {
 推荐阅读[Normalize.css 与传统的 CSS Reset 有哪些区别？](https://www.zhihu.com/question/20094066)
 
 #### [nprogress](https://github.com/rstacruz/nprogress)进度条
-
+##### 特征
 超薄进度条
+##### 解析
 
 通过调用start()和done()来控制进度条。
 
@@ -334,9 +899,12 @@ NProgress.configure({ parent: '#container' });
 ```
 
 #### [path-to-regexp](https://github.com/pillarjs/path-to-regexp)处理 url 中地址与参数
-该工具库用来处理 url 中地址与参数，能够很方便得到我们想要的数据。
+##### 特征
+
+该工具库用来处理 url 中地址与参数，能够很方便得到小编们想要的数据。
 
 js 中有 RegExp 方法做正则表达式校验，而 path-to-regexp 可以看成是 url 字符串的正则表达式。
+##### 解析
 
 应用于面包屑组件`components/Breadcrumb/index.vue`中，
 
@@ -371,8 +939,8 @@ Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度�
 - HTML5 历史模式或 hash 模式，在 IE9 中自动降级
 - 自定义的滚动条行为
 
-##### 集成vue-router
-
+##### 解析
+集成vue-router
 ```js
 
 import Vue from 'vue'
@@ -624,7 +1192,7 @@ export default {
 ```
 
 ### 适配
-根据`vue-waterfall2`的不响应的特性，适配功能只能靠我自己解决。
+根据`vue-waterfall2`的不响应的特性，适配功能只能靠小编自己解决。
 
 移动端，给他设置1列，侧边栏打开设置3列，其余设置4列。
 
@@ -708,440 +1276,7 @@ import {
 this.categoryOptions = getOption('label', routes)
 ```
 
-## 后端
-
-[github后端代码仓库](https://github.com/qiufeihong2018/navigation-server)
-
-基于express框架
-
-### 依赖包
-
-#### [express](https://github.com/expressjs/express)搭建web应用
-
-##### 特征
-
-- 强大的路由
-- 专注于高性能
-- 超高的测试覆盖率
-- HTTP助手（重定向，缓存等）
-- 查看支持14+模板引擎的系统
-- 内容协商
-- 可快速生成应用程序的可执行文件
-
-##### 解析
-启动express服务
-
-```js
-const express = require('express');
-const app = express();
-const config = require('../config')();
-
-  // start server
-  // Set http port
-  app.set('port', config.expressHttpPort); 
-
-  app.listen(config.expressHttpPort, () => {
-    // 开启端口打印日志
-    log.info(`express running on ${config.expressHttpPort} port`);
-  });
-```
-
-在config文件中动态配置端口
-```js
-'use strict';
-
-var config = {
-  development: {
-    // mongodb
-    database: 'mongodb://localhost/map',
-    expressHttpPort: 1600,
-  },
-  local: {
-    // mongodb
-    database: 'mongodb://127.0.0.1/map',
-    expressHttpPort: 1600
-  },
-  production: {
-    // mongodb
-    database: 'mongodb://127.0.0.1/map',
-    expressHttpPort: 1600
-  }
-};
-
-
-module.exports = function(mode) {
-  var env;
-  if (!mode) {
-    env = process.env.NODE_ENV || 'development';
-  } else if (mode && (mode === 'development' || 'local' || 'production')) {
-    env = mode;
-  } else {
-    throw new Error(`config can only be 'development' || 'local' || 'production', 
-    but you give ${mode}`);
-  }
-  var returnVal = config[env];
-  return returnVal;
-};
-
-```
-
-#### [express-session](https://github.com/expressjs/session)之express简单的session中间件
-
-##### 解析
-- resave
-强制将会话保存回会话存储区，即使在请求期间会话从未被修改。取决于你的store这可能是必要的,但它也可以创建竞态条件,客户让两个并行请求您的服务器,在一个请求中更改会话可能会覆盖另一个请求结束时,即使它没有改变(这种行为也取决于存储你使用)。默认值为true。
-- saveUninitialized
-强制将“未初始化”的会话保存到存储区。当会话是新的但没有修改时，它是未初始化的。选择false对于实现登录会话、减少服务器存储使用或遵守在设置cookie之前需要获得许可的法律非常有用。选择false还可以帮助解决客户端在没有会话的情况下发出多个并行请求的竞态条件。默认值为true，但是不建议使用默认值，因为默认值将在将来更改。
-- secret
-这是用于对会话`ID cookie`签名的密码。这可以是单个秘密的字符串，也可以是多个秘密的数组。如果提供了一个秘密数组，则只使用第一个元素对会话`ID cookie`进行签名，而在验证请求中的签名时将考虑所有元素。
-- cookie
-每个会话都有一个惟一的cookie对象。这允许您更改每个访问者的会话cookie。
-  -  maxAge
-maxAge将返回剩余的时间(以毫秒为单位)，我们还可以重新分配一个新值来适当调整`.expires`属性。此时表示1天后过期。
-```js
-const session = require('express-session');
-
-
-  // Session configuration
-  const sess = {
-    resave: true,
-    saveUninitialized: true,
-    secret: 'I am hungry',
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000
-    }
-  };
-
-
-  app.use(session(sess)); // Set session middleware
-
-```
-
-如果有兴趣了解关于session的其他选项，请参考链接[express-session](https://github.com/expressjs/session)
-
-#### [body-parser](https://github.com/expressjs/body-parser)正文解析
-
-是一个Node.js正文解析中间件。
-
-在处理程序之前，利用中间件解析传入的请求主体，在req.body属性下可用。
-
-注意由于req.body形状基于用户控制的输入，因此该对象中的所有属性和值都是不可信的，应在信任之前进行验证。例如，`req.body.foo.toString()`可能以多种方式失败，例如foo属性可能不存在或者可能不是字符串，并且toString可能不是函数，而是字符串或其他用户输入。
-
-```js
-const bodyParser = require('body-parser');
-
-……
-
-  // parse application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({
-    extended: false
-  }));
-
-  // parse application/json
-  app.use(bodyParser.json());
-
-
-```
-
-`urlenencoded` ([options])返回中间件，该中间件只解析`urlencoded body`，并且只查看内容类型头部与类型选项匹配的请求。该解析器只接受正文的UTF-8编码，并支持gzip和deflate编码的自动膨胀。在中间件(即req.body)之后，在请求对象上填充一个包含已解析数据的新body对象。这个对象将包含键值对，其中的值可以是字符串或数组(当扩展为false时)，也可以是任何类型(当扩展为true时)。
-
-`extended`选项允许在使用`querystring`库解析url编码的数据(当为false时)和使用qs库(当为true时)之间进行选择。“extended”语法允许将丰富的对象和数组编码为url编码格式，允许使用类似json的url编码体验。
-
-#### [mongoose](https://github.com/Automattic/mongoose)连接数据库
-
-Mongoose是一个MongoDB对象建模工具，旨在在异步环境中工作。
-##### 特征
-
-- 堆栈溢出
-- bug报告
-- mongoose Slack Channel
-- 帮助论坛
-- MongoDB支持
-
-##### 解析
-
-连接数据库，处理连接的成功和失败的信息。
-```js
-'use strict';
-
-const mongoose = require('mongoose');
-const config = require('../config')();
-// [koa警告DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `use...](https://www.jianshu.com/p/f3128e7ae3c5)
-mongoose.set('useFindAndModify', false);
-let reconnectTimes = 0;// Mongodb reconnect times
-let reconnectInterval = 0.1;// The interval seconecd time between two reconnection;
-const maxReconnectInterval = 120;// The max interval time between two reconnection;
-
-// Connect to mongodb
-function connect() {
-  const options = {
-    socketTimeoutMS: 3000,
-    keepAlive: true,
-    reconnectTries: 4,
-    useNewUrlParser: true
-  };
-  mongoose.connect(config.database, options);
-}
-
-// Mongoose error handler
-mongoose.connection.on('error', function(err) {
-  log.error(err);
-});
-
-// Mongoose reconnect when closed
-mongoose.connection.on('disconnected', function() {
-  reconnectTimes++;
-  reconnectInterval = reconnectInterval * 2;
-  if (reconnectInterval > maxReconnectInterval) reconnectInterval = maxReconnectInterval;
-  setTimeout(() => {
-    connect();
-  }, reconnectInterval * 1000);
-});
-
-mongoose.connection.on('connected', function() {
-  reconnectTimes = 0;
-  reconnectInterval = 0.1;
-});
-
-exports.connect = connect;
-
-```
-
-创建数据库集合`AdminMap`
-
-```js
-'use strict';
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const AdminMap = new Schema({
-  category: { type: String, required: true, trim: true },
-  name: { type: String, required: true, trim: true },
-  website: { type: String, required: true, trim: true },
-  describe: { type: String, trim: true },
-  logo: { type: String, trim: true },
-  way: { type: String, trim: true },
-}, {
-  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
-});
-
-
-module.exports = mongoose.model('AdminMap', AdminMap);
-```
-
-
-#### [assert](https://github.com/beberlei/assert)精简断言库，用于库和业务模型
-
-#### [cheerio](https://github.com/cheeriojs/cheerio)爬虫
-快速，灵活和精简的核心jQuery实现，专为服务器而设计。
-
-#### [eslint](https://github.com/eslint/eslint)
-ESLint是一种用于识别和报告ECMAScript / JavaScript代码中的模式的工具。在许多方面，它类似于JSLint和JSHint，但有一些例外：
-
-ESLint使用Espree进行JavaScript解析。
-ESLint使用AST来评估代码中的模式。
-ESLint是完全可插拔的，每个规则都是一个插件，您可以在运行时添加更多。
-#### [istanbul](https://github.com/gotwarlost/istanbul)
-
-另一个JS代码覆盖工具，它使用模块加载器挂钩计算语句，行，函数和分支覆盖，以便在运行测试时透明地添加覆盖。支持所有JS覆盖用例，包括单元测试，服务器端功能测试和浏览器测试。专为规模而建。
-#### [mocha](https://github.com/mochajs/mocha)
-node.js和浏览器的简单，灵活，有趣的javascript测试框架
-
-
-#### [mochawesome](https://github.com/adamgruber/mochawesome)
-Mochawesome是一个用于Javascript测试框架mocha的自定义报告器。它在Node.js（> = 8）上运行，并与mochawesome-report-generator结合使用，生成独立的HTML / CSS报告，以帮助可视化您的测试运行。
-
-
-#### [request](https://github.com/request/request)
-简单的http请求客户端
-
-#### [should](https://github.com/shouldjs/should.js)
-node.js的BDD样式断言
-
-应该是一个富有表现力，可读，与框架无关的断言库。这个图书馆的主要目标是表达和帮助。它可以使您的测试代码保持干净，并且您的错误消息很有用
-#### [supertest](https://github.com/visionmedia/supertest)
-蜘蛛超级代理驱动的库，用于使用流畅的API测试node.js HTTP服务器。
-
-### 登录注册时用户名和密码验证
-这三者有这密切的联系，前两者都可以归`passport-local-mongoose`管理，主要解析就放在`passport-local-mongoose`这个依赖包中
-#### [passport](https://github.com/jaredhanson/passport)
-
-##### 特征
-
-Passport是Node.js的Express兼容认证中间件。
-
-Passport的唯一目的是验证请求，它通过一组称为策略的可扩展插件来完成。Passport不会挂载路由或假设任何特定的数据库架构，这可以最大限度地提高灵活性，并允许开发人员做出应用程序级别的决策。Passport提供了用于控制身份验证成功或失败时的钩子。
-
-会话：Passport将维护持久的登录会话。为了使持久会话工作，必须将经过身份验证的用户序列化到会话，并在发出后续请求时反序列化。Passport对用户记录的存储方式没有任何限制。相反，您为Passport提供了一些函数，这些函数实现了必要的序列化和反序列化逻辑。在典型的应用程序中，这与序列化用户ID以及反序列化时按ID查找用户一样简单。
-
-中间件：要在基于Express或连接的应用程序中使用Passport，请使用所需的Passport .initialize()中间件对其进行配置。如果您的应用程序使用持久性登录会话(推荐使用，但不是必需的)，还必须使用passport.session()中间件。
-
-#### [passport-local](https://github.com/jaredhanson/passport-local)
-
-##### 特征
-
-用于使用用户名和密码进行身份验证的Passport策略。
-
-此模块允许您使用Node.js应用程序中的用户名和密码进行身份验证。通过插入Passport，可以轻松且不显眼地将本地身份验证集成到支持Connect风格中间件（包括 Express）的任何应用程序或框架中 。
-
-做验证之前，首先需要对策略进行配置
-
-参考于github
-```js
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
-      return done(null, user);
-    });
-  }
-));
-```
-
-#### [passport-local-mongoose](https://github.com/saintedlama/passport-local-mongoose)
-
-#### 特征
-`passport-local-mongoose`是一个Mongoose插件，它简化了使用Passport构建用户名和密码的权限
-
-
-##### 解析
-1. 首先需要将依赖包导入schema中。
-```js
-const passportLocalMongoose = require('passport-local-mongoose');
-
-const options = {
-  interval: 200,
-  maxInterval: 6 * 60 * 1000,
-  maxAttempts: 6,
-  limitAttempts: true
-};
-User.plugin(passportLocalMongoose, options);
-```
-2. 配置Passport和Passport-Local
-
-可以简化两者的配置
-
-`passport-local-mongoose`可以通过设置`LocalStrategy`、`serializeUser`和`deserializeUser`来配置来这两者
-
-具体参数解析见[《mongoose之passport-local-mongoose》](https://www.qiufeihong.top/technical-summary/mongo/#mongoose%E4%B9%8Bpassport-local-mongoose)
-
-```js
-  // requires the model with Passport-Local Mongoose plugged in
-  var User = require('../collections/user');
-  app.use(passport.initialize());
-  app.use(passport.session());
-  // use static authenticate method of model in LocalStrategy
-  passport.use(new LocalStrategy(User.authenticate()));
-  // use static serialize and deserialize of model for passport session support
-  passport.serializeUser(User.serializeUser());
-  passport.deserializeUser(User.deserializeUser());
-```
-### 记录日志
-
-#### [winston](https://github.com/winstonjs/winston)记录日志
-winston被设计为一个简单和通用的日志记录库，支持多个传输。传输本质上是日志的存储设备。每个winston记录器可以具有在不同级别配置的多个传输（请参阅： 传输）（请参阅：记录级别）。例如，可能希望将错误日志存储在持久远程位置（如数据库）中，但所有日志都输出到控制台或本地文件。
-
-winston旨在将部分日志记录过程分离，使其更加灵活和可扩展。注意支持日志格式（参见：格式）和级别的灵活性（请参阅：使用自定义日志记录级别），并确保这些API与传输日志记录的实现分离
-
-[winston](https://www.qiufeihong.top/technical-summary/express/#winston)
-
-#### [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file)
-winston的传输，记录到旋转文件。可以根据日期，大小限制轮换日志，并且可以根据计数或经过的天数删除旧日志。
-
-### CRUD
-
-增删改查的业务逻辑没什么好讲的，代码在仓库里
-
-就是注意一点：
-
-我这里是get请求要做的是去想数据库请求某个类别的网站的某页的数据，`limit`等关键词我是从`req._parsedOriginalUrl.query`中分割的。
-
-要获取总长度，所以此处查找了两次。
-```js
-router.get('/', function(req, res) {
-  const arr = req._parsedOriginalUrl.query.split('&');
-  const limit = arr[0].split('=')[1];
-  const offset = arr[1].split('=')[1];
-  const cate = arr[2].split('=')[1];
-  let total = 0;
-  SuperAdminMap.find({ category: cate }).then((data) => {
-    total = data.length;
-    SuperAdminMap.find({ category: cate })
-    .limit(Number(limit))
-    .skip(Number(offset))
-    .then((data) => {
-      log.info(`Get ${cate} data`);
-      res.status(200).json({
-        data,
-        total
-      });
-    });
-  });
-});
-```
-### apidoc文档神器
-
-为了方便查看api，所以用上apidoc是绝对要的，需要了解并运用的，点此处[apiDoc生成接口文档,不费吹灰之力](https://www.qiufeihong.top/technical-summary/apiDoc/)
-
-
-此处是后端查找superAdmin数据库的get请求的注释
-```js
-
-/**
- * @api {get} /superAdmin/ SuperAdmin getMap
- * @apiName SuperAdminGet
- * @apiGroup superAdminOperation
- *
- * @apiParam {String} limit  Number of pages per page.
- * @apiParam {String} offset  Number of skips.
- * @apiParam {String} category  New website's category.
- *
- *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *{
- *    "data": [
- *        {
- *            "_id": "5d5e4206443bdd63d0f82327",
- *            "category": "recommendationFront-end",
- *            "name": "test1",
- *            "website": "test4",
- *            "describe": "test",
- *            "logo": "test",
- *            "created_at": "2019-08-22T07:19:34.924Z",
- *            "updated_at": "2019-08-22T07:19:34.924Z",
- *            "__v": 0
- *        },
- *        {
- *            "_id": "5d5e4209443bdd63d0f82328",
- *            "category": "recommendationFront-end",
- *            "name": "test1",
- *            "website": "test5",
- *            "describe": "test",
- *            "logo": "test",
- *            "created_at": "2019-08-22T07:19:37.430Z",
- *            "updated_at": "2019-08-22T07:19:37.430Z",
- *            "__v": 0
- *        }
- *    ],
- *    "total": 655
- *}
- * @apiError NOT_LOGIN The current User was not logon.
- *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 401 Unauthorized
- *     {
- *       "err": "NOT_LOGIN",
- *       "message": "User has not logon in!"
- *     }
- */
-```
-执行`npm run apidoc`命令后生成api文档
-
-![avatar](http://images.qiufeihong.top/navigation3.png)
-
 ## 展望
+希望大佬可以给我一些建议
 
 下一篇《chrome开发之Navigation提交工具》
