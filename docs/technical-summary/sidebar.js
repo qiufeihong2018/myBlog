@@ -1,5 +1,5 @@
 module.exports = [{
-        title: 'navigation网站收藏平台',
+        title: 'navigation网站收藏和导航平台',
         collapsable: false,
         sidebarDepth: 4,
         children: ['navigation/']
@@ -129,10 +129,10 @@ module.exports = [{
         children: ['naming-rules/']
     },
     {
-        title: 'pm4的研究',
+        title: 'pm2的研究',
         collapsable: false,
         sidebarDepth: 4,
-        children: ['pm4/']
+        children: ['pm2/']
     },
     {
         title: 'MongoDB深入浅出',

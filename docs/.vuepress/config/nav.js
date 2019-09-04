@@ -26,26 +26,6 @@ module.exports = [{
       {
         text: "全栈",
         link: "/resource/"
-      },
-      {
-        text: "新闻",
-        link: "/news/"
-      },
-      {
-        text: "开源项目",
-        link: "/openItem/"
-      },
-      {
-        text: "分享",
-        link: "/share/"
-      },
-      {
-        text: "网站",
-        link: "/network/"
-      },
-      {
-        text: "设计",
-        link: "/design/"
       }
     ]
   },

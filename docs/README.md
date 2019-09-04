@@ -18,24 +18,27 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
             return {
                 arrPng: [
                     {
-                        pngLink:'http://images.qiufeihong.top/mocha.png',
+                        pngLink:'https://images.qiufeihong.top/mocha.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/mocha/'
                     },
                     {
-                        pngLink:'http://images.qiufeihong.top/gitlab.png',
+                        pngLink:'https://images.qiufeihong.top/gitlab.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/gitlab/'
                     },{
-                        pngLink:'http://images.qiufeihong.top/jk.jpeg',
+                        pngLink:'https://images.qiufeihong.top/jk.jpeg',
                         docLink:'https://www.qiufeihong.top/technical-summary/jenkins/'
                     },{
-                        pngLink:'http://images.qiufeihong.top/vuepress2.png',
+                        pngLink:'https://images.qiufeihong.top/vuepress2.png',
                         docLink:'https://www.qiufeihong.top/technical-summary/vuepress/'
                     },{
-                        pngLink:'http://images.qiufeihong.top/apidoc6.jpg',
+                        pngLink:'https://images.qiufeihong.top/apidoc6.jpg',
                         docLink:'https://www.qiufeihong.top/technical-summary/apiDoc/'
                     },{
-                        pngLink:'http://images.qiufeihong.top/nginx-ssl-https.jpg',
+                        pngLink:'https://images.qiufeihong.top/nginx-ssl-https.jpg',
                         docLink:'https://www.qiufeihong.top/technical-summary/nginx-ssl-https/'
+                    },{
+                        pngLink:'https://images.qiufeihong.top/login.png',
+                        docLink:'https://www.qiufeihong.top/technical-summary/navigation/'
                     }
                 ]
             }

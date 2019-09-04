@@ -1,4 +1,4 @@
-# NUXT
+# nuxt教程大全
  [[toc]]
 
 ## nuxt教程
@@ -38,7 +38,7 @@ vue init nuxt-community/starter-template <project-name>
 ```
 生成的文件目录结构如下：
 
-![avatar](public/nuxt1.png)
+![avatar](./public/nuxt1.png)
 
 其中有一些目录（layouts、pages、static、store、nuxt.config.js、package.json）是Nuxt保留的，不可以更改，需要注意一下。
 
@@ -92,7 +92,7 @@ export default {
 ```
 如果校验方法返回的值不为 true， Nuxt 将自动加载显示 404 错误页面。而这个错误页面需要写在指定的位置，也就是layout中error页面。接下来就来介绍有关视图相关的东西。
 Nuxt视图
-可以在layouts目录下创建自定义的布局，可以通过更改 layouts/default.vue 文件来扩展应用的默认布局。需要在布局文件中添加 <nuxt/> 组件用于显示页面的主体内容，感觉跟vue中的slot方法类似。例如在默认布局中增加header和footer，这样每个页面都会加上header和footer。
+可以在layouts目录下创建自定义的布局，可以通过更改 layouts/default.vue 文件来扩展应用的默认布局。需要在布局文件中添加 `<nuxt/>` 组件用于显示页面的主体内容，感觉跟vue中的slot方法类似。例如在默认布局中增加header和footer，这样每个页面都会加上header和footer。
 ```
 <template>
   <div>
@@ -145,10 +145,12 @@ async asyncData ({ params, error }) {
 。
 
 附一张Nuxt渲染的流程图：
-![avatar](public/nuxt2.png)
+
+![avatar](./public/nuxt2.png)
 
 
 ## 问题：[nodemon] app crashed - waiting for file changes before starting...
 问题：[nodemon] app crashed - waiting for file changes before starting...
 等你改完之后重启
-![avatar](public/nuxt3.png)
+
+![avatar](./public/nuxt3.png)
