@@ -41,6 +41,12 @@ module.exports = [{
         text: '网站导航平台',
         link: 'http://navigation.qiufeihong.top'
       },{
+        text: "awsome-knowledge-front-end",
+        link: 'https://github.com/awsome-knowledge/awsome-knowledge-front-end'
+      },{
+        text: "awsome-knowledge-back-end",
+        link: 'https://github.com/awsome-knowledge/awsome-knowledge-back-end'
+      },{
         text: "跟着hy研读vue源码",
         link: 'https://qiufeihong2018.github.io/vue-analysis/'
       },{
