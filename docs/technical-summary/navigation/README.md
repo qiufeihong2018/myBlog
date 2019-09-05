@@ -1,7 +1,7 @@
 # Navigation网站收藏和导航平台
  [[toc]]
 
-![avatar](https://images.qiufeihong.top/login.png)
+![](https://images.qiufeihong.top/login.png)
 
 ## 初衷
 估计很多人和小编一样，一开始将浏览过的觉得不错的网站收藏到浏览器的收藏夹中。日积月累，网站越来越多，在收藏夹里找所需网站越来越麻烦。后来浏览器从火狐转到Chrome，收藏的网站却不能同步过来。浏览器需要登录才能同步收藏夹的内容，这很痛苦……鉴于种种原因，有这样一个收藏、搜索和分类导航平台真的是棒极了，小编就自己做了一个开源项目——Navigation网站收藏和导航平台。
@@ -33,7 +33,7 @@
 
 ## 简单的实现思路
 
-![avatar](https://images.qiufeihong.top/navigation1.png)
+![](https://images.qiufeihong.top/navigation1.png)
 
 ## 本地构建
 
@@ -583,7 +583,7 @@ router.get('/', function(req, res) {
 ```
 执行`npm run apidoc`命令后生成api文档
 
-![avatar](https://images.qiufeihong.top/navigation3.png)
+![](https://images.qiufeihong.top/navigation3.png)
 
 ## 前端
 
@@ -841,7 +841,7 @@ export function removeToken() {
 }
 ```
 
-![avatar](https://images.qiufeihong.top/navigation2.png)
+![](https://images.qiufeihong.top/navigation2.png)
 
 ### [normalize.css](https://github.com/necolas/normalize.css)
 #### 特征
@@ -1121,7 +1121,7 @@ commitizen init cz-conventional-changelog --save-dev --save-exact
 
 #### subject comment所在的位置,这次提交的简短描述
 
-![avatar](https://raw.githubusercontent.com/commitizen/cz-cli/master/meta/screenshots/add-commit.png)
+![](https://raw.githubusercontent.com/commitizen/cz-cli/master/meta/screenshots/add-commit.png)
 
 ### iframe嵌套网站
 
@@ -1287,3 +1287,9 @@ this.categoryOptions = getOption('label', routes)
 ![](https://images.qiufeihong.top/wechat4.jpg)
 
 一个学习编程技术的公众号。每天推送高质量的优秀博文、开源项目、实用工具、面试技巧、编程学习资源等等。目标是做到个人技术与公众号一起成长。欢迎大家关注，一起进步，走向全栈大佬的修炼之路
+
+<style scoped>
+    p:nth-last-child(2) {
+        text-align: center
+    }
+</style>
