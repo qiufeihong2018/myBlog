@@ -1,13 +1,6 @@
 ---
 home: true
-
-footer: MIT Licensed | Copyright © 2019-present FeiHong
 ---
-
-
-
-
-
 <template>
     <a href="https://github.com/qiufeihong2018" target="_target" class="github-corner"
         aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250"
@@ -20,16 +13,17 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
                 d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
                 fill="currentColor" class="octo-body"></path>
         </svg></a>
-    <span class="title">我的公众号</span>
-    <span class="time">{{ currentDate }}</span>
-    <img src="https://images.qiufeihong.top/wechat4.jpg" class="image">
     <span class="title">我的热门文章</span>
     <span class="time">{{ currentDate }}</span>
-    <el-carousel type="card" height="200px" :interval=1000>
+    <el-carousel type="card" height="200px" :interval=1500>
         <el-carousel-item v-for="(item,key) in arrPng" :key="key">
             <a :href='item.docLink'><img :src="item.pngLink" style="height: 100%;width: 100%;" /></a>
         </el-carousel-item>
     </el-carousel>
+    <span class="title">我的公众号</span>
+    <span class="time">{{ currentDate }}</span>
+    <img src="https://images.qiufeihong.top/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E5%BE%AE%E4%BF%A1%E6%A0%87%E5%87%86%E7%BB%BF%E7%89%88.png"
+        class="image">
 </template>
 
 <script>
@@ -70,9 +64,10 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
 </script>
 
 <style scoped>
-    .title{
-        font-size:20px
+    .title {
+        font-size: 20px
     }
+
     .time {
         font-size: 13px;
         color: #999;
@@ -94,7 +89,7 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
         display: block;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom:61px
+        margin-bottom: 61px
     }
 
     .github-corner:hover .octo-arm {
@@ -143,6 +138,9 @@ footer: MIT Licensed | Copyright © 2019-present FeiHong
 
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
+    }
+    .el-carousel {
+    overflow-x: inherit;
     }
 </style>
 
