@@ -543,8 +543,13 @@ Enter file in which to save the key 为空的话，创建的就是空的
 
 :::
 
+### github页面内容过长消失
 
+如下图，第一张是vscode中的10000多行内容的截图，第二张是github从那一行消失的截图
 
+![](https://images.qiufeihong.top/github2.png)
+
+![](https://images.qiufeihong.top/github1.png)
 
 ## 参考文献
 [Git 修改已提交的commit注释](https://www.jianshu.com/p/098d85a58bf1)
