@@ -26,26 +26,6 @@ module.exports = [{
       {
         text: "全栈",
         link: "/resource/"
-      },
-      {
-        text: "新闻",
-        link: "/news/"
-      },
-      {
-        text: "开源项目",
-        link: "/openItem/"
-      },
-      {
-        text: "分享",
-        link: "/share/"
-      },
-      {
-        text: "网站",
-        link: "/network/"
-      },
-      {
-        text: "设计",
-        link: "/design/"
       }
     ]
   },
@@ -60,6 +40,12 @@ module.exports = [{
       items: [{
         text: '网站导航平台',
         link: 'http://navigation.qiufeihong.top'
+      },{
+        text: "awsome-knowledge-front-end",
+        link: 'https://github.com/awsome-knowledge/awsome-knowledge-front-end'
+      },{
+        text: "awsome-knowledge-back-end",
+        link: 'https://github.com/awsome-knowledge/awsome-knowledge-back-end'
       },{
         text: "跟着hy研读vue源码",
         link: 'https://qiufeihong2018.github.io/vue-analysis/'
