@@ -53,17 +53,17 @@ export QT_IM_MODULE=fcitx
 
 1. 当项目中需要中文输入开发时,可以不用第三方输入法,用fcitx-小企鹅
 
-![avatar](pubilc/language.png)
+![avatar](./pubilc/language.png)
 
-![avatar](pubilc/language2.png)
+![avatar](./pubilc/language2.png)
 
 2. 点击右上角的小企鹅
 
-![avatar](pubilc/language3.png)
+![avatar](./pubilc/language3.png)
 
 3. 点击+从里面找到Pinyin
 
-![avatar](pubilc/language4.png)
+![avatar](./pubilc/language4.png)
 
 [ubuntu sudo update与upgrade的作用及区别](http://www.baiyuxiong.com/?p=529)
 
@@ -73,6 +73,15 @@ ps -ef        //查看进程,发现里面有个PPID选项,对这个就是他的�
  
 kill --PPID  //杀掉他的父进程
 ```
+
+## 查看端口占用
+```
+sudo lsof -nP -iTCP:端口号 -sTCP:LISTEN
+```
+
+- n 表示不显示主机名
+- P 表示不显示端口俗称
+- 不加 sudo 只能查看以当前用户运行的程序
 
 ## 参考文献
 [如何杀死僵尸进程](https://blog.51cto.com/wiliiwin/202015)
