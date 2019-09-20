@@ -1019,6 +1019,44 @@ sudo systemctl start mongod
 mongod -f /etc/mongod.conf --fork
 ```
 
+### MongoDB将字段插入集合中的所有文档
+```
+> show collections
+companies
+monitors
+pipelines
+pipelinestates
+probes
+system.indexes
+
+
+> db.monitors.update({},{$set:{"pipelineId": "5d834e6c0c8e9f276745ded0"}},{multi:true})
+WriteResult({ "nMatched" : 16609, "nUpserted" : 0, "nModified" : 16609 })
+```
+将"pipelineId": "5d834e6c0c8e9f276745ded0"插入所有文档中
+结果如下
+
+```
+[
+    {
+        "_id": "5d7f3b89a0c62d65009c2ca9",
+        "timestamp": "2019-09-16T07:36:37.220Z",
+        "probeNo": "AA02",
+        "dataType": "counter",
+        "value": {
+            "repeatedCounting": 219,
+            "defectiveNumber": 304,
+            "productionQuantity": 223
+        },
+        "monitorNo": "CC01",
+        "createdAt": "2019-09-16T07:36:41.170Z",
+        "updatedAt": "2019-09-16T07:36:41.170Z",
+        "__v": 0,
+        "pipelineId": "5d834e6c0c8e9f276745ded0"
+    },
+……
+]
+```
 ## 参考文献
 [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 
