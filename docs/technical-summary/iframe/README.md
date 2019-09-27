@@ -76,6 +76,11 @@ https://store.example.com: 匹配所有使用https:访问store.example.com的意
 ```js
     res.setHeader('Content-Security-Policy', "frame-ancestors http://192.168.1.123:1600");
 ```
+又或者在前端设置
+```
+    <meta http-equiv="Content-Security-Policy"content="frame-ancestors http://192.168.1.123:1600">
+```
+
 问题还是存在
 
 ## 展望
