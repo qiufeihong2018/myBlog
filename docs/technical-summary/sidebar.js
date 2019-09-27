@@ -1,4 +1,9 @@
 module.exports = [{
+        title: 'iframe跨域问题',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['iframe/']
+    }, {
         title: 'navigation网站收藏和导航平台',
         collapsable: false,
         sidebarDepth: 4,
