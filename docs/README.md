@@ -139,9 +139,6 @@ home: true
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
     }
-    .el-carousel {
-    overflow-x: inherit;
-    }
 </style>
 
 > a vuepress blog about qiufeihong
