@@ -81,3 +81,24 @@
         text-align: center
     }
 </style>
+
+3. ## HTTP错误413解释：请求实体太大
+
+src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA..."
+
+Status Code: 413 Request Entity Too Large
+
+> mdn
+> 响应状态码 413 Payload Too Large 表示请求主体的大小超过了服务器愿意或有能力处理的限度，服务器可能会（may）关闭连接以防止客户端继续发送该请求。
+> 如果“超出限度”是暂时性的，服务器应该返回  Retry-After 首部字段，说明这是暂时性的，以及客户端可以在什么时间（after what time）后重试。
+
+
+
+https://www.cnblogs.com/felixzh/p/6283822.html
+
+
+vue使用html2canvas踩坑总结
+需求场景
+运营后台上传一张图，同时页面生成小程序二维码，与运营上传的图合成一张大图，用于该页面在朋友圈的分享传播。
+
+https://juejin.im/post/5d60180af265da039b24a30d#heading-2
