@@ -1,4 +1,9 @@
 module.exports = [{
+    title: '重读MDN-encodeURI',
+    collapsable: false,
+    sidebarDepth: 2,
+    children: ['encodeURI/']
+},{
     title: '重读MDN-严格模式',
     collapsable: false,
     sidebarDepth: 2,
