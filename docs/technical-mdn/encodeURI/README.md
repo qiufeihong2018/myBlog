@@ -152,19 +152,76 @@ replace(/\*/g, '%2A').
 replace(/%(?:7C|60|5E)/g, unescape);
 }
 ```
-## 什么是decodeURI
-## 什么是decodeURIComponent
-## encodeURI和decodeURI的对比
 
+## 什么是decodeURI
+> decodeURI() 函数可对 encodeURI() 函数编码过的 URI 进行解码。
+将已编码 URI 中所有能识别的转义序列转换成原字符，但不能解码那些不会被 encodeURI 编码的内容（例如 "#"）。
+
+### 作用
+
+### 例子
+```js
+decodeURI()
+//"undefined"
+decodeURI('www.baidu.com')
+//"www.baidu.com"
+decodeURI("http://www.qiufeihong.top/你好世界")
+//"http://www.qiufeihong.top/你好世界"
+decodeURI("http://www.qiufeihong.top/hello-world")
+//"http://www.qiufeihong.top/hello-world"
+decodeURI(";,/?:@&=+$-_.!~*()#")
+//";,/?:@&=+$-_.!~*()#"
+decodeURI("1z")
+//"1z"
+decodeURI('\uD800\uDFFF')
+//"𐏿"
+decodeURI('\uD800')
+//"�"
+decodeURI('\uDFFF')
+//"�"
+//解码一个西里尔字母（Cyrillic）URL
+decodeURI("http://www.qiufeihong.top/JavaScript_%D1%88%D0%B5%D0%BB%D0%BB%D1%8B")
+//"http://www.qiufeihong.top/JavaScript_шеллы"
+decodeURI('%E0%A4%A')
+//Uncaught URIError: URI malformed
+```
+## 什么是decodeURIComponent
+### 作用
+
+### 例子
+```js
+decodeURIComponent()
+//"undefined"
+decodeURIComponent('www.baidu.com')
+//"www.baidu.com"
+decodeURIComponent("http://www.qiufeihong.top/你好世界")
+//"http://www.qiufeihong.top/你好世界"
+decodeURIComponent("http://www.qiufeihong.top/hello-world")
+//"http://www.qiufeihong.top/hello-world"
+decodeURIComponent(';,/?:@&=+$-_.!~*()#')
+//";,/?:@&=+$-_.!~*()#"
+decodeURIComponent('1z')
+//"1z"
+decodeURIComponent('\uD800\uDFFF')
+//"𐏿"
+decodeURIComponent('\uD800')
+//"�"
+decodeURIComponent('\uDFFF')
+//"�"
+decodeURIComponent("http://www.qiufeihong.top/JavaScript_%D1%88%D0%B5%D0%BB%D0%BB%D1%8B")
+//http://www.qiufeihong.top/JavaScript_шеллы"
+decodeURIComponent('%E0%A4%A')
+//Uncaught URIError: URI malformed
+```
 ## encodeURIComponent和encodeURI的类比
 提示和注释
 提示：如果 URI 组件中含有分隔符，比如 ? 和 #，则应当使用 encodeURIComponent() 方法分别对各组件进行编码。
 
 请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。
-
+操作的是完整的 URI；假定URI中的任何保留字符都有特殊意义，那么不会编码它们。
 
 ## decodeURIComponent和decodeURI的类比
-
+函数操作的是组成URI的个别组件；假定任何保留字符都代表普通文本，那么必须编码它们，所以它们（保留字符）出现在一个完整 URI 的组件里面时不会被解释成保留字符了。
 ## 课外小知识
 ### URI
 每一个人都有自己的名字，有了名字，你才能找到别人，别人也才能找到你，这是社会中人与人通信的基本要求。因此，在任何一种通讯网络里，用户也都有其独特的用户标识，比如固定网络里的固定电话号码、移动网络里的移动电话号码等等，这样才能区分出不同的用户并进行通信。而URI（Uniform
