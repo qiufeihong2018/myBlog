@@ -1,4 +1,4 @@
-# 吃透编码和解码
+# 吃透URL的编码和解码
 
 MDN里面涵盖了所有web开发的知识，对开发者学习和夯实基础来说就是一个宝库。
 
@@ -14,6 +14,7 @@ MDN里面涵盖了所有web开发的知识，对开发者学习和夯实基础�
 2. decodeURI
 3. encodeURIComponent
 4. decodeURIComponent
+5. escape(已废弃)
 ## 注意
 动手记忆更加深刻哦
 
@@ -219,18 +220,88 @@ decodeURIComponent('%E0%A4%A')
 
 请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。
 操作的是完整的 URI；假定URI中的任何保留字符都有特殊意义，那么不会编码它们。
+encodeURI，转码后链接还需要正常使用
+
+encodeURI("https://zweizhao.com/文章/JS常用转码URI与Base64.md")
+=> "https://zweizhao.com/%E6%96%87%E7%AB%A0/JS%E5%B8%B8%E7%94%A8%E8%BD%AC%E7%A0%81URI%E4%B8%8EBase64.md"
+
+转码后的链接还是一个正常链接，是可以做跳转操作的。
+
+encodeURIComponent，转码后链接不再当做正常链接使用，比如作为参数
+
+var pa = encodeURIComponent("https://zweizhao.com/文章/JS常用转码URI与Base64.md")
+
+console.log(pa) // "https%3A%2F%2Fzweizhao.com%2F%E6%96%87%E7%AB%A0%2FJS%E5%B8%B8%E7%94%A8%E8%BD%AC%E7%A0%81URI%E4%B8%8EBase64.md"
+
+var realURI = "https://zweizhao.com/any?param=" + pa // "https://zweizhao.com/any?param=https%3A%2F%2Fzweizhao.com%2F%E6%96%87%E7%AB%A0%2FJS%E5%B8%B8%E7%94%A8%E8%BD%AC%E7%A0%81URI%E4%B8%8EBase64.md"
+
+// todo...其他使用方式
+上面的pa已经是一堆非链接的字符串了，所以可以当做纯参数等使用。
 
 ## decodeURIComponent和decodeURI的类比
 函数操作的是组成URI的个别组件；假定任何保留字符都代表普通文本，那么必须编码它们，所以它们（保留字符）出现在一个完整 URI 的组件里面时不会被解释成保留字符了。
+## 什么是escape
+生成新的由十六进制转义序列替换的字符串。
+escape 函数是全局对象的属性. 特色字符如: @*_+-./ 被排除在外.
+
+字符的16进制格式值,当该值小于等于0xFF时,用一个2位转移序列: %xx 表示. 大于的话则使用4位序列:%uxxxx 表示.
+### 例子
+```js
+escape("abc123")
+//"abc123"
+escape("äöü")
+//"%E4%F6%FC"
+escape("ć")
+//"%u0107"
+escape()
+//"undefined"
+escape("www.baidu.com")
+//"www.baidu.com"
+escape("http://www.qiufeihong.top/你好世界")
+//"http%3A//www.qiufeihong.top/%u4F60%u597D%u4E16%u754C"
+escape("http://www.qiufeihong.top/hello-world")
+//"http%3A//www.qiufeihong.top/hello-world"
+escape(";,/?:@&=+$-_.!~*()#")
+//"%3B%2C/%3F%3A@%26%3D+%24-_.%21%7E*%28%29%23"
+escape("1z")
+//"1z"
+escape('\uD800\uDFFF')
+//"%uD800%uDFFF"
+escape('\uD800')
+//"%uD800"
+escape('\uDFFF')
+//"%uDFFF"
+```
+
+## 什么是unescape
+
+encodeURI 方法返回一个编码的 URI。如果您将编码结果传递给 decodeURI，那么将返回初始的字符串。encodeURI 方法不会对下列字符进行编码：":"、"/"、";" 和 "?"。请使用 encodeURIComponent 方法对这些字符进行编码。
+
+encodeURIComponent 方法
+将文本字符串编码为一个统一资源标识符 (URI) 的一个有效组件。
+
+encodeURIComponent(encodedURIString)：
+
+必选的 encodedURIString 参数代表加密一个已编码的 URI 组件。
+
+decodeURIComponent(decodedURIString)：
+
+必选的 decodeURIComponent参数解密。
+
+说明encodeURIComponent 方法返回一个已编码的 URI。如果您将编码结果传递给 decodeURIComponent，那么将返回初始的字符串。因为 encodeURIComponent 方法对所有的字符编码，请注意，如果该字符串代表一个路径，例如 /folder1/folder2/default.html，其中的斜杠也将被编码。这样一来，当该编码结果被作为请求发送到 web 服务器时将是无效的。如果字符串中包含不止一个 URI 组件，请使用 encodeURI 方法进行
 ## 课外小知识
 ### URI
 每一个人都有自己的名字，有了名字，你才能找到别人，别人也才能找到你，这是社会中人与人通信的基本要求。因此，在任何一种通讯网络里，用户也都有其独特的用户标识，比如固定网络里的固定电话号码、移动网络里的移动电话号码等等，这样才能区分出不同的用户并进行通信。而URI（Uniform
 Resource Identifier，统一资源标识符）就是在IMS网络中IMS用户的“名字”，也就是IMS用户的身份标识。
 ## 参考文献
 [encodeURL](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)
+
 [encodeURIComponent](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent)
+
 [decodeURI](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/decodeURI)
+
 [decodeURIComponent](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent)
+
 最后，别忘了给这个项目点一个star哦，谢谢支持。
 [blog](https://github.com/qiufeihong2018/vuepress-blog)
 ![](https://images.qiufeihong.top/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E5%BE%AE%E4%BF%A1%E6%A0%87%E5%87%86%E7%BB%BF%E7%89%88.png)
