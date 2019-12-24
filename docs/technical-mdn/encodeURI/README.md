@@ -15,6 +15,7 @@ MDN里面涵盖了所有web开发的知识，对开发者学习和夯实基础�
 3. encodeURIComponent
 4. decodeURIComponent
 5. escape(已废弃)
+6. unescape(已废弃)
 ## 注意
 动手记忆更加深刻哦
 
@@ -274,6 +275,35 @@ escape('\uDFFF')
 ```
 
 ## 什么是unescape
+### 作用
+计算生成一个新的字符串，其中的十六进制转义序列将被其表示的字符替换。上述的转义序列就像escape里介绍的一样。因为 unescape 已经废弃，建议使用 decodeURI或者decodeURIComponent 替代本方法。
+### 例子
+```js
+unescape("abc123")
+//"abc123"
+unescape("%E4%F6%FC")
+//"äöü"
+unescape("%u0107")
+//"ć"
+unescape("undefined")
+//"undefined"
+unescape("www.baidu.com")
+//"www.baidu.com"
+unescape("http%3A//www.qiufeihong.top/%u4F60%u597D%u4E16%u754C")
+//"http://www.qiufeihong.top/你好世界"
+unescape("http%3A//www.qiufeihong.top/hello-world")
+//"http://www.qiufeihong.top/hello-world"
+unescape(";,/?:@&=+$-_.!~*()#")
+//";,/?:@&=+$-_.!~*()#"
+unescape("1z")
+//"1z"
+unescape("%uD800%uDFFF")
+//"𐏿"
+unescape('\uD800')
+//"�"
+unescape('\uDFFF')
+//"�"
+```
 
 encodeURI 方法返回一个编码的 URI。如果您将编码结果传递给 decodeURI，那么将返回初始的字符串。encodeURI 方法不会对下列字符进行编码：":"、"/"、";" 和 "?"。请使用 encodeURIComponent 方法对这些字符进行编码。
 
