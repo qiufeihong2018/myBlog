@@ -1,14 +1,17 @@
 # 吃透URL的编码和解码
+## 背景
+故事的起源：某一天，我在网站中打开一个[链接](https%3A%2F%2Fgithub.com%2FMicrosoft%2Fmonaco-editor%2Fblob%2FHEAD%2Fdocs%2Fintegrate-esm.md)。结果，浏览器直接蹦出`404`。
+![avatar](https://images.qiufeihong.top/encode-404.png)
+为什么url会出现乱码呢？其实这不是乱码，这是浏览器将链接编码了，我点击的就是编码后的链接。那我怎么打开这个网站呢？很简单,打开控制台输入：
+```js
+decodeURIComponent("https%3A%2F%2Fgithub.com%2FMicrosoft%2Fmonaco-editor%2Fblob%2FHEAD%2Fdocs%2Fintegrate-esm.md")
+```
+随后输出：
+```js
+"https://github.com/Microsoft/monaco-editor/blob/HEAD/docs/integrate-esm.md"
+```
+这就是想要看的网址。
 
-MDN里面涵盖了所有web开发的知识，对开发者学习和夯实基础来说就是一个宝库。
-
-将官网上的主要知识点抽离，组合成自己的知识网络。
-
-每个人的知识体系是不同的，但又是各有相同之处，希望我的整理对您有帮助。
-
-《重读MDN》系列是作者会坚持下去的，旨在查漏补缺，让自己知识的盲区能缩小些。
-
-当然，MDN中有些翻译不对的地方，希望大家可以一起修改，我修改了好几处错误。
 ## 主人公
 1. encodeURI
 2. decodeURI
