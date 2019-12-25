@@ -322,6 +322,15 @@ decodeURIComponent(decodedURIString)：
 必选的 decodeURIComponent参数解密。
 
 说明encodeURIComponent 方法返回一个已编码的 URI。如果您将编码结果传递给 decodeURIComponent，那么将返回初始的字符串。因为 encodeURIComponent 方法对所有的字符编码，请注意，如果该字符串代表一个路径，例如 /folder1/folder2/default.html，其中的斜杠也将被编码。这样一来，当该编码结果被作为请求发送到 web 服务器时将是无效的。如果字符串中包含不止一个 URI 组件，请使用 encodeURI 方法进行
+
+## 总结：
+
+通过对三个函数的分析，我们可以知道：escape()除了 ASCII 字母、数字和特定的符号外，对传进来的字符串全部进行 
+转义编码，因此如果想对URL编码，最好不要使用此方法。而encodeURI() 用于编码整个URI,因为URI中的合法字符都不会 
+被编码转换。encodeURIComponent方法在编码单个URIComponent（指请求参数）应当是最常用的，它可以讲参数中的中文 
+、特殊字符进行转义，而不会影响整个URL。
+encodeURI，转码后链接还需要正常使用
+encodeURIComponent，转码后链接不再当做正常链接使用，比如作为参数
 ## 课外小知识
 ### URI
 每一个人都有自己的名字，有了名字，你才能找到别人，别人也才能找到你，这是社会中人与人通信的基本要求。因此，在任何一种通讯网络里，用户也都有其独特的用户标识，比如固定网络里的固定电话号码、移动网络里的移动电话号码等等，这样才能区分出不同的用户并进行通信。而URI（Uniform
