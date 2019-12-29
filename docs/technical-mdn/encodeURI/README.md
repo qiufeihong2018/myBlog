@@ -129,6 +129,8 @@ replace(/\*/g, '%2A').
 replace(/%(?:7C|60|5E)/g, unescape);
 }
 ```
+### 场景
+encodeURIComponent：适用于url作为参数传递时。
 
 ## 什么是decodeURI
 > decodeURI() 函数可对 encodeURI() 函数编码过的 URI 进行解码。将已编码 URI 中所有能识别的转义序列转换成原字符，但不能解码那些不会被 encodeURI 编码的内容（例如 "#"）。
@@ -313,6 +315,14 @@ encodeURIComponent，转码后链接不再当做正常链接使用，比如作�
 URL是一种具体的URI。
 URI是一种语义上的抽象概念。
 因此，三者之间的关系是：URN和URL是URI的子集。
+
+一般来说，URL只能使用英文字母、阿拉伯数字和某些标点符号，不能使用其他文字和符号。
+这是因为网络标准RFC 1738做了硬性规定：
+```
+"...Only alphanumerics [0-9a-zA-Z], the special characters "$-_.+!*'()," [not including the quotes - ed], and reserved characters used for their reserved purposes may be used unencoded within a URL."
+
+"只有字母和数字[0-9a-zA-Z]、一些特殊符号"$-_.+!*'(),"[不包括双引号]、以及某些保留字，才可以不经过编码直接用于URL。"
+```
 ## 参考文献
 [encodeURI](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)
 
