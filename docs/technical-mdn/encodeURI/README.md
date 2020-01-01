@@ -81,8 +81,7 @@ URL转码其实也只是为了符合URL的规范而已。
 2. urldecode解码
    
 ……
-
-## 什么是encodeURI
+## encodeURI
 > encodeURI() 函数通过将特定字符的每个实例替换为一个、两个、三或四转义序列来对统一资源标识符 (URI) 进行编码 (该字符的 UTF-8 编码仅为四转义序列)由两个 "代理" 字符组成)。
 
 该函数不会对这些 ASCII 标点符号和数字符号进行编码
@@ -130,15 +129,14 @@ encodeURIComponent("1z")
 // "1z"
 ```
 由此可见，开头的URL就是用encodeURIComponent转码的。
-## 什么是encodeURIComponent
+## encodeURIComponent
 >encodeURIComponent()是对统一资源标识符（URI）的组成部分进行编码的函数。它使用一到四个转义序列来表示字符串中的每个字符的UTF-8编码（只有由两个Unicode代理区字符组成的字符才用四个转义字符编码）。
 
 encodeURIComponent 转义除了字母、数字、(、)、.、!、~、*、'、-和_之外的所有字符。
 ### 场景
 encodeURIComponent：适用于URL作为参数传递时。
 ### 例子
-
-## 什么是decodeURI
+## decodeURI
 > decodeURI() 函数可对 encodeURI() 函数编码过的 URI 进行解码。将已编码 URI 中所有能识别的转义序列转换成原字符，但不能解码那些不会被 encodeURI 编码的内容（例如 "#"）。
 
 ### 例子
@@ -167,7 +165,7 @@ decodeURI("http://www.qiufeihong.top/JavaScript_%D1%88%D0%B5%D0%BB%D0%BB%D1%8B")
 decodeURI('%E0%A4%A')
 //Uncaught URIError: URI malformed
 ```
-## 什么是decodeURIComponent
+## decodeURIComponent
 ### 例子
 ```js
 decodeURIComponent()
@@ -193,15 +191,7 @@ decodeURIComponent("http://www.qiufeihong.top/JavaScript_%D1%88%D0%B5%D0%BB%D0%B
 decodeURIComponent('%E0%A4%A')
 //Uncaught URIError: URI malformed
 ```
-## encodeURIComponent和encodeURI的类比
-如果 URI 中含有分隔符，比如 ? 和 #，则应当使用 encodeURIComponent() 函数分别对各组件进行编码。
-
-请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。
-操作的是完整的 URI；假定URI中的任何保留字符都有特殊意义，那么不会编码它们。
-
-## decodeURIComponent和decodeURI的类比
-函数操作的是组成URI的个别组件；假定任何保留字符都代表普通文本，那么必须编码它们，所以它们（保留字符）出现在一个完整 URI 的组件里面时不会被解释成保留字符了。
-## 什么是escape
+## escape
 最好别用在生产环境中
 > 生成新的由十六进制转义序列替换的字符串。
 escape 函数是全局对象的属性. 特色字符如: @*_+-./ 被排除在外.
@@ -234,8 +224,7 @@ escape('\uD800')
 escape('\uDFFF')
 //"%uDFFF"
 ```
-
-## 什么是unescape
+## unescape
 > 计算生成一个新的字符串，其中的十六进制转义序列将被其表示的字符替换。上述的转义序列就像escape里介绍的一样。因为 unescape 已经废弃，建议使用 decodeURI或者decodeURIComponent 替代本函数。
 ### 例子
 ```js
@@ -264,28 +253,20 @@ unescape('\uD800')
 unescape('\uDFFF')
 //"�"
 ```
+## encodeURIComponent和encodeURI的类比
+如果 URI 中含有分隔符，比如 ? 和 #，则应当使用 encodeURIComponent() 函数分别对各组件进行编码。
+
+请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。
+操作的是完整的 URI；假定URI中的任何保留字符都有特殊意义，那么不会编码它们。
+## decodeURIComponent和decodeURI的类比
+函数操作的是组成URI的个别组件；假定任何保留字符都代表普通文本，那么必须编码它们，所以它们（保留字符）出现在一个完整 URI 的组件里面时不会被解释成保留字符了。
 ## 总结：
-encodeURI 函数返回一个编码的 URI。如果您将编码结果传递给 decodeURI，那么将返回初始的字符串。encodeURI 函数不会对下列字符进行编码：":"、"/"、";" 和 "?"。请使用 encodeURIComponent 函数对这些字符进行编码。
-
-encodeURIComponent 函数
-将文本字符串编码为一个统一资源标识符 (URI) 的一个有效组件。
-
-encodeURIComponent(encodedURIString)：
-
-必选的 encodedURIString 参数代表加密一个已编码的 URI 组件。
-
-decodeURIComponent(decodedURIString)：
-
-必选的 decodeURIComponent参数解密。
-
-说明encodeURIComponent 函数返回一个已编码的 URI。如果您将编码结果传递给 decodeURIComponent，那么将返回初始的字符串。因为 encodeURIComponent 函数对所有的字符编码，请注意，如果该字符串代表一个路径，例如 /folder1/folder2/default.html，其中的斜杠也将被编码。这样一来，当该编码结果被作为请求发送到 web 服务器时将是无效的。如果字符串中包含不止一个 URI 组件，请使用 encodeURI 函数进行
-
-通过对三个函数的分析，我们可以知道：escape()除了 ASCII 字母、数字和特定的符号外，对传进来的字符串全部进行 
-转义编码，因此如果想对URL编码，最好不要使用此函数。而encodeURI() 用于编码整个URI,因为URI中的合法字符都不会 
-被编码转换。encodeURIComponent函数在编码单个URIComponent（指请求参数）应当是最常用的，它可以讲参数中的中文 
-、特殊字符进行转义，而不会影响整个URL。
-encodeURI，转码后URL还需要正常使用
-encodeURIComponent，转码后URL不再当做正常URL使用，比如作为参数
+1. encodeURI 函数返回一个编码的 URI。如果您将编码结果传递给 decodeURI，那么将返回初始的字符串。
+2. encodeURI 函数不会对下列字符进行编码：":"、"/"、";" 和 "?"。请使用 encodeURIComponent 函数对这些字符进行编码。
+3. encodeURIComponent 函数将文本字符串编码为一个统一资源标识符 (URI) 的一个有效组件。如果是多个组件那请使用ecodeURI
+4. escape()除了 ASCII 字母、数字和特定的符号外，对传进来的字符串全部进行转义编码，因此如果想对URL编码，最好不要使用此函数。而encodeURI() 用于编码整个URI,因为URI中的合法字符都不会被编码转换。encodeURIComponent函数在编码单个URIComponent（指请求参数）应当是最常用的，它可以将参数中的中文、特殊字符进行转义，而不会影响整个URL。
+5. encodeURI，转码后URL还可以正常使用
+6. encodeURIComponent，转码后URL不再当做正常URL使用
 ## 课外小知识
 ### URI/URL/URN
 - URI(Uniform Resource Identifier)：统一资源标识
@@ -299,31 +280,20 @@ URI是一种语义上的抽象概念。
 ### 转义序列
 编程语言中有特殊意义的符号标记。
 
-序列                       所代表的字符
-
-\0                           NUL字符(\u0000)
-
-\b                           退格符(\u0008)
-
-\t                             水平制表符(\u0009)
-
-\n                            换行符(\u000A)
-
-\v                             垂直制表符(\u000B)
-
-\f                             换页符(\u000C)
-
-\r                             回车符(\u000D)
-
-\"                             双引号(\u0022)
-
-\'                             撇号或单引号(\u0027)
-
-\xXX                       由两位十六进制数值XX指定的Latin-1字符
-
-\uXXXX                  由四位十六进制数XXXX指定的Unicode字符
-
-\XXX                      由一位到三位八进制数(1到377)指定的Latin-1字符，ECMAScript v3不支持，不要使用这种转义序列
+序列|所代表的字符
+--|--
+\0|NUL字符(\u0000)
+\b|退格符(\u0008)
+\t|水平制表符(\u0009)
+\n|换行符(\u000A)
+\v|垂直制表符(\u000B)
+\f|换页符(\u000C)
+\r|回车符(\u000D)
+\"|双引号(\u0022)
+\'|撇号或单引号(\u0027)
+\xXX|由两位十六进制数值XX指定的Latin-1字符
+\uXXXX|由四位十六进制数XXXX指定的Unicode字符
+\XXX|由一位到三位八进制数(1到377)指定的Latin-1字符，ECMAScript v3不支持，不要使用这种转义序列
 ## 参考文献
 [encodeURI](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)
 
