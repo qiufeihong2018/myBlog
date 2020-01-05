@@ -1,6 +1,8 @@
 # 吃透URL的编码和解码
 ## 背景
-故事的起源：某一天，我在网站中打开一个[https%3A%2F%2Fgithub.com%2FMicrosoft%2Fmonaco-editor%2Fblob%2FHEAD%2Fdocs%2Fintegrate-esm.md](https%3A%2F%2Fgithub.com%2FMicrosoft%2Fmonaco-editor%2Fblob%2FHEAD%2Fdocs%2Fintegrate-esm.md)。结果，浏览器直接蹦出`404`。
+故事的起源：某一天，我在网站中打开一个[https%3A%2F%2Fgithub.com%2FMicrosoft%2Fmonaco-editor%2Fblob%2FHEAD%2Fdocs%2Fintegrate-esm.md](https%3A%2F%2Fgithub.com%2FMicrosoft%2Fmonaco-editor%2Fblob%2FHEAD%2Fdocs%2Fintegrate-esm.md)。
+
+结果，浏览器直接蹦出`404`。
 ![avatar](https://images.qiufeihong.top/encode-404.png)
 为什么URL会出现乱码呢？
 
@@ -65,8 +67,8 @@ URL转码其实也只是为了符合URL的规范而已。
 2. decodeURI解码
 3. encodeURIComponent编码
 4. decodeURIComponent解码
-5. escape(已废弃)编码
-6. unescape(已废弃)解码
+5. escape编码(已废弃)
+6. unescape解码(已废弃)
 ### python
 1. quote编码
 2. unquote解码
@@ -81,6 +83,8 @@ URL转码其实也只是为了符合URL的规范而已。
 2. urldecode解码
    
 ……
+
+姑且就先聊聊js编码和解码
 ## encodeURI
 > encodeURI() 函数通过将特定字符的每个实例替换为一个、两个、三或四转义序列来对统一资源标识符 (URI) 进行编码 (该字符的 UTF-8 编码仅为四转义序列)由两个 "代理" 字符组成)。
 
@@ -99,7 +103,7 @@ encodeURI('1z')
 请注意，encodeURI 自身无法产生能适用于HTTP GET 或 POST 请求的URI，例如对于 XMLHTTPRequests, 因为 "&", "+", 和 "=" 不会被编码，然而在 GET 和 POST请求中它们是特殊字符。然而encodeURIComponent这个函数会对这些字符编码。
 
 ### 场景
-应用场景：当期望获取一个可用的URL地址时，使用`encodeURI`函数进行编码。反之使用`encodeURIComponent`获得不可用的URL地址。
+应用场景：当期望获取一个可用的URL地址时，使用`encodeURI`函数进行编码。反之使用`encodeURIComponent`获得不可用的URL地址。`encodeURI`转码后可以点击跳转，`encodeURIComponent`转码后无法点击跳转。
 ### 例子
 ```js
 // 转码后可以点击跳转
@@ -108,7 +112,7 @@ encodeURI('http://www.baidu.com')
 encodeURI("http://www.qiufeihong.top/你好世界")
 //"http://www.qiufeihong.top/%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C"
 
-// 转码后无法点击
+// 转码后无法点击跳转
 encodeURIComponent('http://www.baidu.com')
 // "http%3A%2F%2Fwww.baidu.com"
 encodeURIComponent("http://www.qiufeihong.top/你好世界")
@@ -135,7 +139,40 @@ encodeURIComponent("1z")
 encodeURIComponent 转义除了字母、数字、(、)、.、!、~、*、'、-和_之外的所有字符。
 ### 场景
 encodeURIComponent：适用于URL作为参数传递时。
+见上述`encodeURI`
+## escape
+最好别用在生产环境中
+> 生成新的由十六进制转义序列替换的字符串。
+escape 函数是全局对象的属性. 特色字符如: @*_+-./ 被排除在外.
+
+字符的16进制格式值,当该值小于等于0xFF时,用一个2位转移序列: %xx 表示. 大于的话则使用4位序列:%uxxxx 表示.
 ### 例子
+```js
+escape("abc123")
+//"abc123"
+escape("äöü")
+//"%E4%F6%FC"
+escape("ć")
+//"%u0107"
+escape()
+//"undefined"
+escape("www.baidu.com")
+//"www.baidu.com"
+escape("http://www.qiufeihong.top/你好世界")
+//"http%3A//www.qiufeihong.top/%u4F60%u597D%u4E16%u754C"
+escape("http://www.qiufeihong.top/hello-world")
+//"http%3A//www.qiufeihong.top/hello-world"
+escape(";,/?:@&=+$-_.!~*()#")
+//"%3B%2C/%3F%3A@%26%3D+%24-_.%21%7E*%28%29%23"
+escape("1z")
+//"1z"
+escape('\uD800\uDFFF')
+//"%uD800%uDFFF"
+escape('\uD800')
+//"%uD800"
+escape('\uDFFF')
+//"%uDFFF"
+```
 ## decodeURI
 > decodeURI() 函数可对 encodeURI() 函数编码过的 URI 进行解码。将已编码 URI 中所有能识别的转义序列转换成原字符，但不能解码那些不会被 encodeURI 编码的内容（例如 "#"）。
 
@@ -191,39 +228,6 @@ decodeURIComponent("http://www.qiufeihong.top/JavaScript_%D1%88%D0%B5%D0%BB%D0%B
 decodeURIComponent('%E0%A4%A')
 //Uncaught URIError: URI malformed
 ```
-## escape
-最好别用在生产环境中
-> 生成新的由十六进制转义序列替换的字符串。
-escape 函数是全局对象的属性. 特色字符如: @*_+-./ 被排除在外.
-
-字符的16进制格式值,当该值小于等于0xFF时,用一个2位转移序列: %xx 表示. 大于的话则使用4位序列:%uxxxx 表示.
-### 例子
-```js
-escape("abc123")
-//"abc123"
-escape("äöü")
-//"%E4%F6%FC"
-escape("ć")
-//"%u0107"
-escape()
-//"undefined"
-escape("www.baidu.com")
-//"www.baidu.com"
-escape("http://www.qiufeihong.top/你好世界")
-//"http%3A//www.qiufeihong.top/%u4F60%u597D%u4E16%u754C"
-escape("http://www.qiufeihong.top/hello-world")
-//"http%3A//www.qiufeihong.top/hello-world"
-escape(";,/?:@&=+$-_.!~*()#")
-//"%3B%2C/%3F%3A@%26%3D+%24-_.%21%7E*%28%29%23"
-escape("1z")
-//"1z"
-escape('\uD800\uDFFF')
-//"%uD800%uDFFF"
-escape('\uD800')
-//"%uD800"
-escape('\uDFFF')
-//"%uDFFF"
-```
 ## unescape
 > 计算生成一个新的字符串，其中的十六进制转义序列将被其表示的字符替换。上述的转义序列就像escape里介绍的一样。因为 unescape 已经废弃，建议使用 decodeURI或者decodeURIComponent 替代本函数。
 ### 例子
@@ -253,20 +257,12 @@ unescape('\uD800')
 unescape('\uDFFF')
 //"�"
 ```
-## encodeURIComponent和encodeURI的类比
-如果 URI 中含有分隔符，比如 ? 和 #，则应当使用 encodeURIComponent() 函数分别对各组件进行编码。
-
-请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。
-操作的是完整的 URI；假定URI中的任何保留字符都有特殊意义，那么不会编码它们。
-## decodeURIComponent和decodeURI的类比
-函数操作的是组成URI的个别组件；假定任何保留字符都代表普通文本，那么必须编码它们，所以它们（保留字符）出现在一个完整 URI 的组件里面时不会被解释成保留字符了。
-## 总结：
-1. encodeURI 函数返回一个编码的 URI。如果您将编码结果传递给 decodeURI，那么将返回初始的字符串。
-2. encodeURI 函数不会对下列字符进行编码：":"、"/"、";" 和 "?"。请使用 encodeURIComponent 函数对这些字符进行编码。
-3. encodeURIComponent 函数将文本字符串编码为一个统一资源标识符 (URI) 的一个有效组件。如果是多个组件那请使用ecodeURI
-4. escape()除了 ASCII 字母、数字和特定的符号外，对传进来的字符串全部进行转义编码，因此如果想对URL编码，最好不要使用此函数。而encodeURI() 用于编码整个URI,因为URI中的合法字符都不会被编码转换。encodeURIComponent函数在编码单个URIComponent（指请求参数）应当是最常用的，它可以将参数中的中文、特殊字符进行转义，而不会影响整个URL。
-5. encodeURI，转码后URL还可以正常使用
-6. encodeURIComponent，转码后URL不再当做正常URL使用
+## 总结
+1. encodeURI 函数返回一个编码的 URI。如果您将编码结果传递给 decodeURI，那么将返回初始的字符串；
+2. `;,/?:@&=+$-_.!~*()#`不可以被`encodeURI`编码，但是可以被`encodeURIComponent`和`escape`编码；
+4. 不要再生产环境中使用escape；
+5. encodeURI，转码后URL还可以正常使用，encodeURIComponent，转码后URL不再当做正常URL使用；
+6. encodeURI被用作对一个完整的URI进行编码，而encodeURIComponent被用作对URI的一个组件进行编码。保留字符一般是用来分隔URI组件（一个URI可以被切割成多个组件，参考预备知识一节）或者子组件（如URI中查询参数的分隔符），如：号用于分隔scheme和主机，?号用于分隔主机和路径。由于encodeURI操纵的对象是一个完整的的URI，这些字符在URI中本来就有特殊用途，因此这些保留字符不会被encodeURI编码，否则意义就变了。
 ## 课外小知识
 ### URI/URL/URN
 - URI(Uniform Resource Identifier)：统一资源标识
@@ -294,6 +290,8 @@ URI是一种语义上的抽象概念。
 \xXX|由两位十六进制数值XX指定的Latin-1字符
 \uXXXX|由四位十六进制数XXXX指定的Unicode字符
 \XXX|由一位到三位八进制数(1到377)指定的Latin-1字符，ECMAScript v3不支持，不要使用这种转义序列
+### 保留字符
+Url可以划分成若干个组件，协议、主机、路径等。有一些字符（:/?#[]@）是用作分隔不同组件的。例如：冒号用于分隔协议和主机，/用于分隔主机和路径，?用于分隔路径和查询参数，等等。还有一些字符（!$&'()*+,;=）用于在每个组件中起到分隔作用的，如=用于表示查询参数中的键值对，&符号用于分隔查询多个键值对。当组件中的普通数据包含这些特殊字符时，需要对其进行编码。
 ## 参考文献
 [encodeURI](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI)
 
@@ -306,6 +304,8 @@ URI是一种语义上的抽象概念。
 [分清 URI、URL 和 URN](https://www.ibm.com/developerworks/cn/xml/x-urlni.html)
 
 [JavaScript的转义序列](https://blog.csdn.net/woshisap/article/details/8262958)
+
+[URL编码与解码](https://kb.cnblogs.com/page/133765/)
 最后，别忘了给这个项目点一个star哦，谢谢支持。
 [blog](https://github.com/qiufeihong2018/vuepress-blog)
 ![](https://images.qiufeihong.top/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E5%BE%AE%E4%BF%A1%E6%A0%87%E5%87%86%E7%BB%BF%E7%89%88.png)
