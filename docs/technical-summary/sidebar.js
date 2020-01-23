@@ -1,4 +1,9 @@
 module.exports = [{
+    title: '工作中遇到的vue问题和处理清单',
+    collapsable: false,
+    sidebarDepth: 4,
+    children: ['vue-question/']
+}, {
     title: '最全的vue版css实现loading加载图',
     collapsable: false,
     sidebarDepth: 4,

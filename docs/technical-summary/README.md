@@ -7,6 +7,8 @@
 
 
 ## doc
+[工作中遇到的vue问题和处理清单](./vue-question)
+
 [vue样式穿透](https://www.cnblogs.com/bgwhite/p/9558530.html)
 
 [没有vue-cli就没有qfh-cli](./qfh-cli/)
