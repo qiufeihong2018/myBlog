@@ -73,8 +73,227 @@ a[]:3
 正确方式是`JSON.stringify()`将数组`json`序列化
 
 ## 8. iframe高度如何自适应？
-13.iframe border去不掉
-el-dropdown command命令携带参数：vue element-ui框架 el-dropdown-menu 绑定click事件
+
+JS自适应高度，其实就是设置iframe的高度，使其等于内嵌网页的高度，从而看不出来滚动条和嵌套痕迹。对于用户体验和网站美观起着重要作用。
+
+如果内容是固定的，那么我们可以通过CSS来给它直接定义一个高度，同样可以实现上面的需求。当内容是未知或者是变化的时候。这个时候又有几种情况了。
+
+想要父页面中的iframe高度自适应，那就必须拿到子页面的高度。
+通过iframe.height设置iframe的高度。
+iframe 属性：
+```
+src: "http://www.bing.com/"
+srcdoc: ""
+name: ""
+sandbox: DOMTokenList [value: ""]
+allowFullscreen: false
+width: ""
+height: ""
+contentDocument: null
+contentWindow: global {window: global, self: global, location: Location, closed: false, frames: global, …}
+referrerPolicy: ""
+csp: ""
+allow: ""
+align: ""
+scrolling: "no"
+frameBorder: "0"
+longDesc: ""
+marginHeight: ""
+marginWidth: ""
+featurePolicy: FeaturePolicy {}
+loading: "auto"
+allowPaymentRequest: false
+title: ""
+lang: ""
+translate: true
+dir: ""
+hidden: false
+accessKey: ""
+draggable: false
+spellcheck: true
+autocapitalize: ""
+contentEditable: "inherit"
+isContentEditable: false
+inputMode: ""
+offsetParent: body
+offsetTop: 8
+offsetLeft: 8
+offsetWidth: 504
+offsetHeight: 1000
+style: CSSStyleDeclaration {alignContent: "", alignItems: "", alignSelf: "", alignmentBaseline: "", all: "", …}
+innerText: ""
+outerText: ""
+oncopy: null
+oncut: null
+onpaste: null
+onabort: null
+onblur: null
+oncancel: null
+oncanplay: null
+oncanplaythrough: null
+onchange: null
+onclick: null
+onclose: null
+oncontextmenu: null
+oncuechange: null
+ondblclick: null
+ondrag: null
+ondragend: null
+ondragenter: null
+ondragleave: null
+ondragover: null
+ondragstart: null
+ondrop: null
+ondurationchange: null
+onemptied: null
+onended: null
+onerror: null
+onfocus: null
+oninput: null
+oninvalid: null
+onkeydown: null
+onkeypress: null
+onkeyup: null
+onload: ƒ onload(event)
+onloadeddata: null
+onloadedmetadata: null
+onloadstart: null
+onmousedown: null
+onmouseenter: null
+onmouseleave: null
+onmousemove: null
+onmouseout: null
+onmouseover: null
+onmouseup: null
+onmousewheel: null
+onpause: null
+onplay: null
+onplaying: null
+onprogress: null
+onratechange: null
+onreset: null
+onresize: null
+onscroll: null
+onseeked: null
+onseeking: null
+onselect: null
+onstalled: null
+onsubmit: null
+onsuspend: null
+ontimeupdate: null
+ontoggle: null
+onvolumechange: null
+onwaiting: null
+onwheel: null
+onauxclick: null
+ongotpointercapture: null
+onlostpointercapture: null
+onpointerdown: null
+onpointermove: null
+onpointerup: null
+onpointercancel: null
+onpointerover: null
+onpointerout: null
+onpointerenter: null
+onpointerleave: null
+onselectstart: null
+onselectionchange: null
+onanimationend: null
+onanimationiteration: null
+onanimationstart: null
+ontransitionend: null
+dataset: DOMStringMap {}
+nonce: ""
+autofocus: false
+tabIndex: 0
+enterKeyHint: ""
+onformdata: null
+onpointerrawupdate: null
+namespaceURI: "http://www.w3.org/1999/xhtml"
+prefix: null
+localName: "iframe"
+tagName: "IFRAME"
+id: "myFrame"
+className: ""
+classList: DOMTokenList [value: ""]
+slot: ""
+part: DOMTokenList [value: ""]
+attributes: NamedNodeMap {0: src, 1: id, 2: frameborder, 3: scrolling, 4: onload, src: src, id: id, frameborder: frameborder, scrolling: scrolling, onload: onload, …}
+shadowRoot: null
+assignedSlot: null
+innerHTML: ""
+outerHTML: "<iframe src="http://www.bing.com" id="myFrame" frameborder="0" scrolling="no" onload="setFrameHeight(this)"></iframe>"
+scrollTop: 0
+scrollLeft: 0
+scrollWidth: 504
+scrollHeight: 1000
+clientTop: 0
+clientLeft: 0
+clientWidth: 504
+clientHeight: 1000
+attributeStyleMap: StylePropertyMap {size: 0}
+onbeforecopy: null
+onbeforecut: null
+onbeforepaste: null
+onsearch: null
+elementTiming: ""
+previousElementSibling: null
+nextElementSibling: script
+children: HTMLCollection []
+firstElementChild: null
+lastElementChild: null
+childElementCount: 0
+onfullscreenchange: null
+onfullscreenerror: null
+onwebkitfullscreenchange: null
+onwebkitfullscreenerror: null
+nodeType: 1
+nodeName: "IFRAME"
+baseURI: "file:///D:/githubMe/blog-demo/frame.html"
+isConnected: true
+ownerDocument: document
+parentNode: body
+parentElement: body
+childNodes: NodeList []
+firstChild: null
+lastChild: null
+previousSibling: null
+nextSibling: text
+nodeValue: null
+textContent: ""
+```
+通过测试发现设置`iframe`中的`height`即可实现高度变化。
+```html
+<html>
+<iframe src="https://www.bing.com/" id="myFrame" frameborder='0' width="500px"></iframe>
+
+</html>
+<script>
+    function initFrame() {
+        var iframe = document.getElementById("myFrame");
+        iframe.height = document.documentElement.clientHeight
+    }
+    window.onload = initFrame()
+    window.onresize=initFrame()
+</script>
+<style>
+    body {
+        margin: 0;
+        width: 0;
+    }
+</style>
+```
+就可以实现高度自适应
+
+## 9. iframe边框怎么去？
+`iframe`标签中添加属性`frameborder`，并且设置为'0'
+## 10. el-dropdown中的事件command怎么携带参数？
+`command`经过测试无法携带参数，只能通过触发每个下拉项事件来携带参数
+`el-dropdown-menu`绑定`click`事件
+
+## 11. v-for与v-else连用，为什么重复渲染该标签？
+
+```html
         <div v-if="search">
               <el-checkbox  v-for="user in userList" :label="user.name" :key="user.name">
                 {{ user.name }}
@@ -87,4 +306,8 @@ el-dropdown command命令携带参数：vue element-ui框架 el-dropdown-menu �
                 {{ user.name }}
               </el-checkbox>
               </div>
+```
 未完待续
+
+## 参考文献
+[iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
