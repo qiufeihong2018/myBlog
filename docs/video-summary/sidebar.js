@@ -1,4 +1,9 @@
 module.exports = [{
+    title:'全面系统python3入门+进阶',
+    collapsableL:false,
+    sidebarDepth:2,
+    children:['python3-introduction-advanced']
+},{
         title: 'Vue2.0 Node.js MongoDB全栈打造商城系统',
         collapsable: false,
         sidebarDepth: 2,
