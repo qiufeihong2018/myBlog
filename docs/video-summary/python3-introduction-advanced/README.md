@@ -201,6 +201,12 @@
  13-8 数据精炼
  13-9 sorted 排序
  13-10 案例总结
+ 第三方爬虫库
+ 1. BeautifulSoup
+ 2. Scrapy
+
+不要为了学而学，要有意义
+
 ## 第14章 Pythonic与Python杂记
 本章我们将大量扩展Python的优秀写法，学会如何写出优质的Pythonic风格的代码。包括：如何让字典保持有序、lmbda表达式的应用等高级Python知识
 
