@@ -1,4 +1,9 @@
 module.exports = [{
+    title:'Python绘制实时疫情词云',
+    collapsable:false,
+    sidebarDepth:4,
+    children:['wordcloud/']
+},{
     title: '工作中遇到的vue问题和处理清单',
     collapsable: false,
     sidebarDepth: 4,
