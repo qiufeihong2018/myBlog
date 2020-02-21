@@ -13,7 +13,6 @@
 地址占用
 1. cmd 看下本地ipconfig，然后输入自己的ip，就可以了
 2. 在浏览器输入http://ip:port即可查看页面
-
 ## 3. Vue和IE兼容问题(IE页面空白不显示）
 当IE11打开vue页面的时候，居然是一片空白。
 查看相关issue。
@@ -44,10 +43,8 @@ import 'es6-promise/auto'
 ```
 ## 4. 为什么会出现`Uncaught (in promise) RangeError: Maximum call stack size exceeded`问题？
 因为在分页逻辑的时候，未进行条件判断，导致递归无限进行。
-
 ## 5. `before-leave`切换element标签之前提示
 这是element-ui切换标签之前的钩子，可以在这个方法中写提示语。
-
 ## 6. 为什么在`keep-alive`中使用`activated`和`deactiveted`无效？
 因为`keep-alive`中组件中不包含动态组件，那么那些不被包含的组件就无法触发这两个方法。
 `:exclude="['a','b','c']"`，那么其中`a`,`b`,`c`组件就无法调用方法。
@@ -56,7 +53,6 @@ import 'es6-promise/auto'
 
 `activated`在`keep-alive`组件激活时调用，该钩子函数在服务器端渲染期间不被调用
 `deactivated`在`keep-alive`组件停用时调用，该钩子函数在服务器端渲染期间不被调用
-
 ## 7. axios中使用params怎么传数组？
 `axios`使用`params`传递数组类型的参数时，在`query`中的参数名会带上`[]`字符串
 
@@ -71,7 +67,6 @@ a[]:3
 因为`POST`传数组肯定是没问题，`data`本身支持`json`数据。但是`GET`数据带在`url`后面，那么就要转字符串。
 
 正确方式是`JSON.stringify()`将数组`json`序列化
-
 ## 8. iframe高度如何自适应？
 
 JS自适应高度，其实就是设置iframe的高度，使其等于内嵌网页的高度，从而看不出来滚动条和嵌套痕迹。对于用户体验和网站美观起着重要作用。
@@ -284,13 +279,11 @@ textContent: ""
 </style>
 ```
 就可以实现高度自适应
-
 ## 9. iframe边框怎么去？
 `iframe`标签中添加属性`frameborder`，并且设置为'0'
 ## 10. el-dropdown中的事件command怎么携带参数？
 `command`经过测试无法携带参数，只能通过触发每个下拉项事件来携带参数
 `el-dropdown-menu`绑定`click`事件
-
 ## 11. v-for与v-else连用，为什么重复渲染该标签？
 
 ```html
@@ -308,6 +301,46 @@ textContent: ""
               </div>
 ```
 未完待续
+## 12. refused to set unsafe header 'cookie'
+因为浏览器的请求`header`中存有`cookie`会不安全，所以浏览器后报错。但是硬要添加也是没问题的。
+最佳做法是把`Cookie`改成`Authorization`，让后端从`Authorization`中拿到相关登录信息
+## 13. vue插值中函数不能异步
+vue中的插值表达式中添加异步函数
+```vue
+<template>
+...
+    <el-table :data="tableData">
+      <el-table-column label="名字" width="200" show-overflow-tooltip>
+        <template slot-scope="slot">
+          <router-link
+            class="name"
+            :to="{ path: 'iframe', query: { id: slot.row.id }}"
+          >{{ getName(slot.row.id) }}</router-link>
+        </template>
+      </el-table-column>
+    </el-table>
+...
+</template>
+<script>
+export default {
+...
+methods:{
+    getName(msg){
+        let aaa
+        axios.post({
+            url:url,
+            params:msg
+        }).then(res=>{
+        return res.data.name
+        })
+    }
+}
+...
+}
+</script>
+```
+就比如上面这个表格根据`id`获取姓名，在插值表达式中的函数返回异步请求的结果，可想而知，是没有结果渲染的。
 
+最佳做法，从`table`中的依赖数据`tableData`入手，遍历其中的`id`先获取名字，然后放进`table`即可。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)

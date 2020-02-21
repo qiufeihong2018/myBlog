@@ -20,7 +20,7 @@
 ```
 效果如下：
 
-![avatar](./coronavirus_test_8.png)
+![avatar](./coronavirus_test_9.png)
 
 第一步当然是将数据保存在本地，然后读取数据。
 因为文件对象会占用操作系统的资源，所以文件读取完后必须要关闭。
