@@ -208,6 +208,28 @@ server
 
         }
 ```
+## nginx反向代理跨域
+除了前端和后端跨域之外，还可以利用nginx反向代理跨域。
+实现如下：
+```
+server
+        {
+                listen  80;
+                server_name www.qiufeihong.top;
+          
+                location / {
+                add_header Access-Control-Allow-Origin $http_origin;
+                add_header Access-Control-Allow-Headers Authorization,Content-Type,Accept,Origin,User-Agent,DNT,Cache-Control,X-Mx-ReqToken,X-Data-Type,X-Requested-With;
+                add_header Access-Control-Allow-Methods GET,POST,OPTIONS,HEAD,PUT;
+                add_header Access-Control-Allow-Credentials true;
+                add_header Access-Control-Allow-Headers X-Data-Type,X-Auth-Token;
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:7777;
+                }
+
+        }
+```
 ## nginx反向代理跨域之请求头options问题
 `axios`请求时一般会先发一个`options`来预检。
 但是配置了`nginx`后，请求拦截了，最后跨域报错。
@@ -234,7 +256,6 @@ server
                 }
 
         }
-
 ```
 ## 参考文献
 
