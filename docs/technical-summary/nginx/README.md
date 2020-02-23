@@ -1,5 +1,6 @@
 # nginx服务器配置+二级域名搭建项目
-## [安装nginx](https://nginx.org/en/linux_packages.html#Ubuntu)
+## 安装nginx
+[ubuntu的安装指南](https://nginx.org/en/linux_packages.html#Ubuntu)
 - 安装前提
 ```bash
 sudo apt install curl gnupg2 ca-certificates lsb-release
@@ -138,7 +139,76 @@ mail|将域名解析为mail.aliyun.com，通常用于解析邮箱服务器
 `blog`就是添加的记录
 ![avatar](../public/aliyun1.png)
 ![avatar](../public/aliyun2.png)
+## nginx域名访问的白名单配置
+显然大家配置nginx的目标是一样：都为了隐藏项目的端口。
+当然还有人在考虑：是不是可以禁用一些用户访问项目。
+这里就要提到白名单。
 
+- 方案一：可以利用nginx的allow、deny参数进行访问限制
+
+```
+server
+        {
+                listen  80;
+                server_name www.qiufeihong.top;
+                ## 禁用所有地址，只允许10.10.111.111和127.0.0.1这两个地址访问
+                allow 10.10.111.111;
+                allow 127.0.0.1;
+                deny all;
+                location / {
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:7777;
+                }
+
+        }
+```
+- 方案二：针对nginx域名配置所启用的端口(比如80端口)在iptables里做白名单
+比如只允许`10.10.111.111`、`127.0.0.1`访问.但是这样就把nginx的所有80端口的域名访问都做了限制，范围比较大。
+
+```
+[root@xxx ~]# vim /etc/sysconfig/iptables
+......
+-A INPUT -s 10.10.111.111 -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+-A INPUT -s 127.0.0.1 -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+```
+- 方案三：利用$remote_addr参数进行访问的分发限制
+```
+server
+        {
+                listen  80;
+                server_name www.qiufeihong.top;
+                ## 禁用所有地址，只允许10.10.111.111和127.0.0.1这两个地址访问
+                if ($remote_addr !~ ^(10.10.111.111|127.0.0.1)) {
+                 rewrite ^.*$ /xxx.vue last;
+                }
+                location / {
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:7777;
+                }
+
+        }
+```
+- 方案四：使用$http_x_forwarded_for参数进行访问的分发限制
+```
+server
+        {
+                listen  80;
+                server_name www.qiufeihong.top;
+                ## 禁用所有地址，只允许10.10.111.111和127.0.0.1这两个地址访问
+                if ($http_x_forwarded_for !~ ^(10.10.111.111|127.0.0.1)) {
+                 rewrite ^.*$ /xxx.vue last;
+                }
+                location / {
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:7777;
+                }
+
+        }
+```
+## nginx反向代理跨域请求头options问题
 ## 参考文献
 
 [nginx服务器简单配置文件路径](https://blog.csdn.net/haoaiqian/article/details/78961998)
