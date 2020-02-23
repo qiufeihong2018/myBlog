@@ -1,4 +1,4 @@
-# nginx服务器配置+二级域名搭建项目
+# nginx配置
 ## 安装nginx
 [ubuntu的安装指南](https://nginx.org/en/linux_packages.html#Ubuntu)
 - 安装前提
@@ -208,7 +208,34 @@ server
 
         }
 ```
-## nginx反向代理跨域请求头options问题
+## nginx反向代理跨域之请求头options问题
+`axios`请求时一般会先发一个`options`来预检。
+但是配置了`nginx`后，请求拦截了，最后跨域报错。
+由于不能确定是否是`option`引起的跨域，
+所以排除`options`的问题，在nginx中配置`options`巡检后返回`200`，不让其进入后台，真正的请求才能进入后台。
+```
+server
+        {
+                listen  80;
+                server_name www.qiufeihong.top;
+          
+                location / {
+                if ( $request_method = 'OPTIONS' ) {
+                        add_header Access-Control-Allow-Origin $http_origin;
+                        add_header Access-Control-Allow-Headers Authorization,Content-Type,Accept,Origin,User-Agent,DNT,Cache-Control,X-Mx-ReqToken,X-Data-Type,X-Requested-With;
+                        add_header Access-Control-Allow-Methods GET,POST,OPTIONS,HEAD,PUT;
+                        add_header Access-Control-Allow-Credentials true;
+                        add_header Access-Control-Allow-Headers X-Data-Type,X-Auth-Token;
+                        return 200;
+                }
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:7777;
+                }
+
+        }
+
+```
 ## 参考文献
 
 [nginx服务器简单配置文件路径](https://blog.csdn.net/haoaiqian/article/details/78961998)

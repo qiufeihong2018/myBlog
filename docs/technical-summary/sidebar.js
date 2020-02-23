@@ -65,7 +65,7 @@ module.exports = [{
     sidebarDepth: 4,
     children: ['tools/']
 }, {
-    title: 'nginx服务器配置+二级域名搭建项目',
+    title: 'nginx配置',
     collapsable: false,
     sidebarDepth: 4,
     children: ['nginx/']
