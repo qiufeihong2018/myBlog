@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>滚动条样式汇总</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <style>
+
+        div {
+            height: 300px;
+            background-color: #000;
+            margin: 10px;
+            overflow: auto;
+            color: #fff;
+        }
+
+        .inner-overflow {
+            min-height: 900px;
+            min-width: 6000px;
+        }
+
+        .div-2::-webkit-scrollbar {
+            width: 100px;
+            height: 100px;
+            background-color: #FF0000;
+        }
+
+        .div-2::-webkit-scrollbar-button {
+            background-color: #FF7F00;
+            height: 20px;
+            width: 20px;
+            border-radius: 100px;
+        }
+
+        .div-2::-webkit-scrollbar-thumb {
+            border-radius: 100px;
+            background-color: #FFFF00;
+        }
+
+        .div-2::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(126, 126, 126, 0.85);
+            border-radius: 100px;
+            background-color: #00FF00;
+        }
+
+        .div-2::-webkit-scrollbar-track-piece {
+            border-radius: 100px;
+            background-color: #00FFFF;
+        }
+
+        .div-2::-webkit-scrollbar-corner {
+            border-radius: 100px;
+            background-color: #0000FF;
+        }
+
+        .div-3::-webkit-scrollbar {
+            width: 100px;
+            height: 100px;
+            background-color: #FF0000;
+        }
+
+        .div-3::-webkit-scrollbar-button {
+            background-color: #FF7F00;
+            height: 20px;
+            width: 20px;
+            border-radius: 100px;
+        }
+
+        .div-3::-webkit-scrollbar-thumb {
+            border-radius: 100px;
+            background-color: #FFFF00;
+        }
+
+        .div-3::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(126, 126, 126, 0.85);
+            border-radius: 100px;
+            background-color: #00FF00;
+        }
+
+        .div-3::-webkit-scrollbar-track-piece {
+            border-radius: 100px;
+            background-color: #00FFFF;
+        }
+
+        .div-3::-webkit-scrollbar-corner {
+            background-color: #0000FF;
+        }
+        .div-3::-webkit-resizer {
+            border-radius: 100px;
+            background-color: #8B00FF;
+        }
+
+        .div-4{
+            scrollbar-color: #FF0000;
+            scrollbar-3dlight-color: #FF7F00;
+            scrollbar-shadow-color: #FFFF00;
+            scrollbar-highlight-color: #00FF00;
+            scrollbar-face-color: #00FFFF;
+            scrollbar-darkshadow-color: #0000FF;
+            scrollbar-base-color:#8B00FF ;
+            scrollbar-arrow-color: #fff;
+        }
+        .div-5::-webkit-scrollbar{
+            width: 10px;
+            height: 10px;
+        }
+        .div-5::-webkit-scrollbar-thumb{
+            background-color: #7e7e7ed9;
+        }
+        .div-5::-webkit-scrollbar-corner{
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="div-1">
+        <div class="inner-overflow">
+            滚动条默认样式
+        </div>
+    </div>
+    <div class="div-2">
+        <div class="inner-overflow">
+            修改的chrome滚动条样式，在ie浏览器中不兼容
+            <p>div检验</p>
+            <p style="color:#FF0000">红色 ::-webkit-scrollbar </p>
+            <p style="color:#FF7F00">橙色 ::-webkit-scrollbar-button </p>
+            <p style="color:#FFFF00">黄色 ::-webkit-scrollbar-thumb </p>
+            <p style="color:#00FF00">绿色 ::-webkit-scrollbar-track </p>
+            <p style="color:#00FFFF">青色 ::-webkit-scrollbar-track-piece </p>
+            <p style="color:#0000FF">蓝色 ::-webkit-scrollbar-corner </p>
+            <p>textarea检验</p>
+            <p style="color:#8B00FF">紫色 ::-webkit-resizer </p>
+        </div>
+    </div>
+    
+    <textarea rows='20' cols="100" class="div-3">
+        textarea检验::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer                                                                                                         
+        紫色 ::-webkit-resizer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer                     
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+        紫色 ::-webkit-resizer 
+    </textarea>
+    <div class="div-4">
+        <div class="inner-overflow">
+            修改的ie滚动条样式
+            <p>切换到ie</p>
+        </div>
+    </div>
+    <div class="div-5">
+        <div class="inner-overflow"></div>
+    </div>
+</body>
+
+</html>
