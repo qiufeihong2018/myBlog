@@ -9,7 +9,6 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
     <style>
-
         div {
             height: 300px;
             background-color: #000;
@@ -89,31 +88,121 @@
         .div-3::-webkit-scrollbar-corner {
             background-color: #0000FF;
         }
+
         .div-3::-webkit-resizer {
             border-radius: 100px;
             background-color: #8B00FF;
         }
 
-        .div-4{
+        .div-4 {
             scrollbar-color: #FF0000;
             scrollbar-3dlight-color: #FF7F00;
             scrollbar-shadow-color: #FFFF00;
             scrollbar-highlight-color: #00FF00;
             scrollbar-face-color: #00FFFF;
             scrollbar-darkshadow-color: #0000FF;
-            scrollbar-base-color:#8B00FF ;
+            scrollbar-base-color: #8B00FF;
             scrollbar-arrow-color: #fff;
         }
-        .div-5::-webkit-scrollbar{
+
+        .div-5::-webkit-scrollbar {
             width: 10px;
             height: 10px;
         }
-        .div-5::-webkit-scrollbar-thumb{
+
+        .div-5::-webkit-scrollbar-thumb {
             background-color: #7e7e7ed9;
         }
-        .div-5::-webkit-scrollbar-corner{
+
+        .div-5::-webkit-scrollbar-corner {
             background-color: #000;
         }
+
+        .div-6::-webkit-scrollbar {
+            width: 12px;
+            background-color: #F5F5F5;
+        }
+
+        .div-6::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #555;
+        }
+
+        .div-6::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+
+        .div-7::-webkit-scrollbar {
+            width: 10px;
+            background-color: #F5F5F5;
+        }
+
+        .div-7::-webkit-scrollbar-thumb {
+            background-color: #AAA;
+            border-radius: 10px;
+            background-image: -webkit-linear-gradient(120deg, rgba(0, 0, 0, .2) 25%, transparent 6%, transparent 52%, rgba(0, 0, 0, .2) 50%, rgba(0, 0, 0, .2) 75%, transparent 75%, transparent)
+        }
+
+        .div-7::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #F5F5F5;
+            border-radius: 10px;
+        }
+
+        .div-8::-webkit-scrollbar {
+            width: 10px;
+            background-color: #F5F5F5;
+        }
+
+        .div-8::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122, 153, 217)), color-stop(0.72, rgb(73, 125, 189)), color-stop(0.86, rgb(28, 58, 148)));
+        }
+
+        .div-8::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #F5F5F5;
+            border-radius: 10px;
+        }
+
+        .div-9::-webkit-scrollbar {
+            width: 20px;
+            height:20px;
+            background-color: #eee;
+        }
+        
+        .div-9::-webkit-scrollbar-track {
+            background-color: #eee;
+        }
+        
+        .div-9::-webkit-scrollbar-thumb {
+            background: #555;
+        }
+        .div-9::-webkit-scrollbar-button{
+            width:20px;
+            height:20px
+        }
+        .div-9::-webkit-scrollbar-button:vertical:start {
+            background: url(./scroll3.png) no-repeat;
+            background-size: 20px 20px;
+        }
+        
+        .div-9::-webkit-scrollbar-button:vertical:end {
+            background: url(./scroll4.png) no-repeat;
+            background-size:  20px 20px;
+        }  
+        .div-9::-webkit-scrollbar-button:horizontal:start {
+            background: url(./scroll5.png) no-repeat;
+            background-size: 20px 20px;
+        }
+        
+        .div-9::-webkit-scrollbar-button:horizontal:end {
+            background: url(./scroll6.png) no-repeat;
+            background-size:  20px 20px;
+        }    
     </style>
 </head>
 
@@ -122,6 +211,7 @@
     <div class="div-1">
         <div class="inner-overflow">
             滚动条默认样式
+            <p>出于观察和学习，将下列滚动条放大几倍</p>
         </div>
     </div>
     <div class="div-2">
@@ -136,9 +226,10 @@
             <p style="color:#0000FF">蓝色 ::-webkit-scrollbar-corner </p>
             <p>textarea检验</p>
             <p style="color:#8B00FF">紫色 ::-webkit-resizer </p>
+
         </div>
     </div>
-    
+
     <textarea rows='20' cols="100" class="div-3">
         textarea检验::-webkit-resizer 
         紫色 ::-webkit-resizer 
@@ -198,6 +289,22 @@
         </div>
     </div>
     <div class="div-5">
+        <div class="inner-overflow">
+            简洁就是美
+        </div>
+    </div>
+    <div class="div-6">
+        <div class="inner-overflow">
+
+        </div>
+    </div>
+    <div class="div-7">
+        <div class="inner-overflow"></div>
+    </div>
+    <div class="div-8">
+        <div class="inner-overflow"></div>
+    </div>
+    <div class="div-9">
         <div class="inner-overflow"></div>
     </div>
 </body>
