@@ -139,6 +139,20 @@ mail|将域名解析为mail.aliyun.com，通常用于解析邮箱服务器
 `blog`就是添加的记录
 ![avatar](../public/aliyun1.png)
 ![avatar](../public/aliyun2.png)
+## 访问静态页面
+在`nginx`配置文件中添加一个服务，将`root`设为`/`，`index`指向页面的绝对路径。
+`root`是最上层目录的定义，`nginx`会在`/var/lib/jenkins/jobs/vuepress-blog/workspace/docs/technical-summary/scrollbar/`寻找`scroll.html`。
+```
+server
+        {
+                listen 80;
+                server_name blog-demo.qiufeihong.top;
+                location /{
+                root /;
+                index /var/lib/jenkins/jobs/vuepress-blog/workspace/docs/technical-summary/scrollbar/scroll.html;
+                }
+        }
+```
 ## nginx域名访问的白名单配置
 显然大家配置nginx的目标是一样：都为了隐藏项目的端口。
 当然还有人在考虑：是不是可以禁用一些用户访问项目。
