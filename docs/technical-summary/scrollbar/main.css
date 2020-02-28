@@ -1,7 +1,7 @@
 div {
     height: 300px;
     background-color: #000;
-    margin: 10px;
+    margin: 20px;
     overflow: auto;
     color: #fff;
 }
@@ -95,8 +95,8 @@ div {
 }
 
 .div-5::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
 }
 
 .div-5::-webkit-scrollbar-thumb {
@@ -108,53 +108,56 @@ div {
 }
 
 .div-6::-webkit-scrollbar {
-    width: 12px;
+    width: 20px;
     background-color: #F5F5F5;
 }
 
 .div-6::-webkit-scrollbar-thumb {
-    border-radius: 10px;
+    border-radius: 20px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-    background-color: #555;
+    background-color: rgb(85, 85, 85,0.2);
 }
 
 .div-6::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: #F5F5F5;
 }
 
 .div-7::-webkit-scrollbar {
-    width: 10px;
+    width: 20px;
     background-color: #F5F5F5;
 }
 
 .div-7::-webkit-scrollbar-thumb {
     background-color: #AAA;
-    border-radius: 10px;
+    border-radius: 20px;
     background-image: -webkit-linear-gradient(120deg, rgba(0, 0, 0, .2) 25%, transparent 6%, transparent 52%, rgba(0, 0, 0, .2) 50%, rgba(0, 0, 0, .2) 75%, transparent 75%, transparent)
 }
 
 .div-7::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #F5F5F5;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .div-8::-webkit-scrollbar {
-    width: 10px;
+    width: 20px;
     background-color: #F5F5F5;
 }
 
-.div-8::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122, 153, 217)), color-stop(0.72, rgb(73, 125, 189)), color-stop(0.86, rgb(28, 58, 148)));
+.div-8::-webkit-scrollbar-thumb:vertical {
+    border-radius: 20px;
+    background-image: -webkit-linear-gradient(180deg, #4e83ee, #fff, #4e83ee);
 }
-
+.div-8::-webkit-scrollbar-thumb:horizontal {
+    border-radius: 20px;
+    background-image: -webkit-linear-gradient(90deg, #4e83ee, #fff, #4e83ee);
+}
 .div-8::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #F5F5F5;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .div-9::-webkit-scrollbar {
@@ -167,13 +170,13 @@ div {
     background-color: #eee;
 }
 
-.div-9::-webkit-scrollbar-thumb {
-    background-image: -webkit-linear-gradient(90deg,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 1) 25%,
-            transparent 100%,
-            rgba(0, 0, 0, 1) 75%,
-            transparent);
+.div-9::-webkit-scrollbar-thumb:vertical {
+    background-image: -webkit-linear-gradient(90deg, #000, #fff, #000);
+    border-radius: 20px;
+}
+
+.div-9::-webkit-scrollbar-thumb:horizontal {
+    background-image: -webkit-linear-gradient(180deg, #000, #fff, #000);
     border-radius: 20px;
 }
 
