@@ -22,4 +22,7 @@
   - 点击收起按钮时自动滚动到代码的顶部
 
 - [ ] 导入*.vue 文件的同时，使用 [Vuese](https://buptsteve.github.io/markdown-it-vuese/zh/#install) 自动生成文档。
-
+- 加入音乐
+```html
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=34341360&auto=1&height=66"></iframe>
+```

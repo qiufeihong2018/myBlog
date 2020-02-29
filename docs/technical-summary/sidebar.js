@@ -1,5 +1,5 @@
 module.exports = [{
-    title:'chrome和ie浏览器下的滚动条',
+    title:'【CSS】滚动条样式的优化',
     collapsable:false,
     sidebarDepth:4,
     children:['scrollbar/']

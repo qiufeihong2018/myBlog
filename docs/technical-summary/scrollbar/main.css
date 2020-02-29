@@ -44,7 +44,13 @@ div {
     border-radius: 100px;
     background-color: #0000FF;
 }
+.div-2::-webkit-scrollbar-button:decrement:hover {
+    background: #fff;
+}
 
+.div-2::-webkit-scrollbar-button:increment:hover {
+    background: #fff;
+}
 .div-3::-webkit-scrollbar {
     width: 100px;
     height: 100px;
@@ -84,13 +90,13 @@ div {
 }
 
 .div-4 {
-    scrollbar-color: #FF0000;
-    scrollbar-3dlight-color: #FF7F00;
-    scrollbar-shadow-color: #FFFF00;
+    /* scrollbar-color: #FF0000;
+    scrollbar-3dlight-color: #FF7F00; */
+    scrollbar-shadow-color: #00FFFF;
     scrollbar-highlight-color: #00FF00;
-    scrollbar-face-color: #00FFFF;
-    scrollbar-darkshadow-color: #0000FF;
-    scrollbar-base-color: #8B00FF;
+    scrollbar-face-color: #ffff00;
+    /* scrollbar-darkshadow-color: #0000FF;
+    scrollbar-base-color: #8B00FF; */
     scrollbar-arrow-color: #fff;
 }
 
@@ -173,11 +179,13 @@ div {
 .div-9::-webkit-scrollbar-thumb:vertical {
     background-image: -webkit-linear-gradient(90deg, #000, #fff, #000);
     border-radius: 20px;
+    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
 }
 
 .div-9::-webkit-scrollbar-thumb:horizontal {
     background-image: -webkit-linear-gradient(180deg, #000, #fff, #000);
     border-radius: 20px;
+    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
 }
 
 .div-9::-webkit-scrollbar-button {

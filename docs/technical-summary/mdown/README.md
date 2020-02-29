@@ -176,6 +176,19 @@ demo
 (```)
 ```
 
+### gif和视频
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=200 width=400 src="http://img.soogif.com/dCLy9LZlkF6mv3FwPxCjBj7l0ciupNMc.gif_s400x0"></iframe>
+
+![](http://img.soogif.com/dCLy9LZlkF6mv3FwPxCjBj7l0ciupNMc.gif_s400x0)
+
+用`iframe`包裹gif和视频，就可以正常访问啦
+```html
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=200 width=400 src="http://img.soogif.com/dCLy9LZlkF6mv3FwPxCjBj7l0ciupNMc.gif_s400x0"></iframe>
+```
+或是
+```html
+![](http://img.soogif.com/dCLy9LZlkF6mv3FwPxCjBj7l0ciupNMc.gif_s400x0)
+```
 
 > 参考[Markdown基本语法](https://www.jianshu.com/p/191d1e21f7ed)
 
