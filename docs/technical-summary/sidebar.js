@@ -9,10 +9,10 @@ module.exports = [{
     sidebarDepth:4,
     children:['wordcloud/']
 },{
-    title: '工作中遇到的vue问题和处理清单',
+    title: '工作中遇到的前端问题和处理清单',
     collapsable: false,
     sidebarDepth: 4,
-    children: ['vue-question/']
+    children: ['front-end-question/']
 }, {
     title: '最全的vue版css实现loading加载图',
     collapsable: false,

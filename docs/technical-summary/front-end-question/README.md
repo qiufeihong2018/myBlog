@@ -359,6 +359,23 @@ Integer在Java内用32位表示，因此32位能表示的最大值是2147483647�
 时间戳（timestamp），一个能表示一份数据在某个特定时间之前已经存在的、 完整的、 可验证的数据,通常是一个字符序列，唯一地标识某一刻的时间。
 时间戳是指格林威治时间1970年01月01日00时00分00秒起至现在的总秒数。
 有了时间戳，无论我们深处哪个时区，从格林威治时间1970年01月01日00时00分00秒到现在这一时刻的总秒数应该是一样的。所以说，时间戳是一份能够表示一份数据在一个特定时间点已经存在的完整的可验证的数据。
+## 15. 修改ElementUI的提示框默认样式
+像elementUI的tooltip、popover这种渲染出来的元素都是在body下面一层，所以你在组件里面去加样式发现根本不生效，所以需要到App.vue里面去加
+1. 给tooltip加上popper-class="tips"自定义样式
+2. 改变边框为灰色
+
+```css
+.el-tooltip__popper.is-light.tips{
+  border 1px solid #eee
+}
+//改变边框，宽度，文字换行
+.el-tooltip__popper.is-light.tooltipStyle{
+  border 1px solid #eee
+  width 80px
+  word-break break-all
+}
+```
 
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
+[ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
