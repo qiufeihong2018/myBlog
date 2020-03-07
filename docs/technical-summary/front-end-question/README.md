@@ -375,7 +375,18 @@ Integer在Java内用32位表示，因此32位能表示的最大值是2147483647�
   word-break break-all
 }
 ```
+## 16. 控制台报错：@babel/polyfill is loaded more than once on this page.
 
+前端控制台报错
+```
+@babel/polyfill is loaded more than once on this page. This is probably not desirable/intended and may have consequences if different versions of the polyfills are applied sequentially. If you do need to load the polyfill more than once, use @babel/polyfill/noConflict instead to bypass the warning.
+```
+问题是：`@babel/polyfill` 在页面中加载多次，如果不同版本的`polyfill`应用可能是不可取的，并可能有后果。
+如果你需要多次加载`polyfill`，使用`@babel/polyfill/noConflict`来绕过警告。
+
+这个警告出现在`node_modules\@babel\polyfill\browser.js`
+
+解决方案：在`main.js`中将`import '@babel/polyfill`改成`import '@babel/polyfill/noConflict'`即可。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
