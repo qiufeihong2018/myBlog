@@ -387,6 +387,23 @@ Integer在Java内用32位表示，因此32位能表示的最大值是2147483647�
 这个警告出现在`node_modules\@babel\polyfill\browser.js`
 
 解决方案：在`main.js`中将`import '@babel/polyfill`改成`import '@babel/polyfill/noConflict'`即可。
+## 17. 控制台报错：[Violation] Added non-passive event listener to a scroll-blocking 'mousewheel' event. Consider marking event handler as 'passive' to make the page more responsive.
+在基于 Element-ui 写项目的时候，Chrome 提醒：
+```
+[Violation] Added non-passive event listener to a scroll-blocking 'mousewheel' event. Consider marking event handler as 'passive' to make the page more responsive.
+```
+翻译过来如下：
+【违反】没有添加被动事件监听器来阻止'mousewheel'事件，请考虑添加事件管理者'passive'，以使页面更加流畅。
+
+原因是 Chrome51 版本以后，Chrome 增加了新的事件捕获机制－Passive Event Listeners；
+
+Passive Event Listeners：就是告诉前页面内的事件监听器内部是否会调用preventDefault函数来阻止事件的默认行为，以便浏览器根据这个信息更好地做出决策来优化页面性能。当属性passive的值为true的时候，代表该监听器内部不会调用preventDefault函数来阻止默认滑动行为，Chrome浏览器称这类型的监听器为被动（passive）监听器。目前Chrome主要利用该特性来优化页面的滑动性能，所以Passive Event Listeners特性当前仅支持mousewheel/touch相关事件。
+
+解决：
+1. npm i default-passive-events -S
+2. main.js中加入：import 'default-passive-events'
+但是由于导入`default-passive-events`引入更多的报错，故没采用。
+
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
