@@ -403,7 +403,86 @@ Passive Event Listeners：就是告诉前页面内的事件监听器内部是否
 1. npm i default-passive-events -S
 2. main.js中加入：import 'default-passive-events'
 但是由于导入`default-passive-events`引入更多的报错，故没采用。
+## 18. 详解如何修改el-select的样式：popper-append-to-body和popper-class
+网上有很多关于这个的解决方式：
 
+1. 找到下拉框的类名，写个全局样式覆盖掉就行了
+2. 修改.el-select-dropdown__item的样式
+3. 通过官网提供的popper-class进行样式修改
+
+然而，上面的方法并没有说到点子上，覆盖全局样式的方法肯定不友好，修改样式和添加类也都不起作用。于是，我看了下下拉框的样式，它并没有在`el-select`里面，而是放在了最外层。
+
+`popper-append-to-body`属性可以控制它,默认是true，改成false就可以起作用
+```html
+<el-select
+    :popper-append-to-body="false"
+    v-model="taskType"
+    placeholder="请选择"
+    size="mini"
+    class="select-style"
+    popper-class="select-popper"
+  >
+    <el-option
+      v-for="(item,index) in taskTypes"
+      :key="index"
+      :value="item.value"
+      :label="item.label"
+    ></el-option>
+  </el-select>
+```
+其实，这个只是改了下拉框里面的样式，输入框的样式还需要通过修改.el-input__inner样式：
+```css
+.select-style {
+    width: 3rem;
+    margin-right: 0.36rem;
+    /deep/.el-input__inner {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border: 1px solid #a1a3ad;
+      border-left-width: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      font-family: PingFangSC-Regular;
+      font-size: 0.28rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+```
+最后，附上.select-popper的样式：
+```css
+/deep/.select-popper {
+    background-color: $item-bg-color;
+    border-radius: 0.08rem;
+    border: solid 0.02rem #1c395d;
+    font-family: PingFangSC-Regular;
+    .el-select-dropdown__item.selected {
+      font-family: PingFangSC-Regular;
+      font-size: 0.28rem;
+      color: rgba(74, 141, 253, 1);
+    }
+    li {
+      color: #fff;
+      background: transparent;
+      color: #fff;
+      font-size: 0.28rem;
+    }
+    .el-select-dropdown__item:hover,
+    .el-select-dropdown__item.hover {
+      background-color: rgba(110, 147, 206, 0.2);
+      margin-right: 1px;
+    }
+    .popper__arrow::after {
+      border-bottom-color: $item-bg-color;
+    }
+    .popper__arrow {
+      border-bottom-color: $item-bg-color;
+    }
+    .el-select-dropdown__empty {
+      padding: 0.2rem;
+      font-size: 0.28rem;
+    }
+  }
+```
+关键点：:popper-append-to-body="false"，然后添加popper-class进行样式修改。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
