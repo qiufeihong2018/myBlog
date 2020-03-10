@@ -483,6 +483,19 @@ Passive Event Listeners：就是告诉前页面内的事件监听器内部是否
   }
 ```
 关键点：:popper-append-to-body="false"，然后添加popper-class进行样式修改。
+## 19. 导入js-base64后，终端提示找不到Base
+
+```javascript
+$ npm install --save js-base64
+```
+If you are using it on ES6 transpilers, you may also need:
+如果你在ES6用它需要转化，你可能还需要:
+```javascript
+$ npm install --save babel-preset-env
+```
+Note `js-base64` itself is stand-alone so its `package.json` has no `dependencies`.  However, it is also tested on ES6 environment so `"babel-preset-env": "^1.7.0"` is on `devDependencies`.
+注意`js-base64`本身是独立的，所以它的`package.json`没有`dependencies`。
+不过，它也在`ES6`环境下测试过，所以`"babel-preset-env": "^1.7.0"`在`devDependencies`上。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
