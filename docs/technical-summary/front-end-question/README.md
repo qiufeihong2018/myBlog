@@ -496,6 +496,47 @@ $ npm install --save babel-preset-env
 Note `js-base64` itself is stand-alone so its `package.json` has no `dependencies`.  However, it is also tested on ES6 environment so `"babel-preset-env": "^1.7.0"` is on `devDependencies`.
 注意`js-base64`本身是独立的，所以它的`package.json`没有`dependencies`。
 不过，它也在`ES6`环境下测试过，所以`"babel-preset-env": "^1.7.0"`在`devDependencies`上。
+## 20.js点击按钮滚动跳转定位到页面指定位置
+- 我们要点击实现跳转的地方是一个`html`锚点，也就是点击一个`a`标签超链接实现跳转，可以把`a`标签的`href`属性直接指向跳转指定位置的`div`
+```html
+<a href="#abc">点击跳转</a>
+<div id="abc">将要跳转到这里</div>
+```
+- 点击实现跳转的地方是一个button按钮的话，由于button不能添加href，所以我们只好使用js跳转代码来实现
+```
+    <script>
+    function onTopClick() {
+         window.location.hash = "#abc";
+       }
+    </script>
+    <input  type="button" name="Submit" value="提交"  onclick="javascript:onTopClick();" />
+    <div id="abc">跳转到的位置</div>
+```
+- scrollToView()跳转指定位置
+在按钮位置添加`οnclick="scrollToView()"`
+```
+<button onclick="scrollToView()"></button>
+```
+之后添加`scrollToView()`，要跳转的目标地址的元素`id`执行该方法即可。
+```
+<script type="text/javascript">
+    function scrollToView () {
+        document.getElementById('id').scrollIntoView({
+            block: 'start',
+            inline: 'nearest',
+            behavior: 'smooth'
+        })
+    }
+</script>
+```
+
+scrollToView 属性|作用
+--|--
+block|定义垂直方向的对齐："start", "center", "end", 或 "nearest"
+inline|定义水平方向的对齐："start", "center", "end", 或 "nearest"
+behavior|动画的过渡效果："auto"或 "smooth"
+alignToTop|true:元素的顶端将和其所在滚动区的可视区域的顶端对齐。相应的 scrollIntoViewOptions: {block: "start", inline: "nearest"}。false:元素的底端将和其所在滚动区的可视区域的底端对齐。相应的scrollIntoViewOptions: {block: "end", inline: "nearest"}。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
+[Element.scrollIntoView()](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView)
