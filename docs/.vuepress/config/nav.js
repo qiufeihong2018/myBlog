@@ -11,6 +11,10 @@ module.exports = [{
       {
         text: "重读MDN",
         link: "/technical-mdn/"
+      },
+      {
+        text: "技术翻译",
+        link: "/technical-translation/"
       }
     ]
   },
