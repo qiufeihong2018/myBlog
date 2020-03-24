@@ -1,4 +1,4 @@
-# CSS渐进增强
+# 【译】CSS渐进增强
 - 作者:Aaron gustafson2008年10月22日发表于《CSS, HTML, JavaScript》
 - 原文地址：[Progressive Enhancement with CSS](https://alistapart.com/article/progressiveenhancementwithcss/)
 在本系列的前一篇文章中，我们介绍了渐进增强的基本概念;现在，我们可以开始讨论如何使用它。有许多方法可以使用层叠样式表(Cascading Style Sheets, CSS)将渐进式增强集成到您的工作中，本文将讨论其中的一些重要问题，并让您考虑其他方法来逐步增强站点。
@@ -105,3 +105,82 @@ href="print.css" />
 
 以这种方式使用条件注释允许您轻松地管理您的项目所需的浏览器，并保持您的CSS文件不受攻击。
 
+## 其他考量
+CSS中的渐进增强并不局限于如何将样式表与文档关联起来:我们还可以将这个概念应用于如何编写CSS。
+
+例如，考虑生成的内容。并不是所有的浏览器都能处理它，但这是一种添加额外的设计或文本的好方法，这些设计或文本对页面的可用性来说不是必需的，但提供了一些视觉或其他增强。
+
+例如，以这个简单的联系方式为例:
+
+![avatar](./form.png)
+本例中使用的HTML表单(下面提供了代码)。
+
+在编写此代码时，您可能会忍不住将冒号(:)放在label元素中。为什么?他们在标签上加了什么吗?不。虽然它们有一定的用途，为用户提供额外的视觉提示，但它们对于标签来说是多余的，应该去掉(Line wrap marked ? -Ed):
+```html
+<form id="contact-form" method="post">
+  <fieldset>
+    <legend>Contact Us
+    <p>Send us a message. All fields are required.</p>
+<ol>
+    <li>
+        <label for="contact-name">Name</label>
+        <input type="text" id="contact-name" name="name" />
+      </li>    <li>
+        <label for="contact-email">Email</label>
+        <input type="text" id="contact-email" name="email" />
+      </li>
+    <li><label for="contact-message">Message</label>
+        <textarea id="contact-message" name="message" rows="4" »
+        cols="30"></textarea>
+      </li>
+    </ol>
+    <button type="submit">Send It</button>  </fieldset>
+</form>
+```
+生成的内容是将它们添加回文档的完美合适的方式:
+```html
+label:after {
+  content: ":";
+}
+```
+以这种方式处理表单使我们可以灵活地从整个站点中删除这些修饰，只需编辑CSS，而不必触及每个表单(是的，我曾经遇到过这种情况)。
+这种技术也可以很好地退化，因为没有这些柱体，表单就不是无用的——这是渐进增强的一个完美例子。
+
+您可能还会发现，使用更高级的选择器编写规则可以帮助您通过将某些样式定向到更高级的浏览器来逐步增强站点。
+一个很好的例子是属性选择器，它不被IE6及其早期版本所理解(因此被忽略)。`Egor Kloos`在他提交给`CSS Zen Garden`的名为`Gemination`的设计中完美地运用了这个概念。
+
+![avatar](./gemination.jpg)
+
+比较`Egor Kloos`的`CSS Zen Garden`条目(`Gemination`)在支持标准的浏览器和`IE6`中的显示。
+
+他是怎么做到的?下面是他的代码中的一个稍微修改过的采样:
+```css
+/* <= IE 6 */
+body {
+  margin: 0;
+  text-align: center;
+  background: #600 none;
+}/* IE 7, Mozilla, Safari, Opera */
+body[id=css-zen-garden] {
+  margin: 100px 0 0;
+  padding: 0;
+  text-align: center;
+  background: transparent url(squidback.gif);
+}
+```
+这些差异非常明显，并且很好地说明了渐进式增强是如何在您的`CSS`中实现的。
+
+类似地，`Andy Clarke`在他的站点上对`IE6`也有一点乐趣。通过使用`IE`中可用的过滤器和一些有条件的评论，他能够从他的网站上去掉所有的颜色，并提供一些替代图像，以获得真正的“低保真”体验。
+
+![avatar](./stuff-and-nonsense.jpg)
+
+比较安迪克拉克的网站在标准浏览器和IE6。
+
+通过使用条件注释将下列声明块添加到针对IE6(及其下)的样式表中，可以实现图像灰度化:
+```css
+/* =img for Internet Explorer < 6 */
+img {
+  filter: gray;
+}
+```
+虽然这两个例子包含的技巧可能比您在日常工作中所能掌握的更多，但是它们确实可以作为您使用CSS进行渐进式增强的概念验证。
