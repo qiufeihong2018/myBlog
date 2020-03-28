@@ -536,6 +536,34 @@ block|定义垂直方向的对齐："start", "center", "end", 或 "nearest"
 inline|定义水平方向的对齐："start", "center", "end", 或 "nearest"
 behavior|动画的过渡效果："auto"或 "smooth"
 alignToTop|true:元素的顶端将和其所在滚动区的可视区域的顶端对齐。相应的 scrollIntoViewOptions: {block: "start", inline: "nearest"}。false:元素的底端将和其所在滚动区的可视区域的底端对齐。相应的scrollIntoViewOptions: {block: "end", inline: "nearest"}。
+## vuecli3中htmlWebpackPlugin报ReferenceError: BASE_URL is not defined的错误
+```
+<head>   
+
+<link rel="icon" href="<%= BASE_URL %>favicon.ico"> // 这里BASE_URL报错
+</head>
+
+config.plugins.push(
+      new HtmlWebpackPlugin({
+        template: ‘./public/index.html‘,
+        inject: true,
+        hash: new Date().getTime(),
+        url: BASE_URL,  //需要这里传参
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true
+        },
+        chunksSortMode: ‘manual‘
+      })
+    )
+    
+<head>   
+
+<link rel="icon" href="<%= htmlWebpackPlugin.options.url %>favicon.ico"> //改成这种就ok了
+</head>
+```
+
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
