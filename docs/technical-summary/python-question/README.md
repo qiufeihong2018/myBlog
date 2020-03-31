@@ -1,5 +1,5 @@
 # 【Python】Python问题汇总
-## 1. Python安装PIL报错：Could not find a version that satisfies the requirement PIL (from versions: )
+## 1.Python安装PIL报错：Could not find a version that satisfies the requirement PIL (from versions: )
 起初安装命令是按照 `pip install PIL`来安装的
 
 结果显示：`Could not find a version that satisfies the requirement PIL (from versions: )No matching distribution found for PIL`
@@ -33,3 +33,12 @@ a=name_list[0]
 ## 3.在交互环境中定义函数
 需要在函数里敲`tab`空出缩进，结束函数可以敲两次回车
 ![avatar](./python_3.jpg)
+
+## 4.python TypeError: 'int' object is not iterable
+报错
+```
+for index in len(numbers): 
+```
+`len(numbers)`返回的是`int`类型变量
+不能直接对`int`类型变量进行迭代，而必须加个`range`。
+对于数组的索引迭代，需要用到`len()`求数组的长度，用`range`进行索引迭代。
