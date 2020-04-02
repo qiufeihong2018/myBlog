@@ -618,6 +618,14 @@ function destroyIframe(iframe){
 	iframe.parentNode.removeChild(iframe);
 }
 ```
+## 23.H5中video标签的poster无法自适应video大小？
+做H5视频播放，`video`标签设置`poster`属性后，图片无法自适应`video`大小
+
+最后给`video`标签设置，解决该问题
+```css
+width: 100%; height: 100%; object-fit: fill
+```
+
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
