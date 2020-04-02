@@ -43,7 +43,7 @@ for index in len(numbers):
 不能直接对`int`类型变量进行迭代，而必须加个`range`。
 对于数组的索引迭代，需要用到`len()`求数组的长度，用`range`进行索引迭代。
 
-## python3中使用urlopen()报错:urllib.error.URLError
+## 5.python3中使用urlopen()报错:urllib.error.URLError
 在使用`python3`中的`urllib.request`模块抓取网页的时候使用一下的代码会报一个`urllib.error.URLError的`错误。
 ```py 
 import urllib.request
@@ -60,4 +60,12 @@ ssl._create_default_https_context = ssl._create_unverified_context
 response = urllib.request.urlopen('https://www.python.org')
 print(response.read().decode('utf-8'))
 ```
+## 6.如何从ImmutableMultiDict提取数据?
+以`ImmutableMultiDict`的形式接收数据。
 
+我将其转换为字典就可以提取数据。
+```py
+data = dict(request.form)
+```
+## 7.ModuleNotFoundError: No module named 'Crypto'?
+最后我将`D:\Python36\Python36\Lib\site-packages\crypto`里的所有`py`文件中的大写`Crypto`改成小写`crypto`。
