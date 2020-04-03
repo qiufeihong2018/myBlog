@@ -69,3 +69,9 @@ data = dict(request.form)
 ```
 ## 7.ModuleNotFoundError: No module named 'Crypto'?
 最后我将`D:\Python36\Python36\Lib\site-packages\crypto`里的所有`py`文件中的大写`Crypto`改成小写`crypto`。
+## 8.python如何对变量是否为None进行判断？
+1. if X is None：
+2. if not X：（当X为None,  False, 空字符串"", 0, 空列表[], 空字典{}, 空元组()这些时，not X为真，即无法分辨出他们之间的不同）
+3. if not x is None:
+
+使用`if not x`这种写法的前提是：必须清楚`x`等于`None`, `False`, 空字符串"", 0, 空列表[], 空字典{}, 空元组()时对你的判断没有影响才行。
