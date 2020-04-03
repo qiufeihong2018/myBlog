@@ -625,6 +625,17 @@ function destroyIframe(iframe){
 ```css
 width: 100%; height: 100%; object-fit: fill
 ```
+## 24.element的弹出框popover如何精准匹配？
+错误代码：
+```html
+<span  v-popover:popover-fun>
+  <font-awesome-icon :icon="['file', iconList[node.level]]" size="xs" />
+  <span> {{ node.label }}</span>
+</span>
+```
+自定义指令`v-popover`指向 `Popover` 的索引`ref`会导致遍历的左侧树无法精准匹配到数组中的对应项。
+
+采用具名插槽`slot="reference"`完美解决。
 
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
