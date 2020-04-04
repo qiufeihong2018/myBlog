@@ -78,3 +78,15 @@ data = dict(request.form)
 ## 9.python代码如何整体左移或右移？
 1. 右移：tab
 2. 左移：shift+tab
+## 10.python中三元表达式如何写？
+`python`没有`js`的三元表达式。
+```js
+let tag=true
+let a=tag?'b':'c'
+```
+但是`python`中有替代的方法
+```py
+tag=True
+a=True if tag else a=False
+```
+解释为：如果`tag`为真，那么`a`为真，否则`a`为假。
