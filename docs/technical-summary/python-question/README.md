@@ -75,3 +75,6 @@ data = dict(request.form)
 3. if not x is None:
 
 使用`if not x`这种写法的前提是：必须清楚`x`等于`None`, `False`, 空字符串"", 0, 空列表[], 空字典{}, 空元组()时对你的判断没有影响才行。
+## 9.python代码如何整体左移或右移？
+1. 右移：tab
+2. 左移：shift+tab
