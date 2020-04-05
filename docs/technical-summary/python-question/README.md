@@ -90,3 +90,8 @@ tag=True
 a=True if tag else a=False
 ```
 解释为：如果`tag`为真，那么`a`为真，否则`a`为假。
+## 11.python如何搭建一个简易的本地局域网？
+只要在需要共享的文件夹目录下输入以下命令即可搭建：
+```py
+python -m http.server
+```
