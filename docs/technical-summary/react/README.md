@@ -2,7 +2,13 @@
 ## 什么是react？
 简洁的说，`react`是构建用户界面的`js`库。
 ## react怎么玩？
-
+步骤：
+1. 安装最新的`node`
+2. 用命令搭建项目
+```
+npx create-react-app tic
+```
+3. 删除掉新项目中 src/ 文件夹下的所有文件
 ## react和vue的比较？
 ### react
 - 声明式
