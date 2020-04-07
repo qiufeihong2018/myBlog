@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【产品】玩转原型图（死磕axure）',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['axure/']
+    },
+    {
         title: '【Python】Python问题汇总',
         collapsable: false,
         sidebarDepth: 4,
