@@ -1,5 +1,17 @@
 module.exports = [
     {
+        title: '【react】浅谈react',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['react/']
+    },
+    {
+        title: '【npm】npm的一些问题',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['npm/']
+    },
+    {
         title: '【产品】玩转原型图（死磕axure）',
         collapsable: false,
         sidebarDepth: 4,
