@@ -12,7 +12,7 @@ npm install --save prop-types
 import PropTypes from 'prop-types'
 <!--ES5-->
 var PropTypes=require('prop-types')
-```
+
 CDN
 If you prefer to exclude prop-types from your application and use it globally via window.PropTypes, the prop-types package provides single-file distributions, which are hosted on the following CDNs:
 
@@ -29,6 +29,7 @@ cdnjs
 <!-- production version -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.min.js"></script>
 To load a specific version of prop-types replace 15.6.0 with the version number.
+```
 
 ## 用法
 `PropTypes`是通常作为`react`核心模块的一部分暴露，并且是被`react`组件共同使用。下面是一份在`react`组件中使用PropTypes的例子，提供了不同参数的文档：
