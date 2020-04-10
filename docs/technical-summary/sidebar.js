@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【译】prop-types包的一些说明',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['prop-types/']
+    },
+    {
         title: '【运维】浅谈redash',
         collapsable: false,
         sidebarDepth: 4,
