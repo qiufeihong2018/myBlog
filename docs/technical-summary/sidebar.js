@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【运维】浅谈redash',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['redash/']
+    },
+    {
         title: '【react】浅谈react',
         collapsable: false,
         sidebarDepth: 4,
