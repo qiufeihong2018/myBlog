@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【vue】vue项目中引入svg且svg-sprite-loader源码阅读',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['svg/']
+    },
+    {
         title: '【运维】浅谈redash',
         collapsable: false,
         sidebarDepth: 4,
