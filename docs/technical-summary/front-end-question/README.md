@@ -636,7 +636,17 @@ width: 100%; height: 100%; object-fit: fill
 自定义指令`v-popover`指向 `Popover` 的索引`ref`会导致遍历的左侧树无法精准匹配到数组中的对应项。
 
 采用具名插槽`slot="reference"`完美解决。
+## 25.vue-router路由中的参数如何可传可不传？
+当我们写一个页面时，有时候不需要传递参数，那如何做出可传可不传呢？
 
+由于项目需求会遇到进入某个页面获取模默认信息，但有时需要传递一个id获取对应的信息，为了兼容同一个页面的路由的参数，可传可不传，可以针对路由做以下处理:
+```js
+{
+    path: '/index/:id?', //获取参数：this.$route.params.id 
+    name: 'index', 
+    component: Index
+}
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
