@@ -647,6 +647,17 @@ width: 100%; height: 100%; object-fit: fill
     component: Index
 }
 ```
+## 26.数组对象如何查找对象并删除？
+当数组中查找某个值并删除之很简单。
+假如数组对象中查找某个对象并删除之，那要怎么做呢？
+```js
+deleteItem(array, item) {
+      const index = array.findIndex(text => text.id === item.id);
+      array.splice(index, 1);
+      return array;
+    },
+```
+该方法接受两个参数：第一个是原数组，第二个是要删除的对象，返回删除后的数组。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
