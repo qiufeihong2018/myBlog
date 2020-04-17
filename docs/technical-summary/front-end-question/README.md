@@ -670,6 +670,19 @@ this.form.select = Number(this.readValue) // 通过Number将类型转换
 this.readValue = 1 // 此处可以替换成接口读取的内容
 this.form.select = String(this.readValue) // 通过Number将类型转换
 ```
+## 28. js对象与字符串如何相互转换?
+1. 对象转字符串
+```js
+p={name:'qfh',age:24}
+// {name: "qfh", age: 24}
+p1=JSON.stringify(p)
+// "{"name":"qfh","age":24}"
+```
+2. 字符串转对象
+```js
+a=JSON.parse(p1)
+{name: "qfh", age: 24}
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
