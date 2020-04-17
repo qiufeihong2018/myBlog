@@ -658,6 +658,18 @@ deleteItem(array, item) {
     },
 ```
 该方法接受两个参数：第一个是原数组，第二个是要删除的对象，返回删除后的数组。
+## 27. 父组件传入element中的选择框的值时，选择框显示value而不是label？
+1. 经调试发现，当接口拿到的值是字符串类型，格式不正确，从父组件传入子组件的el-select中，选择框绑定的是数字类型，所以发生问题。
+只需要`Number`改下即可：
+```
+this.readValue = '1' // 此处可以替换成接口读取的内容
+this.form.select = Number(this.readValue) // 通过Number将类型转换
+```
+2. 反之，接口拿到数字类型，但是选择框绑定的是字符串类型。
+```
+this.readValue = 1 // 此处可以替换成接口读取的内容
+this.form.select = String(this.readValue) // 通过Number将类型转换
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
