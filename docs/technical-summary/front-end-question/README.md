@@ -683,6 +683,20 @@ p1=JSON.stringify(p)
 a=JSON.parse(p1)
 {name: "qfh", age: 24}
 ```
+## 29.npm如何切换成阿里源？
+阿里在国内搭建了镜像服务器:http://npm.taobao.org 
+
+需要执行以下命令更改:
+```
+npm config set registry https://registry.npm.taobao.org --global
+npm config set disturl https://npm.taobao.org/dist --global
+```
+更改完成
+
+使用命令查看本地镜像源
+```
+npm config get registry
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
