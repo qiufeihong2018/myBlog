@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【设计】原子设计',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['atomic-design/']
+    },
+    {
         title: '【react】react-devtools说明文档',
         collapsable: false,
         sidebarDepth: 4,
