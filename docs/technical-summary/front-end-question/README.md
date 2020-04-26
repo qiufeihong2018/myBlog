@@ -697,6 +697,15 @@ npm config set disturl https://npm.taobao.org/dist --global
 ```
 npm config get registry
 ```
+## 30.vue如何修改多层嵌套数据使页面重新渲染？
+采用的这种方式可能不起作用，虽然打开控制台发现data值发生了变化，但是没有渲染到页面上。其实是因为数据层次太多，没有触发render函数进行自动更新。
+```js
+this.$set(this.data[id],"newPro",true);
+```
+需手动调用
+```js
+this.$forceUpdate();
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
