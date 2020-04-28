@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【canvas】canvas在图片上绘制矩形',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['canvas/']
+    },
+    {
         title: '【vue】vue项目中引入svg且svg-sprite-loader源码阅读',
         collapsable: false,
         sidebarDepth: 4,
