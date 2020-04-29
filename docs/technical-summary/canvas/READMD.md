@@ -1,4 +1,30 @@
 # 【canvas】小白看了都会的canvas圣经
+## 属性
+支持全局属性（所有HTML元素共有的属性）
+基本的HTML全局属性之外，还存在以下全局属性:
+1. xml:lang 和 xml:base ——两者都是从XHTML规范继承，但为了兼容性而被保留的。
+2. 多重aria-*属性，用于改善可访问性。
+3. 事件处理程序 属性：onabort, onautocomplete, onautocompleteerror, onblur, oncancel, oncanplay, oncanplaythrough, onchange, onclick, onclose, oncontextmenu, oncuechange, ondblclick, ondrag, ondragend, ondragenter, ondragexit, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadstart, onmousedown, onmouseenter, onmouseleave, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpause, onplay, onplaying, onprogress, onratechange, onreset, onresize, onscroll, onseeked, onseeking, onselect, onshow, onsort, onstalled, onsubmit, onsuspend, ontimeupdate, ontoggle, onvolumechange, onwaiting.
+4. height
+该元素占用空间的高度，以 CSS 像素（px）表示，默认为 150。
+5. moz-opaque  
+通过设置这个属性，来控制canvas元素是否半透明。如果你不想canvas元素被设置为半透明，使用这个元素将可以优化浏览器绘图性能。
+6. width
+该元素占用空间的宽度，以 CSS 像素（px）表示，默认为 300。
+
+当然可以使用CSS来修改canvas达到自适应，但是如果<canvas>元素中展示的内容变形，可以通过<canvas>自带的height和width属性进行相关设置，而不要使用CSS。
+## 缺点
+- 可访问性差
+本身只是一个位图，不提供任何绘制对象的信息。画布内容不像HTML那样具有语义并能暴露给可访问性工具。
+应该避免在交互型的网站或者App上使用canvas。
+
+但是还是有下面4中方式来交互
+1. 内容兼容
+2. ARIA 规则
+3. 点击区域（hit region）
+4. 焦点圈
+## Canvas API
+CanvasRenderingContext2D.canvas 属性是 Canvas API 的一部分，是对与给定上下文关联的HTMLCanvasElement对象的只读引用。如果没有 <canvas> 元素与之对应，对象值为null 。
 ## 在vue项目的图片上绘制矩形
 1. 页面初始化默认绘制矩形
 2. 点击绘制，手动在图片上绘制矩形
