@@ -7,7 +7,7 @@ module.exports = {
     title: '飞鸿的博客',
     description: '我的心路历程',
     dest: './dist',
-    port: '7777',
+    port: '1616',
     head: headConf,
     markdown: {
         lineNumbers: true
