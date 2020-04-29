@@ -1,33 +1,44 @@
-# 【canvas】canvas在图片上绘制矩形
-## 具体代码
+# 【canvas】小白看了都会的canvas圣经
+## 在vue项目的图片上绘制矩形
+1. 页面初始化默认绘制矩形
+2. 点击绘制，手动在图片上绘制矩形
+3. 调整x、y、宽度和高度，自动绘制矩形
 ```vue
 <template>
   <div class="main-img-canvas">
-    <div class="top-img-canvas">
-      <div @mousedown="mousedown" @mousemove="mousemove" @mouseup="mouseup" @mouseleave="mouseleave" :style="imgStyle">
-        <img ref="bottomImg" :src="imgSrc" :style="imgStyle">
-        <canvas ref="rectCanvas" :width="canvasWidth" :height="canvasHeight" :style="canvasStyle"></canvas>
-      </div>
-    </div>
-    <el-form ref="form" :model="customMark" label-width="80px">
-      <el-form-item label="X:">
-        <el-input-number v-model="customMark.x" controls-position="right"></el-input-number>
-      </el-form-item>
-      <el-form-item label="Y:">
-        <el-input-number v-model="customMark.y" controls-position="right"></el-input-number>
-      </el-form-item>
-      <el-form-item label="Width:">
-        <el-input-number v-model="customMark.width" controls-position="right"></el-input-number>
-      </el-form-item>
-      <el-form-item label="Height:">
-        <el-input-number v-model="customMark.height" controls-position="right"></el-input-number>
-      </el-form-item>
-    </el-form>
-    <div class="bottom-btn">
-      <el-button type="warning" @click="startMark">绘 制</el-button>
-      <!-- <el-button type="primary" @click="onMark">确 定</el-button> -->
-      <el-button @click="onClose">取 消</el-button>
-    </div>
+    <el-row :gutter="10">
+      <el-col :span="18">
+        <!-- 图片和画布 -->
+        <div class="top-img-canvas">
+          <div @mousedown="mousedown" @mousemove="mousemove" @mouseup="mouseup" @mouseleave="mouseleave"
+            :style="imgStyle">
+            <img ref="bottomImg" :src="imgSrc" :style="imgStyle">
+            <canvas ref="rectCanvas" :width="canvasWidth" :height="canvasHeight" :style="canvasStyle"></canvas>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="6">
+        <!-- 数据显示层 -->
+        <el-form ref="form" :model="customMark" label-width="80px">
+          <el-form-item label="X:">
+            <el-input-number v-model="customMark.x" controls-position="right"></el-input-number>
+          </el-form-item>
+          <el-form-item label="Y:">
+            <el-input-number v-model="customMark.y" controls-position="right"></el-input-number>
+          </el-form-item>
+          <el-form-item label="Width:">
+            <el-input-number v-model="customMark.width" controls-position="right"></el-input-number>
+          </el-form-item>
+          <el-form-item label="Height:">
+            <el-input-number v-model="customMark.height" controls-position="right"></el-input-number>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="startMark">{{btnStartMark}}</el-button>
+            <el-button @click="onClose">取 消</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
   </div>
 
 </template>
@@ -61,49 +72,55 @@
         //根据图片大小自适应canvas高
         canvasHeight: '',
         //最大宽度
-        divWidth: 1460,
+        divWidth: 1369,
         //最大高度
         divHeight: 740,
         // 图片地址
         imgSrc: 'http://10.66.194.27:8083/13,034662641b59a8',
         // 自定义截取结果
-        customMark: {
-          x: 0,
-          y: 0,
-          width: 0,
-          height: 0
-        }
+        customMark: {},
+        isMousedown: false,
+        btnStartMark: '绘 制'
       };
     },
     watch: {
       imgSrc() {
         this.drawRect();
       },
+      // 监听自定义标记数据重绘矩形
       customMark: {
         handler(n, o) {
-          this.startX = n.x
-          this.startY = n.x
-          this.endX = this.startX + n.width
-          this.endY = this.startY + n.height
-          this.drawRect();
+          if (!(JSON.stringify(n) === '{}')) {
+            this.startX = n.x
+            this.startY = n.y
+            this.endX = this.startX + n.width
+            this.endY = this.startY + n.height
+            this.drawRect();
+          }
         },
         deep: true,
-        immediate: true
       }
     },
+    // 初始化绘制矩形
     mounted() {
+      this.customMark['x'] = this.startX
+      this.customMark['y'] = this.startY
+      this.customMark['width'] = this.endX - this.startX
+      this.customMark['height'] = this.endY - this.startY
       this.drawRect();
     },
 
     methods: {
       // 开始绘制
       startMark() {
+        this.$message.info('您可以在画布上开始绘制矩形')
         this.isStartMark = true
+        this.btnStartMark = "绘制中"
       },
       //取消时返回组件调用处所需的数据
       onClose() {
-        this.isStartMark = false
         this.customcxt.clearRect(0, 0, this.divWidth, this.divHeight);
+        this.isStartMark = false
         this.customMark = {}
       },
       //确定时返回组件调用处所需的数据
@@ -144,10 +161,11 @@
         let customCanvas = this.$refs.rectCanvas;
         // 画布
         this.customcxt = customCanvas.getContext("2d");
-
+        // 绑定图片路径
         let img = new Image();
         img.src = this.imgSrc;
         let _this = this;
+        // 图片加载完毕开始绘制画布
         img.onload = function () {
           // 画布距离左边的距离
           let canvasleft = 0;
@@ -159,9 +177,9 @@
           let RWrH = _this.divWidth / _this.divHeight;
           // 放置图片的容器和图片的比例
           let scale = 0;
-          // 根据宽高比大小判断确定自适应的宽和高
+          // 根据宽高比大小判断,自适应的宽和高
           if (RWrH > WrH) {
-            // 图片高度太大
+            // 如果图片高度太大,那么宽度自适应
             scale = _this.divHeight / img.height;
             // 画布的高度是放置图片的容器的高度
             _this.canvasHeight = _this.divHeight;
@@ -170,19 +188,19 @@
             // 左边距是多余容器的一半
             canvasleft = (_this.divWidth - _this.canvasWidth) / 2
           } else {
-            // 图片宽度太大
+            // 如果图片宽度太大,那么高度自适应
             scale = _this.divWidth / img.width;
             _this.canvasHeight = img.height * scale;
             _this.canvasWidth = _this.divWidth;
             canvastop = (_this.divHeight - _this.canvasHeight) / 2
           }
-          //img浮动定位居中显示
+          //图片浮动定位居中显示
           _this.imgStyle = ' position: relative;  width:' + _this.canvasWidth +
             ' px; height:' + _this.canvasHeight + 'px';
           //原图与展示图片的宽高比
           _this.customRwidth = _this.canvasWidth / img.width;
           _this.customRheight = _this.canvasHeight / img.height;
-          //canvas浮动定位
+          //画布绝对定位居中显示,覆盖在图片之上
           _this.canvasStyle = 'z-index: 1000;position: absolute;left: ' + canvasleft +
             '; top: ' + canvastop + ';'
           _this.$nextTick(() => {
@@ -195,8 +213,8 @@
             // 画笔宽度
             _this.customcxt.lineWidth = "2";
             // 绘制矩形
-            _this.customcxt.strokeRect(_this.startX, _this.startY, wwidth, wheigth);
-            // _this.$forceUpdate()
+            _this.customcxt.strokeRect(_this.startX * scale, _this.startY * scale, wwidth * scale, wheigth *
+              scale);
           })
         };
       },
@@ -208,19 +226,23 @@
         this.endY = e.offsetY;
         this.startX = e.offsetX;
         this.startY = e.offsetY;
+        this.isMousedown = true
         this.mousemove(e)
       },
       //鼠标移动时执行
       mousemove(e) {
-        // 点击开始绘制
+        // 点击开始绘制清空画布
         if (this.isStartMark) {
+          // 清除画布上的内容
+          this.customcxt.clearRect(0, 0, this.divWidth, this.divHeight);
+        }
+        // 点击开始绘制并且鼠标按下
+        if (this.isStartMark && this.isMousedown) {
           this.endX = e.offsetX;
           this.endY = e.offsetY;
           let wwidth = this.endX - this.startX;
           let wheigth = this.endY - this.startY;
 
-          // 清除画布上的内容
-          this.customcxt.clearRect(0, 0, this.divWidth, this.divHeight);
           // 画笔颜色
           this.customcxt.strokeStyle = "#ff0000";
           // 画笔宽度
@@ -231,10 +253,17 @@
       },
       //鼠标松开时执行
       mouseup(e) {
+        if (this.isStartMark) {
+          this.onMark()
+        }
+        this.btnStartMark = "绘制"
+        this.isMousedown = false
         this.isStartMark = false;
       },
       // 鼠标离开时执行
       mouseleave(e) {
+        this.btnStartMark = "绘制"
+        this.isMousedown = false
         this.isStartMark = false
       }
     }
@@ -243,18 +272,13 @@
 <style lang="less" scoped>
   .main-img-canvas {
     .top-img-canvas {
-      width: 1460px;
+      width: 1369px;
       height: 740px;
       background-color: #f5f5f575;
       margin: 0 auto;
       display: -webkit-box;
       -webkit-box-align: center;
       -webkit-box-pack: center;
-    }
-
-    .bottom-btn {
-      float: right;
-      margin-top: 10px;
     }
   }
 </style>
