@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="rectCanvas"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('rectCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = "#ff0000"
+    ctx.fillRect(10, 10, 100, 100)
+</script>
+
+</html>

@@ -6,13 +6,13 @@
 2. 多重aria-*属性，用于改善可访问性。
 3. 事件处理程序 属性：onabort, onautocomplete, onautocompleteerror, onblur, oncancel, oncanplay, oncanplaythrough, onchange, onclick, onclose, oncontextmenu, oncuechange, ondblclick, ondrag, ondragend, ondragenter, ondragexit, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadstart, onmousedown, onmouseenter, onmouseleave, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpause, onplay, onplaying, onprogress, onratechange, onreset, onresize, onscroll, onseeked, onseeking, onselect, onshow, onsort, onstalled, onsubmit, onsuspend, ontimeupdate, ontoggle, onvolumechange, onwaiting.
 4. height
-该元素占用空间的高度，以 CSS 像素（px）表示，默认为 150。
+该元素占用空间的高度，以 `CSS` 像素（px）表示，默认为 150。
 5. moz-opaque  
 通过设置这个属性，来控制canvas元素是否半透明。如果你不想canvas元素被设置为半透明，使用这个元素将可以优化浏览器绘图性能。
 6. width
-该元素占用空间的宽度，以 CSS 像素（px）表示，默认为 300。
+该元素占用空间的宽度，以 `CSS` 像素（px）表示，默认为 300。
 
-当然可以使用CSS来修改canvas达到自适应，但是如果<canvas>元素中展示的内容变形，可以通过<canvas>自带的height和width属性进行相关设置，而不要使用CSS。
+当然可以使用`CSS`来修改`canvas`达到自适应，但是如果`<canvas>`元素中展示的内容变形，可以通过`<canvas>`自带的height和width属性进行相关设置，而不要使用`CSS`。
 ## 缺点
 - 可访问性差
 本身只是一个位图，不提供任何绘制对象的信息。画布内容不像HTML那样具有语义并能暴露给可访问性工具。
@@ -23,8 +23,96 @@
 2. ARIA 规则
 3. 点击区域（hit region）
 4. 焦点圈
+## CanvasRenderingContext2D
+口提供的 `2D` 渲染背景用来绘制`<canvas>`元素，为了获得这个接口的对象，需要在 `<canvas>` 上调用 `getContext()` ，并提供一个 "`2d`" 的参数：
+```js
+var canvas = document.getElementById('rectCanvas');
+var ctx = canvas.getContext('2d');
+```
+只要获得`2d`渲染后，就可以调用`Canvas API`在画布上画出图形。
+### 绘制矩形
+1. strokeRect()
+在 canvas 中，使用当前的绘画样式，描绘一个起点在 (x, y) 、宽度为 w 、高度为 h 的矩形。
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="rectCanvas"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('rectCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.strokeStyle = '#ff0000'
+    ctx.strokeRect(10, 10, 100, 100)
+</script>
+
+</html>
+```
+2. fillRect()
+绘制填充矩形，矩形的起点在 (x, y) 位置，矩形的尺寸是 width 和 height 。
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="rectCanvas"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('rectCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = "#ff0000"
+    ctx.fillRect(10, 10, 100, 100)
+</script>
+
+</html>
+```
+3. clearRect()
+设置指定矩形区域内（以 点 (x, y) 为起点，范围是(width, height) ）所有像素变成透明，并擦除之前绘制的所有内容。
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="rectCanvas"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('rectCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(20, 20);
+    ctx.lineTo(200, 20);
+    ctx.lineTo(120, 120);
+    ctx.closePath(); // draws last line of the triangle
+    ctx.stroke();
+
+    ctx.clearRect(10, 10, 100, 100);
+</script>
+
+</html>
+```
 ## Canvas API
-CanvasRenderingContext2D.canvas 属性是 Canvas API 的一部分，是对与给定上下文关联的HTMLCanvasElement对象的只读引用。如果没有 <canvas> 元素与之对应，对象值为null 。
+### canvas
+`CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
+### 
 ## 在vue项目的图片上绘制矩形
 1. 页面初始化默认绘制矩形
 2. 点击绘制，手动在图片上绘制矩形
