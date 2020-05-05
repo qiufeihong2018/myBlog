@@ -236,7 +236,7 @@ TextMetrics的其他属性：
 上面的例子可以发现，`butt`是上下是跟标准线平齐，`round`是上下凸出来一个直径为线宽的半圆，`square`是上下凸出来一个高度为线宽一半的矩形。
 3. lineJoin
 设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。此属性有3个值： round, bevel and miter。默认值是 miter。注意：如果2个相连部分在同一方向，那么lineJoin不会产生任何效果，因为在那种情况下不会出现连接区域。`round`
-通过填充一个额外的，圆心在相连部分末端的<font color = #00FFFF size=5 face="STCAIYUN">扇形</font>，绘制拐角的形状。 圆角的半径是线段的宽度。`bevel`在相连部分的末端填充一个额外的以<font color = #00FFFF size=5 face="STCAIYUN">三角形</font>为底的区域， 每个部分都有各自独立的矩形拐角。`miter`通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的<font color = #00FFFF size=5 face="STCAIYUN">菱形</font>区域。这个设置可以通过 miterLimit 属性看到效果。
+通过填充一个额外的，圆心在相连部分末端的<font color = #00FF00 size=4 face="STCAIYUN">扇形</font>，绘制拐角的形状。 圆角的半径是线段的宽度。`bevel`在相连部分的末端填充一个额外的以<font color = #00FF00 size=4 face="STCAIYUN">三角形</font>为底的区域， 每个部分都有各自独立的矩形拐角。`miter`通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的<font color = #00FF00 size=4 face="STCAIYUN">菱形</font>区域。这个设置可以通过 miterLimit 属性看到效果。
 
 lineJoin 属性3种不同的设置。
 ```html
@@ -301,6 +301,67 @@ lineJoin 属性3种不同的设置。
 </script>
 
 </html>
+```
+5. getLineDash()
+当前线段样式的数组，数组包含一组数量为偶数的非负数数字。
+
+这个必须要和`setLineDash()`是一对。
+6. setLineDash()
+设置当前的线段样式。
+```html
+ function drawDashedLine(pattern) {
+  ctx.beginPath();
+  ctx.setLineDash(pattern);
+  console.log(ctx.getLineDash())
+  ctx.moveTo(0, y);
+  ctx.lineTo(300, y);
+  ctx.stroke();
+  y += 10;
+}
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let y = 5;
+
+drawDashedLine([]);
+drawDashedLine([1, 1]);
+drawDashedLine([100, 100]);
+drawDashedLine([50, 50]);
+drawDashedLine([50, 1]);
+drawDashedLine([20, 5]);
+drawDashedLine([15, 3, 3, 3]);
+drawDashedLine([20, 3, 3, 3, 3, 3, 3, 3]);
+drawDashedLine([12, 3, 3]);  
+drawDashedLine([3, 3]);  
+```
+7. lineDashOffset
+设置虚线偏移量的属性，描述在哪里开始绘制线段。
+
+实现<font color = #00FF00 size=4 face="STCAIYUN">蚂蚁线</font>
+
+在`ps`套索工具中。 它能帮助用户根据图片背景动态变化的边界来区分选择的边界。
+```html
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var offset = 0;
+
+function draw() {
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  ctx.setLineDash([10, 2]);
+  ctx.lineDashOffset = -offset;
+  ctx.strokeRect(10,10, 200, 100);
+}
+
+function march() {
+  offset++;
+  if (offset > 16) {
+    offset = 0;
+  }
+  draw();
+  setTimeout(march, 10);
+}
+
+march();
 ```
 ### 
 ## Canvas API
