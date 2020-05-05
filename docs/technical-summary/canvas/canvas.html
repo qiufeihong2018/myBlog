@@ -2,29 +2,42 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Canvas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Canvas</title>
 </head>
 
 <body>
-    <canvas id="canvas"></canvas>
+  <canvas id="canvas"></canvas>
+  <input id="miterLimit"></input>
+  <button onClick="reDraw()">重绘</button>
 </body>
 <script>
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    var lineJoinArr = ['round', 'miter', 'bevel']
-    ctx.lineWidth = 15
-    for (let i in lineJoinArr) {
-        ctx.lineJoin = lineJoinArr[i]
-        ctx.beginPath()
-        ctx.moveTo(0, 45 + i * 30)
-        ctx.lineTo(45, 10 + i * 30)
-        ctx.lineTo(90, 45 + i * 30)
-        ctx.lineTo(135, 10 + i * 30)
-        ctx.lineTo(180, 45 + i * 30)
-        ctx.stroke()
+  function reDraw() {
+    var ctx = document.getElementById('canvas').getContext('2d');
+    ctx.clearRect(0, 0, 300, 150);
+    // 标准框
+    ctx.strokeStyle = '#666666';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(0, 50, 300, 50);
+
+    if (document.getElementById('miterLimit').value.match(/\d+(\.\d+)?/)) {
+      ctx.miterLimit = parseFloat(document.getElementById('miterLimit').value);
+    } else {
+      alert('请输入数字！');
     }
+
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 10;
+    ctx.beginPath();
+    ctx.moveTo(0, 100);
+    for (i = 0; i < 48; i++) {
+      var neg = i % 2 == 0 ? 25 : -25;
+      ctx.lineTo(Math.pow(i, 1.8), 75 + neg);
+    }
+    ctx.stroke();
+    return false;
+  }
 </script>
 
 </html>

@@ -255,7 +255,53 @@ lineJoin 属性3种不同的设置。
         ctx.stroke()
     }
 ```
+4. miterLimit
+设置斜接面限制比例的属性。当获取属性值时，会返回当前的值（默认值是10.0 ）
+```html
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Canvas</title>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <input id="miterLimit"></input>
+  <button onClick="reDraw()">重绘</button>
+</body>
+<script>
+  function reDraw() {
+    var ctx = document.getElementById('canvas').getContext('2d');
+    ctx.clearRect(0, 0, 300, 150);
+    // 标准框
+    ctx.strokeStyle = '#666666';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(0, 50, 300, 50);
+
+    if (document.getElementById('miterLimit').value.match(/\d+(\.\d+)?/)) {
+      ctx.miterLimit = parseFloat(document.getElementById('miterLimit').value);
+    } else {
+      alert('请输入数字！');
+    }
+
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 10;
+    ctx.beginPath();
+    ctx.moveTo(0, 100);
+    for (i = 0; i < 48; i++) {
+      var neg = i % 2 == 0 ? 25 : -25;
+      ctx.lineTo(Math.pow(i, 1.8), 75 + neg);
+    }
+    ctx.stroke();
+    return false;
+  }
+</script>
+
+</html>
+```
 ### 
 ## Canvas API
 ### canvas
