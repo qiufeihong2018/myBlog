@@ -207,7 +207,8 @@ TextMetrics的其他属性：
     ctx.lineWidth = 30
     ctx.strokeRect(10, 10, 100, 100)
 ```
-2. lineCap 绘制每一条线段末端的属性（有3个可能的值：butt, round 和 square。默认值是 butt）
+2. lineCap 
+绘制每一条线段末端的属性（有3个可能的值：butt, round 和 square。默认值是 butt）
 ```html
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
@@ -233,6 +234,29 @@ TextMetrics的其他属性：
     }
 ```
 上面的例子可以发现，`butt`是上下是跟标准线平齐，`round`是上下凸出来一个直径为线宽的半圆，`square`是上下凸出来一个高度为线宽一半的矩形。
+3. lineJoin
+设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。此属性有3个值： round, bevel and miter。默认值是 miter。注意：如果2个相连部分在同一方向，那么lineJoin不会产生任何效果，因为在那种情况下不会出现连接区域。`round`
+通过填充一个额外的，圆心在相连部分末端的<font color = #00FFFF size=5 face="STCAIYUN">扇形</font>，绘制拐角的形状。 圆角的半径是线段的宽度。`bevel`在相连部分的末端填充一个额外的以<font color = #00FFFF size=5 face="STCAIYUN">三角形</font>为底的区域， 每个部分都有各自独立的矩形拐角。`miter`通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的<font color = #00FFFF size=5 face="STCAIYUN">菱形</font>区域。这个设置可以通过 miterLimit 属性看到效果。
+
+lineJoin 属性3种不同的设置。
+```html
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var lineJoinArr = ['round', 'miter', 'bevel']
+    ctx.lineWidth = 15
+    for (let i in lineJoinArr) {
+        ctx.lineJoin = lineJoinArr[i]
+        ctx.beginPath()
+        ctx.moveTo(0, 45 + i * 30)
+        ctx.lineTo(45, 10 + i * 30)
+        ctx.lineTo(90, 45 + i * 30)
+        ctx.lineTo(135, 10 + i * 30)
+        ctx.lineTo(180, 45 + i * 30)
+        ctx.stroke()
+    }
+```
+
+### 
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
