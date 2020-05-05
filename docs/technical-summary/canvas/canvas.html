@@ -8,13 +8,31 @@
 </head>
 
 <body>
-    <canvas id="rectCanvas"></canvas>
+    <canvas id="canvas"></canvas>
 </body>
 <script>
-    var canvas = document.getElementById('rectCanvas');
+    var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    ctx.fillStyle = "#ff0000"
-    ctx.fillRect(10, 10, 100, 100)
+    // 标准线
+    ctx.lineWidth = 1
+    ctx.strokeStyle = "#666666"
+    ctx.beginPath()
+    ctx.moveTo(10, 10)
+    ctx.lineTo(150, 10)
+    ctx.moveTo(10, 100)
+    ctx.lineTo(150, 100)
+    ctx.stroke()
+    // 三种末端方式
+    lineCapArr = ['butt', 'round', 'square']
+    for (let i in lineCapArr) {
+        ctx.lineWidth = 20
+        ctx.strokeStyle = "#ff0000"
+        ctx.lineCap = lineCapArr[i]
+        ctx.beginPath()
+        ctx.moveTo(20 + i * 50, 10)
+        ctx.lineTo(20 + i * 50, 100)
+        ctx.stroke()
+    }
 </script>
 
 </html>

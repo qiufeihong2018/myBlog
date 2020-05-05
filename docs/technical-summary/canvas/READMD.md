@@ -109,6 +109,130 @@ var ctx = canvas.getContext('2d');
 
 </html>
 ```
+### 绘制文本
+1. fillText(text画布上的文本,x-起点的 x 轴坐标,y-起点的 y 轴坐标,maxWidth-绘制的最大宽度)
+Canvas 2D API 在 (x, y)位置填充文本的方法。如果选项的第四个参数提供了最大宽度，文本会进行缩放以适应最大宽度。
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="textCanvas"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('textCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.font = '30px serif'
+    ctx.fillText('qfh is ok!', 30, 60,400)
+</script>
+
+</html>
+```
+2. strokeText(text画布上的文本,x-起点的 x 轴坐标,y-起点的 y 轴坐标,maxWidth-绘制的最大宽度)
+ Canvas 2D API 在给定的 (x, y) 位置绘制（描边）文本。方法同fillText()
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="textCanvas"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('textCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.font = '30px serif'
+    ctx.strokeText('qfh is ok!', 30, 60,400)
+</script>
+
+</html>
+```
+3. measureText(text-需要测量的字符串)
+返回一个关于被测量文本`TextMetrics` 对象包含的信息
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="textCanvas"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('textCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.font = '30px serif'
+    ctx.strokeText('qfh is ok!', 30, 60, 400)
+    var str = ctx.measureText('qfh is ok!', 30, 60, 400)
+    console.log('str', str)
+    // actualBoundingBoxAscent: 21 标明的水平线到渲染文本的所有字体的矩形最高边界顶部的距离
+    // actualBoundingBoxDescent: 4 标明的水平线到渲染文本的所有字体的矩形边界最底部的距离
+    // actualBoundingBoxLeft: -1 确定的对齐点到文本矩形边界左侧的距离
+    // actualBoundingBoxRight: 145 确定的对齐点到文本矩形边界右侧的距离
+    // width: 150 字符串的宽度
+</script>
+
+</html>
+```
+TextMetrics的其他属性：
+- ideographicBaseline 标明的水平线到线框的 ideographic 基线的距离
+- alphabeticBaseline 标明的水平线到线框的 alphabetic 基线的距离
+- hangingBaseline 标明的水平线到线框的 hanging 基线的距离
+- emHeightDescent 标明的水平线到线框中 em 方块底部的距离
+- emHeightAscent 标明的水平线到线框中 em 方块顶部的距离
+- actualBoundingBoxDescent 标明的水平线到渲染文本的矩形边界底部的距离
+- fontBoundingBoxDescent 标明的水平线到渲染文本的所有字体的矩形边界最底部的距离
+- fontBoundingBoxAscent 标明的水平线到渲染文本的所有字体的矩形最高边界顶部的距离
+### 线型
+1. lineWidth
+设置线段厚度的属性（即线段的宽度）。
+```html
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.lineWidth = 30
+    ctx.strokeRect(10, 10, 100, 100)
+```
+2. lineCap 绘制每一条线段末端的属性（有3个可能的值：butt, round 和 square。默认值是 butt）
+```html
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    // 标准线
+    ctx.lineWidth = 1
+    ctx.strokeStyle = "#666666"
+    ctx.beginPath()
+    ctx.moveTo(10, 10)
+    ctx.lineTo(150, 10)
+    ctx.moveTo(10, 100)
+    ctx.lineTo(150, 100)
+    ctx.stroke()
+    // 三种末端方式
+    lineCapArr = ['butt', 'round', 'square']
+    for (let i in lineCapArr) {
+        ctx.lineWidth = 20
+        ctx.strokeStyle = "#ff0000"
+        ctx.lineCap = lineCapArr[i]
+        ctx.beginPath()
+        ctx.moveTo(20 + i * 50, 10)
+        ctx.lineTo(20 + i * 50, 100)
+        ctx.stroke()
+    }
+```
+上面的例子可以发现，`butt`是上下是跟标准线平齐，`round`是上下凸出来一个直径为线宽的半圆，`square`是上下凸出来一个高度为线宽一半的矩形。
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
@@ -397,3 +521,5 @@ var ctx = canvas.getContext('2d');
   }
 </style>
 ```
+## 参考文献
+[canvas解析](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)
