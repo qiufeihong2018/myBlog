@@ -706,6 +706,27 @@ this.$set(this.data[id],"newPro",true);
 ```js
 this.$forceUpdate();
 ```
+## 31.vue中如何全局使用moment.js?
+moment是时间库，可以方便任何时间格式的转化。
+1. 安装
+```
+npm install moment -D
+main.js 引入moment
+```
+2. 定义全局 时间过滤器
+```js
+import Moment from 'moment';
+Vue.filter('comverTime',function(data,format){
+  return Moment(data).format(format);
+});
+```
+3. vue组件中使用 定义的 comverTime 过滤器
+```html
+　　<p>{{Time | comverTime('MMMM Do YYYY, h:mm:ss a')}}</p>
+<!-- 五月 6日 2020, 8:46:21 晚上 -->
+　　<p>{{Time | comverTime('YYYY-MM-DD HH:mm:ss')}}</p>
+<!-- "2020-05-06 20:48:25" -->
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
