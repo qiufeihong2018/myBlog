@@ -363,7 +363,119 @@ function march() {
 
 march();
 ```
-### 
+### 文本样式
+1. font
+描述绘制文字时，当前字体样式的属性。
+```js
+ var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  ctx.font = "italic bold 24px/30px arial,sans-serif"
+  ctx.strokeText('qfh', 10, 50)
+```
+2. textAlign
+绘制文本时，文本的对齐方式的属性。
+
+这里的textAlign="center"比较特殊。textAlign的值为center时候文本的居中是基于你在fillText的时候所给的x的值，也就是说文本一半在x的左边，一半在x的右边（可以理解为计算x的位置时从默认文字的左端，改为文字的中心，因此你只需要考虑x的位置即可）。所以，如果你想让文本在整个canvas居中，就需要将fillText的x值设置成canvas的宽度的一半。
+
+默认是`start`,可以是`left`、`center`、`right`和`end`。
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Canvas</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="1000" height="1000"></canvas>
+</body>
+<script>
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  ctx.font="italic bold 100px arial,sans-serif"
+  ctx.textAlign = "start"
+  ctx.strokeText('start', 500, 500)
+  ctx.textAlign = "left"
+  ctx.strokeText('left', 500, 500)
+  ctx.textAlign = "center"
+  ctx.strokeText('center', 500, 500)
+  ctx.textAlign = "right"
+  ctx.strokeText('right', 500, 500)
+  ctx.textAlign = "end"
+  ctx.strokeText('end', 500, 500)
+</script>
+</html>
+```
+3. textBaseline
+绘制文本时，当前文本基线的属性。
+
+决定文字垂直方向的对齐方式。
+
+其默认值是`alphabetic`(文本基线是标准的字母基线),还有`top`、`hanging`(文本基线是悬挂基线)、`middle`(文本基线在文本块的中间)、`ideographic`(文字基线是表意字基线；如果字符本身超出了`alphabetic` 基线，那么`ideograhpic`基线位置在字符本身的底部)和`bottom`。
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Canvas</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="1000" height="1000"></canvas>
+</body>
+<script>
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  ctx.font="italic bold 100px arial,sans-serif"
+  ctx.textBaseline = "alphabetic"
+  ctx.strokeText('alphabetic', 500, 500)
+  ctx.textBaseline = "top"
+  ctx.strokeText('top', 500, 500)
+  ctx.textBaseline = "hanging"
+  ctx.strokeText('hanging', 500, 500)
+  ctx.textBaseline = "middle"
+  ctx.strokeText('middle', 500, 500)
+  ctx.textBaseline = "ideographic"
+  ctx.strokeText('ideographic', 500, 500)
+  ctx.textBaseline = "bottom"
+  ctx.strokeText('bottom', 500, 500)
+</script>
+</html>
+```
+4. direction
+当前文本方向的属性
+
+其默认值是`inherit`(继承 `<canvas>` 元素或者 `Document`),还可以是`ltr`(从左向右)、`rtl`(从右向左)。
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Canvas</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="1000" height="1000"></canvas>
+</body>
+<script>
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  ctx.font="italic bold 100px arial,sans-serif"
+  ctx.direction  = "inherit"
+  ctx.strokeText('inherit', 500, 500)
+  ctx.direction  = "ltr"
+  ctx.strokeText('从左向右', 500, 500)
+  ctx.direction  = "rtl"
+  ctx.strokeText('从右向左', 500, 500)
+</script>
+</html>
+```
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
