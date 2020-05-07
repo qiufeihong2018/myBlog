@@ -727,6 +727,27 @@ Vue.filter('comverTime',function(data,format){
 　　<p>{{Time | comverTime('YYYY-MM-DD HH:mm:ss')}}</p>
 <!-- "2020-05-06 20:48:25" -->
 ```
+## 32.如何判断某值等于NaN?
+聪明的你会发现
+```js
+NaN==NaN
+// false
+NaN===NaN
+// false
+```
+在ECMAScript 6中, 有一个Number.isNaN() 方法提供可靠的NaN值检测，只有在参数是真正的NaN时，才会返回true。
+
+判断如下
+```js
+Number.isNaN(NaN)
+// true
+Number.isNaN({})
+// false
+Number.isNaN([])
+// false
+Number.isNaN(Math.log(-2))
+// true
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
