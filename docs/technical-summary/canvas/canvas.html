@@ -8,17 +8,24 @@
 </head>
 
 <body>
-  <canvas id="canvas" width="1000" height="1000"></canvas>
+  <canvas id="canvas" width="10000" height="10000"></canvas>
 </body>
 <script>
+ function draw(){
   var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");
-  ctx.font="italic bold 100px arial,sans-serif"
-  ctx.direction  = "inherit"
-  ctx.strokeText('inherit', 500, 500)
-  ctx.direction  = "ltr"
-  ctx.strokeText('从左向右', 500, 500)
-  ctx.direction  = "rtl"
-  ctx.strokeText('从右向左', 500, 500)
+  var img=new Image()
+  img.onload=function(){
+    ctx.drawImage(img,0,0)
+    ctx.beginPath()
+    ctx.moveTo(500,500)
+    ctx.lineTo(1000,1000)
+    ctx.lineTo(1500,500)
+    ctx.lineTo(500,500)
+    ctx.stroke()
+  }
+  img.src="https://images.qiufeihong.top/vuepress2.png"
+  }
+  draw()
 </script>
 </html>
