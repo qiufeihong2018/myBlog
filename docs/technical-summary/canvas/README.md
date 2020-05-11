@@ -571,7 +571,27 @@ SVG图像必须在 `<svg>` 根指定元素的宽度和高度。
 ```
 
 #### 缩放 Scaling
-
+```js
+drawImage(image, x, y, width, height)
+```
+这个方法多了2个参数：`width` 和 `height`，这两个参数用来控制 当向`canvas`画入时应该缩放的大小
+```html
+  function draw() {
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var img = new Image()
+    img.onload = function () {
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+          ctx.drawImage(img, i * 250, j * 350, 250, 350)
+        }
+      }
+    }
+    img.src = "https://images.qiufeihong.top/vuepress2.png"
+  }
+  draw()
+```
+>注意：图像可能会因为大幅度的缩放而变得起杂点或者模糊。如果您的图像里面有文字，那么最好还是不要进行缩放，因为那样处理之后很可能图像里的文字就会变得无法辨认了。
 #### 切片 Slicing
 
 #### 示例：画廊 Art gallery example
