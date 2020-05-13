@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【vscode】【含血收集】100个vscode必备插件',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['vscode-plugin/']
+    },
+    {
         title: '【canvas】canvas在图片上绘制矩形',
         collapsable: false,
         sidebarDepth: 4,

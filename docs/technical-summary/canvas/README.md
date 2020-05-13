@@ -476,7 +476,7 @@ march();
 </script>
 </html>
 ```
-### 使用图片
+### [使用图片](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Using_images)
 #### 获得需要绘制的图片
 
 - HTMLImageElement
