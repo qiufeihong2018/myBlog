@@ -748,6 +748,12 @@ Number.isNaN([])
 Number.isNaN(Math.log(-2))
 // true
 ```
+## 33.项目报错less--Module build failed: TypeError: loaderContext.getResolve is not a function？
+这是因为less版本太高，只要将less卸载后装一个低版本的就解决了。
+```
+npm uninstall less-loader
+npm install less-loader@4.1.0 --save
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
