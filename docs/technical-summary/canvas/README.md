@@ -593,10 +593,13 @@ drawImage(image, x, y, width, height)
 ```
 >注意：图像可能会因为大幅度的缩放而变得起杂点或者模糊。如果您的图像里面有文字，那么最好还是不要进行缩放，因为那样处理之后很可能图像里的文字就会变得无法辨认了。
 #### 切片 Slicing
-
-#### 示例：画廊 Art gallery example
-
+drawImage 方法的第三个也是最后一个变种有8个新参数，用于控制做切片显示的。
+```js
+drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+```
+第一个参数和其它的是相同的，都是一个图像或者另一个 canvas 的引用。其它8个参数最好是参照右边的图解，前4个是定义图像源的切片位置和大小，后4个则是定义切片的目标显示位置和大小。
 #### 控制图像的缩放行为 Controlling image scaling behavior
+Gecko 1.9.2 引入了 mozImageSmoothingEnabled 属性，值为 false 时，图像不会平滑地缩放。默认是 true 。
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
