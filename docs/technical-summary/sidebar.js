@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【docker】docker的灵魂拷问',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['docker/']
+    },
+    {
         title: '【vscode】【含血收集】100个vscode必备插件',
         collapsable: false,
         sidebarDepth: 4,
