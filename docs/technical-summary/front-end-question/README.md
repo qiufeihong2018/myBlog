@@ -767,6 +767,16 @@ npm install less-loader@4.1.0 --save
   </el-form-item >
 ```
 加一个`slot`，在其下添加自定义图标。
+## 35. this.$router.push的两种方式
+
+清理`/#/`后面的`url`，加上`/${this.id}/result`
+```
+this.$router.push(`/${this.id}/result`)
+```
+不清除`/#/`后面的`url`，`/${this.id}/result`跟在`url`后面
+```
+this.$router.push(`${this.id}/result`)
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)

@@ -531,7 +531,7 @@ img.src = 'data:image/gif;base64,R0lGODlhCwALAIAAAAAA3pn/ZiH5BAEAAAEALAAAAAALAAs
 其优点就是图片内容即时可用，无须再到服务器兜一圈。（还有一个优点是，可以将 CSS，JavaScript，HTML 和 图片全部封装在一起，迁移起来十分方便。）缺点就是图像没法缓存，图片大的话内嵌的 url 数据会相当的长：
 
 >使用视频帧
-你还可以使用<video> 中的视频帧（即便视频是不可见的）。例如，如果你有一个ID为“myvideo”的<video> 元素，你可以这样做：
+你还可以使用`<video>` 中的视频帧（即便视频是不可见的）。例如，如果你有一个ID为“myvideo”的`<video>` 元素，你可以这样做：
 ```js
 function getMyVideo() {
   var canvas = document.getElementById('canvas');
