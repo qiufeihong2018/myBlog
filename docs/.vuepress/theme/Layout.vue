@@ -152,3 +152,24 @@
 
 <style src="prismjs/themes/prism-tomorrow.css"></style>
 <style src="../../../node_modules/vuepress/lib/default-theme/styles/theme.styl" lang="stylus"></style>
+<style>
+    ::-webkit-scrollbar {
+    width: 5px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    border-radius: 5px;
+    background-image: -webkit-linear-gradient(180deg, #4e83ee, #fff, #4e83ee);
+}
+::-webkit-scrollbar-thumb:horizontal {
+    border-radius: 5px;
+    background-image: -webkit-linear-gradient(90deg, #4e83ee, #fff, #4e83ee);
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+    border-radius: 5px;
+}
+
+</style>
