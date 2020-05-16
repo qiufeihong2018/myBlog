@@ -9,6 +9,6 @@ app.get('*', function(req, res) {
     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
     res.send(html)
 })
-app.listen(7777, res => {
-    console.log(chalk.yellow('Start Service On 7777'));
+app.listen(1616, res => {
+    console.log(chalk.yellow('Start Service On 1616'));
 });
