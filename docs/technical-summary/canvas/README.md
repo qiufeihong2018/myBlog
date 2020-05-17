@@ -705,6 +705,33 @@ canvas状态存储在栈中，每当调用save()，当前状态就被推送到�
   }
   draw()
 ```
+##### 应用transforms的矩形
+对变形矩阵直接修改。
+- transform(a, b, c, d, e, f)
+- setTransform(a, b, c, d, e, f)
+- resetTransform()
+
+```js
+  function draw() {
+    var ctx = document.getElementById('canvas').getContext('2d');
+
+    var sin = Math.sin(Math.PI / 6);
+    var cos = Math.cos(Math.PI / 6);
+    ctx.translate(100, 100);
+    var c = 0;
+    for (var i = 0; i <= 12; i++) {
+      c = Math.floor(255 / 12 * i);
+      ctx.fillStyle = "rgb(" + -c + "," + c + "," + c + ")";
+      ctx.fillRect(0, 0, 100, 10);
+      ctx.transform(cos, sin, -sin, cos, 0, 0);
+    }
+
+    ctx.setTransform(-1, 0, 0, 1, 100, 100);
+    ctx.fillStyle = "#00ffff20";
+    ctx.fillRect(0, 0, 100, 100);
+  }
+  draw()
+```
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
