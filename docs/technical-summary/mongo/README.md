@@ -52,6 +52,24 @@ mongorestore -d <db_name> <bson_folder>
 mongorestore.exe -d <db_name> <bson_folder>
 ```
 
+## mongo命令增删改查
+### 创建集合
+```
+db.createCollection('user')
+``` 
+### 删除集合
+```
+db.user.drop()
+```
+### 删除数据库
+```
+db.dropDatabase()
+```
+### 插入数据
+```
+db.users.insert({id:123,name:'hello'})
+```
+
 ## 用node来操作MongoDB完成增、删、改、查
 ### 增
 结合`passport-local-mongoose`插件的`register`方法实现增加用户的功能
