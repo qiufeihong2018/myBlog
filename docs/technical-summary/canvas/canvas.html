@@ -8,34 +8,33 @@
 </head>
 
 <body>
+  <canvas id="canvas"></canvas>
 </body>
 <script>
- function draw() {
+  function draw() {
+    var ctx = document.getElementById('canvas').getContext('2d')
+    ctx.fillRect(0, 0, 150, 150)
+    ctx.save()
 
-// Loop through all images
-for (i=0;i<document.images.length;i++){
+    ctx.fillStyle = "#ff0000"
+    ctx.fillRect(15, 15, 120, 120)
 
-  // Don't add a canvas for the frame image
-  if (document.images[i].getAttribute('id')!='frame'){
+    ctx.save()
+    ctx.fillStyle = "#ffff00"
+    ctx.globalAlpha = 0.8
+    ctx.fillRect(30, 30, 90, 90)
+    ctx.save()
 
-    // Create canvas element
-    canvas = document.createElement('CANVAS');
-    canvas.setAttribute('width',132);
-    canvas.setAttribute('height',150);
+    ctx.restore()
+    ctx.globalAlpha = 0.5
+    ctx.fillRect(45, 45, 60, 60)
 
-    // Insert before the image
-    document.images[i].parentNode.insertBefore(canvas,document.images[i]);
+    ctx.restore()
+    ctx.fillRect(60, 60, 20, 20)
 
-    ctx = canvas.getContext('2d');
-
-    // Draw image to canvas
-    ctx.drawImage(document.images[i],15,20);
-
-    // Add frame
-    ctx.drawImage(document.getElementById('frame'),0,0);
+    ctx.restore()
+    ctx.fillRect(80, 80, 10, 10)
   }
-}
-}
   draw()
 </script>
 

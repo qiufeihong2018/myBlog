@@ -600,6 +600,48 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 第一个参数和其它的是相同的，都是一个图像或者另一个 canvas 的引用。其它8个参数最好是参照右边的图解，前4个是定义图像源的切片位置和大小，后4个则是定义切片的目标显示位置和大小。
 #### 控制图像的缩放行为 Controlling image scaling behavior
 Gecko 1.9.2 引入了 mozImageSmoothingEnabled 属性，值为 false 时，图像不会平滑地缩放。默认是 true 。
+### 变形
+目前，我们只是根据我们的需要使用默认的网格，改变整个画布的大小。变形是一种更强大的方法，可以将原点移动到另一点、对网格进行旋转和缩放。
+
+#### 状态的保存和恢复 Saving and restoring state
+- save()
+保存画布的所有状态
+
+- restore()
+恢复画布转态
+
+canvas状态存储在栈中，每当调用save()，当前状态就被推送到栈中保存。
+
+保存当前应用的变形、以及canvas的属性和当前的裁切路径。
+
+##### 应用save和restore的多层矩形
+```js
+ function draw() {
+    var ctx = document.getElementById('canvas').getContext('2d')
+    ctx.fillRect(0, 0, 150, 150)
+    ctx.save()
+
+    ctx.fillStyle = "#ff0000"
+    ctx.fillRect(15, 15, 120, 120)
+
+    ctx.save()
+    ctx.fillStyle = "#ffff00"
+    ctx.globalAlpha = 0.8
+    ctx.fillRect(30, 30, 90, 90)
+    ctx.save()
+
+    ctx.restore()
+    ctx.globalAlpha = 0.5
+    ctx.fillRect(45, 45, 60, 60)
+
+    ctx.restore()
+    ctx.fillRect(60, 60, 20, 20)
+
+    ctx.restore()
+    ctx.fillRect(80, 80, 10, 10)
+  }
+  draw()
+```
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
