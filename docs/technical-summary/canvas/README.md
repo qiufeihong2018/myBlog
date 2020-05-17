@@ -662,6 +662,30 @@ canvas状态存储在栈中，每当调用save()，当前状态就被推送到�
   }
   draw()
 ```
+##### 应用rotate的多层圆形
+`rotate`用于以原定啊为中心旋转。
+```js
+  function draw() {
+    var ctx = document.getElementById('canvas').getContext('2d')
+    ctx.translate(250, 250)
+    // 画20圈
+    for (var i = 1; i < 20; i++) {
+      ctx.save()
+      // 颜色渐变
+      ctx.fillStyle = 'rgb(' + (3 * i) + ',' + (30 * i) + ', ' + (255 - 30 * i) + ')'
+      // 画完整一个圆
+      for (var j = 0; j < i * 6; j++) {
+        ctx.rotate(Math.PI * 2 / (i * 2))
+        ctx.beginPath()
+        ctx.arc(0, i * 12.5, 5, 100, Math.PI * 2, true)
+        ctx.fill()
+      }
+      ctx.restore()
+    }
+  }
+  draw()
+```
+
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
