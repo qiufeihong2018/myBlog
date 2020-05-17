@@ -685,7 +685,26 @@ canvas状态存储在栈中，每当调用save()，当前状态就被推送到�
   }
   draw()
 ```
+##### 应用scale的字体和矩形
+`scale`对形状，位图进行缩小或者放大。
 
+关键词-镜像反转
+
+```js
+  function draw() {
+    var ctx = document.getElementById('canvas').getContext('2d')
+    ctx.save();
+    ctx.scale(10, 30);
+    ctx.fillRect(10, 10, 10, 10);
+    ctx.restore();
+
+    // mirror horizontally
+    ctx.scale(2, -1);
+    ctx.font = '60px serif';
+    ctx.fillText('qfh', 135, -120);
+  }
+  draw()
+```
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
