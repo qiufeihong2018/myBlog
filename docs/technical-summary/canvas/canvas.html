@@ -13,21 +13,49 @@
 <script>
   function draw() {
     var ctx = document.getElementById('canvas').getContext('2d');
+    ctx.fillRect(0, 0, 500, 500);
+    ctx.translate(250, 250);
 
-    var sin = Math.sin(Math.PI / 6);
-    var cos = Math.cos(Math.PI / 6);
-    ctx.translate(100, 100);
-    var c = 0;
-    for (var i = 0; i <= 12; i++) {
-      c = Math.floor(255 / 12 * i);
-      ctx.fillStyle = "rgb(" + -c + "," + c + "," + c + ")";
-      ctx.fillRect(0, 0, 100, 10);
-      ctx.transform(cos, sin, -sin, cos, 0, 0);
+    // Create a circular clipping path
+    ctx.beginPath();
+    ctx.arc(0, 0, 60, 0, Math.PI * 2, true);
+    ctx.clip();
+
+    // draw background
+    var lingrad = ctx.createLinearGradient(0, -75, 0, 75);
+    lingrad.addColorStop(0, '#ff0000');
+    lingrad.addColorStop(1, '#143798');
+
+    ctx.fillStyle = lingrad;
+    ctx.fillRect(-75, -75, 150, 150);
+
+    // draw stars
+    for (var j = 1; j < 500; j++) {
+      ctx.save();
+      ctx.fillStyle = '#fff';
+      ctx.translate(75 - Math.floor(Math.random() * 500),
+        75 - Math.floor(Math.random() * 500));
+      drawStar(ctx, Math.floor(Math.random() * 4) + 2);
+      ctx.restore();
     }
 
-    ctx.setTransform(-1, 0, 0, 1, 100, 100);
-    ctx.fillStyle = "#00ffff20";
-    ctx.fillRect(0, 0, 100, 100);
+  }
+
+  function drawStar(ctx, r) {
+    ctx.save();
+    ctx.beginPath()
+    ctx.moveTo(r, 0);
+    for (var i = 0; i < 9; i++) {
+      ctx.rotate(Math.PI / 5);
+      if (i % 2 == 0) {
+        ctx.lineTo((r / 0.525731) * 0.200811, 0);
+      } else {
+        ctx.lineTo(r, 0);
+      }
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
   }
   draw()
 </script>
