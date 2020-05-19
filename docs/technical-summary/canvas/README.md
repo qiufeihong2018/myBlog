@@ -789,6 +789,68 @@ canvas状态存储在栈中，每当调用save()，当前状态就被推送到�
   }
   draw()
 ```
+### 动画
+#### 基本步骤
+1. 清空canvas
+调用clearRect方法
+2. 保存canvas状态
+要改变一些会改变 canvas 状态的设置（样式，变形之类的），又要在每画一帧之时都是原始状态的话，你需要先保存一下。
+3. 绘制动画
+4. 恢复canvas状态
+
+#### canvas版的太阳系动画
+```js
+  var sun = new Image();
+  var moon = new Image();
+  var earth = new Image();
+
+  function init() {
+    sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+    moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+    earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+    window.requestAnimationFrame(draw);
+  }
+
+  function draw() {
+    var ctx = document.getElementById('canvas').getContext('2d');
+    // 在源图像上方显示目标图像
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.clearRect(0, 0, 500, 500);
+
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.strokeStyle = 'rgba(0,153,255,0.4)';
+    ctx.save();
+    ctx.translate(150, 150);
+
+    // 地球
+    var time = new Date();
+    ctx.rotate(((2 * Math.PI) / 60) * time.getSeconds() + ((2 * Math.PI) / 60000) * time.getMilliseconds());
+    ctx.translate(105, 0);
+    ctx.fillRect(0, -12, 50, 24); // Shadow
+    ctx.drawImage(earth, -12, -12);
+
+    // 月球
+    ctx.save();
+    ctx.rotate(((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds());
+    ctx.translate(0, 28.5);
+    ctx.drawImage(moon, -3.5, -3.5);
+    ctx.restore();
+
+    ctx.restore();
+
+    ctx.beginPath();
+    // 地球轨道(并不是正圆的)
+    // ctx.arc(150,150,105,0,Math.PI*2,false);
+    ctx.ellipse(150, 150, 130, 105, 0, 0, Math.PI * 2,false)
+    ctx.stroke();
+
+    ctx.drawImage(sun, 0, 0, 300, 300);
+
+    window.requestAnimationFrame(draw);
+  }
+
+  init();
+```
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
