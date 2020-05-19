@@ -777,6 +777,13 @@ this.$router.push(`/${this.id}/result`)
 ```
 this.$router.push(`${this.id}/result`)
 ```
+## 36.node-sass包安装失败
+可以切换淘宝镜像试一下
+```
+set sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+npm install node-sass
+```
+下载速度非常快，毕竟从国外源换到了国内。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
