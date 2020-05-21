@@ -851,10 +851,112 @@ canvas状态存储在栈中，每当调用save()，当前状态就被推送到�
 
   init();
 ```
+#### canvas版的时钟动画
+```js
+ function clock() {
+    var now = new Date();
+    var ctx = document.getElementById('canvas').getContext('2d');
+    ctx.save();
+    ctx.clearRect(0, 0, 150, 150);
+    ctx.translate(75, 75);
+    ctx.scale(0.4, 0.4);
+    ctx.rotate(-Math.PI / 2);
+    ctx.strokeStyle = "#c8bdbd";
+    ctx.fillStyle = "#fff";
+    ctx.lineWidth = 4;
+    ctx.lineCap = "round";
+
+    // 小时的刻度
+    ctx.save();
+    for (var i = 0; i < 12; i++) {
+      ctx.beginPath();
+      ctx.rotate(Math.PI / 6);
+      ctx.moveTo(100, 0);
+      ctx.lineTo(120, 0);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // 分钟的刻度
+    ctx.save();
+    ctx.lineWidth = 5;
+    for (i = 0; i < 60; i++) {
+      if (i % 5 != 0) {
+        ctx.beginPath();
+        ctx.moveTo(117, 0);
+        ctx.lineTo(120, 0);
+        ctx.stroke();
+      }
+      ctx.rotate(Math.PI / 30);
+    }
+    ctx.restore();
+
+    var sec = now.getSeconds();
+    var min = now.getMinutes();
+    var hr = now.getHours();
+    hr = hr >= 12 ? hr - 12 : hr;
+
+    ctx.fillStyle = "black";
+
+    // 画出小时
+    ctx.save();
+    ctx.rotate(hr * (Math.PI / 6) + (Math.PI / 360) * min + (Math.PI / 21600) * sec)
+    ctx.lineWidth = 14;
+    ctx.beginPath();
+    ctx.moveTo(-20, 0);
+    ctx.lineTo(80, 0);
+    ctx.stroke();
+    ctx.restore();
+
+    // 画出分钟
+    ctx.save();
+    ctx.rotate((Math.PI / 30) * min + (Math.PI / 1800) * sec)
+    ctx.lineWidth = 10;
+    ctx.beginPath();
+    ctx.moveTo(-28, 0);
+    ctx.lineTo(112, 0);
+    ctx.stroke();
+    ctx.restore();
+
+    // 画出秒钟
+    ctx.save();
+    ctx.rotate(sec * Math.PI / 30);
+    ctx.strokeStyle = "#ed7270";
+    ctx.fillStyle = "#ff0000";
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(-30, 0);
+    ctx.lineTo(83, 0);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0, 0, 10, 0, Math.PI * 2, true);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(95, 0, 10, 0, Math.PI * 2, true);
+    ctx.stroke();
+    ctx.fillStyle = "rgba(0,0,0,0)";
+    ctx.arc(0, 0, 3, 0, Math.PI * 2, true);
+    ctx.fill();
+    ctx.restore();
+
+    // 画出大圆
+    ctx.beginPath();
+    ctx.lineWidth = 14;
+    ctx.strokeStyle = '#4b4242';
+    ctx.arc(0, 0, 142, 0, Math.PI * 2, true);
+    ctx.stroke();
+
+    ctx.restore();
+
+    window.requestAnimationFrame(clock);
+  }
+
+  window.requestAnimationFrame(clock);
+```
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
-### 
+
 ## 在vue项目的图片上绘制矩形
 1. 页面初始化默认绘制矩形
 2. 点击绘制，手动在图片上绘制矩形
