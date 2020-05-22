@@ -953,6 +953,90 @@ canvas状态存储在栈中，每当调用save()，当前状态就被推送到�
 
   window.requestAnimationFrame(clock);
 ```
+#### canvas版的全景动画
+```js
+  var img = new Image()
+  img.src = 'https://mdn.mozillademos.org/files/4553/Capitan_Meadows,_Yosemite_National_Park.jpg';
+  var canvasWidth = 800;
+  var canvasHeight = 200;
+  // 数字越小越快，依赖的是setInterval方法，是其第二个参数
+  var speed = 3;
+  var scale = 1.05;
+
+  // 需要绘制到目标上下文中的，image的矩形（裁剪）选择框的左上角 Y 轴坐标
+  var y = -4.5; // vertical offset
+
+  var dx = 0.75;
+  var imgW;
+  var imgH;
+
+  // 需要绘制到目标上下文中的，image的矩形（裁剪）选择框的左上角 X 轴坐标
+  var x = 0;
+  var clearX;
+  var clearY;
+  var ctx;
+
+  img.onload = function () {
+    imgW = img.width * scale;
+    imgH = img.height * scale;
+
+    if (imgW > canvasWidth) {
+      // 图片太宽
+      x = canvasWidth - imgW;
+    }
+    if (imgW > canvasWidth) {
+      // 图片太宽
+      clearX = imgW;
+    } else {
+      clearX = canvasWidth;
+    }
+    if (imgH > canvasHeight) {
+      // 图片太高
+      clearY = imgH;
+    } else {
+      clearY = canvasHeight;
+    }
+
+    ctx = document.getElementById('canvas').getContext('2d');
+
+    // 定时重绘
+    return setInterval(draw, speed);
+  }
+
+  function draw() {
+    // 先清空
+    ctx.clearRect(0, 0, clearX, clearY);
+
+    // 图片宽度窄
+    if (imgW <= canvasWidth) {
+      // 重置，从头开始
+      if (x > canvasWidth) {
+        x = -imgW + x;
+      }
+      // 画额外image1
+      if (x > 0) {
+        ctx.drawImage(img, -imgW + x, y, imgW, imgH);
+      }
+      //画额外image2
+      if (x - imgW > 0) {
+        ctx.drawImage(img, -imgW * 2 + x, y, imgW, imgH);
+      }
+    } else {
+      // 重置，从头开始
+      if (x > (canvasWidth)) {
+        x = canvasWidth - imgW;
+      }
+      // 画额外image
+      if (x > (canvasWidth - imgW)) {
+        ctx.drawImage(img, x - imgW + 1, y, imgW, imgH);
+      }
+    }
+
+    ctx.drawImage(img, x, y, imgW, imgH);
+    // 移动量
+    x += dx;
+  }
+```
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
