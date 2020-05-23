@@ -1037,6 +1037,129 @@ canvas状态存储在栈中，每当调用save()，当前状态就被推送到�
     x += dx;
   }
 ```
+#### canvas版的鼠标追踪器
+```html
+        <script>
+            var cn;
+            var c;
+            var u = 10;
+            // 鼠标追踪器初始位置（水平垂直居中）
+            const m = {
+                x: innerWidth / 2,
+                y: innerHeight / 2
+            };
+            // 鼠标移动，获取鼠标当前位置
+            window.onmousemove = function(e) {
+                m.x = e.clientX;
+                m.y = e.clientY;
+
+            }
+            // 追踪器颜色
+            function gc() {
+                var s = "0123456789ABCDEF";
+                var c = "#";
+                // 16进制的颜色目前6位数字（随机选择）
+                for (var i = 0; i < 6; i++) {
+                    c += s[Math.ceil(Math.random() * 15)]
+                }
+                return c
+            }
+            var a = [];
+            window.onload = function myfunction() {
+                cn = document.getElementById('cw');
+                c = cn.getContext('2d');
+                // 追踪器的圈数
+                for (var i = 0; i < 10; i++) {
+                    var r = 30;
+                    var x = Math.random() * (innerWidth - 2 * r) + r;
+                    var y = Math.random() * (innerHeight - 2 * r) + r;
+                    var t = new ob(innerWidth / 2,innerHeight / 2,5,"red",Math.random() * 200 + 20,2);
+                    a.push(t);
+                }
+                // 渐变
+                cn.style.backgroundColor = "#700bc8";
+
+                c.lineWidth = "2";
+                c.globalAlpha = 0.5;
+                resize();
+                anim()
+            }
+            window.onresize = function() {
+
+                resize();
+
+            }
+            function resize() {
+                cn.height = innerHeight;
+                cn.width = innerWidth;
+                // 追踪器的密度
+                for (var i = 0; i < 101; i++) {
+                    var r = 30;
+                    var x = Math.random() * (innerWidth - 2 * r) + r;
+                    var y = Math.random() * (innerHeight - 2 * r) + r;
+                    a[i] = new ob(innerWidth / 2,innerHeight / 2,4,gc(),Math.random() * 200 + 20,0.02);
+
+                }
+                // 红条旋转
+                 a[0] = new ob(innerWidth / 2, innerHeight / 2, 40, "red", 0.05, 0.05);
+                a[0].dr();
+            }
+            function ob(x, y, r, cc, o, s) {
+                this.x = x;
+                this.y = y;
+                this.r = r;
+                this.cc = cc;
+                this.theta = Math.random() * Math.PI * 2;
+                this.s = s;
+                this.o = o;
+                this.t = Math.random() * 150;
+
+                this.o = o;
+                this.dr = function() {
+                    const ls = {
+                        x: this.x,
+                        y: this.y
+                    };
+                    this.theta += this.s;
+                    this.x = m.x + Math.cos(this.theta) * this.t;
+                    this.y = m.y + Math.sin(this.theta) * this.t;
+                    c.beginPath();
+                    c.lineWidth = this.r;
+                    c.strokeStyle = this.cc;
+                    c.moveTo(ls.x, ls.y);
+                    c.lineTo(this.x, this.y);
+                    c.stroke();
+                    c.closePath();
+
+                }
+            }
+            function anim() {
+                requestAnimationFrame(anim);
+                c.fillStyle = "rgba(0,0,0,0.05)";
+                c.fillRect(0, 0, cn.width, cn.height);
+                a.forEach(function(e, i) {
+                    e.dr();
+                });
+
+            }
+        </script>
+        <style>
+            #cw {
+                position: fixed;
+                z-index: -1;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: rgba(0,0,0,0.05);
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="cw"></canvas>
+    </body>
+```
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
