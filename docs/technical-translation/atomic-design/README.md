@@ -1,4 +1,4 @@
-# 【设计】原子设计 
+# 【设计】原子设计 (译)
 [文章地址](https://bradfrost.com/blog/post/atomic-web-design/)
 
 > 我们不是在设计页面，我们是在设计组件系统——Stephen Hay
@@ -11,7 +11,7 @@
 
 类似地，接口是由更小的组件组成的。这意味着我们可以将整个接口分解成基本的构建块，并从那里开始工作。这是原子设计的基本要点。
 
-![avatar](./atomic.png)
+![avatar](https://qiufeihong-blog.oss-cn-hangzhou.aliyuncs.com/atomic-design/atomic.797c1149.png)
 
 ## 什么是原子设计?
 原子设计是用于创建设计系统的方法。
@@ -23,13 +23,13 @@
 4. 模板
 5. 页面
 
-![avatar](./atomic1.png)
+![avatar](https://qiufeihong-blog.oss-cn-hangzhou.aliyuncs.com/atomic-design/atomic1.9b67dbfd.png)
 让我们更详细地探索每个阶段。
 
 ### 原子
 原子是构成物质的基本单位。应用于web接口，原子是我们的HTML标记，例如表单标签、输入或按钮。
 
-![avatar](./atomic2.png)
+![avatar](https://qiufeihong-blog.oss-cn-hangzhou.aliyuncs.com/atomic-design/atomic2.6dc3d4d5.png)
 
 原子还可以包含更抽象的元素，比如调色板、字体，甚至是界面中更不可见的方面，比如动画。就像自然界中的原子一样，它们是相当抽象的，而且通常本身并不是很有用。但是，在模式库的上下文中，它们是很好的参考，因为您可以一眼看到所有全局样式的布局。
 
@@ -38,14 +38,14 @@
 
 例如，表单标签、输入或按钮本身并不是很有用，但是将它们作为一个表单组合在一起，现在它们实际上可以一起做一些事情。
 
-![avatar](./atomic3.png)
+![avatar](https://qiufeihong-blog.oss-cn-hangzhou.aliyuncs.com/atomic-design/atomic3.71358925.png)
 
 从原子到分子，鼓励“做一件事，把它做好”的心态。虽然分子可能是复杂的，但根据经验，它们是为重复使用而构建的相对简单的原子组合。
 
 ### 生物体
 分子为我们提供了一些工作的基础，现在我们可以把它们结合起来形成生物体。生物是一组分子结合在一起，形成一个相对复杂、明显的界面。
 
-![avatar](./atomic4.png)
+![avatar](https://qiufeihong-blog.oss-cn-hangzhou.aliyuncs.com/atomic-design/atomic4.5694c1d0.png)
 
 我们开始变得越来越具体。客户可能对设计系统的分子不是特别感兴趣，但是对于生物体，我们可以看到最终的界面开始成形。Dan Mall(我在几个项目中与他合作)使用元素拼贴，它清晰地表达了一些关键有机体的想法，以促进客户的对话并形成视觉方向(所有这些都不需要构建完整的对比)。
 
@@ -56,14 +56,14 @@
 ## 模板
 在模板阶段，我们打破我们的化学类比，进入更有意义的语言，我们的客户和我们的最终输出。模板主要由一组有机体组成，它们被缝合在一起形成页面。在这里，我们开始看到设计走到一起，开始看到像布局这样的东西在起作用。
 
-![avatar](./atomic5.png)
+![avatar](https://qiufeihong-blog.oss-cn-hangzhou.aliyuncs.com/atomic-design/atomic5.e4ccae48.png)
 
 模板是非常具体的，并提供了所有这些相对抽象的分子和有机体的背景。模板也是客户开始看到最终设计的地方。根据我使用这种方法的经验，模板最初是以HTML线框图的形式出现的，但随着时间的推移，其保真度逐渐提高，最终成为最终的交付品。 Pittsburgh的Bearded工作室也遵循着类似的过程，设计从灰度和无布图开始，然后慢慢增加逼真度，直到最终的设计到位。
 
 ### 页面
 页面是模板的特定实例。在这里，占位符内容被替换为真实的代表性内容，以便准确描述用户最终将看到的内容。
 
-![avatar](./atomic6.png)
+![avatar](https://qiufeihong-blog.oss-cn-hangzhou.aliyuncs.com/atomic-design/atomic6.eb19a3bc.png)
 
 页面是最高级别的保真度，因为它们是最有形的，所以在这个过程中，大多数人通常会把大部分时间花在页面上，大多数评论也会围绕页面展开。
 
