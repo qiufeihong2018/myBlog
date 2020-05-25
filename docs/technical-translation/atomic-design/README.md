@@ -78,15 +78,11 @@
 
 原子设计使我们能够从抽象到具体。因此，我们可以创建促进一致性和可伸缩性的系统，同时在它们的最终上下文中显示内容。通过装配而不是解构，我们正在一开始就构建一个系统，而不是事后才挑选模式。
 
-## 模式的实验室
-为了在我的工作中应用这种方法，我(和伟大的Dave Olsen一起)创建了一个名为Pattern Lab的工具来实际创建这些原子设计系统。稍后我将详细介绍Pattern Lab，但是您可以在Github上查看它。
+## 实验室
+为了在我的工作中应用这种方法，我(和伟大的[Dave Olsen](http://dmolsen.com/)一起)创建了一个名为[Pattern Lab](https://bradfrost.com/blog/post/atomic-web-design/)的工具来实际创建这些原子设计系统。稍后我将详细介绍Pattern Lab，但是您可以在[Github](https://github.com/bradfrost/patternlab)上查看它。
 
 ## 延伸阅读
 - 所以安迪·克拉克已经为这类对话准备了很长时间。事实上，他为《了不起的灵活性:设计原子和元素》[第三卷](https://shop.smashingmagazine.com/smashing-book-3.html)写了一章。“我不知道它的存在，那又怎么样?”我强烈建议你们去看看。我还强烈建议您看看他的工具[Rock Hammer](http://malarkey.github.io/Rock-Hammer/)，这是一个利用这些原则[构建模式库](https://stuffandnonsense.co.uk/blog/rock-hammer-a-curated-responsive-project-library)的好方法。
 - [Web组件:Web开发的结构性转变](http://www.youtube.com/watch?v=fqULJBBEVQE)——Web组件似乎与原子设计的概念非常吻合，观看本视频将展示为什么要使用Web组件
 - [模块化](http://www.w3.org/DesignIssues/Modularity.html) Tim Berners-Lee讨论了模块化如何成为Web的一个重要设计原则。
 - Dave Rupert的[响应交付](http://daverupert.com/2013/04/responsive-deliverables/)谈到了为每个客户构建“微型引导系统”的想法
-
-这是我在德国Beyond Tellerrand演讲的视频和幻灯片。
-
-我真的很高兴能更深入地研究这些概念，并围绕这些概念开发更多的工具和思想。
