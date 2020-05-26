@@ -38,3 +38,19 @@ DockerCli.exe -SwitchDaemon
 重新可以拉取
 
 ![avatar](./docker2.png)
+
+## 运行`docker-compose`报`Version in "./docker-compose.yml" is unsupported`的错误
+具体错误如下：
+```
+Version in "./docker-compose.yml" is unsupported. You might be seeing this error because yo supported version (e.g "2.2" or "3.3") and place your service definitions under the 'services' keions at the root of the file to use version 1.  For more on the Compose file format versions, see [https://docs.docker.com/compose/compose-file/](https://docs.docker.com/compose/compose-file/)
+```
+这种问题一般是因为用`apt-get`下载`docker-compose`，其版本很低，所以`docker-compose`的版本和 `docker-compose.yml` 要求的版本对应不上。
+
+解决方法：
+
+按照官网的命令将docker-compose升到最新版
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+```

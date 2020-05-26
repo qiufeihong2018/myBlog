@@ -10,71 +10,28 @@
 
 <body>
   <canvas id="canvas" height="500" width="500"></canvas>
+  <div id='color'></div>
   <script>
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    var raf;
-    var running = false;
-
-    var ball = {
-      x: 100,
-      y: 100,
-      vx: 5,
-      vy: 1,
-      radius: 25,
-      color: '#ff5645',
-      draw: function () {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-    };
-
-    function clear() {
-      ctx.fillStyle = 'rgba(255,255,255,0.3)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-
-    function draw() {
-      clear();
-      ball.draw();
-      ball.x += ball.vx;
-      ball.y += ball.vy;
-
-      if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
-        ball.vy = -ball.vy;
-      }
-      if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) {
-        ball.vx = -ball.vx;
-      }
-
-      raf = window.requestAnimationFrame(draw);
-    }
-
-    canvas.addEventListener('mousemove', function (e) {
-      if (!running) {
-        clear();
-        ball.x = e.offsetX;
-        ball.y = e.offsetY;
-        ball.draw();
-      }
-    });
-
-    canvas.addEventListener('click', function (e) {
-      if (!running) {
-        raf = window.requestAnimationFrame(draw);
-        running = true;
-      }
-    });
-
-    canvas.addEventListener('mouseout', function (e) {
-      window.cancelAnimationFrame(raf);
-      running = false;
-    });
-
-    ball.draw();
+ var img = new Image();
+img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+img.onload = function() {
+  ctx.drawImage(img, 0, 0);
+  img.style.display = 'none';
+};
+var color = document.getElementById('color');
+function pick(event) {
+  var x = event.layerX;
+  var y = event.layerY;
+  var pixel = ctx.getImageData(x, y, 1, 1);
+  var data = pixel.data;
+  var rgba = 'rgba(' + data[0] + ',' + data[1] +
+             ',' + data[2] + ',' + (data[3] / 255) + ')';
+  color.style.background =  rgba;
+  color.textContent = rgba;
+}
+canvas.addEventListener('mousemove', pick);
   </script>
 </body>
 
