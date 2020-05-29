@@ -792,6 +792,8 @@ npm install node-sass
 yarn global add windows-build-tools
 ```
 安装一下问题解决
+## 38.unexpected side effect in computed properties
+`computed`不能改变页面中变量的值，必须要使用`watch`。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
