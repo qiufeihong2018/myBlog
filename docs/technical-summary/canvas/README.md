@@ -1468,8 +1468,40 @@ canvas状态存储在栈中，每当调用save()，当前状态就被推送到�
     ball.draw();
 ```
 ### 像素
-这就不得不提到`imageData`对象
+这就不得不提到`imageData`对象，存储着canvas对象真实的像素数据。
 
+这个方法会返回一个ImageData对象，它代表了画布区域的对象数据，此画布的四个角落分别表示为(left, top), (left + width, top), (left, top + height), 以及(left + width, top + height)四个点。这些坐标点被设定为画布坐标空间元素。
+
+```js
+ var img = new Image();
+    img.src = 'file:///D:/githubMe/vuepress-blog/docs/technical-summary/public/aliyun1.png';
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var color = document.getElementById('color');
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0);
+      img.style.display = 'none';
+    };
+
+    function pick(event) {
+      debugger
+      var x = event.layerX;
+      var y = event.layerY;
+      var pixel = ctx.getImageData(x, y, 1, 1);
+      var data = pixel.data;
+      var rgba = 'rgba(' + data[0] + ',' + data[1] +
+        ',' + data[2] + ',' + (data[3] / 255) + ')';
+      color.style.background = rgba;
+      color.textContent = rgba;
+    }
+    canvas.addEventListener('mousemove', pick);
+```
+
+遇到跨域获取的图片会出现的问题：
+```
+canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The canvas has been tainted by cross-origin data.
+```
+原因是为了阻止欺骗，浏览器会追踪 image data。当你把一个“跟canvas的域不同的”图片放到canvas上，这个canvas就成为 “tainted”(被污染的，脏的)，浏览器就不让你操作该canvas 的任何像素。这对于阻止多种类型的XSS/CSRF攻击（两种典型的跨站攻击）是非常有用的
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
