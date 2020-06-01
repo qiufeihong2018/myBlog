@@ -2,39 +2,25 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Nokia 1100:snake..Member berries</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Canvas</title>
 </head>
 
 <body>
-  <canvas id="canvas" height="200" width="300"></canvas>
-  <div id='color'></div>
-  <script>
-    var img = new Image();
-    img.src = 'file:///D:/githubMe/vuepress-blog/docs/technical-summary/public/aliyun1.png';
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    var color = document.getElementById('color');
-    img.onload = function () {
-      ctx.drawImage(img, 0, 0);
-      img.style.display = 'none';
-    };
-
-    function pick(event) {
-      debugger
-      var x = event.layerX;
-      var y = event.layerY;
-      var pixel = ctx.getImageData(x, y, 1, 1);
-      var data = pixel.data;
-      var rgba = 'rgba(' + data[0] + ',' + data[1] +
-        ',' + data[2] + ',' + (data[3] / 255) + ')';
-      color.style.background = rgba;
-      color.textContent = rgba;
-    }
-    canvas.addEventListener('mousemove', pick);
-  </script>
+    <canvas id="rectCanvas"></canvas>
 </body>
+<script>
+    var canvas = document.getElementById('rectCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(20, 20);
+    ctx.lineTo(200, 20);
+    ctx.lineTo(120, 120);
+    // 构成三角形
+    ctx.closePath(); 
+    ctx.stroke();
+    ctx.clearRect(40, 40, 200, 60);
+</script>
 
 </html>

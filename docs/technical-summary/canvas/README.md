@@ -1,24 +1,26 @@
 # 【canvas】小白看了都会的canvas圣经
 ## 属性
 支持全局属性（所有HTML元素共有的属性）
+
 基本的HTML全局属性之外，还存在以下全局属性:
+
 1. xml:lang 和 xml:base ——两者都是从XHTML规范继承，但为了兼容性而被保留的。
 2. 多重aria-*属性，用于改善可访问性。
 3. 事件处理程序 属性：onabort, onautocomplete, onautocompleteerror, onblur, oncancel, oncanplay, oncanplaythrough, onchange, onclick, onclose, oncontextmenu, oncuechange, ondblclick, ondrag, ondragend, ondragenter, ondragexit, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadstart, onmousedown, onmouseenter, onmouseleave, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpause, onplay, onplaying, onprogress, onratechange, onreset, onresize, onscroll, onseeked, onseeking, onselect, onshow, onsort, onstalled, onsubmit, onsuspend, ontimeupdate, ontoggle, onvolumechange, onwaiting.
 4. height
-该元素占用空间的高度，以 `CSS` 像素（px）表示，默认为 150。
+该元素占用空间的高度，以 `CSS` 像素（`px`）表示，默认为 150。
 5. moz-opaque  
 通过设置这个属性，来控制canvas元素是否半透明。如果你不想canvas元素被设置为半透明，使用这个元素将可以优化浏览器绘图性能。
 6. width
-该元素占用空间的宽度，以 `CSS` 像素（px）表示，默认为 300。
+该元素占用空间的宽度，以 `CSS` 像素（`px`）表示，默认为 300。
 
-当然可以使用`CSS`来修改`canvas`达到自适应，但是如果`<canvas>`元素中展示的内容变形，可以通过`<canvas>`自带的height和width属性进行相关设置，而不要使用`CSS`。
+当然可以使用`CSS`来修改`canvas`达到自适应，但是如果`<canvas>`元素中展示的内容变形，可以通过`<canvas>`自带的`height`和`width`属性进行相关设置，而不要使用`CSS`。
 ## 缺点
 - 可访问性差
-本身只是一个位图，不提供任何绘制对象的信息。画布内容不像HTML那样具有语义并能暴露给可访问性工具。
-应该避免在交互型的网站或者App上使用canvas。
+本身只是一个位图，不提供任何绘制对象的信息。画布内容不像`HTML`那样具有语义并能暴露给可访问性工具。
+应该避免在交互型的网站或者`App`上使用`canvas`。
 
-但是还是有下面4中方式来交互
+但是还是有下面4中方式来交互:
 1. 内容兼容
 2. ARIA 规则
 3. 点击区域（hit region）
@@ -30,9 +32,14 @@ var canvas = document.getElementById('rectCanvas');
 var ctx = canvas.getContext('2d');
 ```
 只要获得`2d`渲染后，就可以调用`Canvas API`在画布上画出图形。
+
+下面就开始演示如何绘制矩形、文本等图形啦。
 ### 绘制矩形
+想到的就是`strokeRect`方法，其有四个参数，分别是`x`(`x`轴起点坐标),`y`(`y`轴起点坐标),`w`(矩形宽度)和`h`(矩形高度)。
+
+在 `canvas` 中，使用`strokeRect`方法，描绘一个起点在 (`x`, `y`) 、宽度为 `w` 、高度为 `h` 的矩形。
+
 1. strokeRect()
-在 canvas 中，使用当前的绘画样式，描绘一个起点在 (x, y) 、宽度为 w 、高度为 h 的矩形。
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -55,8 +62,15 @@ var ctx = canvas.getContext('2d');
 
 </html>
 ```
-2. fillRect()
-绘制填充矩形，矩形的起点在 (x, y) 位置，矩形的尺寸是 width 和 height 。
+
+生成矩形
+
+![avatar](./canvas1.png)
+
+1. fillRect()
+那如果想要给矩形填充某个颜色呢？`canvas`也给开发者提供了方法：`fillRect()`。其参数与`strokeRect()`方法一样。
+
+绘制填充矩形，矩形的起点在 (`x`, `y`) 位置，矩形的宽度为 `w` 、高度为 `h`。
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -79,8 +93,14 @@ var ctx = canvas.getContext('2d');
 
 </html>
 ```
+生成矩形
+
+![avatar](./canvas2.png)
+
 3. clearRect()
-设置指定矩形区域内（以 点 (x, y) 为起点，范围是(width, height) ）所有像素变成透明，并擦除之前绘制的所有内容。
+比如说当我画一个矩形想清除上一个矩形是否有提供方法？当然有。
+
+`clearRect()`（参数和`strokeRect()`一样）就设置指定矩形区域内所有像素变成透明，并擦除之前绘制的所有内容。
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -101,14 +121,18 @@ var ctx = canvas.getContext('2d');
     ctx.moveTo(20, 20);
     ctx.lineTo(200, 20);
     ctx.lineTo(120, 120);
-    ctx.closePath(); // draws last line of the triangle
+    // 构成三角形
+    ctx.closePath(); 
     ctx.stroke();
-
-    ctx.clearRect(10, 10, 100, 100);
+    ctx.clearRect(40, 40, 200, 60);
 </script>
 
 </html>
 ```
+生成残缺的三角形
+
+![avatar](./canvas3.png)
+
 ### 绘制文本
 1. fillText(text画布上的文本,x-起点的 x 轴坐标,y-起点的 y 轴坐标,maxWidth-绘制的最大宽度)
 Canvas 2D API 在 (x, y)位置填充文本的方法。如果选项的第四个参数提供了最大宽度，文本会进行缩放以适应最大宽度。
@@ -1504,8 +1528,7 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 原因是为了阻止欺骗，浏览器会追踪 image data。当你把一个“跟canvas的域不同的”图片放到canvas上，这个canvas就成为 “tainted”(被污染的，脏的)，浏览器就不让你操作该canvas 的任何像素。这对于阻止多种类型的XSS/CSRF攻击（两种典型的跨站攻击）是非常有用的
 ## Canvas API
 ### canvas
-`CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 。
-
+`CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 
 ## 在vue项目的图片上绘制矩形
 1. 页面初始化默认绘制矩形
 2. 点击绘制，手动在图片上绘制矩形
