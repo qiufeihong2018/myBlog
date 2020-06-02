@@ -1530,9 +1530,12 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 
 ## 在vue项目的图片上绘制矩形
-1. 页面初始化默认绘制矩形
-2. 点击绘制，手动在图片上绘制矩形
-3. 调整x、y、宽度和高度，自动绘制矩形
+我想可能会有人有一样的需求：绘制车牌框。
+
+详细分析一下这个需求：
+1. 页面初始化根据给定的坐标和宽高默认绘制车牌矩形框；
+2. 点击绘制，手动在图片上绘制矩形；
+3. 调整输入框中的x、y、宽度和高度的值，自动绘制矩形。
 ```vue
 <template>
   <div class="main-img-canvas">
