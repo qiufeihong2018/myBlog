@@ -1529,7 +1529,7 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 
-## 在vue项目的图片上绘制矩形
+## 在vue项目的图片上定制图形
 我想可能会有人有一样的需求：绘制车牌框。
 
 详细分析一下这个需求：
@@ -1816,5 +1816,27 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
   }
 </style>
 ```
+## canvas的神仙库
+### EaselJS 使制作游戏、创作类艺术和其他侧重图形项目更容易的开源canvas库
+### Fabric.js
+具有SVG解析功能的开源canvas库
+
+由于canvas提供的api太简单了，画出复杂的图形比较困难，做出来api也都忘了，这个库意旨在解决这个问题。
+
+[地址](http://fabricjs.com/)
+
+[demo](http://fabricjs.com/demos/)
+### heatmap.js 基于 canvas的热点图的开源库
+### JavaScript InfoVis Toolkit 创建交互式的2D Canvas数据可视化
+### Konva.js 用于桌面端和移动端应用的2D canvas库
+### p5.js 包含给艺术家、设计师、教育者、初学者使用的完整的canvas绘制功能
+### Paper.js 运行于HTML5 Canvas上的开源矢量图形脚本框架
+### Phaser 用于基于Canvas和WebGL的浏览器尤其的快速、自由、有趣的开源框架
+### Processing.js 用于处理可视化语言
+### Pts.js 在canvas和SVG中进行创意性代码写作和可视化的库
+### Rekapi 关键帧动画库
+### Scrawl-canvas 用来创建和编辑2D图形的开源库
+### ZIM 框架为canvas上的代码创意性提供方便性、组件和可控性，包括可用性和数百个色彩缤纷的教程
+
 ## 参考文献
 [canvas解析](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)
