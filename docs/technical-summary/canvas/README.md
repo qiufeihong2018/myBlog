@@ -1826,17 +1826,78 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 [地址](http://fabricjs.com/)
 
 [demo](http://fabricjs.com/demos/)
-### heatmap.js 基于 canvas的热点图的开源库
-### JavaScript InfoVis Toolkit 创建交互式的2D Canvas数据可视化
-### Konva.js 用于桌面端和移动端应用的2D canvas库
-### p5.js 包含给艺术家、设计师、教育者、初学者使用的完整的canvas绘制功能
-### Paper.js 运行于HTML5 Canvas上的开源矢量图形脚本框架
-### Phaser 用于基于Canvas和WebGL的浏览器尤其的快速、自由、有趣的开源框架
-### Processing.js 用于处理可视化语言
-### Pts.js 在canvas和SVG中进行创意性代码写作和可视化的库
-### Rekapi 关键帧动画库
-### Scrawl-canvas 用来创建和编辑2D图形的开源库
-### ZIM 框架为canvas上的代码创意性提供方便性、组件和可控性，包括可用性和数百个色彩缤纷的教程
+### heatmap.js 
+基于 canvas的热点图的开源库。
 
+它是一个轻量级的最先进的热图可视化的js库。
+1. 变得更快，有一个新的渲染模块
+2. 更强，以处理更多的数据点(40k+)
+3. 更容易使用，所以你可以加快速度
+4. 快速扩展自定义功能。
+
+[地址](https://www.patrick-wied.at/static/heatmapjs/)
+
+[demo](https://www.patrick-wied.at/static/heatmapjs/examples.html)
+### JavaScript InfoVis Toolkit 
+是创建交互式的2D Canvas数据可视化工具
+
+[地址](http://philogb.github.io/jit/)
+
+[demo](http://philogb.github.io/jit/demos.html)
+### Konva.js 
+是用于桌面端和移动端应用的2D canvas库。
+
+可以基于Vue绘制复杂的画布图形。
+[地址和demo](https://konvajs.org/)
+### p5.js 包含给艺术家、设计师、教育者、初学者使用的完整的canvas绘制功能
+### Paper.js 
+是运行于HTML5 Canvas上的开源矢量图形脚本框架。
+
+它提供了一个干净的场景图/文档对象模型和许多强大的功能来创建和使用向量图形和bezier曲线，所有这些都整齐地包装在一个设计良好的、一致的和干净的编程接口中。
+[地址](http://paperjs.org/)
+
+[demo](http://paperjs.org/examples/)
+### Phaser 
+用于基于Canvas和WebGL的浏览器尤其的快速、自由、有趣的开源框架
+
+[地址](http://phaser.io/)
+
+[demo](http://phaser.io/examples)
+### Processing.js 
+用于处理可视化语言。是流行的可视化编程语言的姊妹项目，它是为web设计的。使您的数据可视化，数字艺术，交互式动画，教育图表，视频游戏等工作使用web标准，没有任何插件。使用Processing语言编写代码，并将其包含在web页面中，Processing.js完成其余工作。这不是魔法，但几乎可以算的上是。
+
+Processing最初由Ben Fry和Casey Reas开发，最初是一种基于Java的开源编程语言，用于帮助电子艺术和视觉设计社区在视觉环境中学习计算机编程的基础知识。js将此提升到了一个新的水平，允许处理代码在任何兼容HTML5的浏览器上运行，包括当前版本的Firefox、Safari、Chrome、Opera和Internet Explorer。js为web带来了最好的可视化编程，对处理和web开发人员都是如此。
+
+使用Processing.js所需的所有东西都在这里。您可以下载最新版本的Processing。js，阅读快速入门指南处理开发人员或JavaScript开发人员，了解处理语言和处理。js渲染模式，参考参考，当然查看许多现有的演示使用处理。js。您还可以参与Processing和Processing.js社区，这两个社区都很活跃，并且正在寻找新的用户和开发人员。无论您是高级处理开发人员还是全新的开发人员，无论您是web技术专家。
+[地址和demo](http://processingjs.org/)
+### Pts.js 
+在canvas和SVG中进行创意性代码写作和可视化的库。
+
+Pts是轻量级和模块化的。它是用typescript编写的，带有许多有用的可视化和创造性编码算法。它的友好的API支持快速原型和更大的项目。
+[地址](https://ptsjs.org/)
+
+[demo](https://ptsjs.org/demo/)
+### Rekapi 
+关键帧动画库。
+Rekapi是一个用于JavaScript的关键帧动画库。它给你一个API:
+- 义基于关键帧的动画
+- 控制动画播放
+Rekapi renderer-agnostic。Rekapi的核心是不执行任何呈现。但是，它公开了一个用于定义渲染器的API，并与HTML DOM和HTML5 2D `<canvas>`的渲染器捆绑在一起。
+
+### Scrawl-canvas 
+用来创建和编辑2D图形的开源库。
+
+这是一个JavaScript库，旨在让HTML5 canvas元素的使用变得更简单、更有趣。无依赖，模块化设计。响应的画布为现代网站。
+
+[地址](http://jster.net/library/scrawl-canvas)
+### ZIM 
+为canvas上的代码创意性提供方便性、组件和可控性，包括可用性和数百个色彩缤纷的教程
+
+ZIM JavaScript画布框架-代码创造力!互动媒体。
+
+JavaScript画布框架-代码创造力!一个一致，完整，简单和丰富多彩的画布框架，提供快速的视觉效果。ZIM非常适合学习编程，也非常适合专业人士制作桌面和移动游戏、应用程序、美术等等!
+[地址](https://github.com/danzen/zimjs)
+
+[demo](https://zimjs.com/examples.html)
 ## 参考文献
 [canvas解析](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)
