@@ -8,19 +8,20 @@
 </head>
 
 <body>
-    <canvas id="rectCanvas"></canvas>
+    <canvas id="textCanvas"></canvas>
 </body>
 <script>
-    var canvas = document.getElementById('rectCanvas');
+    var canvas = document.getElementById('textCanvas');
     var ctx = canvas.getContext('2d');
-    ctx.beginPath();
-    ctx.moveTo(20, 20);
-    ctx.lineTo(200, 20);
-    ctx.lineTo(120, 120);
-    // 构成三角形
-    ctx.closePath(); 
-    ctx.stroke();
-    ctx.clearRect(40, 40, 200, 60);
+    ctx.font = '30px serif'
+    ctx.strokeText('qfh is ok!', 30, 60, 400)
+    var str = ctx.measureText('qfh is ok!', 30, 60, 400)
+    console.log('str', str)
+    // actualBoundingBoxAscent: 21 标明的水平线到渲染文本的所有字体的矩形最高边界顶部的距离
+    // actualBoundingBoxDescent: 4 标明的水平线到渲染文本的所有字体的矩形边界最底部的距离
+    // actualBoundingBoxLeft: -1 确定的对齐点到文本矩形边界左侧的距离
+    // actualBoundingBoxRight: 145 确定的对齐点到文本矩形边界右侧的距离
+    // width: 150 字符串的宽度
 </script>
 
 </html>

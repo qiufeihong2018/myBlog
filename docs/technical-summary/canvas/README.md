@@ -1,4 +1,10 @@
 # 【canvas】小白看了都会的canvas圣经
+## canvas是什么
+众所周知，canvas是一个可以使用脚本在其中绘制图像的HTML元素。
+
+> ​它最初由苹果内部使用自己 MacOS X WebKit 推出，供应用程序使用像仪表盘的构件和 Safari 浏览器使用。后来，有人通过 Gecko 内核的浏览器 (尤其是 Mozilla和Firefox)，Opera 和 Chrome 和超文本网络应用技术工作组建议为下一代的网络技术使用该元素。
+
+>​ Canvas 是由 HTML 代码配合高度和宽度属性而定义出的可绘制区域。JavaScript 代码可以访问该区域，类似于其他通用的二维 API，通过一套完整的绘图函数来动态生成图形。Mozilla 程序从 Gecko 1.8 (Firefox 1.5) 开始支持 `<canvas>`, Internet Explorer 从 IE9 开始 `<canvas>` 。Chrome 和 Opera 9+ 也支持 `<canvas>`。
 ## 属性
 支持全局属性（所有HTML元素共有的属性）
 
@@ -134,8 +140,10 @@ var ctx = canvas.getContext('2d');
 ![avatar](./canvas3.png)
 
 ### 绘制文本
-1. fillText(text画布上的文本,x-起点的 x 轴坐标,y-起点的 y 轴坐标,maxWidth-绘制的最大宽度)
-Canvas 2D API 在 (x, y)位置填充文本的方法。如果选项的第四个参数提供了最大宽度，文本会进行缩放以适应最大宽度。
+1. fillText()
+第一个参数`text`,指的是画布上的文本,`x`是起点的 `x` 轴坐标,`y`是起点的 `y` 轴坐标,`maxWidth`是绘制的最大宽度。
+
+`fillText()`方法是在 `(x, y)`位置填充文本的方法。如果选项的第四个参数提供了最大宽度，文本会进行缩放以适应最大宽度。
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -158,8 +166,13 @@ Canvas 2D API 在 (x, y)位置填充文本的方法。如果选项的第四个�
 
 </html>
 ```
-2. strokeText(text画布上的文本,x-起点的 x 轴坐标,y-起点的 y 轴坐标,maxWidth-绘制的最大宽度)
- Canvas 2D API 在给定的 (x, y) 位置绘制（描边）文本。方法同fillText()
+
+![avatar](./canvas4.png)
+
+2. strokeText()
+参数和方法与`fillText()`方法类同。
+
+`strokeText()`是在给定的 `(x, y)` 位置绘制（描边）文本。注意：这是描边，不是填充。
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -182,8 +195,13 @@ Canvas 2D API 在 (x, y)位置填充文本的方法。如果选项的第四个�
 
 </html>
 ```
-3. measureText(text-需要测量的字符串)
-返回一个关于被测量文本`TextMetrics` 对象包含的信息
+
+![avatar](./canvas5.png)
+
+3. measureText()
+参数只有`text`，就是需要测量的字符串。
+
+该方法返回一个关于被测量文本`TextMetrics` 对象包含的信息。
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -213,7 +231,10 @@ Canvas 2D API 在 (x, y)位置填充文本的方法。如果选项的第四个�
 
 </html>
 ```
-TextMetrics的其他属性：
+
+![avatar](./canvas6.png)
+
+除上述之外，`TextMetrics`还有其他属性：
 - ideographicBaseline 标明的水平线到线框的 ideographic 基线的距离
 - alphabeticBaseline 标明的水平线到线框的 alphabetic 基线的距离
 - hangingBaseline 标明的水平线到线框的 hanging 基线的距离
@@ -1817,7 +1838,8 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 </style>
 ```
 ## canvas的神仙库
-### EaselJS 使制作游戏、创作类艺术和其他侧重图形项目更容易的开源canvas库
+### EaselJS 
+使制作游戏、创作类艺术和其他侧重图形项目更容易的开源canvas库。
 ### Fabric.js
 具有SVG解析功能的开源canvas库
 
@@ -1849,7 +1871,8 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 
 可以基于Vue绘制复杂的画布图形。
 [地址和demo](https://konvajs.org/)
-### p5.js 包含给艺术家、设计师、教育者、初学者使用的完整的canvas绘制功能
+### p5.js 
+包含给艺术家、设计师、教育者、初学者使用的完整的canvas绘制功能。
 ### Paper.js 
 是运行于HTML5 Canvas上的开源矢量图形脚本框架。
 
@@ -1883,7 +1906,6 @@ Rekapi是一个用于JavaScript的关键帧动画库。它给你一个API:
 - 义基于关键帧的动画
 - 控制动画播放
 Rekapi renderer-agnostic。Rekapi的核心是不执行任何呈现。但是，它公开了一个用于定义渲染器的API，并与HTML DOM和HTML5 2D `<canvas>`的渲染器捆绑在一起。
-
 ### Scrawl-canvas 
 用来创建和编辑2D图形的开源库。
 
@@ -1901,3 +1923,4 @@ JavaScript画布框架-代码创造力!一个一致，完整，简单和丰富�
 [demo](https://zimjs.com/examples.html)
 ## 参考文献
 [canvas解析](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D)
+[学习 HTML5 Canvas](https://www.runoob.com/w3cnote/html5-canvas-intro.html)
