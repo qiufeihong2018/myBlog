@@ -138,7 +138,6 @@ var ctx = canvas.getContext('2d');
 生成残缺的三角形
 
 ![avatar](./canvas3.png)
-
 ### 绘制文本
 1. fillText()
 第一个参数`text`,指的是画布上的文本,`x`是起点的 `x` 轴坐标,`y`是起点的 `y` 轴坐标,`maxWidth`是绘制的最大宽度。
@@ -243,7 +242,7 @@ var ctx = canvas.getContext('2d');
 - actualBoundingBoxDescent 标明的水平线到渲染文本的矩形边界底部的距离
 - fontBoundingBoxDescent 标明的水平线到渲染文本的所有字体的矩形边界最底部的距离
 - fontBoundingBoxAscent 标明的水平线到渲染文本的所有字体的矩形最高边界顶部的距离
-### 线型
+### 绘制线型
 1. lineWidth
 设置线段厚度的属性（即线段的宽度）。
 ```html
@@ -252,6 +251,9 @@ var ctx = canvas.getContext('2d');
     ctx.lineWidth = 30
     ctx.strokeRect(10, 10, 100, 100)
 ```
+
+![avatar](./canvas7.png)
+
 2. lineCap 
 绘制每一条线段末端的属性（有3个可能的值：butt, round 和 square。默认值是 butt）
 ```html
@@ -278,12 +280,15 @@ var ctx = canvas.getContext('2d');
         ctx.stroke()
     }
 ```
+
+![avatar](./canvas8.png)
+
 上面的例子可以发现，`butt`是上下是跟标准线平齐，`round`是上下凸出来一个直径为线宽的半圆，`square`是上下凸出来一个高度为线宽一半的矩形。
 3. lineJoin
-设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。此属性有3个值： round, bevel and miter。默认值是 miter。注意：如果2个相连部分在同一方向，那么lineJoin不会产生任何效果，因为在那种情况下不会出现连接区域。`round`
-通过填充一个额外的，圆心在相连部分末端的<font color = #00FF00 size=4 face="STCAIYUN">扇形</font>，绘制拐角的形状。 圆角的半径是线段的宽度。`bevel`在相连部分的末端填充一个额外的以<font color = #00FF00 size=4 face="STCAIYUN">三角形</font>为底的区域， 每个部分都有各自独立的矩形拐角。`miter`通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的<font color = #00FF00 size=4 face="STCAIYUN">菱形</font>区域。这个设置可以通过 miterLimit 属性看到效果。
+设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。此属性有3个值： `round, bevel and miter`。默认值是 `miter`。注意：如果2个相连部分在同一方向，那么`lineJoin`不会产生任何效果，因为在那种情况下不会出现连接区域。`round`
+通过填充一个额外的，圆心在相连部分末端的<font color = #00FF00 size=4 face="STCAIYUN">扇形</font>，绘制拐角的形状。 圆角的半径是线段的宽度。`bevel`在相连部分的末端填充一个额外的以<font color = #00FF00 size=4 face="STCAIYUN">三角形</font>为底的区域， 每个部分都有各自独立的矩形拐角。`miter`通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的<font color = #00FF00 size=4 face="STCAIYUN">菱形</font>区域。这个设置可以通过 `miterLimit` 属性看到效果。
 
-lineJoin 属性3种不同的设置。
+`lineJoin` 属性3种不同的设置。
 ```html
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
@@ -300,8 +305,11 @@ lineJoin 属性3种不同的设置。
         ctx.stroke()
     }
 ```
+
+![avatar](./canvas9.png)
+
 4. miterLimit
-设置斜接面限制比例的属性。当获取属性值时，会返回当前的值（默认值是10.0 ）
+设置斜接面限制比例的属性。当获取属性值时，会返回当前的值（默认值是`10.0` ）
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -347,6 +355,14 @@ lineJoin 属性3种不同的设置。
 
 </html>
 ```
+
+![avatar](./canvas10.png)
+
+![avatar](./canvas11.png)
+
+![avatar](./canvas12.png)
+
+从这三幅图中可以知道，数字（`miterLimit`）越大，斜面面积越多。
 5. getLineDash()
 当前线段样式的数组，数组包含一组数量为偶数的非负数数字。
 
@@ -379,6 +395,11 @@ drawDashedLine([20, 3, 3, 3, 3, 3, 3, 3]);
 drawDashedLine([12, 3, 3]);  
 drawDashedLine([3, 3]);  
 ```
+
+![avatar](./canvas13.png)
+
+![avatar](./canvas14.png)
+
 7. lineDashOffset
 设置虚线偏移量的属性，描述在哪里开始绘制线段。
 
@@ -408,6 +429,9 @@ function march() {
 
 march();
 ```
+
+![](./1.gif)
+
 ### 文本样式
 1. font
 描述绘制文字时，当前字体样式的属性。
@@ -1839,9 +1863,9 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 ```
 ## canvas的神仙库
 ### EaselJS 
-使制作游戏、创作类艺术和其他侧重图形项目更容易的开源canvas库。
+使制作游戏、创作类艺术和其他侧重图形项目更容易的开源`canvas`库。
 ### Fabric.js
-具有SVG解析功能的开源canvas库
+具有`SVG`解析功能的开源`canvas`库
 
 由于canvas提供的api太简单了，画出复杂的图形比较困难，做出来api也都忘了，这个库意旨在解决这个问题。
 
