@@ -2,36 +2,23 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Canvas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Canvas</title>
 </head>
 
 <body>
-    <canvas id="canvas"></canvas>
+  <canvas id="canvas" width="1000" height="1000"></canvas>
 </body>
 <script>
   var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var offset = 0;
-
-function draw() {
-  ctx.clearRect(0,0, canvas.width, canvas.height);
-  ctx.setLineDash([10, 2]);
-  ctx.lineDashOffset = -offset;
-  ctx.strokeRect(10,10, 200, 100);
-}
-
-function march() {
-  offset++;
-  if (offset > 16) {
-    offset = 0;
-  }
-  draw();
-  setTimeout(march, 10);
-}
-
-march();
+  var ctx = canvas.getContext("2d");
+  ctx.font="italic bold 100px arial,sans-serif"
+  ctx.direction  = "inherit"
+  ctx.strokeText('inherit', 500, 500)
+  ctx.direction  = "ltr"
+  ctx.strokeText('从左向右', 500, 500)
+  ctx.direction  = "rtl"
+  ctx.strokeText('从右向左', 500, 500)
 </script>
-
 </html>

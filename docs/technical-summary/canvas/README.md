@@ -431,7 +431,6 @@ march();
 ```
 
 ![](./1.gif)
-
 ### 文本样式
 1. font
 描述绘制文字时，当前字体样式的属性。
@@ -441,10 +440,13 @@ march();
   ctx.font = "italic bold 24px/30px arial,sans-serif"
   ctx.strokeText('qfh', 10, 50)
 ```
+
+![avatar](./canvas15.png)
+
 2. textAlign
 绘制文本时，文本的对齐方式的属性。
 
-这里的textAlign="center"比较特殊。textAlign的值为center时候文本的居中是基于你在fillText的时候所给的x的值，也就是说文本一半在x的左边，一半在x的右边（可以理解为计算x的位置时从默认文字的左端，改为文字的中心，因此你只需要考虑x的位置即可）。所以，如果你想让文本在整个canvas居中，就需要将fillText的x值设置成canvas的宽度的一半。
+这里的`textAlign="center"`比较特殊。`textAlign`的值为`center`时候文本的居中是基于你在`fillText`的时候所给的`x`的值，也就是说文本一半在`x`的左边，一半在`x`的右边（可以理解为计算`x`的位置时从默认文字的左端，改为文字的中心，因此你只需要考虑`x`的位置即可）。所以，如果你想让文本在整个`canvas`居中，就需要将`fillText`的`x`值设置成`canvas`的宽度的一半。
 
 默认是`start`,可以是`left`、`center`、`right`和`end`。
 ```html
@@ -477,6 +479,12 @@ march();
 </script>
 </html>
 ```
+
+![avatar](./canvas16.png)
+
+有图可以得知：从左到右属性分别是：`right`
+`end`、`center`、`left`和`start`。
+
 3. textBaseline
 绘制文本时，当前文本基线的属性。
 
@@ -515,6 +523,14 @@ march();
 </script>
 </html>
 ```
+
+![avatar](./canvas17.png)
+
+有图可以得知：第一排从左到右属性分别是：`bottom`
+`alphabetic`、`ideographic`;第二排从左到右属性分别是：`middle`;
+第三排从左到右属性分别是：`top`
+`hanging`。
+
 4. direction
 当前文本方向的属性
 
@@ -545,6 +561,12 @@ march();
 </script>
 </html>
 ```
+
+![avatar](./canvas18.png)
+
+有图可以得知：从左到右属性分别是：`rtl`
+`inherit`和`ltr`（最后两个开始位置一样）;
+
 ### [使用图片](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Using_images)
 #### 获得需要绘制的图片
 
