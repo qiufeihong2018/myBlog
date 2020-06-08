@@ -11,20 +11,17 @@
   <canvas id="canvas" width="10000" height="10000"></canvas>
 </body>
 <script>
-  function draw(){
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
-  var img=new Image()
-  img.onload=function(){
-    ctx.drawImage(img,0,0)
-    ctx.beginPath()
-    ctx.moveTo(500,500)
-    ctx.lineTo(1000,1000)
-    ctx.lineTo(1500,500)
-    ctx.lineTo(500,500)
-    ctx.stroke()
-  }
-  img.src="https://images.qiufeihong.top/vuepress2.png"
+  function draw() {
+    var ctx = document.getElementById('canvas').getContext('2d')
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 4; j++) {
+        ctx.save()
+        ctx.fillStyle = 'rgb(255,' + (60 * i) + ', ' + (255 - 60 * i) + ')'
+        ctx.translate(10 + j * 20, 10 + i * 20)
+        ctx.fillRect(0, 0, 10, 10)
+        ctx.restore()
+      }
+    }
   }
   draw()
 </script>
