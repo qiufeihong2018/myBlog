@@ -770,7 +770,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ![avatar](./canvas22.png)
 
 ##### 应用rotate的多层圆形
-`rotate`用于以原定啊为中心旋转。
+`rotate`以某个坐标为中心旋转。
 ```js
   function draw() {
     var ctx = document.getElementById('canvas').getContext('2d')
@@ -792,10 +792,13 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
   }
   draw()
 ```
+
+![avatar](./canvas23.png)
+
 ##### 应用scale的字体和矩形
 `scale`对形状，位图进行缩小或者放大。
 
-关键词-镜像反转
+关键词-镜像反转。
 
 ```js
   function draw() {
@@ -812,6 +815,9 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
   }
   draw()
 ```
+
+![avatar](./canvas24.png)
+
 ##### 应用transforms的矩形
 对变形矩阵直接修改。
 - transform(a, b, c, d, e, f)
@@ -839,6 +845,9 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
   }
   draw()
 ```
+
+![avatar](./canvas25.png)
+
 ### 合成和剪裁
 #### globalCompositeOperation
 
