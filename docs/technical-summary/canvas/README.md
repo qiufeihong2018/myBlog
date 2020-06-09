@@ -851,13 +851,14 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ### 合成和剪裁
 #### globalCompositeOperation
 
-不仅可以在已有图形后面再画新图形，还可以用来遮盖指定区域，清除画布中的某些部分（清除区域不仅限于矩形，像clearRect()方法做的那样）以及更多其他操作。
+不仅可以在已有图形后面再画新图形，还可以用来遮盖指定区域，清除画布中的某些部分（清除区域不仅限于矩形，像`clearRect()`方法做的那样）以及更多其他操作。
 
 #### 应用clip()用一个圆形的裁切路径来限制随机星星的绘制区域
-裁切路径和普通的 canvas 图形差不多，不同的是它的作用是遮罩，用来隐藏不需要的部分。
+裁切路径和普通的 `canvas` 图形差不多，不同的是它的作用是遮罩，用来隐藏不需要的部分。
 
+用一个圆形的裁切路径来限制随机星星的绘制区域（星星每隔一秒增加）
 ```js
- function draw() {
+  function draw() {
     var ctx = document.getElementById('canvas').getContext('2d');
     ctx.fillRect(0, 0, 500, 500);
     ctx.translate(250, 250);
@@ -875,16 +876,18 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
     ctx.fillStyle = lingrad;
     ctx.fillRect(-75, -75, 150, 150);
 
-    // draw stars
-    for (var j = 1; j < 500; j++) {
-      ctx.save();
-      ctx.fillStyle = '#fff';
-      ctx.translate(75 - Math.floor(Math.random() * 500),
-        75 - Math.floor(Math.random() * 500));
-      drawStar(ctx, Math.floor(Math.random() * 4) + 2);
-      ctx.restore();
-    }
+    setInterval(() => {
+      // draw stars
+      for (var j = 1; j < 500; j++) {
+        ctx.save();
+        ctx.fillStyle = '#fff';
+        ctx.translate(75 - Math.floor(Math.random() * 500),
+          75 - Math.floor(Math.random() * 500));
 
+        drawStar(ctx, Math.floor(Math.random() * 4) + 2);
+        ctx.restore();
+      }
+    }, 1000)
   }
 
   function drawStar(ctx, r) {
@@ -905,6 +908,8 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
   }
   draw()
 ```
+
+![](./2.gif)
 ### 动画
 #### 基本步骤
 1. 清空canvas
