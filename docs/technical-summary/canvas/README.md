@@ -921,14 +921,14 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
 #### canvas版的太阳系动画
 ```js
-  var sun = new Image();
+ var sun = new Image();
   var moon = new Image();
   var earth = new Image();
 
   function init() {
-    sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
-    moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
-    earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+    sun.src = './sun.png';
+    moon.src = './moon.png';
+    earth.src = './earth.png';
     window.requestAnimationFrame(draw);
   }
 
@@ -946,15 +946,15 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
     // 地球
     var time = new Date();
     ctx.rotate(((2 * Math.PI) / 60) * time.getSeconds() + ((2 * Math.PI) / 60000) * time.getMilliseconds());
-    ctx.translate(105, 0);
-    ctx.fillRect(0, -12, 50, 24); // Shadow
-    ctx.drawImage(earth, -12, -12);
+    ctx.translate(115, -10);
+    ctx.fillRect(0, -12, 40, 24); // Shadow
+    ctx.drawImage(earth, -12, -24, 40, 40);
 
     // 月球
     ctx.save();
     ctx.rotate(((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds());
     ctx.translate(0, 28.5);
-    ctx.drawImage(moon, -3.5, -3.5);
+    ctx.drawImage(moon, -3.5, -3.5, 10, 10);
     ctx.restore();
 
     ctx.restore();
@@ -962,7 +962,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
     ctx.beginPath();
     // 地球轨道(并不是正圆的)
     // ctx.arc(150,150,105,0,Math.PI*2,false);
-    ctx.ellipse(150, 150, 130, 105, 0, 0, Math.PI * 2,false)
+    ctx.ellipse(150, 150, 130, 105, 0, 0, Math.PI * 2, false)
     ctx.stroke();
 
     ctx.drawImage(sun, 0, 0, 300, 300);
@@ -972,6 +972,9 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
   init();
 ```
+
+![](3.gif)
+
 #### canvas版的时钟动画
 ```js
  function clock() {
@@ -1626,6 +1629,14 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 ## Canvas API
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 
+### translate()
+该方法重新映射画布上某位置的图形。
+
+有两个参数，分别是 `x`	添加到水平坐标（`x`）上的值。
+`y`	添加到垂直坐标（`y`）上的值。
+
+在 `translate()` 之后调用诸如 `fillRect()` 之类的方法时，值会添加到 `x` 和 `y` 坐标值上。
+
 ## 在vue项目的图片上定制图形
 我想可能会有人有一样的需求：绘制车牌框。
 
