@@ -1306,6 +1306,9 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
         <canvas id="cw"></canvas>
     </body>
 ```
+
+![](./6.gif)
+
 #### canvas版的贪吃蛇游戏
 ```html
 <!DOCTYPE html>
