@@ -1549,6 +1549,11 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
 </html>
 ```
+
+可以左右上下键控制贪吃蛇走向，跟某基亚中的贪吃蛇差不多：
+
+![](./7.gif)
+
 #### canvas版的反弹球
 ```html
    var canvas = document.getElementById('canvas');
