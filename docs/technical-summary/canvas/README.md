@@ -1621,6 +1621,11 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
     ball.draw();
 ```
+
+碰到边界反弹，鼠标移出边界后，小球也就不动了：
+
+![](./8.gif)
+
 ### 像素
 这就不得不提到`imageData`对象，存储着canvas对象真实的像素数据。
 
