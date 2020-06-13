@@ -8,108 +8,90 @@
 </head>
 
 <body>
-  <canvas id="canvas" width="10000" height="10000"></canvas>
+  <canvas id="canvas" width="800" height="400"></canvas>
 </body>
 <script>
-  function clock() {
-    var now = new Date();
-    var ctx = document.getElementById('canvas').getContext('2d');
-    ctx.save();
-    ctx.clearRect(0, 0, 150, 150);
-    ctx.translate(75, 75);
-    ctx.scale(0.4, 0.4);
-    ctx.rotate(-Math.PI / 2);
-    ctx.strokeStyle = "#c8bdbd";
-    ctx.fillStyle = "#fff";
-    ctx.lineWidth = 4;
-    ctx.lineCap = "round";
+  var img = new Image()
+  img.src = './canvas26.png';
+  var canvasWidth = 800;
+  var canvasHeight = 400;
+  // 数字越小越快，依赖的是setInterval方法，是其第二个参数
+  var speed = 3;
+  var scale = 1.05;
 
-    // 小时的刻度
-    ctx.save();
-    for (var i = 0; i < 12; i++) {
-      ctx.beginPath();
-      ctx.rotate(Math.PI / 6);
-      ctx.moveTo(100, 0);
-      ctx.lineTo(120, 0);
-      ctx.stroke();
+  // 需要绘制到目标上下文中的，image的矩形（裁剪）选择框的左上角 Y 轴坐标
+  var y = -4.5; // vertical offset
+
+  var dx = 0.75;
+  var imgW;
+  var imgH;
+
+  // 需要绘制到目标上下文中的，image的矩形（裁剪）选择框的左上角 X 轴坐标
+  var x = 0;
+  var clearX;
+  var clearY;
+  var ctx;
+
+  img.onload = function () {
+    imgW = img.width * scale;
+    imgH = img.height * scale;
+
+    if (imgW > canvasWidth) {
+      // 图片太宽
+      x = canvasWidth - imgW;
     }
-    ctx.restore();
-
-    // 分钟的刻度
-    ctx.save();
-    ctx.lineWidth = 5;
-    for (i = 0; i < 60; i++) {
-      if (i % 5 != 0) {
-        ctx.beginPath();
-        ctx.moveTo(117, 0);
-        ctx.lineTo(120, 0);
-        ctx.stroke();
-      }
-      ctx.rotate(Math.PI / 30);
+    if (imgW > canvasWidth) {
+      // 图片太宽
+      clearX = imgW;
+    } else {
+      clearX = canvasWidth;
     }
-    ctx.restore();
+    if (imgH > canvasHeight) {
+      // 图片太高
+      clearY = imgH;
+    } else {
+      clearY = canvasHeight;
+    }
 
-    var sec = now.getSeconds();
-    var min = now.getMinutes();
-    var hr = now.getHours();
-    hr = hr >= 12 ? hr - 12 : hr;
+    ctx = document.getElementById('canvas').getContext('2d');
 
-    ctx.fillStyle = "black";
-
-    // 画出小时
-    ctx.save();
-    ctx.rotate(hr * (Math.PI / 6) + (Math.PI / 360) * min + (Math.PI / 21600) * sec)
-    ctx.lineWidth = 14;
-    ctx.beginPath();
-    ctx.moveTo(-20, 0);
-    ctx.lineTo(80, 0);
-    ctx.stroke();
-    ctx.restore();
-
-    // 画出分钟
-    ctx.save();
-    ctx.rotate((Math.PI / 30) * min + (Math.PI / 1800) * sec)
-    ctx.lineWidth = 10;
-    ctx.beginPath();
-    ctx.moveTo(-28, 0);
-    ctx.lineTo(112, 0);
-    ctx.stroke();
-    ctx.restore();
-
-    // 画出秒钟
-    ctx.save();
-    ctx.rotate(sec * Math.PI / 30);
-    ctx.strokeStyle = "#ed7270";
-    ctx.fillStyle = "#ff0000";
-    ctx.lineWidth = 6;
-    ctx.beginPath();
-    ctx.moveTo(-30, 0);
-    ctx.lineTo(83, 0);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(0, 0, 10, 0, Math.PI * 2, true);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(95, 0, 10, 0, Math.PI * 2, true);
-    ctx.stroke();
-    ctx.fillStyle = "rgba(0,0,0,0)";
-    ctx.arc(0, 0, 3, 0, Math.PI * 2, true);
-    ctx.fill();
-    ctx.restore();
-
-    // 画出大圆
-    ctx.beginPath();
-    ctx.lineWidth = 14;
-    ctx.strokeStyle = '#4b4242';
-    ctx.arc(0, 0, 142, 0, Math.PI * 2, true);
-    ctx.stroke();
-
-    ctx.restore();
-
-    window.requestAnimationFrame(clock);
+    // 定时重绘
+    return setInterval(draw, speed);
   }
 
-  window.requestAnimationFrame(clock);
+  function draw() {
+    // 先清空
+    ctx.clearRect(0, 0, clearX, clearY);
+
+    // 图片宽度窄
+    if (imgW <= canvasWidth) {
+      // 重置，从头开始
+      if (x > canvasWidth) {
+        x = -imgW + x;
+      }
+      // 画额外image1
+      if (x > 0) {
+        ctx.drawImage(img, -imgW + x, y, imgW, imgH);
+      }
+      //画额外image2
+      if (x - imgW > 0) {
+        ctx.drawImage(img, -imgW * 2 + x, y, imgW, imgH);
+      }
+    } else {
+      // 重置，从头开始
+      if (x > (canvasWidth)) {
+        x = canvasWidth - imgW;
+      }
+      // 画额外image
+      if (x > (canvasWidth - imgW)) {
+        ctx.drawImage(img, x - imgW + 1, y, imgW, imgH);
+      }
+    }
+
+    ctx.drawImage(img, x, y, imgW, imgH);
+    // 移动量
+    x += dx;
+  }
 </script>
 
 </html>

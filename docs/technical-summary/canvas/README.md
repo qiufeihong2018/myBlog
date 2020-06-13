@@ -1082,10 +1082,23 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
 #### canvas版的全景动画
 ```js
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Canvas</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="800" height="400"></canvas>
+</body>
+<script>
   var img = new Image()
-  img.src = 'https://mdn.mozillademos.org/files/4553/Capitan_Meadows,_Yosemite_National_Park.jpg';
+  img.src = './canvas26.png';
   var canvasWidth = 800;
-  var canvasHeight = 200;
+  var canvasHeight = 400;
   // 数字越小越快，依赖的是setInterval方法，是其第二个参数
   var speed = 3;
   var scale = 1.05;
@@ -1163,7 +1176,13 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
     // 移动量
     x += dx;
   }
+</script>
+
+</html>
 ```
+
+![](./5.gif)
+
 #### canvas版的鼠标追踪器
 ```html
         <script>
