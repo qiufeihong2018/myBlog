@@ -1077,6 +1077,9 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
   window.requestAnimationFrame(clock);
 ```
+
+![](./4.gif)
+
 #### canvas版的全景动画
 ```js
   var img = new Image()
