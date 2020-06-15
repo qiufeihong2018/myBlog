@@ -1960,16 +1960,73 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 </style>
 ```
 ## canvas的神仙库
+### [canvas2image](https://github.com/hongru/canvas2image)
+一个将`canvas`转化为图片格式的工具库（应用场景很多）。
+
+[demo](http://hongru.github.io/proj/canvas2image/index.html)
+
+他的仓库里就三个文件，分别是：`index.html`、`canvas2image.js`和`README.md`
+
+核心就是`canvas2image.js`。
+
+先来看`demo`，就是`index.html`文件，是一个比较简单的实例，其中一个有矩形的`canvas`、几个按钮、几个选择器和一个`img`，通过保存或转换按钮，将`canvas`图形保存成指定格式的图片：
+
+![avatar](./canvas27.png)
+
+其中的`html`标签就不做解释了，脚本中有三个方法，分别是：`init()`、`bind()`和`draw()`。文档`onload`刚加载完后执行`init()`方法,在`init()`方法中将标签中的所有属性获取并且赋值，然后执行`bind()`方法和`draw()`方法。
+
+`draw()`方法画一个红色矩形。
+
+`bind()`中`save`按钮点击方法中，先获取用户选择的格式、宽度和高度，然后执行`saveAsImage()`方法保存图片，这个方法后面在解释。
+
+`convert to`这个按钮其实主要实现一个预览功能，将用户自定义的`canvas`执行`convertToImage()`方法转化成`img`标签呈现在下面。
+
+`bind()`方法中的`canvas`也没闲着，用户在画布上可以自定义作画，`onmousemove()`方法获取鼠标坐标绘制路径，`onmousedown()`获取开始坐标，并开始作画，`onmouseup()`方法停止作画，`bMouseIsDown`变量控制是否开始作画。
+
+最后再来看看`canvas2image.js`文件做了什么？
+
+文件里就一个立即执行方法：`Canvas2Image()`。
+
+先看`return`里的方法，看看该文件往外抛出去了哪些？
+
+外部可以访问`saveAsPNG`、`saveAsPNG`、`saveAsGIF`、`saveAsBMP`都是调用了`saveAsImage`，只不过是改了`type`。
+
+同理，`convertToPNG`、`convertToJPEG`、`convertToGIF`和`convertToBMP`都是调用了`convertToImage`，改了`type`，然后返回其结果
+
+然后看看 `saveAsImage` ，其支持四个参数，分别是`canvas`（带转换的画布），`width`（图片宽度），`height`(图片高度)和`type`（图片类型）。
+
+
+场景很多：可以应用于电子签名保存图等。
+
+保存后`png`格式的图片，也没有失真：
+
+![avatar](./canvas28.png)
+
 ### EaselJS 
 使制作游戏、创作类艺术和其他侧重图形项目更容易的开源`canvas`库。
-### Fabric.js
-具有`SVG`解析功能的开源`canvas`库
-
-由于canvas提供的api太简单了，画出复杂的图形比较困难，做出来api也都忘了，这个库意旨在解决这个问题。
+### [Fabric.js](https://github.com/fabricjs/fabric.js)
+具有`SVG`解析功能的开源`canvas`库。
 
 [地址](http://fabricjs.com/)
 
 [demo](http://fabricjs.com/demos/)
+
+
+它是一个位于`canvas`元素之上的交互式对象模型。它也是一个`svg`到画布的解析器。
+
+由于`canvas`提供的`api`太简单了，画出复杂的图形比较困难，做出来`api`也都忘了，这个库意旨在解决这个问题。
+
+使用`fabric.js`可以在画布上创建和填充对象。几何图形的对象如：矩形，圆，椭圆，多边形，或更复杂的形状组成的数百或数千条简单路径。然后可以用鼠标缩放、移动和旋转这些对象;修改它们的属性-`color`, `transparency`, `z-index`等等。还可以操作这些对象—通过简单的鼠标选择将它们分组。
+
+可以直接npm下载使用：
+```js
+npm intall fabric -S
+```
+
+添加一个红色矩形：
+```html
+
+```
 ### heatmap.js 
 基于 canvas的热点图的开源库。
 
