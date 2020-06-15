@@ -1993,8 +1993,162 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 
 同理，`convertToPNG`、`convertToJPEG`、`convertToGIF`和`convertToBMP`都是调用了`convertToImage`，改了`type`，然后返回其结果
 
+```js
+	/**
+	 * saveAsImage
+	 * @param canvasElement
+	 * @param {String} image type
+	 * @param {Number} [optional] png width
+	 * @param {Number} [optional] png height
+	 */
+	var saveAsImage = function (canvas, width, height, type) {
+		if ($support.canvas && $support.dataURL) {
+			// canvas是对象才行
+			if (typeof canvas == "string") { canvas = document.getElementById(canvas); }
+			// 给下载的图片类型默认为png
+			if (type == undefined) { type = 'png'; }
+			type = fixType(type);
+			if (/bmp/.test(type)) {
+				var data = getImageData(scaleCanvas(canvas, width, height));
+				var strData = genBitmapImage(data);
+				saveFile(makeURI(strData, downloadMime));
+			} else {
+				var strData = getDataURL(canvas, type, width, height);
+				// strData是data uri 图像文件的内容直接写在了HTML 文件中
+				saveFile(strData.replace(type, downloadMime));
+			}
+		}
+	};
+```
+
 然后看看 `saveAsImage` ，其支持四个参数，分别是`canvas`（带转换的画布），`width`（图片宽度），`height`(图片高度)和`type`（图片类型）。
 
+```js
+	// https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL
+	// 返回一个包含图片展示的 data URI 。可以使用 type 参数其类型，默认为 PNG 格式。
+	// https://developer.mozilla.org/zh-CN/docs/Web/HTTP/data_URIs
+	function getDataURL (canvas, type, width, height) {
+		canvas = scaleCanvas(canvas, width, height);
+		return canvas.toDataURL(type);
+	}
+```
+
+```js
+	/**
+	 * 创建 bitmap 图片
+	 * 按照规则生成图片响应头和响应体
+	 */
+	var genBitmapImage = function (oData) {
+
+		//
+		//文件头 BITMAPFILEHEADER: http://msdn.microsoft.com/en-us/library/windows/desktop/dd183374(v=vs.85).aspx
+		//位图信息头 BITMAPINFOHEADER: http://msdn.microsoft.com/en-us/library/dd183376.aspx
+		//
+
+		var biWidth  = oData.width;
+		var biHeight	= oData.height;
+		var biSizeImage = biWidth * biHeight * 3;
+		var bfSize  = biSizeImage + 54; // total header size = 54 bytes
+
+		//
+		//  typedef struct tagBITMAPFILEHEADER {
+		//  	WORD bfType;
+		//  	DWORD bfSize;
+		//  	WORD bfReserved1;
+		//  	WORD bfReserved2;
+		//  	DWORD bfOffBits;
+		//  } BITMAPFILEHEADER;
+		//
+		var BITMAPFILEHEADER = [
+			// WORD bfType -- The file type signature; must be "BM"
+			0x42, 0x4D,
+			// DWORD bfSize -- The size, in bytes, of the bitmap file
+			bfSize & 0xff, bfSize >> 8 & 0xff, bfSize >> 16 & 0xff, bfSize >> 24 & 0xff,
+			// WORD bfReserved1 -- 保留;必须为零
+			0, 0,
+			// WORD bfReserved2 -- 保留;必须为零
+			0, 0,
+			// DWORD bfOffBits -- 从BITMAPFILEHEADER结构开始到位图位的偏移量(以字节为单位)。
+			54, 0, 0, 0
+		];
+
+		//
+		//  typedef struct tagBITMAPINFOHEADER {
+		//  	DWORD biSize;
+		//  	LONG  biWidth;
+		//  	LONG  biHeight;
+		//  	WORD  biPlanes;
+		//  	WORD  biBitCount;
+		//  	DWORD biCompression;
+		//  	DWORD biSizeImage;
+		//  	LONG  biXPelsPerMeter;
+		//  	LONG  biYPelsPerMeter;
+		//  	DWORD biClrUsed;
+		//  	DWORD biClrImportant;
+		//  } BITMAPINFOHEADER, *PBITMAPINFOHEADER;
+		//
+		var BITMAPINFOHEADER = [
+			// DWORD biSize -- The number of bytes required by the structure
+			40, 0, 0, 0,
+			// LONG biWidth -- The width of the bitmap, in pixels
+			biWidth & 0xff, biWidth >> 8 & 0xff, biWidth >> 16 & 0xff, biWidth >> 24 & 0xff,
+			// LONG biHeight -- The height of the bitmap, in pixels
+			biHeight & 0xff, biHeight >> 8  & 0xff, biHeight >> 16 & 0xff, biHeight >> 24 & 0xff,
+			// WORD biPlanes -- The number of planes for the target device. This value must be set to 1
+			1, 0,
+			// WORD biBitCount -- The number of bits-per-pixel, 24 bits-per-pixel -- the bitmap
+			// has a maximum of 2^24 colors (16777216, Truecolor)
+			24, 0,
+			// DWORD biCompression -- The type of compression, BI_RGB (code 0) -- uncompressed
+			0, 0, 0, 0,
+			// DWORD biSizeImage -- The size, in bytes, of the image. This may be set to zero for BI_RGB bitmaps
+			biSizeImage & 0xff, biSizeImage >> 8 & 0xff, biSizeImage >> 16 & 0xff, biSizeImage >> 24 & 0xff,
+			// LONG biXPelsPerMeter, unused
+			0,0,0,0,
+			// LONG biYPelsPerMeter, unused
+			0,0,0,0,
+			// DWORD biClrUsed, the number of color indexes of palette, unused
+			0,0,0,0,
+			// DWORD biClrImportant, unused
+			0,0,0,0
+		];
+
+		var iPadding = (4 - ((biWidth * 3) % 4)) % 4;
+
+		var aImgData = oData.data;
+
+		var strPixelData = '';
+		var biWidth4 = biWidth<<2;
+		var y = biHeight;
+		var fromCharCode = String.fromCharCode;
+
+		do {
+			var iOffsetY = biWidth4*(y-1);
+			var strPixelRow = '';
+			for (var x = 0; x < biWidth; x++) {
+				var iOffsetX = x<<2;
+				strPixelRow += fromCharCode(aImgData[iOffsetY+iOffsetX+2]) +
+							   fromCharCode(aImgData[iOffsetY+iOffsetX+1]) +
+							   fromCharCode(aImgData[iOffsetY+iOffsetX]);
+			}
+
+			for (var c = 0; c < iPadding; c++) {
+				strPixelRow += String.fromCharCode(0);
+			}
+
+			strPixelData += strPixelRow;
+		} while (--y);
+
+		var strEncoded = encodeData(BITMAPFILEHEADER.concat(BITMAPINFOHEADER)) + encodeData(strPixelData);
+
+		return strEncoded;
+	};
+```
+方法里首先判断是否支持`canvas`和`dataURL`，传入`canvas`也必须是对象，图片类型判断并添加`image/`前缀，执行`toDataURL`将`canvas`转化为图片的`data URI`文件，最后下载，过程其实很简单，重点就是要调用`toDataURL`方法。
+
+除了普通的图片格式外，还有一种`bmp`格式，这种格式必须要获取画布上指定矩形的像素数据`imageData`对象，最后创建`bitmap`图片。
+
+`convertToImage`方法就和`saveAsImage`方法步骤一样，只不过最后不是下载而是返回图片。
 
 场景很多：可以应用于电子签名保存图等。
 
