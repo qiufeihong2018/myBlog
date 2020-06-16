@@ -1960,6 +1960,7 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 </style>
 ```
 ## canvas的神仙库
+下面是本小编精心挑选的有助于`canvas`画图的工具库，为了方便大家和我查看源码，源码我全部放在本博客`canvas`目录下了。
 ### [canvas2image](https://github.com/hongru/canvas2image)
 一个将`canvas`转化为图片格式的工具库（应用场景很多）。
 
@@ -2170,6 +2171,8 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 [地址](https://createjs.com/)
 
 ### [Fabric.js](https://github.com/fabricjs/fabric.js)
+翻译为“构建”。
+
 具有`SVG`解析功能的开源`canvas`库。
 
 [地址](http://fabricjs.com/)
@@ -2192,10 +2195,12 @@ npm intall fabric -S
 ```html
 
 ```
-### heatmap.js 
-基于 canvas的热点图的开源库。
+### [heatmap.js](https://github.com/pa7/heatmap.js)
+翻译”热图“。
 
-它是一个轻量级的最先进的热图可视化的js库。
+基于 `canvas` 的热点图的开源库。
+
+它是一个轻量级的最先进的热图可视化的`js`库。
 1. 变得更快，有一个新的渲染模块
 2. 更强，以处理更多的数据点(40k+)
 3. 更容易使用，所以你可以加快速度
