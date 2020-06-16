@@ -2156,8 +2156,19 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 
 ![avatar](./canvas28.png)
 
-### EaselJS 
-使制作游戏、创作类艺术和其他侧重图形项目更容易的开源`canvas`库。
+### [EaselJS](https://github.com/CreateJS/EaselJS) 
+翻译为“画架”。
+
+顾名思义，使制作游戏、创作类艺术和其他侧重图形项目更容易的开源`canvas`库。
+
+该库提供了一个完整的分层显示列表、一个核心交互模型和帮助器类，使使用写`Canvas`元素更加容易。
+
+是一个用于在`HTML5`中构建高性能交互式`2D`内容的库。它提供了一个功能丰富的显示列表，允许您操作和动画图形。它还为鼠标和触摸交互提供了一个健壮的交互模型。
+
+它非常适合构建游戏、生成艺术、广告、数据可视化和其他高度图形化的体验。它可以单独工作，也可以与`CreateJS`套件的其他部分一起工作:`SoundJS`、`PreloadJS`和`TweenJS`。它没有外部依赖关系，并且应该与您喜欢使用的任何框架兼容。
+
+[地址](https://createjs.com/)
+
 ### [Fabric.js](https://github.com/fabricjs/fabric.js)
 具有`SVG`解析功能的开源`canvas`库。
 
