@@ -32,7 +32,11 @@
 3. 点击区域（hit region）
 4. 焦点圈
 ## CanvasRenderingContext2D
-口提供的 `2D` 渲染背景用来绘制`<canvas>`元素，为了获得这个接口的对象，需要在 `<canvas>` 上调用 `getContext()` ，并提供一个 "`2d`" 的参数：
+先来看思维导图
+
+![avatar](./canvas-mind1.png)
+
+提供的 `2D` 渲染背景用来绘制`<canvas>`元素，为了获得这个接口的对象，需要在 `<canvas>` 上调用 `getContext()` ，并提供一个 "`2d`" 的参数：
 ```js
 var canvas = document.getElementById('rectCanvas');
 var ctx = canvas.getContext('2d');
@@ -700,7 +704,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 第一个参数和其它的是相同的，都是一个图像或者另一个 `canvas` 的引用。其它`8`个参数最好是参照右边的图解，前`4`个是定义图像源的切片位置和大小，后`4`个则是定义切片的目标显示位置和大小。
 #### 控制图像的缩放行为 Controlling image scaling behavior
 `Gecko 1.9.2` 引入了 `mozImageSmoothingEnabled` 属性，值为 `false` 时，图像不会平滑地缩放。默认是 `true` 。
-### 变形
+### 使用变形
 目前，我们只是根据我们的需要使用默认的网格，改变整个画布的大小。变形是一种更强大的方法，可以将原点移动到另一点、对网格进行旋转和缩放。
 
 #### 状态的保存和恢复 Saving and restoring state
@@ -910,7 +914,8 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ```
 
 ![](./2.gif)
-### 动画
+
+### 动画使用
 #### 基本步骤
 1. 清空canvas
 调用clearRect方法
@@ -1626,7 +1631,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
 ![](./8.gif)
 
-### 像素
+### 使用像素
 这就不得不提到`imageData`对象，存储着canvas对象真实的像素数据。
 
 这个方法会返回一个ImageData对象，它代表了画布区域的对象数据，此画布的四个角落分别表示为(left, top), (left + width, top), (left, top + height), 以及(left + width, top + height)四个点。这些坐标点被设定为画布坐标空间元素。
