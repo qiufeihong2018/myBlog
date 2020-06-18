@@ -31,7 +31,12 @@
 2. ARIA 规则
 3. 点击区域（hit region）
 4. 焦点圈
-## CanvasRenderingContext2D
+## Canvas API
+### HTMLCanvasElement
+先来看思维导图
+
+![avatar](./canvas-mind2.png)
+### CanvasRenderingContext2D
 先来看思维导图
 
 ![avatar](./canvas-mind1.png)
@@ -1666,7 +1671,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The canvas has been tainted by cross-origin data.
 ```
 原因是为了阻止欺骗，浏览器会追踪 image data。当你把一个“跟canvas的域不同的”图片放到canvas上，这个canvas就成为 “tainted”(被污染的，脏的)，浏览器就不让你操作该canvas 的任何像素。这对于阻止多种类型的XSS/CSRF攻击（两种典型的跨站攻击）是非常有用的
-## Canvas API
+
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 
 ### translate()
