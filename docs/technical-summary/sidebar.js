@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title:'【vue】阅读dragula源码后，实现一个功能复杂的看板',
+        collapsable:false,
+        sidebarDepth:4,
+        children:['kanban/']
+    },
+    {
         title: '【docker】docker的灵魂拷问',
         collapsable: false,
         sidebarDepth: 4,
