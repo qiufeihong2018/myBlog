@@ -794,6 +794,77 @@ yarn global add windows-build-tools
 安装一下问题解决
 ## 38.unexpected side effect in computed properties
 `computed`不能改变页面中变量的值，必须要使用`watch`。
+## 39.el-menu样式改变无法生效
+具体代码如下：
+```js
+      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <template v-for="item in menuOptions">
+                <el-submenu v-if="item.subItems&&item.subItems.length>0" :key="item.index" :index='item.index'>
+                    <template slot="title">{{item.title}}</template>
+                    <el-menu-item v-for="subItem in item.subItems" :key='subItem.index' :index="subItem.index">
+                        {{subItem.title}}</el-menu-item>
+                </el-submenu>
+                <el-menu-item v-else :key="item.index" :index="item.index">
+                    {{item.title}}</el-menu-item>
+            </template>
+        </el-menu>
+```
+修改的样式
+```css
+  .nav-main-wrap {
+        display: -webkit-inline-box;
+    }
+
+    .nav-main-wrap /deep/ .el-menu,
+    .nav-main-wrap /deep/ .el-menu--horizontal>.el-menu-item:not(.is-disabled):focus,
+    .nav-main-wrap /deep/ .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover,
+    .nav-main-wrap /deep/ .el-menu--horizontal>.el-submenu .el-submenu__title:hover {
+        background-color: #fafafa !important;
+    }
+
+    .nav-main-wrap /deep/ .el-menu,
+    .nav-main-wrap /deep/ .el-submenu,
+    .nav-main-wrap /deep/ .el-menu-vertical-demo,
+    .nav-main-wrap /deep/ .el-menu--vertical .el-submenu__title,
+    .nav-main-wrap /deep/ .el-menu-item.subItem,
+    .nav-main-wrap /deep/ .el-submenu {
+        background-color: #fafafa !important;
+    }
+
+    .nav-main-wrap /deep/ .el-menu-item.subItem:hover,
+    .nav-main-wrap /deep/ .el-menu-vertical-demo .el-submenu__title:hover,
+    .nav-main-wrap /deep/ .el-menu--vertical .el-submenu__title:hover {
+        background-color: #fafafa !important;
+    }
+
+    .nav-main-wrap /deep/ .el-menu {
+        background-color: #fafafa !important;
+    }
+
+    .el-menu--horizontal .el-menu .el-menu-item,
+    .el-menu--horizontal .el-menu .el-submenu__title {
+        background-color: #fafafa !important;
+    }
+
+```
+效果如下：
+
+![avatar](./front1.png)
+
+此时的弹框实在body下的，所以无论怎么定义，自定义的样式没有作用。
+
+![avatar](./front2.png)
+
+只要加上
+```js
+:popper-append-to-body='false' 
+```
+将弹框不放入body即可
+![avatar](./front3.png)
+
+正确样式如下：
+![avatar](./front4.png)
+
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
