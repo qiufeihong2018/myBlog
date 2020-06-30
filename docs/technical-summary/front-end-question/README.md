@@ -865,6 +865,11 @@ yarn global add windows-build-tools
 正确样式如下：
 ![avatar](./front4.png)
 
+## 40.等高的div却不在同一条水平线上
+`display:-webkit-inline-box`和`display: inline-block`使两个`div`放在同一行里，但是等高的`div`却不在同一条水平线上。
+
+原因是基线没有对齐，加上`vertical-align: top`即可。
+
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
