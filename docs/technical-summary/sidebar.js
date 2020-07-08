@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title:'【electron】这些electron的问题你会吗',
+        collapsable:false,
+        sidebarDepth:4,
+        children:['electron/']
+    },
+    {
         title:'【vue】阅读dragula源码后，实现一个功能复杂的看板',
         collapsable:false,
         sidebarDepth:4,
@@ -18,7 +24,7 @@ module.exports = [
         children: ['vscode-plugin/']
     },
     {
-        title: '【canvas】canvas在图片上绘制矩形',
+        title: '【canvas】小白看了都会的canvas圣经',
         collapsable: false,
         sidebarDepth: 4,
         children: ['canvas/']
