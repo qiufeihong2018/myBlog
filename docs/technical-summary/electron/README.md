@@ -98,9 +98,39 @@ mainWindow.webContents.openDevTools({mode:'undocked'})
 ```js
 mainWindow.webContents.closeDevTools()
 ```
+### 4.在electron中使用monaco找不到该包
+当找不到`monaco`包时，报这个错误：
+```js    
+throw new Error('Electron failed to install correctly, please delete node_modules/electron and try installing again')
+```
+经测试发现，`monaco`必须要安装在
+`devDependencies`。
+
+否则会提示找不到monaco-edit的包。
+
+安装命令：
+```
+npm install electron --save-dev
+```
+
+### 5.electron-vue无法改变vuex状态
+`vuex-electron`的文档里说了：
+```
+In case if you enabled createSharedMutations() plugin you need to create an instance of store in the main process. To do it just add this line into your main process (for example src/main.js):
+import './path/to/your/store'
+```
+在主进程加上这一句就行了：
+```js
+import '../renderer/store'
+```
+重启即可，亲测成功！
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
 [https://www.cnblogs.com/ljbmvp/p/8437931.html](https://www.cnblogs.com/ljbmvp/p/8437931.html)
 
 [https://newsn.net/say/electron-devtools.html](https://newsn.net/say/electron-devtools.html)
+
+[Chrome浏览器及electron-vue项目添加vue-devtools插件的方法步骤](https://blog.csdn.net/weixin_43642751/article/details/99893748?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight)
+
+[electron-vue 的 vuex 使用记录](https://blog.csdn.net/qq_22889431/article/details/105133152)
