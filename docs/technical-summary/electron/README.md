@@ -43,7 +43,6 @@
       },
 ```
 
-
 ### 2.Electron入门应用打包exe（windows）
 1. 安装打包工具，我是使用的`electron-packager`，首先全局安装一下：
 ```
@@ -69,8 +68,39 @@ electron-packager <location of project> <name of project> <platform> <architectu
 * architecture：决定了使用 x86 还是 x64 还是两个架构都用 
 * electron version：electron 的版本 
 * optional options：可选选项
+### 3.electron 如何打开开发者工具devtools
+利用`electron`的`webContents`对象打开及关闭`devtools`。下面的例子中，我们都是基于`main.js`中的`createWindow`中的`mainWindow.webContents`进行操作的。
 
+#### 打开devtools
+```js
+mainWindow.webContents.openDevTools()
+```
+默认状态下，开发者工具的位置是上一次工具打开的位置（左边，右边，下边都有可能。取决于上一次的状态，但不会是分离状态，也没有处于顶部的状态）
+#### 界面右侧打开devtools
+```js
+mainWindow.webContents.openDevTools({mode:'right'})
+```
+#### 界面底部打开devtools
+```js
+mainWindow.webContents.openDevTools({mode:'bottom'})
+```
+#### 界面左侧打开devtools
+```js
+mainWindow.webContents.openDevTools({mode:'left'})
+```
+#### 分离状态打开devtools
+```js
+mainWindow.webContents.openDevTools({mode:'detach'})
+mainWindow.webContents.openDevTools({mode:'undocked'})
+```
+这两种情况下，`devtools`都是不和·的界面在一起的，都是分离状态。但是 `undocked` 状态下，这个开发者工具是可以合并到主界面中的。`detach`状态下，是永久分离的。这个就是两者的区别，注意看图标箭头所示位置。
+#### 关闭devtools
+```js
+mainWindow.webContents.closeDevTools()
+```
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
 [https://www.cnblogs.com/ljbmvp/p/8437931.html](https://www.cnblogs.com/ljbmvp/p/8437931.html)
+
+[https://newsn.net/say/electron-devtools.html](https://newsn.net/say/electron-devtools.html)
