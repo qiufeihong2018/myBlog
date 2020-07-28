@@ -114,7 +114,7 @@ npm install electron --save-dev
 ```
 
 ### 5.electron-vue无法改变vuex状态
-`vuex-electron`的文档里说了：
+`vuex-electron` 的文档里说了：
 ```
 In case if you enabled createSharedMutations() plugin you need to create an instance of store in the main process. To do it just add this line into your main process (for example src/main.js):
 import './path/to/your/store'
@@ -124,6 +124,18 @@ import './path/to/your/store'
 import '../renderer/store'
 ```
 重启即可，亲测成功！
+
+### 6.electron-vue中无法使用Element的Tooltip组件
+查看[https://github.com/SimulatedGREG/electron-vue/issues/361](
+https://github.com/SimulatedGREG/electron-vue/issues/361)这个issue中给了答案。
+
+作者写道：
+```
+I know from past experience when working with element-ui, it always helps to use the latest versions of both vue and element-ui, especially when updating. The element-ui team is pretty great at always taking advantage of new vue changes, but not necessarily always paying attention to backwards compatibility.
+```
+打开文件： `electron-vue/webpack.renderer.config.js`。
+
+在大约 `21` 行左右找到 `let whiteListedModules` 将 `element-ui` 添加进去，`let whiteListedModules = ['vue', 'element-ui']`。
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
@@ -134,3 +146,4 @@ import '../renderer/store'
 [Chrome浏览器及electron-vue项目添加vue-devtools插件的方法步骤](https://blog.csdn.net/weixin_43642751/article/details/99893748?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight)
 
 [electron-vue 的 vuex 使用记录](https://blog.csdn.net/qq_22889431/article/details/105133152)
+
