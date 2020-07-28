@@ -26,7 +26,7 @@
 本身只是一个位图，不提供任何绘制对象的信息。画布内容不像`HTML`那样具有语义并能暴露给可访问性工具。
 应该避免在交互型的网站或者`App`上使用`canvas`。
 
-但是还是有下面4中方式来交互:
+但是还是有下面 `4` 中方式来交互:
 1. 内容兼容
 2. ARIA 规则
 3. 点击区域（hit region）
@@ -264,7 +264,7 @@ var ctx = canvas.getContext('2d');
 ![avatar](./canvas7.png)
 
 2. lineCap 
-绘制每一条线段末端的属性（有3个可能的值：butt, round 和 square。默认值是 butt）
+绘制每一条线段末端的属性（有 `3` 个可能的值： `butt` ,  `round`  和  `square` 。默认值是 `butt` ）
 ```html
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
@@ -294,7 +294,7 @@ var ctx = canvas.getContext('2d');
 
 上面的例子可以发现，`butt`是上下是跟标准线平齐，`round`是上下凸出来一个直径为线宽的半圆，`square`是上下凸出来一个高度为线宽一半的矩形。
 3. lineJoin
-设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。此属性有3个值： `round, bevel and miter`。默认值是 `miter`。注意：如果2个相连部分在同一方向，那么`lineJoin`不会产生任何效果，因为在那种情况下不会出现连接区域。`round`
+设置 `2` 个长度不为 `0` 的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为 `0` 的变形部分，其指定的末端和控制点在同一位置，会被忽略）。此属性有 `3` 个值： `round, bevel and miter`。默认值是 `miter`。注意：如果 `2` 个相连部分在同一方向，那么`lineJoin`不会产生任何效果，因为在那种情况下不会出现连接区域。`round`
 通过填充一个额外的，圆心在相连部分末端的<font color = #00FF00 size=4 face="STCAIYUN">扇形</font>，绘制拐角的形状。 圆角的半径是线段的宽度。`bevel`在相连部分的末端填充一个额外的以<font color = #00FF00 size=4 face="STCAIYUN">三角形</font>为底的区域， 每个部分都有各自独立的矩形拐角。`miter`通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的<font color = #00FF00 size=4 face="STCAIYUN">菱形</font>区域。这个设置可以通过 `miterLimit` 属性看到效果。
 
 `lineJoin` 属性3种不同的设置。
@@ -598,22 +598,22 @@ march();
 - 如果你知道你想使用的指定图片的ID，你可以用document.getElementById()获得这个图片
 
 > 使用其它域名下的图片
-在 `HTMLImageElement`上使用`crossOrigin`属性，你可以请求加载其它域名上的图片。如果图片的服务器允许跨域访问这个图片，那么你可以使用这个图片而不污染`canvas`，否则，使用这个图片将会污染`canvas`。
+在 `HTMLImageElement` 上使用 `crossOrigin` 属性，你可以请求加载其它域名上的图片。如果图片的服务器允许跨域访问这个图片，那么你可以使用这个图片而不污染 `canvas` ，否则，使用这个图片将会污染 `canvas` 。
 
 > 使用其它 canvas 元素
 和引用页面内的图片类似地，用 `document.getElementsByTagName` 或 `document.getElementById` 方法来获取其它 `canvas` 元素。但你引入的应该是已经准备好的 `canvas`。
 
-一个常用的应用就是将第二个`canvas`作为另一个大的 `canvas` 的缩略图。
+一个常用的应用就是将第二个 `canvas` 作为另一个大的 `canvas` 的缩略图。
 
 > 由零开始创建图像
-或者我们可以用脚本创建一个新的 `HTMLImageElement` 对象。要实现这个方法，我们可以使用很方便的`Image()`构造函数。
+或者我们可以用脚本创建一个新的 `HTMLImageElement` 对象。要实现这个方法，我们可以使用很方便的 `Image()` 构造函数。
 ```js
 var img = new Image();   // 创建一个<img>元素
 img.src = 'myImage.png'; // 设置图片源地址
 ```
 当脚本执行后，图片开始装载。
 
-若调用 `drawImage` 时，图片没装载完，那什么都不会发生（在一些旧的浏览器中可能会抛出异常）。因此你应该用`load`事件来保证不会在加载完毕之前使用这个图片：
+若调用 `drawImage` 时，图片没装载完，那什么都不会发生（在一些旧的浏览器中可能会抛出异常）。因此你应该用 `load` 事件来保证不会在加载完毕之前使用这个图片：
 ```js
 var img = new Image();   // 创建img元素
 img.onload = function(){
@@ -631,7 +631,7 @@ img.src = 'data:image/gif;base64,R0lGODlhCwALAIAAAAAA3pn/ZiH5BAEAAAEALAAAAAALAAs
 其优点就是图片内容即时可用，无须再到服务器兜一圈。（还有一个优点是，可以将 `CSS`，`JavaScript`，`HTML` 和 图片全部封装在一起，迁移起来十分方便。）缺点就是图像没法缓存，图片大的话内嵌的 `url` 数据会相当的长：
 
 >使用视频帧
-你还可以使用`<video>` 中的视频帧（即便视频是不可见的）。例如，如果你有一个`ID`为“`myvideo`”的`<video>` 元素，你可以这样做：
+你还可以使用 `<video>` 中的视频帧（即便视频是不可见的）。例如，如果你有一个 `ID` 为“`myvideo`”的 `<video>` 元素，你可以这样做：
 ```js
 function getMyVideo() {
   var canvas = document.getElementById('canvas');
@@ -642,7 +642,7 @@ function getMyVideo() {
   }
 }
 ```
-它将为这个视频返回`HTMLVideoElement`对象，正如我们前面提到的，它可以作为我们的`Canvas`图片源。
+它将为这个视频返回 `HTMLVideoElement` 对象，正如我们前面提到的，它可以作为我们的 `Canvas` 图片源。
 
 #### 绘制图片
 一旦获得了源图对象，我们就可以使用 `drawImage` 方法将它渲染到 `canvas` 里。`drawImage` 方法有三种形态，下面是最基础的一种。
@@ -678,7 +678,7 @@ drawImage(image, x, y)
 ```js
 drawImage(image, x, y, width, height)
 ```
-这个方法多了`2`个参数：`width` 和 `height`，这两个参数用来控制 当向`canvas`画入时应该缩放的大小。
+这个方法多了 `2` 个参数：`width` 和 `height` ，这两个参数用来控制 当向 `canvas` 画入时应该缩放的大小。
 
 下图是缩放图片并平铺：
 ```html
@@ -702,11 +702,11 @@ drawImage(image, x, y, width, height)
 
 >注意：图像可能会因为大幅度的缩放而变得起杂点或者模糊。如果您的图像里面有文字，那么最好还是不要进行缩放，因为那样处理之后很可能图像里的文字就会变得无法辨认了。
 #### 切片(Slicing)
-`drawImage` 方法的第三个也是最后一个变种有`8`个新参数，用于控制做切片显示的。
+`drawImage` 方法的第三个也是最后一个变种有 `8` 个新参数，用于控制做切片显示的。
 ```js
 drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ```
-第一个参数和其它的是相同的，都是一个图像或者另一个 `canvas` 的引用。其它`8`个参数最好是参照右边的图解，前`4`个是定义图像源的切片位置和大小，后`4`个则是定义切片的目标显示位置和大小。
+第一个参数和其它的是相同的，都是一个图像或者另一个 `canvas` 的引用。其它 `8` 个参数最好是参照右边的图解，前 `4` 个是定义图像源的切片位置和大小，后 `4` 个则是定义切片的目标显示位置和大小。
 #### 控制图像的缩放行为 Controlling image scaling behavior
 `Gecko 1.9.2` 引入了 `mozImageSmoothingEnabled` 属性，值为 `false` 时，图像不会平滑地缩放。默认是 `true` 。
 ### 使用变形
@@ -719,9 +719,9 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 - restore()
 恢复画布转态
 
-`canvas`状态存储在栈中，每当调用`save()`，当前状态就被推送到栈中保存。
+ `canvas` 状态存储在栈中，每当调用 `save()` ，当前状态就被推送到栈中保存。
 
-保存当前应用的变形、以及`canvas`的属性和当前的裁切路径。
+保存当前应用的变形、以及 `canvas` 的属性和当前的裁切路径。
 
 ##### 应用save和restore的多层矩形
 ```js
@@ -755,7 +755,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ![avatar](./canvas21.png)
 
 ##### 应用translate的加载矩形
-`translate`移动 `canvas` 和它的原点到一个不同的位置。
+`translate` 移动 `canvas` 和它的原点到一个不同的位置。
 
 > 在做变形之前先保存状态是一个良好的习惯。大多数情况下，调用 restore 方法比手动恢复原先的状态要简单得多。又，如果你是在一个循环中做位移但没有保存和恢复 canvas 的状态，很可能到最后会发现怎么有些东西不见了，那是因为它很可能已经超出 canvas 范围以外了。
 
@@ -779,7 +779,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ![avatar](./canvas22.png)
 
 ##### 应用rotate的多层圆形
-`rotate`以某个坐标为中心旋转。
+`rotate` 以某个坐标为中心旋转。
 ```js
   function draw() {
     var ctx = document.getElementById('canvas').getContext('2d')
@@ -805,7 +805,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ![avatar](./canvas23.png)
 
 ##### 应用scale的字体和矩形
-`scale`对形状，位图进行缩小或者放大。
+`scale` 对形状，位图进行缩小或者放大。
 
 关键词-镜像反转。
 
@@ -860,7 +860,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ### 合成和剪裁
 #### globalCompositeOperation
 
-不仅可以在已有图形后面再画新图形，还可以用来遮盖指定区域，清除画布中的某些部分（清除区域不仅限于矩形，像`clearRect()`方法做的那样）以及更多其他操作。
+不仅可以在已有图形后面再画新图形，还可以用来遮盖指定区域，清除画布中的某些部分（清除区域不仅限于矩形，像 `clearRect()` 方法做的那样）以及更多其他操作。
 
 #### 应用clip()用一个圆形的裁切路径来限制随机星星的绘制区域
 裁切路径和普通的 `canvas` 图形差不多，不同的是它的作用是遮罩，用来隐藏不需要的部分。
@@ -923,9 +923,9 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ### 动画使用
 #### 基本步骤
 1. 清空canvas
-调用clearRect方法
+调用 `clearRect` 方法
 2. 保存canvas状态
-要改变一些会改变 canvas 状态的设置（样式，变形之类的），又要在每画一帧之时都是原始状态的话，你需要先保存一下。
+要改变一些会改变 `canvas` 状态的设置（样式，变形之类的），又要在每画一帧之时都是原始状态的话，你需要先保存一下。
 3. 绘制动画
 4. 恢复canvas状态
 
@@ -1637,9 +1637,9 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ![](./8.gif)
 
 ### 使用像素
-这就不得不提到`imageData`对象，存储着canvas对象真实的像素数据。
+这就不得不提到 `imageData` 对象，存储着 `canvas` 对象真实的像素数据。
 
-这个方法会返回一个ImageData对象，它代表了画布区域的对象数据，此画布的四个角落分别表示为(left, top), (left + width, top), (left, top + height), 以及(left + width, top + height)四个点。这些坐标点被设定为画布坐标空间元素。
+这个方法会返回一个 `ImageData` 对象，它代表了画布区域的对象数据，此画布的四个角落分别表示为( `left` ,  `top` ), ( `left` + `width` , `top` ), ( `left` , `top` + `height` ), 以及( `left` + `width` , `top` + `height`) 四个点。这些坐标点被设定为画布坐标空间元素。
 
 ```js
  var img = new Image();
@@ -1670,7 +1670,7 @@ drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 ```
 canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The canvas has been tainted by cross-origin data.
 ```
-原因是为了阻止欺骗，浏览器会追踪 image data。当你把一个“跟canvas的域不同的”图片放到canvas上，这个canvas就成为 “tainted”(被污染的，脏的)，浏览器就不让你操作该canvas 的任何像素。这对于阻止多种类型的XSS/CSRF攻击（两种典型的跨站攻击）是非常有用的
+原因是为了阻止欺骗，浏览器会追踪 `image data` 。当你把一个“跟 `canvas` 的域不同的”图片放到 `canvas` 上，这个 `canvas` 就成为 “`tainted`”(被污染的，脏的)，浏览器就不让你操作该 `canvas` 的任何像素。这对于阻止多种类型的 `XSS/CSRF` 攻击（两种典型的跨站攻击）是非常有用的。
 
 ### canvas
 `CanvasRenderingContext2D.canvas `属性是 `Canvas API` 的一部分，是对与给定上下文关联的`HTMLCanvasElement`对象的只读引用。如果没有 `<canvas>` 元素与之对应，对象值为`null` 
@@ -1970,39 +1970,39 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 </style>
 ```
 ## canvas的神仙库
-下面是本小编精心挑选的有助于`canvas`画图的工具库，为了方便大家和我查看源码，源码我全部放在本博客`canvas`目录下了。
+下面是本小编精心挑选的有助于 `canvas` 画图的工具库，为了方便大家和我查看源码，源码我全部放在本博客 `canvas` 目录下了。
 ### [canvas2image](https://github.com/hongru/canvas2image)
 一个将`canvas`转化为图片格式的工具库（应用场景很多）。
 
 [demo](http://hongru.github.io/proj/canvas2image/index.html)
 
-他的仓库里就三个文件，分别是：`index.html`、`canvas2image.js`和`README.md`
+他的仓库里就三个文件，分别是： `index.html` 、`canvas2image.js` 和 `README.md`
 
-核心就是`canvas2image.js`。
+核心就是 `canvas2image.js` 。
 
-先来看`demo`，就是`index.html`文件，是一个比较简单的实例，其中一个有矩形的`canvas`、几个按钮、几个选择器和一个`img`，通过保存或转换按钮，将`canvas`图形保存成指定格式的图片：
+先来看 `demo` ，就是 `index.html` 文件，是一个比较简单的实例，其中一个有矩形的 `canvas` 、几个按钮、几个选择器和一个 `img` ，通过保存或转换按钮，将 `canvas` 图形保存成指定格式的图片：
 
 ![avatar](./canvas27.png)
 
-其中的`html`标签就不做解释了，脚本中有三个方法，分别是：`init()`、`bind()`和`draw()`。文档`onload`刚加载完后执行`init()`方法,在`init()`方法中将标签中的所有属性获取并且赋值，然后执行`bind()`方法和`draw()`方法。
+其中的 `html` 标签就不做解释了，脚本中有三个方法，分别是： `init()` 、 `bind()` 和 `draw()` 。文档 `onload` 刚加载完后执行 `init()` 方法,在 `init()` 方法中将标签中的所有属性获取并且赋值，然后执行 `bind()` 方法和 `draw()` 方法。
 
-`draw()`方法画一个红色矩形。
+`draw()` 方法画一个红色矩形。
 
-`bind()`中`save`按钮点击方法中，先获取用户选择的格式、宽度和高度，然后执行`saveAsImage()`方法保存图片，这个方法后面在解释。
+`bind()` 中 `save` 按钮点击方法中，先获取用户选择的格式、宽度和高度，然后执行 `saveAsImage()` 方法保存图片，这个方法后面在解释。
 
-`convert to`这个按钮其实主要实现一个预览功能，将用户自定义的`canvas`执行`convertToImage()`方法转化成`img`标签呈现在下面。
+`convert to` 这个按钮其实主要实现一个预览功能，将用户自定义的 `canvas` 执行`convertToImage()` 方法转化成 `img` 标签呈现在下面。
 
-`bind()`方法中的`canvas`也没闲着，用户在画布上可以自定义作画，`onmousemove()`方法获取鼠标坐标绘制路径，`onmousedown()`获取开始坐标，并开始作画，`onmouseup()`方法停止作画，`bMouseIsDown`变量控制是否开始作画。
+`bind()` 方法中的 `canvas` 也没闲着，用户在画布上可以自定义作画， `onmousemove()` 方法获取鼠标坐标绘制路径， `onmousedown()` 获取开始坐标，并开始作画， `onmouseup()` 方法停止作画， `bMouseIsDown` 变量控制是否开始作画。
 
-最后再来看看`canvas2image.js`文件做了什么？
+最后再来看看 `canvas2image.js` 文件做了什么？
 
-文件里就一个立即执行方法：`Canvas2Image()`。
+文件里就一个立即执行方法： `Canvas2Image()` 。
 
-先看`return`里的方法，看看该文件往外抛出去了哪些？
+先看 `return` 里的方法，看看该文件往外抛出去了哪些？
 
-外部可以访问`saveAsPNG`、`saveAsPNG`、`saveAsGIF`、`saveAsBMP`都是调用了`saveAsImage`，只不过是改了`type`。
+外部可以访问 `saveAsPNG` 、 `saveAsPNG` 、 `saveAsGIF` 、 `saveAsBMP` 都是调用了 `saveAsImage` ，只不过是改了 `type` 。
 
-同理，`convertToPNG`、`convertToJPEG`、`convertToGIF`和`convertToBMP`都是调用了`convertToImage`，改了`type`，然后返回其结果
+同理， `convertToPNG` 、 `convertToJPEG` 、 `convertToGIF` 和 `convertToBMP` 都是调用了 `convertToImage` ，改了 `type` ，然后返回其结果。
 
 ```js
 	/**
@@ -2032,7 +2032,7 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 	};
 ```
 
-然后看看 `saveAsImage` ，其支持四个参数，分别是`canvas`（带转换的画布），`width`（图片宽度），`height`(图片高度)和`type`（图片类型）。
+然后看看 `saveAsImage` ，其支持四个参数，分别是 `canvas` （带转换的画布）， `width` （图片宽度）， `height` (图片高度)和 `type` （图片类型）。
 
 ```js
 	// https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL
@@ -2170,31 +2170,31 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 ### [EaselJS](https://github.com/CreateJS/EaselJS) 
 翻译为“画架”。
 
-顾名思义，使制作游戏、创作类艺术和其他侧重图形项目更容易的开源`canvas`库。
+顾名思义，使制作游戏、创作类艺术和其他侧重图形项目更容易的开源 `canvas` 库。
 
-该库提供了一个完整的分层显示列表、一个核心交互模型和帮助器类，使使用写`Canvas`元素更加容易。
+该库提供了一个完整的分层显示列表、一个核心交互模型和帮助器类，使使用写 `Canvas` 元素更加容易。
 
-是一个用于在`HTML5`中构建高性能交互式`2D`内容的库。它提供了一个功能丰富的显示列表，允许您操作和动画图形。它还为鼠标和触摸交互提供了一个健壮的交互模型。
+是一个用于在 `HTML5` 中构建高性能交互式 `2D` 内容的库。它提供了一个功能丰富的显示列表，允许您操作和动画图形。它还为鼠标和触摸交互提供了一个健壮的交互模型。
 
-它非常适合构建游戏、生成艺术、广告、数据可视化和其他高度图形化的体验。它可以单独工作，也可以与`CreateJS`套件的其他部分一起工作:`SoundJS`、`PreloadJS`和`TweenJS`。它没有外部依赖关系，并且应该与您喜欢使用的任何框架兼容。
+它非常适合构建游戏、生成艺术、广告、数据可视化和其他高度图形化的体验。它可以单独工作，也可以与 `CreateJS` 套件的其他部分一起工作: `SoundJS` 、 `PreloadJS` 和 `TweenJS` 。它没有外部依赖关系，并且应该与您喜欢使用的任何框架兼容。
 
 [地址](https://createjs.com/)
 
 ### [Fabric.js](https://github.com/fabricjs/fabric.js)
 翻译为“构建”。
 
-具有`SVG`解析功能的开源`canvas`库。
+具有 `SVG` 解析功能的开源 `canvas` 库。
 
 [地址](http://fabricjs.com/)
 
 [demo](http://fabricjs.com/demos/)
 
 
-它是一个位于`canvas`元素之上的交互式对象模型。它也是一个`svg`到画布的解析器。
+它是一个位于 `canvas` 元素之上的交互式对象模型。它也是一个 `svg` 到画布的解析器。
 
-由于`canvas`提供的`api`太简单了，画出复杂的图形比较困难，做出来`api`也都忘了，这个库意旨在解决这个问题。
+由于 `canvas` 提供的` api` 太简单了，画出复杂的图形比较困难，做出来 `api` 也都忘了，这个库意旨在解决这个问题。
 
-使用`fabric.js`可以在画布上创建和填充对象。几何图形的对象如：矩形，圆，椭圆，多边形，或更复杂的形状组成的数百或数千条简单路径。然后可以用鼠标缩放、移动和旋转这些对象;修改它们的属性-`color`, `transparency`, `z-index`等等。还可以操作这些对象—通过简单的鼠标选择将它们分组。
+使用 `fabric.js` 可以在画布上创建和填充对象。几何图形的对象如：矩形，圆，椭圆，多边形，或更复杂的形状组成的数百或数千条简单路径。然后可以用鼠标缩放、移动和旋转这些对象;修改它们的属性- `color` ,  `transparency` ,  `z-index` 等等。还可以操作这些对象—通过简单的鼠标选择将它们分组。
 
 可以直接 `npm` 下载使用：
 ```js
@@ -2210,7 +2210,7 @@ npm intall fabric -S
 
 基于 `canvas` 的热点图的开源库。
 
-它是一个轻量级的最先进的热图可视化的`js`库。
+它是一个轻量级的最先进的热图可视化的 `js` 库。
 1. 变得更快，有一个新的渲染模块
 2. 更强，以处理更多的数据点(40k+)
 3. 更容易使用，所以你可以加快速度
@@ -2248,9 +2248,9 @@ npm intall fabric -S
 ### Processing.js 
 用于处理可视化语言。是流行的可视化编程语言的姊妹项目，它是为 `web` 设计的。使您的数据可视化，数字艺术，交互式动画，教育图表，视频游戏等工作使用 `web` 标准，没有任何插件。使用 `Processing` 语言编写代码，并将其包含在 `web` 页面中，`Processing.js` 完成其余工作。这不是魔法，但几乎可以算的上是。
 
-`Processing` 最初由 `Ben Fry` 和 `Casey Reas` 开发，最初是一种基于 `Java` 的开源编程语言，用于帮助电子艺术和视觉设计社区在视觉环境中学习计算机编程的基础知识。`js` 将此提升到了一个新的水平，允许处理代码在任何兼容 `HTML5` 的浏览器上运行，包括当前版本的 `Firefox` 、 `Safari` 、 `Chrome` 、 `Opera` 和 `Internet Explorer`。 `js` 为 `web` 带来了最好的可视化编程，对处理和 `web` 开发人员都是如此。
+`Processing` 最初由 `Ben Fry` 和 `Casey Reas` 开发，最初是一种基于 `Java` 的开源编程语言，用于帮助电子艺术和视觉设计社区在视觉环境中学习计算机编程的基础知识。 `js` 将此提升到了一个新的水平，允许处理代码在任何兼容 `HTML5` 的浏览器上运行，包括当前版本的 `Firefox` 、 `Safari` 、 `Chrome` 、 `Opera` 和 `Internet Explorer`。 `js` 为 `web` 带来了最好的可视化编程，对处理和 `web` 开发人员都是如此。
 
-使用Processing.js所需的所有东西都在这里。您可以下载最新版本的Processing。js，阅读快速入门指南处理开发人员或JavaScript开发人员，了解处理语言和处理。js渲染模式，参考参考，当然查看许多现有的演示使用处理。js。您还可以参与Processing和Processing.js社区，这两个社区都很活跃，并且正在寻找新的用户和开发人员。无论您是高级处理开发人员还是全新的开发人员，无论您是web技术专家。
+使用 `Processing.js` 所需的所有东西都在这里。您可以下载最新版本的 `Processing.js` ，阅读快速入门指南处理开发人员或 `JavaScript` 开发人员，了解处理语言和处理。
 [地址和demo](http://processingjs.org/)
 ### Pts.js 
 在 `canvas` 和 `SVG` 中进行创意性代码写作和可视化的库。
@@ -2277,7 +2277,7 @@ npm intall fabric -S
 
 `ZIM JavaScript`画布框架-代码创造力!互动媒体。
 
-`JavaScript` 画布框架-代码创造力!一个一致，完整，简单和丰富多彩的画布框架，提供快速的视觉效果。`ZIM` 非常适合学习编程，也非常适合专业人士制作桌面和移动游戏、应用程序、美术等等!
+`JavaScript` 画布框架-代码创造力!一个一致，完整，简单和丰富多彩的画布框架，提供快速的视觉效果。 `ZIM` 非常适合学习编程，也非常适合专业人士制作桌面和移动游戏、应用程序、美术等等!
 [地址](https://github.com/danzen/zimjs)
 
 [demo](https://zimjs.com/examples.html)
