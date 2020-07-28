@@ -1,14 +1,14 @@
 # 【canvas】小白看了都会的canvas圣经
 ## canvas是什么
-众所周知，canvas是一个可以使用脚本在其中绘制图像的HTML元素。
+众所周知， `canvas` 是一个可以使用脚本在其中绘制图像的 `HTML` 元素。
 
 > ​它最初由苹果内部使用自己 MacOS X WebKit 推出，供应用程序使用像仪表盘的构件和 Safari 浏览器使用。后来，有人通过 Gecko 内核的浏览器 (尤其是 Mozilla和Firefox)，Opera 和 Chrome 和超文本网络应用技术工作组建议为下一代的网络技术使用该元素。
 
 >​ Canvas 是由 HTML 代码配合高度和宽度属性而定义出的可绘制区域。JavaScript 代码可以访问该区域，类似于其他通用的二维 API，通过一套完整的绘图函数来动态生成图形。Mozilla 程序从 Gecko 1.8 (Firefox 1.5) 开始支持 `<canvas>`, Internet Explorer 从 IE9 开始 `<canvas>` 。Chrome 和 Opera 9+ 也支持 `<canvas>`。
 ## 属性
-支持全局属性（所有HTML元素共有的属性）
+支持全局属性（所有 `HTML` 元素共有的属性）
 
-基本的HTML全局属性之外，还存在以下全局属性:
+基本的 `HTML` 全局属性之外，还存在以下全局属性:
 
 1. xml:lang 和 xml:base ——两者都是从XHTML规范继承，但为了兼容性而被保留的。
 2. 多重aria-*属性，用于改善可访问性。
@@ -2196,7 +2196,7 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 
 使用`fabric.js`可以在画布上创建和填充对象。几何图形的对象如：矩形，圆，椭圆，多边形，或更复杂的形状组成的数百或数千条简单路径。然后可以用鼠标缩放、移动和旋转这些对象;修改它们的属性-`color`, `transparency`, `z-index`等等。还可以操作这些对象—通过简单的鼠标选择将它们分组。
 
-可以直接npm下载使用：
+可以直接 `npm` 下载使用：
 ```js
 npm intall fabric -S
 ```
@@ -2220,63 +2220,64 @@ npm intall fabric -S
 
 [demo](https://www.patrick-wied.at/static/heatmapjs/examples.html)
 ### JavaScript InfoVis Toolkit 
-是创建交互式的2D Canvas数据可视化工具
+是创建交互式的 `2D Canvas` 数据可视化工具
 
 [地址](http://philogb.github.io/jit/)
 
 [demo](http://philogb.github.io/jit/demos.html)
 ### Konva.js 
-是用于桌面端和移动端应用的2D canvas库。
+是用于桌面端和移动端应用的 `2D canvas` 库。
 
-可以基于Vue绘制复杂的画布图形。
+可以基于 `Vue` 绘制复杂的画布图形。
 [地址和demo](https://konvajs.org/)
 ### p5.js 
-包含给艺术家、设计师、教育者、初学者使用的完整的canvas绘制功能。
+包含给艺术家、设计师、教育者、初学者使用的完整的 `canvas` 绘制功能。
 ### Paper.js 
-是运行于HTML5 Canvas上的开源矢量图形脚本框架。
+是运行于 `HTML5 Canvas` 上的开源矢量图形脚本框架。
 
-它提供了一个干净的场景图/文档对象模型和许多强大的功能来创建和使用向量图形和bezier曲线，所有这些都整齐地包装在一个设计良好的、一致的和干净的编程接口中。
+它提供了一个干净的场景图/文档对象模型和许多强大的功能来创建和使用向量图形和 `bezier` 曲线，所有这些都整齐地包装在一个设计良好的、一致的和干净的编程接口中。
 [地址](http://paperjs.org/)
 
 [demo](http://paperjs.org/examples/)
 ### Phaser 
-用于基于Canvas和WebGL的浏览器尤其的快速、自由、有趣的开源框架
+用于基于 `Canvas` 和 `WebGL` 的浏览器尤其的快速、自由、有趣的开源框架。
 
 [地址](http://phaser.io/)
 
 [demo](http://phaser.io/examples)
 ### Processing.js 
-用于处理可视化语言。是流行的可视化编程语言的姊妹项目，它是为web设计的。使您的数据可视化，数字艺术，交互式动画，教育图表，视频游戏等工作使用web标准，没有任何插件。使用Processing语言编写代码，并将其包含在web页面中，Processing.js完成其余工作。这不是魔法，但几乎可以算的上是。
+用于处理可视化语言。是流行的可视化编程语言的姊妹项目，它是为 `web` 设计的。使您的数据可视化，数字艺术，交互式动画，教育图表，视频游戏等工作使用 `web` 标准，没有任何插件。使用 `Processing` 语言编写代码，并将其包含在 `web` 页面中，`Processing.js` 完成其余工作。这不是魔法，但几乎可以算的上是。
 
-Processing最初由Ben Fry和Casey Reas开发，最初是一种基于Java的开源编程语言，用于帮助电子艺术和视觉设计社区在视觉环境中学习计算机编程的基础知识。js将此提升到了一个新的水平，允许处理代码在任何兼容HTML5的浏览器上运行，包括当前版本的Firefox、Safari、Chrome、Opera和Internet Explorer。js为web带来了最好的可视化编程，对处理和web开发人员都是如此。
+`Processing` 最初由 `Ben Fry` 和 `Casey Reas` 开发，最初是一种基于 `Java` 的开源编程语言，用于帮助电子艺术和视觉设计社区在视觉环境中学习计算机编程的基础知识。`js` 将此提升到了一个新的水平，允许处理代码在任何兼容 `HTML5` 的浏览器上运行，包括当前版本的 `Firefox` 、 `Safari` 、 `Chrome` 、 `Opera` 和 `Internet Explorer`。 `js` 为 `web` 带来了最好的可视化编程，对处理和 `web` 开发人员都是如此。
 
 使用Processing.js所需的所有东西都在这里。您可以下载最新版本的Processing。js，阅读快速入门指南处理开发人员或JavaScript开发人员，了解处理语言和处理。js渲染模式，参考参考，当然查看许多现有的演示使用处理。js。您还可以参与Processing和Processing.js社区，这两个社区都很活跃，并且正在寻找新的用户和开发人员。无论您是高级处理开发人员还是全新的开发人员，无论您是web技术专家。
 [地址和demo](http://processingjs.org/)
 ### Pts.js 
-在canvas和SVG中进行创意性代码写作和可视化的库。
+在 `canvas` 和 `SVG` 中进行创意性代码写作和可视化的库。
 
-Pts是轻量级和模块化的。它是用typescript编写的，带有许多有用的可视化和创造性编码算法。它的友好的API支持快速原型和更大的项目。
+`Pts` 是轻量级和模块化的。它是用 `typescript` 编写的，带有许多有用的可视化和创造性编码算法。它的友好的 `API` 支持快速原型和更大的项目。
 [地址](https://ptsjs.org/)
 
 [demo](https://ptsjs.org/demo/)
 ### Rekapi 
 关键帧动画库。
-Rekapi是一个用于JavaScript的关键帧动画库。它给你一个API:
+`Rekapi` 是一个用于 `JavaScript` 的关键帧动画库。它给你一个 `API` :
 - 义基于关键帧的动画
 - 控制动画播放
-Rekapi renderer-agnostic。Rekapi的核心是不执行任何呈现。但是，它公开了一个用于定义渲染器的API，并与HTML DOM和HTML5 2D `<canvas>`的渲染器捆绑在一起。
-### Scrawl-canvas 
-用来创建和编辑2D图形的开源库。
 
-这是一个JavaScript库，旨在让HTML5 canvas元素的使用变得更简单、更有趣。无依赖，模块化设计。响应的画布为现代网站。
+`Rekapi` 的核心是不执行任何呈现。但是，它公开了一个用于定义渲染器的 `API` ，并与 `HTML DOM` 和 `HTML5 2D` `<canvas>`的渲染器捆绑在一起。
+### Scrawl-canvas 
+用来创建和编辑 `2D` 图形的开源库。
+
+这是一个 `JavaScript` 库，旨在让 `HTML5 canvas` 元素的使用变得更简单、更有趣。无依赖，模块化设计。响应的画布为现代网站。
 
 [地址](http://jster.net/library/scrawl-canvas)
 ### ZIM 
 为canvas上的代码创意性提供方便性、组件和可控性，包括可用性和数百个色彩缤纷的教程
 
-ZIM JavaScript画布框架-代码创造力!互动媒体。
+`ZIM JavaScript`画布框架-代码创造力!互动媒体。
 
-JavaScript画布框架-代码创造力!一个一致，完整，简单和丰富多彩的画布框架，提供快速的视觉效果。ZIM非常适合学习编程，也非常适合专业人士制作桌面和移动游戏、应用程序、美术等等!
+`JavaScript` 画布框架-代码创造力!一个一致，完整，简单和丰富多彩的画布框架，提供快速的视觉效果。`ZIM` 非常适合学习编程，也非常适合专业人士制作桌面和移动游戏、应用程序、美术等等!
 [地址](https://github.com/danzen/zimjs)
 
 [demo](https://zimjs.com/examples.html)
