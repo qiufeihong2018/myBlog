@@ -870,6 +870,35 @@ yarn global add windows-build-tools
 
 原因是基线没有对齐，加上`vertical-align: top`即可。
 
+## 41.通过watch方法监听route的变化来获取最新的项目id
+可以通过 `watch` 方法监听 `route` 的变化来获取最新的 `id`。
+
+响应路由参数的变化
+
+当使用路由参数时，例如从 `/project/1` 导航到 `/project/2` ，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+
+复用组件时，想对路由参数的变化作出响应的话，你可以简单地 `watch` (监测变化) `$route` 对象：
+```js
+const User = {
+  template: '...',
+  watch: {
+    $route(to, from) {
+      // 对路由变化作出响应...
+    }
+  }
+}
+```
+
+或者使用 2.2 中引入的 beforeRouteUpdate 导航守卫：
+```js
+const User = {
+  template: '...',
+  beforeRouteUpdate (to, from, next) {
+    // react to route changes...
+    // don't forget to call next()
+  }
+}
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
