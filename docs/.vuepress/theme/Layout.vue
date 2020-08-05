@@ -1,42 +1,31 @@
 <template>
-    <div
-            class="theme-container"
-            :class="pageClasses"
-            @touchstart="onTouchStart"
-            @touchend="onTouchEnd"
-    >
-        <Navbar
-                v-if="shouldShowNavbar"
-                @toggle-sidebar="toggleSidebar"
-        />
+    <div class="theme-container" :class="pageClasses" @touchstart="onTouchStart" @touchend="onTouchEnd">
+        <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
-        <div class="sidebar-mask"
-             @click="toggleSidebar(false)"/>
+        <div class="sidebar-mask" @click="toggleSidebar(false)" />
 
-        <Sidebar :items="sidebarItems"
-                 @toggle-sidebar="toggleSidebar">
-            <slot name="sidebar-top"
-                  slot="top"/>
-            <slot name="sidebar-bottom"
-                  slot="bottom"/>
+        <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
+            <slot name="sidebar-top" slot="top" />
+            <slot name="sidebar-bottom" slot="bottom" />
         </Sidebar>
 
-        <div class="custom-layout"
-             v-if="$page.frontmatter.layout">
-            <component :is="$page.frontmatter.layout"/>
+        <div class="custom-layout" v-if="$page.frontmatter.layout">
+            <component :is="$page.frontmatter.layout" />
         </div>
 
-        <Home v-else-if="$page.frontmatter.home"/>
+        <Home v-else-if="$page.frontmatter.home" />
 
-        <Page v-else
-              :sidebar-items="sidebarItems">
-            <slot name="page-top"
-                  slot="top"/>
-            <slot name="page-bottom"
-                  slot="bottom"/>
+        <Page v-else :sidebar-items="sidebarItems">
+            <slot name="page-top" slot="top" />
+            <slot name="page-bottom" slot="bottom" />
         </Page>
         <Gittalk></Gittalk>
-        <SWUpdatePopup :updateEvent="swUpdateEvent"/>
+        <SWUpdatePopup :updateEvent="swUpdateEvent" />
+        <div class="icp-footer">
+            <p>Designed & Powerd by qiufeihong</p>
+            <p>Copyright© 2018-{{(new Date()).getFullYear()}} 仇飞鸿</p>
+            <a href="http://beian.miit.gov.cn" target="_blank">浙ICP备19016131号-1</a>
+        </div>
     </div>
 </template>
 
@@ -48,11 +37,20 @@
     import Page from '../../../node_modules/vuepress/lib/default-theme/Page.vue'
     import Sidebar from '../../../node_modules/vuepress/lib/default-theme/Sidebar.vue'
     import SWUpdatePopup from '../../../node_modules/vuepress/lib/default-theme/SWUpdatePopup.vue'
-    import {resolveSidebarItems} from '../../../node_modules/vuepress/lib/default-theme/util'
+    import {
+        resolveSidebarItems
+    } from '../../../node_modules/vuepress/lib/default-theme/util'
     import Gittalk from '../components/Gittalk.vue'
 
     export default {
-        components: { Home, Page, Sidebar, Navbar, SWUpdatePopup, Gittalk},
+        components: {
+            Home,
+            Page,
+            Sidebar,
+            Navbar,
+            SWUpdatePopup,
+            Gittalk
+        },
         data() {
             return {
                 isSidebarOpen: false,
@@ -61,8 +59,12 @@
         },
         computed: {
             shouldShowNavbar() {
-                const {themeConfig} = this.$site
-                const {frontmatter} = this.$page
+                const {
+                    themeConfig
+                } = this.$site
+                const {
+                    frontmatter
+                } = this.$page
                 if (
                     frontmatter.navbar === false ||
                     themeConfig.navbar === false) {
@@ -77,7 +79,9 @@
                 )
             },
             shouldShowSidebar() {
-                const {frontmatter} = this.$page
+                const {
+                    frontmatter
+                } = this.$page
                 return (
                     !frontmatter.layout &&
                     !frontmatter.home &&
@@ -95,8 +99,7 @@
             },
             pageClasses() {
                 const userPageClass = this.$page.frontmatter.pageClass
-                return [
-                    {
+                return [{
                         'no-navbar': !this.shouldShowNavbar,
                         'sidebar-open': this.isSidebarOpen,
                         'no-sidebar': !this.shouldShowSidebar
@@ -108,7 +111,9 @@
         mounted() {
             window.addEventListener('scroll', this.onScroll)
             // configure progress bar
-            nprogress.configure({showSpinner: false})
+            nprogress.configure({
+                showSpinner: false
+            })
             this.$router.beforeEach((to, from, next) => {
                 if (to.path !== from.path && !Vue.component(to.name)) {
                     nprogress.start()
@@ -153,24 +158,31 @@
 <style src="prismjs/themes/prism-tomorrow.css"></style>
 <style src="../../../node_modules/vuepress/lib/default-theme/styles/theme.styl" lang="stylus"></style>
 <style>
+    .icp-footer {
+        background-color: #f6f9fe;
+        text-align: center;
+        padding: 20px;
+    }
+
     ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-    background-color: #F5F5F5;
-}
+        width: 5px;
+        height: 5px;
+        background-color: #F5F5F5;
+    }
 
-::-webkit-scrollbar-thumb:vertical {
-    border-radius: 5px;
-    background-image: -webkit-linear-gradient(180deg, #4e83ee, #fff, #4e83ee);
-}
-::-webkit-scrollbar-thumb:horizontal {
-    border-radius: 5px;
-    background-image: -webkit-linear-gradient(90deg, #4e83ee, #fff, #4e83ee);
-}
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #F5F5F5;
-    border-radius: 5px;
-}
+    ::-webkit-scrollbar-thumb:vertical {
+        border-radius: 5px;
+        background-image: -webkit-linear-gradient(180deg, #4e83ee, #fff, #4e83ee);
+    }
 
+    ::-webkit-scrollbar-thumb:horizontal {
+        border-radius: 5px;
+        background-image: -webkit-linear-gradient(90deg, #4e83ee, #fff, #4e83ee);
+    }
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 5px;
+    }
 </style>
