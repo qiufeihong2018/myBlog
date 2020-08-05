@@ -1,0 +1,17 @@
+feat(添加icp)备案号
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Wed Aug 5 22:56:11 2020 +0800
+#
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+# Changes to be committed:
+#	modified:   docs/.vuepress/theme/Layout.vue
+#
+# Changes not staged for commit:
+#	modified:   docs/technical-summary/canvas/canvas2image (modified content)
+#

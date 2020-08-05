@@ -172,12 +172,12 @@
 
     ::-webkit-scrollbar-thumb:vertical {
         border-radius: 5px;
-        background-image: -webkit-linear-gradient(180deg, #4e83ee, #fff, #4e83ee);
+        background-image: -webkit-linear-gradient(180deg, #f6f9fe, #fff, #f6f9fe);
     }
 
     ::-webkit-scrollbar-thumb:horizontal {
         border-radius: 5px;
-        background-image: -webkit-linear-gradient(90deg, #4e83ee, #fff, #4e83ee);
+        background-image: -webkit-linear-gradient(90deg, #f6f9fe, #fff, #f6f9fe);
     }
 
     ::-webkit-scrollbar-track {
