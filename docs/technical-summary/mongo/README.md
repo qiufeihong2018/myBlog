@@ -40,7 +40,12 @@ echo  “mongodb-org-shell hold”  | sudo dpkg --set-selections
 echo  “mongodb-org-mongos hold”  | sudo dpkg --set-selections
 echo  “mongodb-org-tools hold”  | sudo dpkg --set-selections
 ```
-
+### 支持根目录下执行mongo
+```
+export PATH=<mongodb-install-directory>/bin:$PATH
+```
+`MongoDB` 的可执行文件位于 `bin` 目录下，所以可以将其添加到 `PATH` 路径中：
+`<mongodb-install-directory>` 为 `MongoDB` 的安装路径。如本文的安装路径是 `/usr/local/mongodb` 。
 ## MongoDB导入Json和Bson
 
 ### linux
