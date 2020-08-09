@@ -531,6 +531,45 @@ kill -g {id}
 ps -ef|grep
 ```
 显示所有命令，连带命令行 查找文件里符合条件的字符串
+
+## 解决sudo: no tty present and no askpass program specified的问题
+当阿里云的登录账号不是 `root` 时，在 `jenkins` 中做 `ci` 就会出现权限不足的问题，但是加上 `sudo` 却爆出了这个 `sudo: no tty present and no askpass program specified` 的问题。这个问题翻译成“没有tty present和没有askpass程序指定”，意思是没有给当前操作输入密码，也就是免密执行。
+
+解决的方式很多，一种最简单的方法就是 `sudo visudo` ,打开 `sudo` 配置页面。 
+```
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults        env_reset
+Defaults        mail_badpass
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root    ALL=NOPASSWD:ALL
+example(你的用户名) All=NOPASSWD:ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=NOPASSWD:ALL
+
+# Allow members of group sudo to execute any command
+%sudo   ALL=NOPASSWD:ALL
+
+# See sudoers(5) for more information on "#include" directives:
+
+#includedir /etc/sudoers.d
+```
+将你的用户名改成 `All=NOPASSWD:ALL` 即可免密操作。
 ## 参考文献
 [如何在Ubuntu 16.04上安装Jenkins](https://www.jianshu.com/p/845f267aec52)
 

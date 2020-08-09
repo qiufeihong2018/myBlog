@@ -1272,13 +1272,13 @@ this.categoryOptions = getOption('label', routes)
 ### [iframe跨域问题](../iframe/README.md)
 
 ## 展望
-下一篇《chrome开发之Navigation提交工具》
+下一篇《 `chrome` 开发之 `Navigation` 提交工具》
 
-目前这个项目的基本已经完成，但是还是有很多扩展的余地。比如提交网站比较麻烦，这个时候有一个chrome提交工具，所有的问题就迎刃而解。
+目前这个项目的基本已经完成，但是还是有很多扩展的余地。比如提交网站比较麻烦，这个时候有一个`chrome` 提交工具，所有的问题就迎刃而解。
 
-还有，这个项目小编会长期来维护，希望大家能踊跃提pr，提issue，将这个项目打造的更加完美，能够帮助到更多的人学习到vue除了官方demo之外的实际应用，避开更多的坑。
+还有，这个项目小编会长期来维护，希望大家能踊跃提 `pr` ，提 `issue` ，将这个项目打造的更加完美，能够帮助到更多的人学习到 `vue` 除了官方 `demo` 之外的实际应用，避开更多的坑。
 
-最后，别忘了给这个项目点一个star哦，谢谢支持。
+最后，别忘了给这个项目点一个 `star` 哦，谢谢支持。
 
 [navigation-web前端代码仓库](https://github.com/qiufeihong2018/navigation-web)
 
