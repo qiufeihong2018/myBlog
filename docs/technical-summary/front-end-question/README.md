@@ -899,6 +899,14 @@ const User = {
   }
 }
 ```
+## 使用window.open打开的子窗口与父窗口之间的通信
+1. 打开一个新窗口： `window.open()` ; 为了便于父窗口操作子窗口可以为 `window.open()` 定义一个变量，例如：
+`var opW = window.open(‘tests.html’,'popup’,'width=300,height=300′);`
+这样要关闭子窗口可直接使用： `opW.close()` 关闭子窗口;
+`opw` 就是子窗口对象，要操作子窗口元素，只要操作其中的方法和属性即可例如：
+`opW.document.getElementById(“fartherWindowTxt”).innerHTML = “操作子窗口”;`
+2. 子窗口可以使用 `window.opener` 来引用父窗口：`window.opener.document.getElementById(“fartherWindowTxt”).innerHTML=”子窗口操作父窗口！”;`
+3. 窗口关闭自身窗口可以使用：`window.close();`
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
