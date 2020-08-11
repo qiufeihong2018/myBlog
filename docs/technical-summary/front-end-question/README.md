@@ -899,7 +899,7 @@ const User = {
   }
 }
 ```
-## 使用window.open打开的子窗口与父窗口之间的通信
+## 42.使用window.open打开的子窗口与父窗口之间的通信
 1. 打开一个新窗口： `window.open()` ; 为了便于父窗口操作子窗口可以为 `window.open()` 定义一个变量，例如：
 `var opW = window.open(‘tests.html’,'popup’,'width=300,height=300′);`
 这样要关闭子窗口可直接使用： `opW.close()` 关闭子窗口;

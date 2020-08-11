@@ -1,5 +1,17 @@
 module.exports = [
     {
+        title:'【编辑器】手把手教会使用codemirror',
+        collapsable:false,
+        sidebarDepth:4,
+        children:['codemirror/']
+    },
+    {
+        title:'【编辑器】手把手教会使用monaco-editor',
+        collapsable:false,
+        sidebarDepth:4,
+        children:['monaco/']
+    },
+    {
         title:'【electron】这些electron的问题你会吗',
         collapsable:false,
         sidebarDepth:4,
