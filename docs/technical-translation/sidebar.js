@@ -6,6 +6,12 @@ module.exports = [
         children: ['atomic-design/']
     },
     {
+        title: '【react】Create React App说明文档',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['create-react-app/']
+    },
+    {
         title: '【react】react-devtools说明文档',
         collapsable: false,
         sidebarDepth: 4,
