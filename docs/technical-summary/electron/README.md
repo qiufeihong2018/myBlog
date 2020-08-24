@@ -136,6 +136,62 @@ I know from past experience when working with element-ui, it always helps to use
 打开文件： `electron-vue/webpack.renderer.config.js`。
 
 在大约 `21` 行左右找到 `let whiteListedModules` 将 `element-ui` 添加进去，`let whiteListedModules = ['vue', 'element-ui']`。
+
+### 7.Electron无边框窗口中自定义最小化、最大化、关闭
+首先在`windowOperate.vue`页面中写入三个按钮，并将事件绑定
+```js
+   // 从渲染器进程到主进程的异步通信。
+    // 使用它提供的一些方法从渲染进程 (web 页面) 发送同步或异步的消息到主进程。
+    const {
+      ipcRenderer
+    } = require('electron')
+
+...
+
+        onMinusSm () {
+          ipcRenderer.send('min')
+        },
+        onRectangle () {
+          ipcRenderer.send('max')
+        },
+        onCross () {
+          ipcRenderer.send('window-close')
+        }
+```
+上面三个方法的意思是：给主进程发送同步消息，触发特定的事件。`onMinusSm` 方法中 `ipcRenderer` 发送 `min` 事件，主进程就可以监听 `min` 事件。
+
+在`src/main/index.js`中
+```js
+const {
+  // 从主进程到渲染进程的异步通信。
+  ipcMain
+} = require('electron')
+
+...
+
+ipcMain.on('window-close', function () {
+  // close无法关闭程序
+  // mainWindow.close()
+  app.exit()
+})
+ipcMain.on('min', function () {
+  // 最小化窗口
+  mainWindow.minimize()
+})
+ipcMain.on('max', function () {
+  if (mainWindow.isMaximized()) {
+    // 将窗口从最小化状态恢复到以前的状态。
+    mainWindow.restore()
+  } else {
+    // 最大化窗口。
+    mainWindow.maximize()
+  }
+})
+```
+主进程监听渲染进程的三个事件。如：主进程监听 `min` ，触发最小化窗口的方法。
+
+注意：`mainWindow.close()` 不能关闭程序，需要使用 `app.exit()` 来关闭。
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
@@ -147,3 +203,4 @@ I know from past experience when working with element-ui, it always helps to use
 
 [electron-vue 的 vuex 使用记录](https://blog.csdn.net/qq_22889431/article/details/105133152)
 
+[Electron无边框窗口（最小化、最大化、关闭、拖动）以及动态改变窗口大小](https://blog.csdn.net/fukaiit/article/details/91351448?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.edu_weight&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.edu_weight)
