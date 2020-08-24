@@ -192,6 +192,39 @@ ipcMain.on('max', function () {
 
 注意：`mainWindow.close()` 不能关闭程序，需要使用 `app.exit()` 来关闭。
 
+### 8.监听窗口状态，动态改变窗口最大化图标
+在 `windowOperate.vue` 中监听 `main-window-max` 事件，触发展示缩小图标；
+在 `windowOperate.vue` 中监听 `main-window-unmax` 事件，触发展示最大化图标。
+
+```js
+ mounted () {
+        // 监听窗口状态，动态改变图片
+        this.changeWin()
+      },
+ 
+        changeWin () {
+          ipcRenderer.on('main-window-max', () => {
+            this.isRectangle = false
+          })
+          ipcRenderer.on('main-window-unmax', () => {
+            this.isRectangle = true
+          })
+        },
+```
+在 `src/main/index.js` 让主进程监听窗口 `maximize` 和 `unmaximize` 向子进程发送事件消息。
+```js
+function createWindow () {}中插入
+  // 监听窗口状态，向渲染进程发送消息
+  // 窗口最大化时触发
+  mainWindow.on('maximize', function () {
+    mainWindow.webContents.send('main-window-max')
+  })
+  // 当窗口从最大化状态退出时触发
+  mainWindow.on('unmaximize', function () {
+    mainWindow.webContents.send('main-window-unmax')
+  })
+```
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
