@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title: '【译】electron-packager说明文档',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['electron-packager/']
+    },
+    {
         title: '【设计】原子设计',
         collapsable: false,
         sidebarDepth: 4,

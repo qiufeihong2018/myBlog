@@ -1,12 +1,13 @@
 # 【编辑器】手把手教会使用codemirror
-在做z项目的时候，需要用到编辑器，经过一段撕心裂肺的试炼后选择了codemirror。
+在做 `z` 项目的时候，需要用到编辑器，经过一段撕心裂肺的试炼后选择了 `codemirror` 。
 
-codemirror的优点
+`codemirror` 的优点：
 - 文档完善
 - 例子丰富
 - 插件丰富
 - 可扩展性强
 
+需要实现的功能：
 1. 支持联想关键词
 2. 标定错误行
 3. 关键词高亮
@@ -289,7 +290,7 @@ https://segmentfault.com/a/1190000016136831#item-1-5
 
 
 
-```
+```js
 // 需要的codemirror中的插件按需导入
   import * as CodeMirror from 'codemirror/lib/codemirror'
   import 'codemirror/lib/codemirror.css'
@@ -301,7 +302,7 @@ https://segmentfault.com/a/1190000016136831#item-1-5
 ```
 
 
-如何激活codemirror中的全屏插件？
+如何激活 `codemirror` 中的全屏插件？
 http://www.voidcn.com/article/p-vwtahsud-byv.html
 
 
