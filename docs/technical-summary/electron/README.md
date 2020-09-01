@@ -278,6 +278,8 @@ var myFile = new File(bits, name[, options]);
 
 `charCodeAt()` 方法可返回指定位置的字符的 `Unicode` 编码。字符串中第一个字符的位置为 `0`， 第二个字符位置为 `1`，以此类推。
 
+`Uint8Array` 需要 new 出一个对象 `Uint8Array` 表示一个 `8` 位无符号整型数组。
+
 ```js
             /**
        * @description 将base64转换为file对象
@@ -327,6 +329,45 @@ var myFile = new File(bits, name[, options]);
 ```
  `fs` 读取本地指定目录下的图片，编译格式是 `base64`，回调后的数据将 `data:image/png;base64` 拼接在一起，用 `dataURLtoFile` 方法将 `base64` 转换为 `file` 对象。 `formData` 添加 `file` 对象，上传到 `minio`。
 
+### 10.创建文件夹，并且下载项目中的图片
+#### 背景
+创建文件夹，并且 `minio` 上下载项目中的对应的图片。
+对应第八个问题，需要用到截图，那么在进入具体项目的时候，从 `minio` 中下载所有的图片到本地。
+#### 创建项目id文件夹，并且从minio上下载对应项目中的所有图片
+ ```js
+     /**
+       * @description 创建文件夹，并且下载项目中的图片
+       */
+      download (item) {
+        const params = {
+          projectId: item.id
+        }
+        //  检查文件夹是否存在
+        if (!fs.existsSync(`ws/${item.id}`)) {
+          fs.mkdir(`ws/${item.id}`, (err) => {
+            if (err) throw err
+            console.log('创建目录成功')
+          })
+        }
+        api.upload.download(params).then(res => {
+          res.forEach(img => {
+            // 转化为buffer下载文件
+            axios({url: img.url, method: 'get', responseType: 'arraybuffer'}).then(response => {
+              fs.writeFile(`ws/${item.id}/${img.fileName}`, new Uint8Array(response.data), (err) => {
+                if (err) throw err
+                console.log('图片下载成功')
+              })
+              // response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+            })
+            // var a = document.createElement('a')
+            // a.href = img.url
+            // a.download = img.fileName
+            // a.click()
+          })
+        })
+      },
+```
+分析： `download` 方法先去检查文件夹是否存在，不存在就创建。接着请求对应的项目获取图片地址，转化为 `buffer` 下载文件，文件保存在项目 `id` 文件夹中。
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
