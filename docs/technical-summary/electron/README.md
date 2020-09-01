@@ -224,6 +224,108 @@ function createWindow () {}中插入
     mainWindow.webContents.send('main-window-unmax')
   })
 ```
+### 9.执行截图工具包，获取截图数据上传minio
+#### 背景
+在截图后，目前保存在本地工程目录下。如果其它开发者调用此截图，是没办法展示的。那么就需要上传到 `minio` 进行同步。
+#### 格式问题
+如下代码下载后的图片都是有格式问题：
+```js
+// ...调用截图工具包
+ls.stdout.on('data', (data) => {
+          console.log(`stdout: ${data}-${(new Date()) / 1}`)
+          if (data.indexOf('success') > -1) {
+            _this.setImageInfo(name)
+            const formData = new FormData()
+            const params = {
+              projectId: this.$route.params.id
+            }
+            let file = null
+            file = new File(data, `${name}.png`)
+            formData.append('file', file)
+            api.upload.create(params, formData)
+              .then((res) => {
+                this.$message.success('图片上传成功')
+              })
+              .catch((err) => {
+                this.$message.error(`${err}`)
+              })
+          }
+        })
+```
+分析：通过抓包发现此时是十六进制的数据，
+但是创建 `file` 对象的源数据不能是十六进制的数据的。
+
+> new File解析
+```js
+var myFile = new File(bits, name[, options]);
+```
+参数
+- bits
+一个包含 `ArrayBuffer`，`ArrayBufferView`，`Blob`，或者 `DOMString` 对象的 `Array` — 或者任何这些对象的组合。这是 `UTF-8` 编码的文件内容。
+- name
+`USVString`，表示文件名称，或者文件路径。
+`options` 可选
+选项对象，包含文件的可选属性。可用的选项如下：
+`type: DOMString`，表示将要放到文件中的内容的 `MIME` 类型。默认值为 "" 。
+`lastModified:` 数值，表示文件最后修改时间的 `Unix` 时间戳（毫秒）。默认值为 `Date.now()`。
+
+由于支持的格式只有上述几种，所以下载后的图片都是有格式问题。
+
+只要将源数据转化成 `ArrayBuffer`，`ArrayBufferView`，`Blob`，或者 `DOMString` 对象的 `Array` — 或者任何这些对象的组合中的一种，那么就可以获得 `file` 对象啦。
+如下，通过 `dataURLtoFile` 方法将 `base64` 转换 `ArrayBuffer` ,最后转化为 `file` 对象。
+
+`atob()` 方法用于解码使用 `base-64` 编码的字符串，该方法返回一个解码的字符串。
+
+`charCodeAt()` 方法可返回指定位置的字符的 `Unicode` 编码。字符串中第一个字符的位置为 `0`， 第二个字符位置为 `1`，以此类推。
+
+```js
+            /**
+       * @description 将base64转换为file对象
+       * @param {String} dataURL base64地址
+       * @param {String} fileName 文件名称
+       * @param {String} fileType 图片类型 默认image/png
+       * @return {Object} file对象
+       */
+      dataURLtoFile (dataURL, fileName, fileType) {
+        let arr = dataURL.split(',')
+        let bstr = atob(arr[1])
+        let n = bstr.length
+        let u8arr = new Uint8Array(n)
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n)
+        }
+        return new File([u8arr], fileName, {
+          type: fileType || 'image/png'
+        })
+      }
+```
+正确的代码：
+```js
+      ls.stdout.on('data', (data) => {
+          console.log(`stdout: ${data}-${(new Date()) / 1}`)
+          if (data.indexOf('success') > -1) {
+            const formData = new FormData()
+            const params = {
+              projectId: this.$route.params.id
+            }
+            let file = null
+            // 读取图片，格式为base64，但是需要转化成file对象
+            fs.readFile(`ws/${this.$route.params.id}/${name}.png`, 'base64', (err, data) => {
+              if (err) throw err
+              file = this.dataURLtoFile(`data:image/png;base64,${data}`, `${name}.png`)
+              formData.append('file', file)
+              api.upload.create(params, formData)
+                .then((res) => {
+                  this.$message.success('图片上传成功')
+                })
+                .catch((err) => {
+                  this.$message.error(`${err}`)
+                })
+            })
+          }
+        })
+```
+ `fs` 读取本地指定目录下的图片，编译格式是 `base64`，回调后的数据将 `data:image/png;base64` 拼接在一起，用 `dataURLtoFile` 方法将 `base64` 转换为 `file` 对象。 `formData` 添加 `file` 对象，上传到 `minio`。
 
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
