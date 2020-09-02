@@ -907,6 +907,17 @@ const User = {
 `opW.document.getElementById(“fartherWindowTxt”).innerHTML = “操作子窗口”;`
 2. 子窗口可以使用 `window.opener` 来引用父窗口：`window.opener.document.getElementById(“fartherWindowTxt”).innerHTML=”子窗口操作父窗口！”;`
 3. 窗口关闭自身窗口可以使用：`window.close();`
+
+## 43.webpack编译报错 Couldn't find preset "env" relative to directory
+### 背景
+这种现象是由于在 `.babelrc` 文件中设置了 `env` 选项，但是没有用插件 `babel-preset-env` 处理。
+调用插件 `babel-preset-env` 处理。依赖引入即可
+```
+npm install babel-preset-env --save-dev 
+```
+> babel-preset-env
+一个 `Babel` 预置，通过根据你的目标浏览器或运行时环境自动确定你需要的 `Babel` 插件和填充，将 `ES2015+` 编译为 `ES5`。
+详情见 [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
