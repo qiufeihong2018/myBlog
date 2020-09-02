@@ -1969,6 +1969,18 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
   }
 </style>
 ```
+分析：
+
+指点设备（通常是鼠标）的指针移出某个元素时，会触发mouseleave事件。
+
+`mouseleave`  和 `mouseout` 是相似的，但是两者的不同在于 `mouseleave` 不会冒泡而 `mouseout` 会冒泡。
+这意味着当指针离开元素及其所有后代时，会触发 `mouseleave` ，而当指针离开元素或离开元素的后代（即使指针仍在元素内）时，会触发 `mouseout`。
+
+`mouseleave`  和 `mouseout` 的区别简单总结如下：
+
+1. 如果在 `A` 元素注册 `mouseleave` 事件，那么必须鼠标指针完全移出 `A` 元素事件才会触发。
+2. 如果在 `A` 元素注册 `mouseout` 事件，不但鼠标指针完全移出 `A` 元素会触发事件，鼠标指针从 `A` 元素移入它的子元素和鼠标指针从子元素移入A元素也会触发事件。
+
 ## canvas的神仙库
 下面是本小编精心挑选的有助于 `canvas` 画图的工具库，为了方便大家和我查看源码，源码我全部放在本博客 `canvas` 目录下了。
 ### [canvas2image](https://github.com/hongru/canvas2image)
