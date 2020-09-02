@@ -115,6 +115,25 @@ import './icons'
 ```
 ![avatar](./svg2.png)
 
+## Vue-cli3使用svg-sprite-loader的vue.config配置
+（node_modules里有个svg导致一直报错）只应用于src/icons目录下
+```js
+    config.module
+            .rule('svg')
+            .exclude.add(resolve('src/icons'))
+            .end();
+
+        config.module
+            .rule('icons')
+            .test(/\.svg$/)
+            .include.add(resolve('src/icons'))
+            .end()
+            .use('svg-sprite-loader')
+            .loader('svg-sprite-loader')
+            .options({
+                symbolId: 'icon-[name]'
+            });
+```
 ## svg-sprite-loader源码
 ### 是什么
 创建svg的webpack加载器
