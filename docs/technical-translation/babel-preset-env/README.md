@@ -1,5 +1,5 @@
 # 【译】babel-preset-env说明文档
-# 现在 `babel-preset-env` 已经稳定，它已经 [转移到主Babel mono-repo](https://github.com/babel/babel/tree/master/packages/babel-preset-env) 并且这个回购已经被归档。
+## 现在 `babel-preset-env` 已经稳定，它已经 [转移到主Babel mono-repo](https://github.com/babel/babel/tree/master/packages/babel-preset-env) 并且这个回购已经被归档。
 
 此举使它更容易与 `Babel` 的其余部分同步发布和开发!
 
@@ -7,7 +7,7 @@
 
 ---
 
-# babel-preset-env [![npm](https://img.shields.io/npm/v/babel-preset-env.svg)](https://www.npmjs.com/package/babel-preset-env) [![travis](https://img.shields.io/travis/babel/babel-preset-env/master.svg)](https://travis-ci.org/babel/babel-preset-env) [![npm-downloads](https://img.shields.io/npm/dm/babel-preset-env.svg)](https://www.npmjs.com/package/babel-preset-env) [![codecov](https://img.shields.io/codecov/c/github/babel/babel-preset-env/master.svg?maxAge=43200)](https://codecov.io/github/babel/babel-preset-env)
+## babel-preset-env [![npm](https://img.shields.io/npm/v/babel-preset-env.svg)](https://www.npmjs.com/package/babel-preset-env) [![travis](https://img.shields.io/travis/babel/babel-preset-env/master.svg)](https://travis-ci.org/babel/babel-preset-env) [![npm-downloads](https://img.shields.io/npm/dm/babel-preset-env.svg)](https://www.npmjs.com/package/babel-preset-env) [![codecov](https://img.shields.io/codecov/c/github/babel/babel-preset-env/master.svg?maxAge=43200)](https://codecov.io/github/babel/babel-preset-env)
 
 > 一个 `Babel` 预设 通过自动确定你需要的Babel插件和填充，将 [ES2015+](https://github.com/tc39/proposals/blob/master/finished-proposals.md) 编译为ES5,基于你的目标浏览器或运行时环境。
 
@@ -101,37 +101,37 @@ Ref: [#7](https://github.com/babel/babel-preset-env/issues/7)
 在大多数情况下，这应该很容易做到。
 可能会有插件应该被分割的情况，或者某些插件不够独立(或者不可能做到)。
 
-### Support all plugins in Babel that are considered `latest`
+### 支持在Babel中考虑的所有插件 `latest`
 
-> Default behavior without options is the same as `babel-preset-latest`.
+> 没有选项的默认行为与 `babel-preset-latest`.
 
-It won't include `stage-x` plugins. env will support all plugins in what we consider the latest version of JavaScript (by matching what we do in [`babel-preset-latest`](http://babeljs.io/docs/plugins/preset-latest/)).
+他不包括 `stage-x` 插件。env将支持我们认为的最新版本的JavaScript中的所有插件(通过匹配我们所做的 [`babel-preset-latest`](http://babeljs.io/docs/plugins/preset-latest/)).
 
 Ref: [#14](https://github.com/babel/babel-preset-env/issues/14)
 
-### Determine the lowest common denominator of plugins to be included in the preset
+### 确定要包含在预置中的插件的最小公分母
 
-If you are targeting IE 8 and Chrome 55 it will include all plugins required by IE 8 since you would need to support both still.
+如果你的目标是ie8和Chrome 55，它将包括ie8所需的所有插件，因为你仍然需要支持这两个。
 
-### Support a target option `"node": "current"` to compile for the currently running node version.
+### 支持目标选项 `"node": "current"` 为当前运行的节点版本编译。
 
-For example, if you are building on Node 6, arrow functions won't be converted, but they will if you build on Node 0.12.
+例如，如果您在 ` Node 6` 上构建，箭头函数将不会被转换，但是如果您在 `Node 0.12` 上构建，它们将被转换。
 
-### Support a `browsers` option like autoprefixer
+### 支持`browsers`选项，如autoprefixer
 
-Use [browserslist](https://github.com/ai/browserslist) to declare supported environments by performing queries like `> 1%, last 2 versions`.
-
+使用 [browserslist](https://github.com/ai/browserslist) to declare supported environments by performing queries like `> 1%, last 2 versions`.
+使用 [browserslist](https://github.com/ai/browserslist) 宣布支持环境通过执行查询 `> 1%, last 2 versions`。
 Ref: [#19](https://github.com/babel/babel-preset-env/pull/19)
 
 ## Install
 
-With [npm](https://www.npmjs.com):
+用或者 [npm](https://或者.npmjs.com):
 
 ```sh
-npm install --save-dev babel-preset-env
+npm 或者 --或者-或者 babel-preset-env
 ```
 
-Or [yarn](https://yarnpkg.com):
+或者 [yarn](https://yarnpkg.com):
 
 ```sh
 yarn add babel-preset-env --dev
@@ -139,7 +139,7 @@ yarn add babel-preset-env --dev
 
 ## Usage
 
-The default behavior without options runs all transforms (behaves the same as [babel-preset-latest](https://babeljs.io/docs/plugins/preset-latest/)).
+没有选项的默认行为将运行所有转换 (行为与 [babel-preset-latest](https://babeljs.io/docs/plugins/preset-latest/)相同).
 
 ```json
 {
@@ -149,91 +149,84 @@ The default behavior without options runs all transforms (behaves the same as [b
 
 ## Options
 
-For more information on setting options for a preset, refer to the [plugin/preset options](http://babeljs.io/docs/plugins/#plugin-preset-options) documentation.
-
+有关设置预设选项的更多信息，请参考[plugin/preset options](http://babeljs.io/docs/plugins/#plugin-preset-options) 文档。
 ### `targets`
 
-`{ [string]: number | string }`, defaults to `{}`.
+`{ [string]: number | string }`, 默认为 `{}`.
 
-Takes an object of environment versions to support.
+接受要支持的环境版本的对象。    
 
-Each target environment takes a number or a string (we recommend using a string when specifying minor versions like `node: "6.10"`).
+每个目标环境接受一个数字或一个字符串(我们建议在指定次要版本(如`node: "6.10"`)时使用字符串)。
 
-Example environments: `chrome`, `opera`, `edge`, `firefox`, `safari`, `ie`, `ios`, `android`, `node`, `electron`.
+示例环境: `chrome`, `opera`, `edge`, `firefox`, `safari`, `ie`, `ios`, `android`, `node`, `electron`.
 
-The [data](https://github.com/babel/babel-preset-env/blob/master/data/plugins.json) for this is generated by running the [build-data script](https://github.com/babel/babel-preset-env/blob/master/scripts/build-data.js) which pulls in data from [compat-table](https://kangax.github.io/compat-table).
-
+这方面的 [data](https://github.com/babel/babel-preset-env/blob/master/data/plugins.json)是通过运行 [build-data script](https://github.com/babel/babel-preset-env/blob/master/scripts/build-data.js) 脚本生成的，该脚本从 [compat-table](https://kangax.github.io/compat-table)中提取数据。
 ### `targets.node`
 
 `number | string | "current" | true`
 
-If you want to compile against the current node version, you can specify `"node": true` or `"node": "current"`, which would be the same as `"node": process.versions.node`.
-
+如果希望根据当前节点版本进行编译，可以指定`"node": true`或`"node": "current"`，这将与 `"node": process.versions.node`相同。
 ### `targets.browsers`
 
 `Array<string> | string`
 
-A query to select browsers (ex: last 2 versions, > 5%) using [browserslist](https://github.com/ai/browserslist).
-
-Note, browsers' results are overridden by explicit items from `targets`.
-
+使用[browserslist](https://github.com/ai/browserslist)查询选择浏览器(ex: last 2 versions, > 5%) 。
+注意，浏览器的结果会被`targets`的显式项覆盖。
 ### `targets.uglify`
 
 `true`
 
-When using `uglify-js` to minify your code, you may run into syntax errors when targeting later browsers since `uglify-js` does not support any ES2015+ syntax.
+当用 `uglify-js` 去缩小你的代码，在针对以后的浏览器时，您可能会遇到语法错误，因为 `uglify-js` 不支持任何 `ES2015+` 语法。
 
-To prevent these errors - set the `uglify` option to `true`, which enables all transformation plugins and as a result, your code is fully compiled to ES5. However, the `useBuiltIns` option will still work as before and only include the polyfills that your target(s) need.
+为了防止这些错误 - 设置 `uglify` 选项为 `true`,它支持所有的转换插件，因此，你的代码被完全编译到ES5。但是, 这个 `useBuiltIns` 选项将仍然像以前一样工作，只包括您的目标需要的polyfills。
 
-> Uglify has support for ES2015 syntax via [uglify-es](https://github.com/mishoo/UglifyJS2/tree/harmony). If you are using syntax unsupported by `uglify-es`, we recommend using [babel-minify](https://github.com/babel/minify).
+> Uglify支持ES2015语法 [uglify-es](https://github.com/mishoo/UglifyJS2/tree/harmony)。如果您正在使用不支持的语法通过`uglify-es`, 我们推荐使用 [babel-minify](https://github.com/babel/minify).
 
-> Note: This option is deprecated in 2.x and replaced with a [`forceAllTransforms` option](https://github.com/babel/babel-preset-env/pull/264).
+> Note: This option is deprecated in 2.x and replaced with a 注意:此选项在2.x中不推荐使用，用一个[`forceAllTransforms` option](https://github.com/babel/babel-preset-env/pull/264)替换。
 
 ### `spec`
 
-`boolean`, defaults to `false`.
+`boolean`, 默认是 `false`.
 
-Enable more spec compliant, but potentially slower, transformations for any plugins in this preset that support them.
-
+为此预置中支持插件的任何插件启用更符合规范但可能较慢的转换。
 ### `loose`
 
-`boolean`, defaults to `false`.
+`boolean`, 默认是 `false`.
 
-Enable "loose" transformations for any plugins in this preset that allow them.
+为此预置中允许的任何插件启用"loose"转换。
 
 ### `modules`
 
-`"amd" | "umd" | "systemjs" | "commonjs" | false`, defaults to `"commonjs"`.
+`"amd" | "umd" | "systemjs" | "commonjs" | false`, 默认是 `"commonjs"`。
 
-Enable transformation of ES6 module syntax to another module type.
+允许将ES6模块语法转换为另一个模块类型。
 
-Setting this to `false` will not transform modules.
-
+将此设置为 `false` 将不会转换模块。
 ### `debug`
 
-`boolean`, defaults to `false`.
+`boolean`, 默认是 `false`。
 
-Outputs the targets/plugins used and the version specified in [plugin data version](https://github.com/babel/babel-preset-env/blob/master/data/plugins.json) to `console.log`.
+输出所使用的目标/插件和中指定的版本[plugin data version](https://github.com/babel/babel-preset-env/blob/master/data/plugins.json) 到 `console.log`.
 
 ### `include`
 
-`Array<string>`, defaults to `[]`.
+`Array<string>`, 默认是 `[]`.
 
-> NOTE: `whitelist` is deprecated and will be removed in the next major in favor of this.
+> 注意: `whitelist` 是不赞成的，并将在下一个主要删除，以支持这个。
 
-An array of plugins to always include.
+要始终包含的插件数组。
 
-Valid options include any:
+有效的选项包括:
 
-- [Babel plugins](https://github.com/babel/babel-preset-env/blob/master/data/plugin-features.js) - both with (`babel-plugin-transform-es2015-spread`) and without prefix (`transform-es2015-spread`) are supported.
+- [Babel plugins](https://github.com/babel/babel-preset-env/blob/master/data/plugin-features.js) - 都与 (`babel-plugin-transform-es2015-spread`) 没有前缀 (`transform-es2015-spread`) 被支持。
 
-- [Built-ins](https://github.com/babel/babel-preset-env/blob/master/data/built-in-features.js), such as `map`, `set`, or `object.assign`.
+- [Built-ins](https://github.com/babel/babel-preset-env/blob/master/data/built-in-features.js), 例如 `map`, `set`, 或者 `object.assign`.
 
-This option is useful if there is a bug in a native implementation, or a combination of a non-supported feature + a supported one doesn't work.
+如果本机实现中存在bug，或者不受支持的特性与受支持的特性的组合不能工作，则此选项非常有用。
 
-For example, Node 4 supports native classes but not spread. If `super` is used with a spread argument, then the `transform-es2015-classes` transform needs to be `include`d, as it is not possible to transpile a spread with `super` otherwise.
+例如，`Node 4` 支持本地类，但不支持扩展。如果 `super` 与扩展参数一起使用，然后这个 `transform-es2015-classes` 转换需要 `include`，因为它是不可能transpile与 `super` 蔓延否则。
 
-> NOTE: The `include` and `exclude` options _only_ work with the [plugins included with this preset](https://github.com/babel/babel-preset-env/blob/master/data/plugin-features.js); so, for example, including `transform-do-expressions` or excluding `transform-function-bind` will throw errors. To use a plugin _not_ included with this preset, add them to your [config](https://babeljs.io/docs/usage/babelrc/) directly.
+> 注意: `include` 和 `exclude` 选项 _only_ 与[plugins included with this preset](https://github.com/babel/babel-preset-env/blob/master/data/plugin-features.js)一起工作; 例如，包含 `transform-do-expressions` 或不包含 `transform-function-bind` 将抛出错误。要使用预置中包含的 _not_ 插件，请直接将其添加到您的 [config](https://babeljs.io/docs/usage/babelrc/) 。
 
 ### `exclude`
 
