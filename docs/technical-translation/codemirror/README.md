@@ -1,4 +1,4 @@
-# 【译】CodeMirror的说明文档
+# 【译】CodeMirror说明文档
 
 [![Build Status](https://travis-ci.org/codemirror/CodeMirror.svg)](https://travis-ci.org/codemirror/CodeMirror)
 [![NPM version](https://img.shields.io/npm/v/codemirror.svg)](https://www.npmjs.org/package/codemirror)

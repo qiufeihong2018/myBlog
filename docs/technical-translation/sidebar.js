@@ -1,5 +1,29 @@
 module.exports = [
     {
+        title: '【译】babel-preset-env说明文档',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['babel-preset-env/']
+    },
+    {
+        title: '【译】CodeMirror说明文档',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['codemirror/']
+    },
+    {
+        title: '【译】three.js说明文档',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['three.js/']
+    },
+    {
+        title: '【译】three.js说明文档',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['three.js/']
+    },
+    {
         title: '【译】markdown-it说明文档',
         collapsable: false,
         sidebarDepth: 4,
