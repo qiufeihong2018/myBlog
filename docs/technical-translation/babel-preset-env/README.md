@@ -230,32 +230,32 @@ yarn add babel-preset-env --dev
 
 ### `exclude`
 
-`Array<string>`, defaults to `[]`.
+`Array<string>`,默认是 `[]`.
 
-An array of plugins to always exclude/remove.
+一个总是要 exclude/remove 的插件数组.
 
-The possible options are the same as the `include` option.
+可能选项与 `include` 选项相同。
 
-This option is useful for "blacklisting" a transform like `transform-regenerator` if you don't use generators and don't want to include `regeneratorRuntime` (when using `useBuiltIns`) or for using another plugin like [fast-async](https://github.com/MatAtBread/fast-async) instead of [Babel's async-to-gen](http://babeljs.io/docs/plugins/transform-async-generator-functions/).
+如果你不想使用生成器或者不想包含 `regeneratorRuntime`，这个选项对“黑名单”转换很有用，比如 `transform-regenerator`  (当用`useBuiltIns`) 或者用另一个插件 [fast-async](https://github.com/MatAtBread/fast-async) 而不是 [Babel's async-to-gen](http://babeljs.io/docs/plugins/transform-async-generator-functions/).
 
 ### `useBuiltIns`
 
-`boolean`, defaults to `false`.
+`boolean`, 默认是 `false`.
 
-A way to apply `babel-preset-env` for polyfills (via "babel-polyfill").
+一种应用方法 `babel-preset-env` 对 polyfills (借助于 "babel-polyfill").
 
-> NOTE: This does not currently polyfill experimental/stage-x built-ins like the regular "babel-polyfill" does.
-> This will only work with npm >= 3 (which should be used with Babel 6 anyway)
+> 注意:这不是目前的polyfill experimental/stage-x 内置像常规的“babel-polyfill”。
+> 他仅仅工作与 npm >= 3 (which should be used with Babel 6 anyway)
 
 ```
 npm install babel-polyfill --save
 ```
 
-This option enables a new plugin that replaces the statement `import "babel-polyfill"` or `require("babel-polyfill")` with individual requires for `babel-polyfill` based on environment.
+此选项启用一个新的插件来替换该语句 `import "babel-polyfill"` 或者 `require("babel-polyfill")` 对于 `babel-polyfill` 的个别需求是基于环境的。
 
-> NOTE: Only use `require("babel-polyfill");` once in your whole app.
-> Multiple imports or requires of `babel-polyfill` will throw an error since it can cause global collisions and other issues that are hard to trace.
-> We recommend creating a single entry file that only contains the `require` statement.
+> 注意: 仅仅用 `require("babel-polyfill");` 一次在你的app中。
+> 多次imports或requires“babel-polyfill”将抛出一个错误，因为它会导致全局冲突和其他难以跟踪的问题
+> 我们建议创建一个只包含' require '语句的单个条目文件。
 
 **In**
 
