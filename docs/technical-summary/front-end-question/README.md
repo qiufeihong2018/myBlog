@@ -918,6 +918,22 @@ npm install babel-preset-env --save-dev
 > babel-preset-env
 一个 `Babel` 预置，通过根据你的目标浏览器或运行时环境自动确定你需要的 `Babel` 插件和填充，将 `ES2015+` 编译为 `ES5`。
 详情见 [https://github.com/babel/babel-preset-env](https://github.com/babel/babel-preset-env)
+
+## 44.vue路由跳转到新的窗口
+### 背景
+针对一个例子，如下：原url为`hello/#/a/`需要跳转到`hello/#/a/${id}`的路由，
+```js
+let newUrl=`/#/a/${id}`
+        this.$router.resolve(newUrl)
+```
+当前页面需要打开一个新的窗口，原来的思路是`this.$router.resolve`，但是无用，在原基础上加上跳转的部分
+如原来`url`为`hello/#/c/${id}`，用上`resolve`，就变为`hello/#/c/a/${id}`
+
+正确的方式：
+```js
+let newUrl=`/#/a/${id}`
+        window.open(newUrl,'_blank')
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
