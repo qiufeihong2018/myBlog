@@ -934,6 +934,54 @@ let newUrl=`/#/a/${id}`
 let newUrl=`/#/a/${id}`
         window.open(newUrl,'_blank')
 ```
+
+## 45.有没有时间处理库
+### 背景
+做项目的时候，由于时区和格式的不同，时间展示各有所不同。
+
+我们希望统一时间格式，那么有没有时间处理库呢？
+### moment.js
+Moment 被设计为在浏览器和 Node.js 中都能工作。
+
+所有的代码都应该在这两种环境中都可以工作，并且所有的单元测试都应该在这两种环境中运行。
+
+CI 系统当前使用以下的浏览器：Windows XP 上的 Chrome，Windows 7 上的 IE 8、9 和 10，Windows 10 上的 IE 11，Linux 上最新的 Firefox，OSX 10.8 和 10.11 上最新的 Safari。
+#### 使用方式
+```js
+日期格式化
+moment().format('MMMM Do YYYY, h:mm:ss a'); // 九月 8日 2020, 7:35:59 晚上
+moment().format('dddd');                    // 星期二
+moment().format("MMM Do YY");               // 9月 8日 20
+moment().format('YYYY [escaped] YYYY');     // 2020 escaped 2020
+moment().format();                          // 2020-09-08T19:35:59+08:00
+相对时间
+moment("20111031", "YYYYMMDD").fromNow(); // 9 年前
+moment("20120620", "YYYYMMDD").fromNow(); // 8 年前
+moment().startOf('day').fromNow();        // 20 小时前
+moment().endOf('day').fromNow();          // 4 小时内
+moment().startOf('hour').fromNow();       // 36 分钟前
+日历时间
+moment().subtract(10, 'days').calendar(); // 2020/08/29
+moment().subtract(6, 'days').calendar();  // 上星期三19:35
+moment().subtract(3, 'days').calendar();  // 上星期六19:35
+moment().subtract(1, 'days').calendar();  // 昨天19:35
+moment().calendar();                      // 今天19:35
+moment().add(1, 'days').calendar();       // 明天19:35
+moment().add(3, 'days').calendar();       // 下星期五19:35
+moment().add(10, 'days').calendar();      // 2020/09/18
+多语言支持
+moment.locale();         // zh-cn
+moment().format('LT');   // 19:35
+moment().format('LTS');  // 19:35:59
+moment().format('L');    // 2020/09/08
+moment().format('l');    // 2020/9/8
+moment().format('LL');   // 2020年9月8日
+moment().format('ll');   // 2020年9月8日
+moment().format('LLL');  // 2020年9月8日晚上7点35分
+moment().format('lll');  // 2020年9月8日 19:35
+moment().format('LLLL'); // 2020年9月8日星期二晚上7点35分
+moment().format('llll'); // 2020年9月8日星期二 19:35
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
