@@ -982,6 +982,17 @@ moment().format('lll');  // 2020年9月8日 19:35
 moment().format('LLLL'); // 2020年9月8日星期二晚上7点35分
 moment().format('llll'); // 2020年9月8日星期二 19:35
 ```
+## 46.修改输入框占位符
+### 背景
+h5为输入框添加了原生的占位符属性placeholder，但是他的占位符字体颜色默认是浅灰色。如果要自定义字体色，该怎么办呢？这里需要了解下`::-webkit-input-placeholder`这个伪元素。
+### 修改字体色
+```
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+color: #000;
+}
+```
+
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
