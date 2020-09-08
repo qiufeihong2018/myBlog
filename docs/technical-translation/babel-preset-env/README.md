@@ -273,7 +273,7 @@ import "core-js/modules/web.immediate";
 import "core-js/modules/web.dom.iterable";
 ```
 
-This will also work for `core-js` directly (`import "core-js";`)
+直接用 `core-js` 工作了 (`import "core-js";`)
 
 ```
 npm install core-js --save
@@ -283,13 +283,13 @@ npm install core-js --save
 
 ## Examples
 
-### Export with various targets
+### 具有各种目标的导出
 
 ```js
 export class A {}
 ```
 
-#### Target only Chrome 52
+#### 仅针对Chrome 52
 
 **.babelrc**
 
@@ -336,7 +336,7 @@ exports.A = A;
 export class A {}
 ```
 
-#### Target specific browsers via browserslist
+#### 通过browserslist锁定特定的浏览器
 
 **.babelrc**
 
@@ -361,7 +361,7 @@ export var A = function A() {
 };
 ```
 
-#### Target latest node via `node: true` or `node: "current"`
+#### 通过 `node: true` 或者 `node: "current"` 获取最新的目标节点
 
 **.babelrc**
 
@@ -384,7 +384,7 @@ class A {}
 exports.A = A;
 ```
 
-### Show debug output
+### 显示调试输出
 
 **.babelrc**
 
@@ -428,7 +428,7 @@ Using polyfills:
 
 ### Include and exclude specific plugins/built-ins
 
-> always include arrow functions, explicitly exclude generators
+> 始终包含箭头函数，显式排除生成器
 
 ```json
 {
@@ -446,7 +446,7 @@ Using polyfills:
 
 ## Caveats
 
-If you get a `SyntaxError: Unexpected token ...` error when using the [object-rest-spread](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-object-rest-spread) transform then make sure the plugin has been updated to, at least, `v6.19.0`.
+如果你得到一个 `SyntaxError: Unexpected token ...` 错误时使用 [object-rest-spread](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-object-rest-spread) 然后进行转换，确保插件至少已更新到 `v6.19.0`.
 
 ## Other Cool Projects
 
