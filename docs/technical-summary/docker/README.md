@@ -67,4 +67,25 @@ sudo chmod +x /usr/local/bin/docker-compose
 这就是因为当时安装时取消了”Git for Windows“引起的，因为安装时默认安装在 `C:\Program Files` 目录下，启动 `Docker` 时它还默认在 `C:\Program Files` 下去找 `git` 里的 `bash.exe`，但是我之前的 `git` 并没有安装在该目录。
 所以将Docker Quickstart Terminal的属性里的目标一栏相应内容修改掉就行了。我的更改为了"D:\Git\bin\bash.exe" --login -i "D:\Docker Toolbox\start.sh"。
 
- 
+## client version 1.22 is too old. Minimum supported API version is 1.24, please upgrade your client to a newer version
+这问题在 `issue` 中已经给出方法
+
+https://github.com/docker/labs/issues/135
+
+```
+Changing this file:
+
+docker-compose.windows.yml
+
+Setting its version from '2' to '2.1' and executing 'build' again, It does not throw the error, but after a lot of time it seems not doing anything and stuck on this:
+
+$ docker-compose -f ./docker-compose.windows.yml build
+
+db uses an image, skipping
+Building web
+Step 1/13 : FROM microsoft/dotnet:1.0.0-preview2-windowsservercore-sdk
+1.0.0-preview2-windowsservercore-sdk: Pulling from microsoft/dotnet
+```
+大致的意思是，设置版本从 '2' 到 '2.1' ，不会报错。
+
+更好解决方法还在搜索中。
