@@ -1,5 +1,5 @@
-# Electron Release Server Documentation
-请确保您使用的文件与您的Electron Release Server version版本相匹配。
+# 【译】electron-release-server说明文档
+请确保您使用的文件与您的 `Electron Release Server version` 版本相匹配。
 ### FAQ
 有一些问题经常被问到， [在产生问题之前检查一下](faq.md).
 
@@ -14,11 +14,11 @@
 - [Docker](docker.md)
 - (Coming soon) [Use it as a node module](module.md)
 
-为您的应用程序使用Electron Release Server? [将其添加到列表中](using-it.md).
+为您的应用程序使用 `Electron Release Server`? [将其添加到列表中](using-it.md).
 
 # Deployment
 
-Electron Release Server 可以很容易地部署到您自己的服务器。
+`Electron Release Server` 可以很容易地部署到您自己的服务器。
 
 ## General Configuration:
 
@@ -44,9 +44,9 @@ npm start
 
 Browse to `http://localhost:1337/`
 
-## Using Nginx
+## 用 Nginx
 
-If you want to use nginx as web-server:
+如果你想用 nginx 作为 web-server:
 
 ```nginx
 server {
@@ -73,23 +73,23 @@ server {
 }
 ```
 
-Browse to `http://download.yourdomain.com/`
+打开浏览器 `http://download.yourdomain.com/`
 
-## Database setup
-See the [database setup guide](database.md).
+## 数据库设置
+阅读 [database setup guide](database.md).
 
-## Authentication
-See the [authentication guide](authentication.md).
+## 权限
+阅读 [authentication guide](authentication.md).
 
-## Deployment
-See the [Sails deployment documentation](http://sailsjs.org/documentation/concepts/deployment).
+## 部署
+阅读 [Sails deployment documentation](http://sailsjs.org/documentation/concepts/deployment).
 
-To start the server in deployment mode use:
+若要以部署模式启动服务器，请使用:
 ```
 npm start --prod
 ```
 
-> Note: In production you should use a process manager such as [pm2](http://pm2.keymetrics.io/)
+> 注意:在生产中，您应该使用流程管理器，如 [pm2](http://pm2.keymetrics.io/)
 
 # 增加资产
 添加资产/版本再简单不过了。
@@ -202,19 +202,18 @@ The endpoints for **Squirrel.Mac** are:
     - `https://download.myapp.com/update/:platform/:version[/:channel]`
     - `https://download.myapp.com/update/flavor/:flavor/:platform/:version[/:channel]`.
 
-Note that `version` is the currently installed version.
+注意， `version` 是当前安装的版本。
 
-The server will accept the platform as `osx`, `darwin`,`darwin_64`,`macos`, and `mac`.
+这个服务将接受平台例如 `osx`, `darwin`,`darwin_64`,`macos`, 和 `mac`.
 
-Since the server supports multiple release channels, you can specify the channel when requesting updates. Examples of supported channels are `stable`, `beta`, `alpha`. Each channel includes those above it; `beta` will include `stable` updates.
+由于服务器支持多个发布通道，所以您可以在请求更新时指定通道。 支持通道的示例有 `stable`, `beta`, `alpha`。每个频道都包括它上面的频道; `beta` 将包含 `stable` 升级。
 
-This url requires different parameters to return a correct version: `version` and `platform`.
+这个url需要不同的参数来返回正确的版本: `version` 和 `platform`.
 
-If the flavor is not specified, then `default` will be used.
+如果没有指定 `flavor`，那么将使用 `default`。
+### Electron 例子
 
-### Electron Example
-
-For example with Electron's [`autoUpdater`](https://github.com/electron/electron/blob/master/docs/api/auto-updater.md) module:
+比如 Electron's [`autoUpdater`](https://github.com/electron/electron/blob/master/docs/api/auto-updater.md) 模块:
 
 ```js
 var app = require('app');
@@ -251,9 +250,7 @@ http://download.myapp.com/update/flavor/:flavor/win64/:version/:channel/RELEASES
 
 你就只要管理 `Update.exe` 或者 `Squirrel.Windows` 去用 `http://download.myapp.com/update/win32/:version/:channel` 作为 **without query parameters.**的提要URL。
 
-你只需要上传作为发布资产:: `-full.nupkg` (由 `electron-builder` 或者 `Squirrel.Windows` releaser生成的文件)。
-
-发布文件将为您生成 :)
+你只需要上传作为发布资产:: `-full.nupkg` (由 `electron-builder` 或者 `Squirrel.Windows` releaserz。
 
 
 # Docker
@@ -287,24 +284,17 @@ docker-compose up -d
 - `TOKEN_SECRET` – 推荐:63个随机字母-数字字符
 - `APP_URL` - base url for the app - [ref](http://sailsjs.org/documentation/reference/application/sails-get-base-url)
 
-To use `production.js` set `NODE_ENV` to `"production"` – so you should not set the environment variables:
+使用 `production.js` 设置 `NODE_ENV` 为 `"production"` – 所以不应该设置环境变量:
 `APP_USERNAME`, `APP_PASSWORD`, `DB_HOST`, `DB_PORT`,
 `DB_USERNAME`, `DB_PASSWORD`, `DB_NAME`, `TOKEN_SECRET`.
 
-**Warning**: You can insert the `TOKEN_SECRET`, `APP_PASSWORD`, `DB_PASSWORD` directly into the `docker-compose.yml`, but keep your secrets and private information in private. The production secrets must not be committed publicly!
+**警告**: 你可以插入 `TOKEN_SECRET`, `APP_PASSWORD`, `DB_PASSWORD` 直接进入 `docker-compose.yml`, 但是要把你的秘密和私人信息保密。不得公开生产秘密!
 
-## How to run
+## 怎么 运行
 
-Firstly you should start with development setting to run database migration.
+首先，您应该从开发设置开始运行数据库迁移。
 
-After it you should `always` run in production mode – set `NODE_ENV` to `"production"`.
-
-# Who is using it?
-
-Using Electron Release Server for your application? Create a Pull-Request!
-
-- Tesla Motors (internal use)
-- cloudtag.io sharing files. easier.
+之后你应该 `always` 在生产模式下运行 – set `NODE_ENV` to `"production"`.
 
 # Electron Release Server FAQ
 
