@@ -298,27 +298,25 @@ docker-compose up -d
 
 # Electron Release Server FAQ
 
-### What files should I upload?
+### 我应该上传哪些文件?
 
-Electron Release Server uses explicit file compatibility naming in order to avoid unexpected issues, there is no strict policy on file naming.
+Electron Release Server 使用显式文件兼容性命名为了避免意外的问题，在文件命名上没有严格的策略。
 
 - Windows: `.exe`, `.nupkg` etc
 - Linux: `.deb`, `.tar.gz`, etc
 - OS X: `.dmg`, etc
 
-32 bit releases are made available to all clients, but 64 bit files are served to compatible clients if available.
+32位的版本对所有客户端都可用，但是如果可用的话，64位的文件被提供给兼容的客户端。
 
-### How should I name my releases?
+### 我应该如何命名我的发行版?
 
-Electron Release Server requires applications to follow [SemVer](http://semver.org). And even if you're not using Electron Release Server, you should follow it!
+Electron Release Server 要求应用程序遵循 [SemVer](http://semver.org).即使您没有使用Electron Release Server，您也应该遵循它!
 
-### I'm seeing HTTP errors when the Electron autoUpdater queries for the `RELEASES` file. How should I fix it?
+### 我看到HTTP错误时， Electron autoUpdater 查询 `RELEASES` 文件，我该怎么补救呢?
+确保您没有在传递给 `setFeedURL()`的提要URL中包含`/RELEASES` 。
+### 为什么我看到 `password authentication failed`?
 
-Ensure that you are not including `/RELEASES` in the feed URL that is passed to `setFeedURL()`.
-
-### Why do I see `password authentication failed`?
-
-When you run your server (usually on Windows machine) you may see following error message:
+当你运行你的服务器(通常在Windows机器上)，你可能会看到以下错误信息:
 ~~~
  error: password authentication failed for user "electron_release_server_user"
 ~~~
@@ -343,8 +341,8 @@ host    replication     all             ::1/128                 trust
 _Note: do not forget to open services.msc and restart the server_
 
 
-### Error: Server failed to start, port 80 in use
-IF you see following error message one of the causes as listed in error message might be an already used port
+### 错误:服务器启动失败，端口80正在使用
+如果您看到以下错误消息，错误消息中列出的原因之一可能是已经使用的端口
 ~~~
 error: Server failed to start.
 error: (received error: EACCES)
@@ -362,7 +360,7 @@ error:     (Try setting the `explicitHost` config to the hostname where the serv
 error:     (e.g. `mydomain.com` or `183.24.244.42`)
 ~~~
 
-You can specify an environment variable PORT for the session (or permanent one)
+您可以为会话指定一个环境变量端口(或永久端口)
 
 Windows PowerShell:
 ~~~
@@ -379,10 +377,10 @@ Linux Bash:
 export PORT=1337
 ~~~
 
-See documentation for your console for appropriate syntax
+有关适当的语法，请参阅控制台的文档
 
 
-### Error on startup on Linux
+### 在Linux上启动时出错
 当你在Linux环境下启动你的应用程序时，你可能会看到以下错误信息:
 ~~~
 
@@ -403,7 +401,7 @@ TypeError: require(...).runInContext is not a function
     at Object.Module._extensions..js (internal/modules/cjs/loader.js:1158:10)
 ~~~
 
-To resolve the problem modify _./node_modules/grunt-legacy-util/index.js_ line 26 to:
+要解决这个问题，请修改 _./node_modules/grunt-legacy-util/index.js_ line 26 to:
 ~~~
 var _ = util._ = require('lodash');
 ~~~
