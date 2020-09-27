@@ -368,6 +368,36 @@ var myFile = new File(bits, name[, options]);
       },
 ```
 分析： `download` 方法先去检查文件夹是否存在，不存在就创建。接着请求对应的项目获取图片地址，转化为 `buffer` 下载文件，文件保存在项目 `id` 文件夹中。
+### 10.electron Uncaught TypeError: Cannot read property 'app' of undefined
+#### 背景
+`electron-vue` 这个项目有一些缺陷，启动项目的时候会报错：
+```
+Uncaught TypeError: Cannot read property 'app' of undefined
+    at new ElectronStore (E:\eleftron-autoupdate-demo\node_modules\electron-store\index.js:8:55)
+    at a (E:\eleftron-autoupdate-demo\node_modules\vuex-electron\dist\persisted-state.js:1:1365)
+    at a (E:\eleftron-autoupdate-demo\node_modules\vuex-electron\dist\persisted-state.js:1:1102)
+    at E:\eleftron-autoupdate-demo\node_modules\vuex-electron\dist\persisted-state.js:1:3174
+    at E:\eleftron-autoupdate-demo\node_modules\vuex\dist\vuex.common.js:425:46
+    at Array.forEach (<anonymous>)
+    at new Store (E:\eleftron-autoupdate-demo\node_modules\vuex\dist\vuex.common.js:425:11)
+    at eval (webpack-internal:///./src/renderer/store/index.js:17:64)
+    at Module../src/renderer/store/index.js (http://localhost:9080/renderer.js:1583:1)
+    at __webpack_require__ (http://localhost:9080/renderer.js:791:30)
+```
+
+#### 解决方法
+给主窗口添加 `enableRemoteModule` 属性，使用remote模块
+```js {7}
+  mainWindow = new BrowserWindow({
+    height: 563,
+    useContentSize: true,
+    width: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true
+    }
+  })
+```
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
