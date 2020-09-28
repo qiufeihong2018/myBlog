@@ -368,6 +368,7 @@ var myFile = new File(bits, name[, options]);
       },
 ```
 分析： `download` 方法先去检查文件夹是否存在，不存在就创建。接着请求对应的项目获取图片地址，转化为 `buffer` 下载文件，文件保存在项目 `id` 文件夹中。
+
 ### 10.electron Uncaught TypeError: Cannot read property 'app' of undefined
 #### 背景
 `electron-vue` 这个项目有一些缺陷，启动项目的时候会报错：
@@ -398,6 +399,31 @@ Uncaught TypeError: Cannot read property 'app' of undefined
     }
   })
 ```
+### 10.electronr怎么做自动更新？
+说道自动更新，我觉得不仅仅是一篇文章能说透的，这其中的方式和原理大有来头，不太适合初玩electron的小白。
+#### 背景
+当我们在应用中添加了新的功能并且提交了新代码后，当然是希望在用户的电脑上能够自动更新。
+但是最原始的操作是这样的：
+1. 提交代码后，用webpack打包，在用electron打包工具（如：electron-builder）打包；
+2. 找到打包生成的exe等执行文件（windows环境）；
+3. 将生成的exe发给用户，让用户重新安装。
+
+假如你是用户，你肯定觉得很烦。不就是用户，连开发者都觉得很烦。有没有一种方式可以派发更新，并在用户的电脑上可以自动更新应用呢？答案肯定是有的。
+#### 方式
+- electron-vue+electron-builder+electron-release-server
+下面是electron-builder的两种配置方式，分别打包出直接打开的程序和一步一步需要用户交互的安装程序。
+1. Squirrel.Windows自动更新
+该方式默认安装在 `C:\Users\qiufeihong\AppData\Local\ManisUTest`
+并且会产生 `package` 文件夹和 `Update.exe`程序。
+`package` 包含了版本信息的 `RELEASES`。
+如果有最新版本，他的 `nupkg` 也会下载到其中。
+
+自动更新的日志会存放在 `SquirrelSetup.log` 中。
+
+2. nsis自动更新
+方式与 `Squirrel.Windows` 类似。
+但是安装后不会产生 `package` 文件夹和 `Update.exe`程序。
+- electron-forge+nucleus
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
