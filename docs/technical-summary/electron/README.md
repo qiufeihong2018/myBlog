@@ -369,7 +369,7 @@ var myFile = new File(bits, name[, options]);
 ```
 分析： `download` 方法先去检查文件夹是否存在，不存在就创建。接着请求对应的项目获取图片地址，转化为 `buffer` 下载文件，文件保存在项目 `id` 文件夹中。
 
-### 10.electron Uncaught TypeError: Cannot read property 'app' of undefined
+### 11.electron Uncaught TypeError: Cannot read property 'app' of undefined
 #### 背景
 `electron-vue` 这个项目有一些缺陷，启动项目的时候会报错：
 ```
@@ -399,7 +399,7 @@ Uncaught TypeError: Cannot read property 'app' of undefined
     }
   })
 ```
-### 10.electronr怎么做自动更新？
+### 12.electronr怎么做自动更新？
 说道自动更新，我觉得不仅仅是一篇文章能说透的，这其中的方式和原理大有来头，不太适合初玩electron的小白。
 #### 背景
 当我们在应用中添加了新的功能并且提交了新代码后，当然是希望在用户的电脑上能够自动更新。
@@ -424,6 +424,36 @@ Uncaught TypeError: Cannot read property 'app' of undefined
 方式与 `Squirrel.Windows` 类似。
 但是安装后不会产生 `package` 文件夹和 `Update.exe`程序。
 - electron-forge+nucleus
+
+### 13.cannot unpack electron zip file, will be re-downloaded  error=zip: not a valid zip file
+#### 错误：
+```
+cannot unpack electron zip file, will be re-downloaded  error=zip: not a valid zip file
+  • downloading     url=https://npm.taobao.org/mirrors/electron/2.0.4/electron-v2.0.4-win32-x64.zip size=51 MB parts=8
+  • canceling       signal=interrupt
+  • cancelled by SIGINT
+• downloaded      url=https://npm.taobao.org/mirrors/electron/2.0.4/electron-v2.0.4-win32-x64.zip duration=7m38.034s
+  ⨯ zip: not a valid zip file
+  ⨯ E:\Manis_UTest\node_modules\app-builder-bin\win\x64\app-builder.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE  stackTrace=
+
+                               Error: E:\Manis_UTest\node_modules\app-builder-bin\win\x64\app-builder.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
+
+                                   at ChildProcess.<anonymous> (E:\Manis_UTest\node_modules\builder-util\src\util.ts:243:14)
+
+                                   at Object.onceWrapper (events.js:300:26)
+
+                                   at ChildProcess.emit (events.js:210:5)
+
+                                   at maybeClose (internal/child_process.js:1021:16)
+
+                                   at Process.ChildProcess._handle.onexit (internal/child_process.js:283:5)
+y
+```
+
+#### 分析
+由于本地的electron包已损坏，所以打包的时候引用有问题，就重新下载，但是由于网络限速，该包下载失败，于是整个打包就失败了。
+#### 解决
+将`https://npm.taobao.org/mirrors/electron/10.1.3/electron-v10.1.3-win32-x64.zip`(版本号自己更换)下载来放入`C:\Users\你的用户名\AppData\Local\electron\Cache`。
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
