@@ -422,7 +422,7 @@ Uncaught TypeError: Cannot read property 'app' of undefined
 
 2. nsis自动更新
 方式与 `Squirrel.Windows` 类似。
-但是安装后不会产生 `package` 文件夹和 `Update.exe`程序。
+但是安装后不会产生 `packages` 文件夹和 `Update.exe`程序。
 - electron-forge+nucleus
 
 ### 13.cannot unpack electron zip file, will be re-downloaded  error=zip: not a valid zip file
