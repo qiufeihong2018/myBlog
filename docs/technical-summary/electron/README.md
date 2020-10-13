@@ -454,6 +454,35 @@ y
 由于本地的electron包已损坏，所以打包的时候引用有问题，就重新下载，但是由于网络限速，该包下载失败，于是整个打包就失败了。
 #### 解决
 将`https://npm.taobao.org/mirrors/electron/10.1.3/electron-v10.1.3-win32-x64.zip`(版本号自己更换)下载来放入`C:\Users\你的用户名\AppData\Local\electron\Cache`。
+### 13.Error: spawn UNKNOWN
+#### 背景
+自动更新的时候，已经将 `nupkg` 下载下来了，但是却失败了。
+
+如下图：
+```
+[2020-10-09T10:29:28.047] [INFO] default - checkForUpdates
+[2020-10-09T10:29:28.047] [ERROR] default - There was a problem updating the application
+[2020-10-09T10:29:28.047] [ERROR] default - Error: Error: spawn UNKNOWN
+    at AutoUpdater.emitError (electron/js2c/browser_init.js:17:1391)
+    at electron/js2c/browser_init.js:17:968
+    at electron/js2c/browser_init.js:21:1005
+    at electron/js2c/browser_init.js:21:553
+    at processTicksAndRejections (internal/process/task_queues.js:79:11)
+```
+#### 原因分析
+打包后，将 `Update.exe` 上传到 `minio`，但是下载却出现问题。
+
+`writefilesync` 写 `exe` 却不完整
+
+是因为本地的 `Update.exe` 不完整，所以导致更新失败。
+
+`node buffer` 拼接的问题
+
+```js
+'new Buffer()' was deprecated since v6. Use 'Buffer.alloc()' or 'Buffer.from()' (use 'https://www.npmjs.com/package/safe-buffer' for '<4.5.0') instead
+```
+#### 解决方案
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
