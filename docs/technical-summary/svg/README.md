@@ -3,7 +3,7 @@
 ## 与其他图片形式比较
 ## 引入步骤
 1. 编写svg组件
-在src/components下创建SvgIcon组件
+在 `src/components` 下创建 `SvgIcon` 组件
 ```vue
 <template>
   <!--svg外链-->
