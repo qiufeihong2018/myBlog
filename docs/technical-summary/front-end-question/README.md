@@ -992,7 +992,16 @@ textarea::-webkit-input-placeholder {
 color: #000;
 }
 ```
+## 47.canvas画图，收缩比例出错
+`canvas` 的 `drawImage()` 方法画图，图片收缩出错。
 
+原图大小是 `1080*1920`，由于页面水平需要收缩加之高度较大，所以将 `canvas` 的宽度固定，高度自适应。
+
+正常应该是如下草图：
+
+为什么会出现这个问题呢？通过研究发现，原来是 `canvas` 的宽高被设置成100%造成的。
+
+将 `canvas` 的宽高设置为固定值，就能解决问题。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
