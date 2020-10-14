@@ -249,7 +249,7 @@ this.codeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
 
 ## CodeMirror：如何在光标位置之前或之后读取编辑器文本
 
-```
+```js
   //捕获光标更改事件
  editor.on（'cursorActivity'，function（e）{
  var line = e.doc.getCursor（）。line，//光标线
@@ -259,13 +259,18 @@ this.codeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
 
 https://www.cnblogs.com/web001/p/9370392.html
 设置代码框的大小
+```js
 editor.setSize('800px', '950px');
+```
 获取编辑器的内容
+```js
 editor.getValue();
+```
 //仅仅单纯获取编辑器的文本内容，不能识别换行及一些特殊符号的转义
 给编辑器赋值
+```js
 editor.setValue("");　
-
+```
 
 
 
