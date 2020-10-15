@@ -1002,6 +1002,13 @@ color: #000;
 为什么会出现这个问题呢？通过研究发现，原来是 `canvas` 的宽高被设置成100%造成的。
 
 将 `canvas` 的宽高设置为固定值，就能解决问题。
+## 48.npm清除未被使用的模块
+有些模块未被项目引入，但是我们还是安装了这些模块，为了减少 `node_modules` 的体积。
+
+这时我们只需要简单的一行命令即可解决！
+```
+npm prune
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
