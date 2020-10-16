@@ -2201,7 +2201,6 @@ canvas.html:29 Uncaught DOMException: Failed to execute 'getImageData' on 'Canva
 
 [demo](http://fabricjs.com/demos/)
 
-
 它是一个位于 `canvas` 元素之上的交互式对象模型。它也是一个 `svg` 到画布的解析器。
 
 由于 `canvas` 提供的` api` 太简单了，画出复杂的图形比较困难，做出来 `api` 也都忘了，这个库意旨在解决这个问题。
