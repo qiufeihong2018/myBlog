@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title:'【运维】手把手教你docker部署vuepress项目',
+        collapsable:false,
+        sidebarDepth:4,
+        children:['docker/vuepress.md']
+    },
+    {
         title:'【编辑器】手把手教会使用codemirror',
         collapsable:false,
         sidebarDepth:4,

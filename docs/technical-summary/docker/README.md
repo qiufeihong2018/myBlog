@@ -56,11 +56,11 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 ## win10安装Docker后点击Docker Quickstart Terminal出现“Windows 正在查找 bash.exe 。如果想亲自查找文件，请单击“浏览”。”的问题解决方法
 安装了 `Docker` 之后，点击“Docker Quickstart Terminal”时出现了一弹框，内容为：“Windows 正在查找 bash.exe 。如果想亲自查找文件，请单击“浏览”。”，然后就不能再进行下一步了，这样刚安装的 `Docker` 就不能使用了。
-![avatar](./docker3.png)
+<!-- ![avatar](./docker3.png) -->
 查了查 `bash.exe`，应该是 `git` 里的 `bash.exe`，突然想起当时安装 `Docker` 是有一个选项是一并安装 `git`
 
 问题应该就是因为这里引起的，再次确认 `Docker Quickstart Terminal` 的启动位置，查看其属性，发现目标一栏里的内容。
-![avatar](./docker4.png)
+<!-- ![avatar](./docker4.png) -->
 目标："C:\Program Files\Git\bin\bash.exe" --login -i "D:\Docker Toolbox\start.sh"，bash路径“C:\Program Files\Git\bin\bash.exe”不对
 我安装 `git` 的地方是正确为：“D:\Git\bin\bash.exe”
 
