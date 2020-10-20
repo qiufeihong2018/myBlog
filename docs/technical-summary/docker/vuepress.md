@@ -51,8 +51,45 @@ node:latest
 
 ![avatar](vuepress1.png)
 
+## 问题
+### no such file or directory
 问题如下
 ```
 COPY failed: stat /var/lib/docker/tmp/docker-builder698191588/nginx/default.conf: no such file or directory
 ```
 
+解决方案
+
+`default.conf` 放置目录不对，先创建 `nginx`，将其放入其中，`Dockerfile` 中的 `COPY nginx/default.conf /etc/nginx/conf.d/default.conf`
+会将 `nginx` 文件夹下的 `default.conf` 替换到 `/etc/nginx/conf.d/` 文件夹下。
+
+![avatar](vuepress2.png)
+
+
+### 使用docker 出现Error response from daemon: Conflict. The container name
+“***” is already in use
+解决方法：
+（1）给容器换一个名字, 比如说 docker run -it --name=mycentos2 centos:7 /bin/bash, 可以解决问题.
+（2）将原来的容器删除
+
+查询当前容器：docker container ls -all
+在这里插入图片描述
+删除当前容器：docker container rm mycentos(提示: 这一步要确定删除容器没问题的情况下, 才可以做)
+
+### docker删除镜像Error response from daemon: conflict: unable to remove repository reference
+1. 停止container，这样才能够删除其中的images：
+
+docker stop $(docker ps -a -q)
+
+如果想要删除所有container的话再加一个指令：
+
+docker rm $(docker ps -a -q)
+狠心把容器都删除掉了，因为光停止还是不能删除镜像。
+
+2. 查看当前有些什么images    docker images
+
+3. 相关容器关闭后，删除对应的images，通过image的id来指定删除谁
+
+docker rmi ID
+
+ 要删除全部image的话    docker rmi $(docker images -q)
