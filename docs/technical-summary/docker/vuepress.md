@@ -48,3 +48,11 @@ node:latest
 
 2.具体实现：
 创建一个vuepress项目，基于nginx docker镜像构建成一个前端工程镜像，然后基于这个前端工程镜像，启动一个容器 vuepresscontainer。
+
+![avatar](vuepress1.png)
+
+问题如下
+```
+COPY failed: stat /var/lib/docker/tmp/docker-builder698191588/nginx/default.conf: no such file or directory
+```
+
