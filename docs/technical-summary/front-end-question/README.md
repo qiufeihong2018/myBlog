@@ -1011,6 +1011,18 @@ npm prune
 ```
 ## 49.在chrome devtools的network面板使用高级过滤
 除此之外 “-”还可以用来反向过滤。
+## 50.window下删除指定端口的进程
+显示指定端口的进程
+```
+netstat -ano|findstr "8080"
+```
+```
+显示： TCP 0.0.0.0:80 0.0.0.0:0 LISTENING 2222
+```
+删除指定端口的进程
+```
+taskkill -pid 2222 /f
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
