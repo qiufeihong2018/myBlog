@@ -1009,6 +1009,8 @@ color: #000;
 ```
 npm prune
 ```
+## 49.在chrome devtools的network面板使用高级过滤
+除此之外 “-”还可以用来反向过滤。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
