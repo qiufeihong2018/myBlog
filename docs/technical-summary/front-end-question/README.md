@@ -1023,6 +1023,13 @@ netstat -ano|findstr "8080"
 ```
 taskkill -pid 2222 /f
 ```
+## 51.vscode搜索文件，如何排除多个文件夹
+对于大型项目，快速定位代码的方式就是搜索关键词，那么有一些不写在配置中，但是又不需要搜索的文件夹如何排除呢？
+
+1. 选中 `vscode` 左侧栏的搜索按钮
+2. 搜索第一行 `input` 输入你要搜索的关键词
+3. 搜索第二行 `input` 输入想在哪个文件中搜索，不填就是全局项目
+4. 搜索第二行 `input` 输入你想排除的文件，如果多文件，需要逗号隔开','
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
