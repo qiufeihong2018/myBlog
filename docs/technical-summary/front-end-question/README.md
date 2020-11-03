@@ -1076,6 +1076,205 @@ console.log(dest);
 1. 最外层的循环，遍历 `id`，将其塞进 `map` 中；
 2. 如果下一个对象中的 `id` 不存在 `map` 中，就将其 `id` 塞进并将 `value` 值塞进 `valueMap` 中；
 3. 如果存在，就直接将 `value` 塞进 `map` 中对象 `id` 的 `valueMap` 中。
+
+## 53.对象和数组的深拷贝
+`JavaScript` 程序中，对于简单的数字、字符串可以通过 `=` 赋值拷贝，
+但是对于数组、对象、对象数组的拷贝，就有浅拷贝和深拷贝之分。
+
+浅拷贝就是当改变了拷贝后的数据，原数据也会相应改变。
+
+浅拷贝：指两个对象指向同一个内存地址，其中一个改变会影响另一个
+深拷贝：指复制后的新对象重新指向一个新的内存地址，两个对象改变互不影响
+
+### 数组深拷贝
+1. 遍历赋值
+```js
+let a = [1, 2, 3]
+let b = []
+for (let i of a) {
+  b.push(i)
+}
+b.push(4)
+
+console.log(a)
+console.log(b)
+// [ 1, 2, 3 ]
+// [ 1, 2, 3, 4 ]
+```
+2. slice()
+数组方法 `slice()` 可从已有的数组中返回选定的元素
+那么设置为 `0`，就是返回整个数组
+```js
+let a = [1, 2, 3]
+let b = []
+b = a.slice(0)
+b.push(4)
+console.log(a)
+console.log(b)
+// [ 1, 2, 3 ]
+// [ 1, 2, 3, 4 ]
+```
+3. concat()
+数组方法 `concat()` 连接一个或多个数组，并返回一个副本
+那么不设置参数，就返回本数组
+```js
+let a = [1, 2, 3]
+let b = []
+b = a.concat()
+b.push(4)
+console.log(a)
+console.log(b)
+// [ 1, 2, 3 ]
+// [ 1, 2, 3, 4 ]
+```
+4. ES6 方法
+```js
+let a = [1, 2, 3]
+let b = []
+b = [...a]
+b.push(4)
+console.log(a)
+console.log(b)
+// [ 1, 2, 3 ]
+// [ 1, 2, 3, 4 ]
+let a = [1, 2, 3]
+let b = []
+b = Array.from(a)
+b.push(4)
+console.log(a)
+console.log(b)
+// [ 1, 2, 3 ]
+// [ 1, 2, 3, 4 ]
+```
+### 对象深拷贝
+1. Object.assign()
+```js
+let a = {
+    name: 'qfh',
+    info: {
+        age: 24
+    }
+}
+let b = {}
+b = Object.assign({}, a)
+b.name = 'test'
+b.info.age = 12
+console.log(a)
+console.log(b)
+// { name: 'qfh', info: { age: 12 } }
+// { name: 'test', info: { age: 12 } }
+```
+> 注意使用 assign() 有如下特点：
+>> 不会拷贝对象继承的属性、不可枚举的属性、属性的数据属性/访问器属性
+>> 可以拷贝 Symbol 类型
+>> 只能深拷贝一层
+2. 扩展运算符
+```js
+let a = {
+    name: 'qfh',
+    info: {
+        age: 24
+    }
+}
+let b = {}
+b = { ...a }
+b.name = 'test'
+b.info.age = 12
+console.log(a)
+console.log(b)
+// { name: 'qfh', info: { age: 12 } }
+// { name: 'test', info: { age: 12 } }
+```
+同上
+### 总结
+以上是简单数组、对象的深拷贝方法，但是对于二维数组、对象数组、对象里包含对象，以上方法均达不到深拷贝方法
+
+以上只能达到数组、对象的第一层的深拷贝，对于里面的数组或对象属性则是浅拷贝，因为里面的内存地址只是拷贝了一份，但都是指向同一个地址
+
+所以当改变数组、对象里的数组元素或对象，原数据依然会改变
+
+### 多层数组对象的深拷贝
+1. JSON 序列化与反序列化
+使用 `JSON.parse(JSON.stringify(obj))`
+```
+let a = {
+    name: 'qfh',
+    info: {
+        age: 24
+    }
+}
+let b = {}
+b = JSON.parse(JSON.stringify(a))
+b.name = 'test'
+b.info.age = 12
+console.log(a)
+console.log(b)
+// { name: 'qfh', info: { age: 24 } }
+// { name: 'test', info: { age: 12 } }
+```
+通过 `JSON.stringify` 实现深拷贝有几点要注意
+- 拷贝的对象的值中如果有函数、`undefined`、`symbol`，则经过 `JSON.stringify()` 序列化后的 `JSON` 字符串中这个键值对会消失
+- 无法拷贝不可枚举的属性，无法拷贝对象的原型链
+-  拷贝 Date 引用类型会变成字符串
+-  拷贝 RegExp 引用类型会变成空对象
+-  对象中含有 NaN、Infinity 和 -Infinity，则序列化的结果会变成 null
+-  无法拷贝对象的循环应用（即 obj[key] = obj）
+
+2. 自己实现深拷贝方法
+```js
+function deepCopy(obj) {
+    let result = Array.isArray(obj) ? [] : {};
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (typeof obj[key] === 'object') {
+          result[key] = deepCopy(obj[key]);   // 递归复制
+        } else {
+          result[key] = obj[key];
+        }
+      }
+    }
+    return result;
+  }
+```
+测试对象
+```js
+let a = {
+    name: 'qfh',
+    info: {
+        age: 24
+    }
+}
+let b = {}
+b = deepCopy(a)
+b.name = 'test'
+b.info.age = 12
+console.log(a)
+console.log(b)
+// { name: 'qfh', info: { age: 24 } }
+// { name: 'test', info: { age: 12 } }
+```
+测试数组
+```js
+let a = [1, 2, 3, [4, 5]]
+let b = []
+b = deepCopy(a)
+b[3].push(6)
+b.push(4)
+console.log(a)
+console.log(b)
+// [ 1, 2, 3, [ 4, 5 ] ]
+// [ 1, 2, 3, [ 4, 5, 6 ], 4 ]
+```
+3. `lodash` 的深拷贝 `cloneDeep`
+使用 `lodash` 插件的深拷贝方法
+```js
+// 官方例子
+var objects = [{ 'a': 1 }, { 'b': 2 }];
+ 
+var deep = _.cloneDeep(objects);
+console.log(deep[0] === objects[0]);
+// => false`
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
