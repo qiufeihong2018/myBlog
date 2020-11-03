@@ -1030,6 +1030,52 @@ taskkill -pid 2222 /f
 2. 搜索第一行 `input` 输入你要搜索的关键词
 3. 搜索第二行 `input` 输入想在哪个文件中搜索，不填就是全局项目
 4. 搜索第二行 `input` 输入你想排除的文件，如果多文件，需要逗号隔开','
+
+## 52.数组对象根据id值相同合并其的value值
+将相同 `id` 的 `value` 值塞进 `valueMap` 中。
+```js
+var  arr = [
+    { "id" : "1001" , "name" : "值1" , "value" : "111" },
+    { "id" : "1001" , "name" : "值1" , "value" : "11111" },
+    { "id" : "1002" , "name" : "值2" , "value" : "25462" },
+    { "id" : "1002" , "name" : "值2" , "value" : "23131" },
+    { "id" : "1002" , "name" : "值2" , "value" : "2315432" },
+    { "id" : "1003" , "name" : "值3" , "value" : "333333" }
+];
+
+var  map = {},
+    dest = [];
+for ( var  i = 0; i < arr.length; i++){
+    var  ai = arr[i];
+    if (!map[ai.id]){
+        dest.push({
+            id: ai.id,
+            name: ai.name,
+            valueMap: [ai.value]
+        });
+        map[ai.id] = ai;
+    } else {
+        for ( var  j = 0; j < dest.length; j++){
+            var  dj = dest[j];
+            if (dj.id == ai.id){
+                dj.valueMap.push(ai.value);
+                break ;
+            }
+        }
+    }
+}
+
+console.log(dest);
+// [ { id: '1001', name: '值1', valueMap: [ '111', '11111' ] },
+//   { id: '1002',
+//     name: '值2',
+//     valueMap: [ '25462', '23131', '2315432' ] },
+//   { id: '1003', name: '值3', valueMap: [ '333333' ] } ]
+```
+### 分析
+1. 最外层的循环，遍历 `id`，将其塞进 `map` 中；
+2. 如果下一个对象中的 `id` 不存在 `map` 中，就将其 `id` 塞进并将 `value` 值塞进 `valueMap` 中；
+3. 如果存在，就直接将 `value` 塞进 `map` 中对象 `id` 的 `valueMap` 中。
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
