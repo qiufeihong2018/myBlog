@@ -1275,6 +1275,22 @@ var deep = _.cloneDeep(objects);
 console.log(deep[0] === objects[0]);
 // => false`
 ```
+## 54. vue-devtools安装配置
+此方案主要面向没有科学上网条件的同学。
+
+首先你得有node环境和git，在github克隆下来vue-devtoos的项目，经过npm install和npm run build打包生成可以提供浏览器运行的程序。
+
+但是往往途中会出现各种问题，所以直接提供了打包好后的项目[代码](https://github.com/qiufeihong2018/vue-devtools-dist)。
+
+打开扩展程序
+
+![avatar](./front5.png)
+
+加载已解压的扩展程序,将刚下载下来的chrome添加进去，就生成好了，打开vue程序，随心测试。
+
+![avatar](./front6.png)
+
+
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
