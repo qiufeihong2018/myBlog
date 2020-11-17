@@ -657,6 +657,52 @@ redo():回退
 49. findPrev:向后查找。
 50. replace:替换。
 51. replaceAll:全部替换。
+##  TAB 键是缩进的格式问题
+`codemirror` 默认 `TAB` 键是支持缩进的, 但在没有选择文本时, 缩进是一个 `Tab` 键而不是 `indexUnit` 对应的空格数. 默认也不支持 `Shift - Tab` 往回缩进, 这个在排版文本是非常麻烦的。
+
+问题剖析如下：
+
+例如输入“哈哈”回车tab后输入“么么哒”，
+回车后输入“急急急”就出现如下格式问题。
+
+![avatar](./codemirror.png)
+打开控制台查看元素属性发现“么么哒”这一行tab是span内容是空格，以空格缩进，class是cm-tab。但是“急急急”这一行是&nbsp缩进。
+![avatar](./codemirror1.png)
+
+为了解决这两个问题我们需要重新定义这两个快捷键的实现, 
+```js
+extraKeys: { // 注册快捷键
+            Tab: (cm) => {
+              if (cm.somethingSelected()) { // 存在文本选择
+                cm.indentSelection('add'); // 正向缩进文本
+              } else { // 无文本选择  
+                //cm.indentLine(cm.getCursor().line, "add");  // 整行缩进 不符合预期
+                cm.replaceSelection(Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input"); // 光标处插入 indentUnit 个空格
+              }
+            },
+            "Shift-Tab": (cm) => { // 反向缩进   
+              if (cm.somethingSelected()) {
+                cm.indentSelection('subtract'); // 反向缩进
+              } else {
+                // cm.indentLine(cm.getCursor().line, "subtract");  // 直接缩进整行
+                const cursor = cm.getCursor();
+                cm.setCursor({
+                  line: cursor.line,
+                  ch: cursor.ch - 4
+                }); // 光标回退 indexUnit 字符
+              }
+              return;
+            }
+          },
+```
+
+加了之后
+
+![avatar](./codemirror2.png)
+
+![avatar](./codemirror3.png)
+
+格式恢复正常。
 ## 参考文献
 [CodeMirror在线代码编辑器使用以及如何取值](https://www.cnblogs.com/web001/p/9370392.html)
 
