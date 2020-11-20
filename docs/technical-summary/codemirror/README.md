@@ -657,7 +657,7 @@ redo():回退
 49. findPrev:向后查找。
 50. replace:替换。
 51. replaceAll:全部替换。
-##  TAB 键是缩进的格式问题
+##  TAB 键缩进的格式问题
 `codemirror` 默认 `TAB` 键是支持缩进的, 但在没有选择文本时, 缩进是一个 `Tab` 键而不是 `indexUnit` 对应的空格数. 默认也不支持 `Shift - Tab` 往回缩进, 这个在排版文本是非常麻烦的。
 
 问题剖析如下：

@@ -454,7 +454,7 @@ y
 由于本地的electron包已损坏，所以打包的时候引用有问题，就重新下载，但是由于网络限速，该包下载失败，于是整个打包就失败了。
 #### 解决
 将`https://npm.taobao.org/mirrors/electron/10.1.3/electron-v10.1.3-win32-x64.zip`(版本号自己更换)下载来放入`C:\Users\你的用户名\AppData\Local\electron\Cache`。
-### 13.Error: spawn UNKNOWN
+### 14.Error: spawn UNKNOWN
 #### 背景
 自动更新的时候，已经将 `nupkg` 下载下来了，但是却失败了。
 
@@ -483,6 +483,26 @@ y
 ```
 #### 解决方案
 
+
+### 15.electron-builder nsis 打包配置license乱码
+使用 `electron-builder` 打包时配置好了 `license` 许可协议，打包后安装出现乱码
+![avatar](./electron2.png)
+
+配置
+
+```js
+    "nsis":{
+        "license":"./build/license.txt"
+    }
+```
+
+#### 解决方法
+找到许可协议 `txt` 文件，并非是 `GBK`，或者 `UTF-8`，`txt`写好之后，需要进行转化，转化为 `ANSI`
+记事本打开另存为
+
+![avatar](./electron1.png)
+
+选择 `ANSI` 转化重新打包即可
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
