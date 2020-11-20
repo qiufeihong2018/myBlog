@@ -1290,8 +1290,84 @@ console.log(deep[0] === objects[0]);
 
 ![avatar](./front6.png)
 
+## 55.使用pkg打包Node.js应用
+Node.js应用不需要经过编译过程，可以直接把源代码拷贝到部署机上执行，确实比C++、Java这类编译型应用部署方便。然而，Node.js应用执行需要有运行环境，意味着你需要先在部署机器上安装Node.js。虽说没有麻烦到哪里去，但毕竟多了一个步骤，特别是对于离线环境下的部署机，麻烦程度还要上升一级。假设你用Node.js写一些小的桌面级工具软件，部署到客户机上还要先安装Node.js，确实十分麻烦。更严重的是，如果部署机器上游多个Node.js应用，而且这些应用要依赖于不同的Node.js版本，那就更难部署了。
+
+理想的情况是将Node.js打包为一个单独的可执行文件，部署的时候直接拷贝过去就行了。除了部署方便外，因为不需要再拷贝源代码了，还有利于保护知识产权。
+
+将Node.js打包为可执行文件的工具有pkg、nexe、node-packer、enclose等，从打包速度、使用便捷程度、功能完整性来说，pkg是最优秀的。这篇文章就来讲一讲半年来我使用pkg打包Node.js应用的一些经验。
+
+pkg的打包原理简单来说，就是将js代码以及相关的资源文件打包到可执行文件中，然后劫持fs里面的一些函数，使它能够读到可执行文件中的代码和资源文件。pkg 魔改了 node 的 fs API，拦截了文件操作并代理到自己虚拟的文件快照系统 (snapshot filesystem) 中。例如，原来的 `require('./a.js')` 会被劫持到一个虚拟目录 `require('/snapshot/a.js')` 。并从虚拟文件快照系统中返回之前打包的文件内容。
+
+哪些形式的文件读写会命中 pkg 的虚拟文件快照系统呢？
+
+value|with node|packaged
+--|--|--
+__filename |/project/app.js| /snapshot/project/app.js
+__dirname| /project| /snapshot/project
+process.cwd()| /project |/deploy
+process.execPath| /usr/bin/nodejs| /deploy/app-x64
+process.argv[0]| /usr/bin/nodejs| /deploy/app-x64
+process.argv[1]| /project/app.js |/snapshot/project/app.js
+process.pkg.entrypoint| undefined |/snapshot/project/app.js
+process.pkg.defaultEntrypoint| undefined |/snapshot/project/app.js
+require.main.filename |/project/app.js |/snapshot/project/app.js
+
+也就是说，如果想要资源被自动打包进可执行文件，就使用 __filename 和 __direname 等路径定位符。另一方面，如果你想访问真实的文件系统，如加载环境变量文件，就应该使用 process.cwd() 等路径定位符，这使得动态修改服务的启动或运行参数成为可能，如修改服务端口号等。
+这个时候我们来思考一个问题，像本地记录运行日志这种情况应该如何处理呢？
+没错，我们需要在 egg 配置文件中通过 `process.cwd() `来指定日志路径，以便执行对真实文件系统的写入操作。同理，但凡是对真实文件系统的读写操作，都要在配置文件中通过 process.cwd() 进行声明：
+#### 安装
+pkg既可以全局安装也可以局部安装，推荐采用局部安装：
+```
+npm install pkg --save-dev
+```
+#### 用法
+pkg使用比较简单，执行下pkg -h就可以基本了解用法，基本语法是：
+```
+1 pkg [options] <input>
+<input>可以通过三种方式指定：
+1.一个脚本文件，例如pkg index.js;
+2.package.json，例如pkg package.json，这时会使用package.json中的bin字段作为入口文件；
+3.一个目录，例如pkg .，这时会寻找指定目录下的package.json文件，然后在找bin字段作为入口文件。
+[options]中可以指定打包的参数：
+1.-t指定打包的目标平台和Node版本，如-t node6-win-x64,node6-linux-x64,node6-macos-x64可以同时打包3个平台的可执行程序；
+2.-o指定输出可执行文件的名称，但如果用-t指定了多个目标，那么就要用--out-path指定输出的目录；
+3.-c指定一个JSON配置文件，用来指定需要额外打包脚本和资源文件，通常使用package.json配置。
+```
+
+#### 使用pkg的最佳实践是
+在package.json中的pkg字段中指定打包参数，使用npm scripts来执行打包过程，例如：
+12345678910111213 {  ...  "bin": "./bin/www",  "scripts": {    "pkg": "pkg . --out-path=dist/"  },  "pkg": {    "scripts": [...]    "assets": [...],    "targets": [...]  },  ...}
+scripts和assets用来配置未打包进可执行文件的脚本和资源文件，文件路径可以使用glob通配符。这里就浮现出一个问题：为什么有的脚本和资源文件打包不进去呢？
+要回答这个问题，就涉及到pkg打包文件的机制。按照pkg文档的说法，pkg只会自动地打包相对于__dirname、__filename的文件，例如path.join(__dirname, '../path/to/asset')。至于require()，因为require本身就是相对于__dirname的，所以能够自动打包。假设文件中有以下代码：
+```
+12 require('./build/' + cmd + '.js')path.join(__dirname, 'views/' + viewName)
+```
+这些路径都不是常量，pkg没办法帮你自动识别要打包哪个文件，所以文件就丢失了，所以这时候就使用scripts和assets来告诉pkg，这些文件要打包进去。那么我们怎么知道哪些文件没有被打包呢？难倒要一行行地去翻源代码吗？其实很简单，只需要把打包好的文件运行下，报错信息一般就会告诉你缺失哪些文件，并且pkg在打包过程中也会提示一些它不能自动打包的文件。
+#### 注意事项
+如果说pkg还有哪儿还可以改进的地方，那就是无法自动打包二进制模块*.node文件。如果你的项目中引用了二进制模块，如sqlite3，那么你需要手动地将*.node文件复制到可执行文件同一目录，我通常使用命令cp node_modules/**/*.node .一键完成。但是，如果你要跨平台打包，例如在windows上打包linux版本，相应的二进制模块也要换成linux版本，通常需要你手动的下载或者编译。
+那为什么pkg不能将二进制模块打包进去呢？我猜想是require载入一个js文件和node文件，它们的机制是不一样的。另外从设计来说，不自动打包二进制模块也是合理的，因为二进制模块都是平台相关的。如果我在windows上生成一个linux文件，那么就需要拉取linux版本的.node文件，这是比较困难的。并且有些二进制模块不提供预编译版本，需要安装的时候编译，pkg再牛也不可能模拟一个其他平台的编译环境吧。nexe可以自动打包二进制模块，但是只能打包当前平台和当前版本的可执行文件。这意味着如果Node.js应用引用了二进制包，那么这个应用就不能跨平台打包了，所以我认为这方面，nexe不能算是一个好的设计。
+还有一点就是关于项目中的配置文件处理，比如数据库连接参数、环境变量等。因为这些配置文件会跟着不同的部署环境进行更改，所以为了方便更改，一般不希望把配置文件打包到exe。为了避免pkg自动地将配置文件打包到exe中，代码中不要采用以下方式读取配置文件：
+```
+1 fs.readFile(path.join(__dirname, './config.json')), callback)
+```
+而是采用相对于process.CWD()的方法读取：
+```
+1234 fs.readFile(path.join(process.CWD(), './config.json'), callback)// 或者fs.readFile('./config.json', callback)
+```
+如果配置文件是js格式的，那么不要直接require('./config')，而是采用动态require：
+```
+1 const config = require(process.CWD() + './config')
+```
+另外要提及的是pkg打包之后动态载入js文件会有安全性问题，即用户可以在js文件写任何处理逻辑，注入到打包后的exe中。例如，可以读取exe里面的虚拟文件系统，把源代码导出来。所以，尽量不要采用JS作为配置文件，也不要动态载入js模块。
+
+如果遇到 `pkg报错Error! ESOCKETTIMEDOUT 和 Asset not found by direct link`,请翻阅资料[《【nodejs打包软件PKG】pkg报错Error! ESOCKETTIMEDOUT 和 Asset not found by direct link》](https://www.cnblogs.com/guoxinyu/p/12657395.html)和[pkg打包报错 Error! ESOCKETTIMEDOUT](https://blog.csdn.net/zxp1004425084/article/details/105484707)
 
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
+
 [ElementUI的提示框的使用记录](https://www.cnblogs.com/goloving/p/9195412.html)
+
 [Element.scrollIntoView()](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView)
+
+[使用pkg打包Node.js应用](https://jingsam.github.io/2018/03/02/pkg.html)
