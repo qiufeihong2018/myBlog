@@ -36,11 +36,13 @@ module.exports = [{
   },
   {
     text: '关于我',
-    items: [{
-      text: "我的简历",
-      link: 'http://resume.qiufeihong.top/',
+    items: [
+    //   {
+    //   text: "我的简历",
+    //   link: 'http://resume.qiufeihong.top/',
 
-    }, {
+    // },
+     {
       text: "个人项目",
       items: [{
         text: '网站导航平台',
@@ -61,30 +63,32 @@ module.exports = [{
         text: "我的微信公众号",
         link: '/wechat-public/'
       }]
-    }, {
-      text: "公司项目",
-      items: [{
-        text: "安吉椅艺大数据平台",
-        link: 'http://121.40.107.95:8010/data-visual/overview'
-      }, {
-        text: "xAlert 工控安全态势感知平台",
-        link: 'http://resume.qiufeihong.top/'
-      }, {
-        text: "DeepSphere 超融合网络存储系统",
-        link: 'http://resume.qiufeihong.top/'
-      }, {
-        text: "xShied 工控防火墙",
-        link: 'http://resume.qiufeihong.top/'
-      }, {
-        text: "xScanner 漏洞扫描系统",
-        link: 'http://resume.qiufeihong.top/'
-      }, {
-        text: "DeepDefence-web 容器安全监测平台",
-        link: 'http://resume.qiufeihong.top/'
-      }, {
-        text: "xOpAudit 运维堡垒机",
-        link: 'http://resume.qiufeihong.top/'
-      }]
+    }
+    // , {
+    //   text: "公司项目",
+    //   items: [{
+    //     text: "安吉椅艺大数据平台",
+    //     link: 'http://121.40.107.95:8010/data-visual/overview'
+    //   }, {
+    //     text: "xAlert 工控安全态势感知平台",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   }, {
+    //     text: "DeepSphere 超融合网络存储系统",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   }, {
+    //     text: "xShied 工控防火墙",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   }, {
+    //     text: "xScanner 漏洞扫描系统",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   }, {
+    //     text: "DeepDefence-web 容器安全监测平台",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   }, {
+    //     text: "xOpAudit 运维堡垒机",
+    //     link: 'http://resume.qiufeihong.top/'
+    //   }
+    ]
     }]
   },
   {
