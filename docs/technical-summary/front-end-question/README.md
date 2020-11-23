@@ -1,5 +1,4 @@
 # 工作中遇到的前端问题和处理清单
-
 ## 1. 为什么$emit()方法不能触发父组件方法？
 因为在组件中$emit传入的事件名称使用了大写的驼峰命名，但是其命名只能使用小写，所以无法触发父组件方法。
 正确如下：
@@ -1362,7 +1361,29 @@ scripts和assets用来配置未打包进可执行文件的脚本和资源文件�
 另外要提及的是pkg打包之后动态载入js文件会有安全性问题，即用户可以在js文件写任何处理逻辑，注入到打包后的exe中。例如，可以读取exe里面的虚拟文件系统，把源代码导出来。所以，尽量不要采用JS作为配置文件，也不要动态载入js模块。
 
 如果遇到 `pkg报错Error! ESOCKETTIMEDOUT 和 Asset not found by direct link`,请翻阅资料[《【nodejs打包软件PKG】pkg报错Error! ESOCKETTIMEDOUT 和 Asset not found by direct link》](https://www.cnblogs.com/guoxinyu/p/12657395.html)和[pkg打包报错 Error! ESOCKETTIMEDOUT](https://blog.csdn.net/zxp1004425084/article/details/105484707)
+## 56.nodejs判断文件、文件夹是否存在及删除的方法
+node.js的fs模块只提供了删除文件unlink夹及目录rmdir的功能，所以一起删除需要我们遍历删除
+```js
+var fs = require('fs'); // 引入fs模块
+function deleteall(path) {
+  var files = [];
+  if(fs.existsSync(path)) {
+    files = fs.readdirSync(path);
+    files.forEach(function(file, index) {
+      var curPath = path + "/" + file;
+      if(fs.statSync(curPath).isDirectory()) { // recurse
+        deleteall(curPath);
+      } else { // delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+    fs.rmdirSync(path);
+  }
+};
 
+// test
+deleteall("./dir")//将文件夹传入即可
+```
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 
