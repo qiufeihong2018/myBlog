@@ -542,6 +542,23 @@ Require stack:
 ⨯ remove E:\electron-vue-case2\build\win-unpacked\resources\app.asar: The process cannot access the file because it is being used by another process.
 ```
 这个时候，只需要关闭正在占用 `app.asar` 这个文件的编辑器，并且将 `app.asar` 删掉即可重新打包成功。
+
+### 19.打包icon问题
+打包过程，问题层出不现，请看下面报错：
+```bash
+Get https://github-production-release-asset-2e65be.s3.amazonaws.com/65527128/af865400-e8de-11e8-8f93-2637f0b25007?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20201125%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20201125T061509Z&X-Amz-Expires=300&X-Amz-Signature=040733d5ed62bab8158f4984086873b51edc808bfc0b31043a7641e4abae47ae&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=65527128&response-content-disposition=attachment%3B%20filename%3DwinCodeSign-2.4.0.7z&response-content-type=application%2Foctet-stream: read tcp 10.65.145.9:64882->52.217.83.196:443: wsarecv: An existing connection was forcibly closed by the remote host.
+
+Error: Cannot cleanup: 
+
+Error #1 --------------------------------------------------------------------------------
+Error: cannot find specified resource "build/icons/icon.ico", nor relative to "E:\electron-vue-case2\build", neither relative to project dir
+```
+
+其实就是， `icon.ico` 这个图标找不到。
+
+要检查是否有该图标，该图标是否会变更目录。
+
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
