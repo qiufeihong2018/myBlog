@@ -1384,6 +1384,10 @@ function deleteall(path) {
 // test
 deleteall("./dir")//将文件夹传入即可
 ```
+
+## 57.video标签的视频无法播放
+1. video不支持wmv；
+2. 如果视频源是MP4，必须是正确的MP4格式
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 
