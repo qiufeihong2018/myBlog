@@ -1388,6 +1388,28 @@ deleteall("./dir")//将文件夹传入即可
 ## 57.video标签的视频无法播放
 1. video不支持wmv；
 2. 如果视频源是MP4，必须是正确的MP4格式
+
+## 58.v-on与两个表达式
+假如是 `&&` 连接两个表达式的话，
+```html
+   <svg-icon @click="$refs['goalBox'].goalVisible=true&$refs['goalBox'].currentIteration=currentIteration" icon-class="goal"
+                      class-name="svg-header" />
+```
+
+出现下面报错
+```bash
+[vue/valid-v-on]
+Avoid using JavaScript keyword as "v-on" value: "$refs['goalBox'].goalVisible=true&$refs['goalBox'].currentIteration=currentIteration".eslint-plugin-vue
+```
+
+
+意思是避免 `javascript` 关键词出现在 `v-on` 的事件中，尝试了用 `；` 可以替代 `&&`。
+```html
+   <svg-icon @click="$refs['goalBox'].goalVisible=true;$refs['goalBox'].currentIteration=currentIteration" icon-class="goal"
+                      class-name="svg-header" />
+```
+
+
 ## 参考文献
 [iframe高度自适应的6个方法](http://caibaojian.com/iframe-adjust-content-height.html)
 
