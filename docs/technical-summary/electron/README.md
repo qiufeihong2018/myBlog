@@ -526,6 +526,22 @@ y
 打开安装目录发现卸载程序不存在，`windows` 找不到所以卸载不了。
 
 卸载不了那么也就无法更新安装了。
+### 17.squirrel-windows缺包
+`electron-builder` 加进了 `squirrel-windows` 后，打包时碰到
+```bash
+Module electron-builder-squirrel-windows must be installed in addition to build Squirrel.Windows: Error: Cannot find module 'electron-builder-squirrel-windows'
+Require stack:
+```
+找不到 `electron-builder-squirrel-windows` 包。
+
+只要安装 `electron-builder-squirrel-windows` 包就好了。
+
+### 18.app.asar删不掉
+重复打包的时候，会遇到下面的问题：
+```bash
+⨯ remove E:\electron-vue-case2\build\win-unpacked\resources\app.asar: The process cannot access the file because it is being used by another process.
+```
+这个时候，只需要关闭正在占用 `app.asar` 这个文件的编辑器，并且将 `app.asar` 删掉即可重新打包成功。
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
