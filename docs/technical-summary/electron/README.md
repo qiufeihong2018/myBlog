@@ -99,20 +99,47 @@ mainWindow.webContents.openDevTools({mode:'undocked'})
 mainWindow.webContents.closeDevTools()
 ```
 ### 4.在electron中使用monaco找不到该包
-当找不到`monaco`包时，报这个错误：
-```js    
+(一) 找不到electron依赖包
+   
+#### 背景
+
+我的应用明明安装了依赖包，却无法找到electron包时，报这个错误：
+```
 throw new Error('Electron failed to install correctly, please delete node_modules/electron and try installing again')
 ```
-经测试发现，`monaco`必须要安装在
-`devDependencies`。
+#### 原因分析
 
-否则会提示找不到monaco-edit的包。
+经测试发现，`electron` 必须要安装在 `devDependencies`。
 
-安装命令：
+
+
+找到该代码在源码的位置，见 `node_modules\electron\index.js`：
+
+```js
+var pathFile = path.join(__dirname, 'path.txt')
+
+function getElectronPath () {
+  if (fs.existsSync(pathFile)) {
+    var executablePath = fs.readFileSync(pathFile, 'utf-8')
+    if (process.env.ELECTRON_OVERRIDE_DIST_PATH) {
+      return path.join(process.env.ELECTRON_OVERRIDE_DIST_PATH, executablePath)
+    }
+    return path.join(__dirname, 'dist', executablePath)
+  } else {
+    throw new Error('Electron failed to install correctly, please delete node_modules/electron and try installing again')
+  }
+}
+
+module.exports = getElectronPath()
+```
+如果是安装在dependencies下，就没有path.txt。那么node就读取不到该文件，抛出electron安装失败的问题。
+
+#### 解决方式
+
+重新安装：
 ```
 npm install electron --save-dev
 ```
-
 ### 5.electron-vue无法改变vuex状态
 `vuex-electron` 的文档里说了：
 ```
