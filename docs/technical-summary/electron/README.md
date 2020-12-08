@@ -98,8 +98,7 @@ mainWindow.webContents.openDevTools({mode:'undocked'})
 ```js
 mainWindow.webContents.closeDevTools()
 ```
-### 4.在electron中使用monaco找不到该包
-(一) 找不到electron依赖包
+### 4.找不到electron依赖包
    
 #### 背景
 
