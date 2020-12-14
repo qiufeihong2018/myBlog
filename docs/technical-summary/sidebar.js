@@ -1,5 +1,11 @@
 module.exports = [
     {
+        title:'【Electron】Electron实战',
+        collapsable:false,
+        sidebarDepth:4,
+        children:['electron_exercise/']
+    },
+    {
         title:'【运维】手把手教你docker部署vuepress项目',
         collapsable:false,
         sidebarDepth:4,
@@ -18,7 +24,7 @@ module.exports = [
         children:['monaco/']
     },
     {
-        title:'【electron】这些electron的问题你会吗',
+        title:'【Electron】这些Electron的问题你会吗',
         collapsable:false,
         sidebarDepth:4,
         children:['electron/']
