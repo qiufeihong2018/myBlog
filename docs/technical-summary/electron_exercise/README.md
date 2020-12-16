@@ -1,86 +1,28 @@
 # Electron实战
-## 目录
-一、	背景	3
-二、	桌面应用程序的历史	3
-三、	Electron的历史	5
-四、	Electron的入门	8
-(一)	应用程序结构	8
-主进程和渲染器进程	8
-Electron API	10
-Node.js API	11
-五、	Electron-vue	12
-(一)	起步	13
-(二)	项目结构	15
-单一的 package.json 设置	15
-关于 main 进程	15
-文件树	16
-渲染进程	17
-主进程	18
-Webpack 配置	19
-(三)	构建electron应用程序	20
-electron-packager	20
-electron-builder	20
-六、	开发中存在的问题	21
-(一)	内存占用越来越大，运行越来越慢	21
-背景	21
-分析	21
-解决方式	21
-(二)	electron程序显示了文件浏览器	21
-背景	21
-分析	22
-(三)	ReferenceError: process is not defined	22
-背景	22
-原因分析	23
-解决方式	23
-(四)	electron 如何打开开发者工具devtools	24
-背景	24
-解决方式	24
-(五)	找不到electron依赖包	24
-背景	24
-原因分析	25
-解决方式	25
-(六)	electron-vue无法改变vuex状态	25
-背景	25
-解决方案	26
-(七)	electron-vue中无法使用Element组件	26
-背景	26
-解决方案	26
-(八)	Electron无边框窗口中自定义窗口快捷键	27
-背景	27
-解决方案	28
-(九)	监听窗口状态，动态改变窗口最大化图标	29
-背景	29
-解决方案	29
-(十)	electron Uncaught TypeError: Cannot read property 'app' of undefined	30
-背景	30
-解决方案	30
-
 ## 摘要
-阅读本文需要一定的node基础知识。知道Electron是开发桌面应用程序的技术。
-本文主要介绍了桌面应用程序的历史和electron的历史，分析了electron原理和electron-vue项目架构，快速上手了electron-vue项目。
+阅读本文需要一定的 `node` 基础知识。知道 `Electron` 是开发桌面应用程序的技术。
+本文主要介绍了桌面应用程序的历史和 `electron` 的历史，分析了 `electron` 原理和 `electron-vue` 项目架构，快速上手了 `electron-vue` 项目。
 
 ## 关键词
 Electron Electron-vue
-
-
 ## 正文
 ### 一、	背景
-在开发Manis UTest自动化测试项目（下文简称manis）的时候，需要用到electron技术，为了让更多同学了解和喜欢electron，我想通过本文分享实战经验。
+在开发 `xxx` 项目的时候，需要用到 `electron` 技术，为了让更多同学了解和喜欢 `electron`，我想通过本文分享实战经验。
 ### 二、	桌面应用程序的历史
-桌面应用程序，又称为 GUI 程序。开发它有下面几种技术：
-1.	VB——上古程序员的开发工具，曾经全球第一的开发语言，拖拽式的图形化开发让它成为极佳的桌面开发工具。微软依靠其操作系统的优势，一直压制同时期的竞争对手 delphi。微策略早期应用该技术，开发了管理智能商务平台的大杀器 developer。
+桌面应用程序，又称为 `GUI` 程序。开发它有下面几种技术：
+1.	VB——上古程序员的开发工具，曾经全球第一的开发语言，拖拽式的图形化开发让它成为极佳的桌面开发工具。微软依靠其操作系统的优势，一直压制同时期的竞争对手 delphi。
 2.	C++的win32API ——其 MFC 方案是基于窗口中组合控件和消息传递机制。这也是 20 多年前的技术，所以 API 设计的不是很友好。几年前微软已经停止维护，简单来说它已经过时了。
-3.	Winform——微策略几年前基于该技术研发第一代的 Desktop 版本，但是从开发体验角度来说自定义、美化控件会比较麻烦。
+3.	Winform——但是从开发体验角度来说自定义、美化控件会比较麻烦。
 4.	C#的.net framework——代表就是 WPF，它的原生特性是其他类库无法比拟的：High DPI、Split Screen 以及对 DirectX 的天然优势。但是并不开源，需要依赖.net 框架，还有就是启动会比较慢。Workstation Windows 的新客户端就是基于该技术研发。
 5.	Java的swing/javaFx——这是一类比较大的阵营，优势是跨平台和流行开发语言 Java 的天然结合，但开发出来的界面作者个人认为并不美观。
 6.	C++的Qt——这是很多客户端跨平台的首选，因为开源、UI 库和各种功能的类库非常丰富，但是学习成本比较高。
 7.	C++的duilib——这是 windows 下开源的 directUI（微软提出的分离 UI 和逻辑的思想）库，它是迎合互联网桌面软件小而美的趋势发展起来的，可能大家对它的关注度比较少。但是用它开发出的产品大名鼎鼎，比如 QQ、微信、爱奇艺等很多知名度高的软件。
 8.	Objective-c/swift cocoa——这是 mac 平台下的方案。可以方便调用底层的 API，缺点是不跨平台，文档不友好，UI 库并不丰富。现在这种方式开发的越来越少了。
-从 B/S 和 C/S 架构逐渐融合的角度来说，基于 Web 技术进行桌面程序的开发渐渐变成了主流。因为对界面的代码部分可以做到复用。
-这类技术早期的方案是用 vb 内嵌 webBrowser 控件，基于 IE 内核，正好很多网页开发也有用 activeX 的需求，但这种方式具有明显的缺陷——非常依赖于用户的环境，会因为组件缺失导致程序各种崩溃。第二类是嵌入式网页框架，这类技术主要是基于浏览器引擎实现 UI 渲染。比较典型的就是 appkit 上面 UIWebView 和 CEF（chro-mium embeded framework)。这种方法可以使用网页 HTML5+CSS 实现各种酷炫的效果，但是缺点也比较明显，就是桌面程序里面嵌入了一个类似 Chrome 的浏览器，内存的开销会比较大。
-后面出现了 nwjs 和 electron，electron 相比 CEF 有了单独执行 js 的 v8 引擎，可以运行 NodeJS 来完成服务器端功能，通过和内部浏览器的 v8 引擎交互可以实现一个独立的客户端，这不同于 CEF 需要寄宿在其他程序内部。
+从 `B/S` 和 `C/S` 架构逐渐融合的角度来说，基于 `Web` 技术进行桌面程序的开发渐渐变成了主流。因为对界面的代码部分可以做到复用。
+这类技术早期的方案是用 `vb` 内嵌 `webBrowser` 控件，基于 `IE` 内核，正好很多网页开发也有用 `activeX` 的需求，但这种方式具有明显的缺陷——非常依赖于用户的环境，会因为组件缺失导致程序各种崩溃。第二类是嵌入式网页框架，这类技术主要是基于浏览器引擎实现 `UI` 渲染。比较典型的就是 `appkit` 上面 `UIWebView` 和 `CEF` （`chro-mium embeded framework`)。这种方法可以使用网页 `HTML5+CSS` 实现各种酷炫的效果，但是缺点也比较明显，就是桌面程序里面嵌入了一个类似 `Chrome` 的浏览器，内存的开销会比较大。
+后面出现了 `nwjs` 和 `electron`，`electron` 相比 `CEF` 有了单独执行 `js` 的 `v8` 引擎，可以运行 `Node.js` 来完成服务器端功能，通过和内部浏览器的 `v8` 引擎交互可以实现一个独立的客户端，这不同于 `CEF` 需要寄宿在其他程序内部。
 ### 三、	Electron的历史
-Electron（最初名为Atom Shell）是GitHub开发的一个开源框架。它允许使用Node.js（作为后端）和Chromium（作为前端）完成桌面GUI应用程序的开发。Electron现已被多个开源Web应用程序用于前端与后端的开发，著名项目包括GitHub的Atom和微软的Visual Studio Code。
+`Electron`（最初名为 `Atom Shell`）是 `GitHub` 开发的一个开源框架。它允许使用 `Node.js`（作为后端）和 `Chromium`（作为前端）完成桌面 `GUI` 应用程序的开发。`Electron` 现已被多个开源 `Web` 应用程序用于前端与后端的开发，著名项目包括 `GitHub` 的 `Atom` 和微软的 `Visual Studio Code`。
  
 图 1 ATM编辑器
  
