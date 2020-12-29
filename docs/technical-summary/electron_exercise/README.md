@@ -36,35 +36,38 @@ Electron Electron-vue
 图 4 electron的优势
 用 `Electron` 来做桌面程序开发的优势明显，相当于是完全的网页编程，有 `Web` 开发经验的前端开发上手非常容易。`Web` 开发生态广泛，开发成本低，可扩展性强，一些流行的前端框架例如 `React`、`Angular`、`Vue` 都可以和 `electron` 结合进行开发。另外它也具备和 `Qt` 一样跨平台的优良特性。对性能要求不高的桌面版程序来说，一份代码同时得到网页版和各个平台的桌面版，开发的效率是其他方案无法比的。可以说，这是大部分人看好的趋势。
 ### 四、	Electron的入门
-(一)	应用程序结构
+#### (一)	应用程序结构
  
 图 5 electron的架构
-Electron由三个主要部分组成：
+`Electron` 由三个主要部分组成：
 1.	Chromium 用于显示网页内容。
 2.	Node.js 用于本地文件系统和操作系统。
 3.	自定义 APIs 用于使用经常需要的 OS 本机函数。
-Electron 开发应用程序就像构建一个带有网页界面的Node.js 应用程序或构建无缝集成的网页。
-主进程和渲染器进程
-Electron有两种processes：Main 和Rendererer。
-主进程，通常是名为main.js 的文件，是每个 Electron 应用的入口文件。它控制着整个 App 的生命周期，从打开到关闭。 它也管理着系统原生元素比如菜单，菜单栏，Dock 栏，托盘等。 主进程负责创建 APP 的每个渲染进程。而且整个 Node API 都集成在里面。
-每个应用程序的主进程文件都在package.json中的main属性中指定。这就是程序知道在启动时执行什么文件。
-在Chromium中，此进程被称为“浏览器进程”。 它在 Electron 中重新命名为 以避免与渲染器过程混淆。
-渲染进程，应用中的浏览器窗口。 与主进程不同的是，它可以有多个，每个都是在一个单独的进程中运行的。它们也可以被掩盖。
-在通常的浏览器内，网页通常运行在一个沙盒的环境中，并且不能够使用原生的资源。然而Electron的用户在Node.js的API支持下可以在页面中和操作系统进行一些低级别的交互。
-1.	主进程 通过创建 BrowserWindow实例来创建网页。 每一个 BrowserWindow实例在其渲染过程中运行网页。当一个 BrowserWindow 实例被摧毁时，对应的渲染过程也被终止。
+
+`Electron` 开发应用程序就像构建一个带有网页界面的 `Node.js` 应用程序，想一想 `vscode` 就瞬间明了。
+##### 主进程和渲染器进程
+`Electron` 有两种进程 ：`Main` 进程和`Rendererer` 进程。
+
+`Main` 进程，又叫主进程，通常是名为 `main.js` 的文件，是每个 `Electron` 应用的入口文件。它控制着整个 `App` 的生命周期，从打开到关闭。 它也管理着系统原生元素比如菜单、菜单栏、`Dock` 栏（软件启动后，在屏幕下方生成的一条栏）和托盘等。主进程负责创建 `APP` 的每个渲染进程。而且整个 `Node API` 都集成在里面。
+每个应用程序的主进程文件都在 `package.json` 中的 `main` 属性中指定。这就是程序知道在启动时执行什么文件。
+`Rendererer` 进程，又叫渲染进程。在 `Chromium` 中，此进程被称为“浏览器进程”。 它在 `Electron` 中重新命名，以避免与渲染器过程混淆。与主进程不同的是，它可以有多个，每个都是在一个单独的进程中运行的。它们也可以被掩盖。
+在通常的浏览器内，网页通常运行在一个沙盒的环境中，并且不能够使用原生的资源。然而 `Electron` 的用户在 `Node.js` 的 `API` 支持下可以在页面中和操作系统进行一些低级别的交互。
+1.	主进程 通过创建 `BrowserWindow` 实例来创建网页。 每一个 `BrowserWindow` 实例在其渲染过程中运行网页。当一个 `BrowserWindow` 实例被摧毁时，对应的渲染过程也被终止。
 2.	主进程管理所有网页及其对应的渲染进程。
 3.	渲染进程只能管理每个相应的网页。在一个渲染过程中崩溃不会影响其他渲染过程。
-4.	渲染进程通过IPC与主进程通信在网页上执行GUI操作。由于安全考虑和可能的资源泄漏，直接从渲染器过程中调用与本地GUI有关的API受到限制。
-流程之间的通信可以通过进程间通信模块进行： ipcMain 和 ipcRenderer。
-ipcMain 
+4.	渲染进程通过 `IPC` 与主进程通信在网页上执行 `GUI` 操作。由于安全考虑和可能的资源泄漏，直接从渲染器过程中调用与本地 `GUI` 有关的 `API` 受到限制。
+
+谈到两个进程，那必须要涉及进程间通信。可以通过进程间通信模块进行： `ipcMain` 和 `ipcRenderer`。
+##### ipcMain 
 从主进程到渲染进程的异步通信。
 可以从主进程向渲染进程发送消息。
-1.	发送消息时，事件名称为channel 。
-2.	回复同步信息时，需要设置event.returnValue。
-3.	可以使用event.reply(...)将异步消息发送回发送者。 
-ipcRenderer
+1.	发送消息时，事件名称为 `channel` 。
+2.	回复同步信息时，需要设置 `event.returnValue`。
+3.	可以使用 `event.reply(...)` 将异步消息发送回发送者。 
+##### ipcRenderer
 从渲染器进程到主进程的异步通信。
-使用如下，发送消息：
+下面是一个渲染进程向主进程通信的例子：
+```js
 // 在主进程中.
 const { ipcMain } = require('electron')
 ipcMain.on('asynchronous-message', (event, arg) => {
@@ -85,6 +88,7 @@ ipcRenderer.on('asynchronous-reply', (event, arg) => {
   console.log(arg) // prints "pong"
 })
 ipcRenderer.send('asynchronous-message', 'ping')
+```
 Electron API
 Electron API是根据流程类型分配的。这意味着某些模块可以从主程序或渲染程序中使用，有些模块可以从两者中使用。Electron的API文档指明了每个模块可以使用的过程。
 例如，要在两个进程中访问Electron API，需要它包含的模块：
