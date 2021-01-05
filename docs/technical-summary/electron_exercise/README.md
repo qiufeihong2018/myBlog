@@ -297,13 +297,13 @@ app.asar
 
 `.electron-vue/webpack.web.config.js`
 针对为浏览器构建你的 `renderer` 进程的源代码。如果你需要把代码发布到网上，此配置则是其强大的起步基础。 `electron-vue` 不支持更多其他的 `Web` 输出。 与 `Web` 输出相关的 `Issues` 很可能会被推迟或关闭。
-(三)	构建electron应用程序
-electron-vue 支持使用 electron-packager 和 electron-builder 来构建和分发你的产品阶段的程序。两个构建工具都由了不起的 @electron-userland 社区支持，每个都有详尽的文档。在 vue-cli 脚手架过程中，你会被问到你想要使用哪个构建器。
-electron-packager
-如果你刚开始制作 electron 应用程序或只需要创建简单的可执行文件，那么 electron-packager 就可以满足你的需求。
-electron-builder
-如果你正在寻找完整的安装程序、自动更新的支持、使用 Travis CI 和 AppVeyor 的 CI 构建、或本机 node 模块的自动重建，那么你会需要 electron-builder。
-具体的更新策略可以阅读我的另一篇文章《Electron自动更新》。
+#### (三)	构建electron应用程序
+`electron-vue` 支持使用 `electron-packager` 和 `electron-builder` 来构建和分发你的产品阶段的程序。两个构建工具都由了不起的 `@electron-userland` 社区支持，每个都有详尽的文档。在 `vue-cli` 脚手架过程中，你会被问到你想要使用哪个构建器。
+`electron-packager`
+如果你刚开始制作 `electron` 应用程序或只需要创建简单的可执行文件，那么 `electron-packager` 就可以满足你的需求。
+`electron-builder`
+如果你正在寻找完整的安装程序、自动更新的支持、使用 `Travis CI` 和 `AppVeyor` 的 `CI` 构建、或本机 `node` 模块的自动重建，那么你会需要 `electron-builder`。
+具体的更新策略可以阅读我的另一篇文章《`Electron`自动更新》。
 ### 六、	开发中存在的问题
 #### (一)	内存占用越来越大，运行越来越慢
 背景
