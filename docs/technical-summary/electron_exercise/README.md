@@ -58,13 +58,13 @@ Electron Electron-vue
 4.	渲染进程通过 `IPC` 与主进程通信在网页上执行 `GUI` 操作。由于安全考虑和可能的资源泄漏，直接从渲染器过程中调用与本地 `GUI` 有关的 `API` 受到限制。
 
 谈到两个进程，那必须要涉及进程间通信。可以通过进程间通信模块进行： `ipcMain` 和 `ipcRenderer`。
-##### ipcMain 
+###### ipcMain 
 从主进程到渲染进程的异步通信。
 可以从主进程向渲染进程发送消息。
 1.	发送消息时，事件名称为 `channel` 。
 2.	回复同步信息时，需要设置 `event.returnValue`。
 3.	可以使用 `event.reply(...)` 将异步消息发送回发送者。 
-##### ipcRenderer
+###### ipcRenderer
 从渲染器进程到主进程的异步通信。
 下面是一个渲染进程向主进程通信的例子：
 ```js
@@ -89,7 +89,7 @@ ipcRenderer.on('asynchronous-reply', (event, arg) => {
 })
 ipcRenderer.send('asynchronous-message', 'ping')
 ```
-Electron API
+##### Electron API
 Electron API是根据流程类型分配的。这意味着某些模块可以从主程序或渲染程序中使用，有些模块可以从两者中使用。Electron的API文档指明了每个模块可以使用的过程。
 例如，要在两个进程中访问Electron API，需要它包含的模块：
 const electron = require('electron')
