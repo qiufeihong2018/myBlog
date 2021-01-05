@@ -90,38 +90,54 @@ ipcRenderer.on('asynchronous-reply', (event, arg) => {
 ipcRenderer.send('asynchronous-message', 'ping')
 ```
 ##### Electron API
+<<<<<<< HEAD
 Electron API是根据流程类型分配的。这意味着某些模块可以从主程序或渲染程序中使用，有些模块可以从两者中使用。Electron的API文档指明了每个模块可以使用的过程。
 例如，要在两个进程中访问Electron API，需要它包含的模块：
+=======
+`Electron API` 是根据流程类型分配的。这意味着某些模块可以从主程序或渲染程序中使用，有些模块可以从两者中使用。`Electron` 的 `API` 文档指明了每个模块可以使用的过程。
+例如，要在两个进程中访问 `Electron API`，需要它包含的模块：
+```js
+>>>>>>> 8a384b07b5171d6fe0eb9c979975006f965004ed
 const electron = require('electron')
-若要创建一个窗口，则要调用 BrowserWindow 类，只能在主进程中使用：
+```
+若要创建一个窗口，则要调用 `BrowserWindow` 类，只能在主进程中使用：
+```js
 const { BrowserWindow } = require('electron')
 const win = new BrowserWindow()
-若要从渲染器调用主流程，请使用 IPC 模块：
+```
+若要从渲染进程往主流程中发送消息，请使用 `IPC` 模块：
+```js
 // 在主进程中
 const { ipcMain } = require('electron')
 
-ipcMain.handle('exper-action', (evidence, ...args) =>
-  // ... 代表渲染器操作
+ipcMain.on('event', (event, args) => {
+  console.log('接收到的数据是：', args)
 })
-// 在渲染过程中
+// 在渲染进程中
 const { ipcRenderer } = require('electron')
 
-ipcRender.invotrake('exper-action', ...args)
-注意：由于渲染过程可能会运行不受信任的代码(特别是第三方的代码)， 重要的是要认真验证主要进程中提出的请求。
-Node.js API
-注意：要从渲染过程中访问Node.js API，您需要设置 nodeIntegration 选项为 true。
-Electron 在主流程和渲染流程中显示对 Node.js API及其模块的完全访问权限。 例如，我可以从根目录读取所有文件：
+ipcRender.send('event', ...args)
+```
+##### Node.js API
+> 注意：要从渲染过程中访问 `Node.js API`，您需要设置 `nodeIntegration` 选项为 `true`。
+`Electron` 在主进程和渲染进程中显示对 `Node.js API`及其模块的完全访问权限。 例如，我可以从根目录读取所有文件：
+```js
 const fs = require('fs')
 
 const root = fs.readdirSync('/')
 
 console.log(root)
-要使用Node.js模块，就需要安装它作为依赖：
-npm install --save minio
-然后，在Electron 应用程序中，导入模块：
-var Minio = require('minio')
-官网提供的electron模板是electron-quick-start，启动命令如下：
 ```
+要使用 `Node.js` 模块，就需要安装它作为依赖：
+```
+npm install --save minio
+```
+然后，在 `Electron` 应用程序中，导入模块：
+```js
+var Minio = require('minio')
+```
+官网提供的 `electron` 模板是 `electron-quick-start`，启动命令如下：
+```bash
 # 克隆示例项目的仓库
 $ git clone https://github.com/electron/electron-quick-start
 
@@ -133,60 +149,64 @@ $ npm install && npm start
 ```
 图 6 electron-quick-start模板项目
 这个模板没有集成任何前端框架，开发效率惨不忍睹。
-对于react开发者，可以去翻阅electron-react-boilerplate （https://github.com/electron-react-boilerplate/electron-react-boilerplate）
-对于vue开发者，可以查阅electron-vue（https://github.com/SimulatedGREG/electron-vue），这也是我重点要讲述的项目。
+
+对于 `react` 开发者，可以去翻阅 `electron-react-boilerplate` （https://github.com/electron-react-boilerplate/electron-react-boilerplate）
+对于 `vue` 开发者，可以查阅 `electron-vue`（https://github.com/SimulatedGREG/electron-vue），这也是我重点要讲述的项目。
 ### 五、	Electron-vue
-基于 vue来构造 electron 应用程序的模板代码。
-该项目的目的，是为了要避免使用 vue 手动建立起 electron 应用程序。electron-vue 充分利用 vue-cli 作为脚手架工具，加上拥有 vue-loader 的 webpack、electron-packager 或是 electron-builder，以及一些最常用的插件，如vue-router、vuex 等等。
+基于 `vue` 来构造 `electron` 应用程序的模板代码。
+
+该项目的目的，是为了要避免使用 `vue` 手动建立起 `electron` 应用程序。`electron-vue` 充分利用 `vue-cli` 作为脚手架工具，加上拥有 `vue-loader` 的 `webpack`、`electron-packager` 或 `electron-builder`，以及一些最常用的插件，如 `vue-router`、`vuex` 等等。
+
 其优势：
-1.	基本的项目结构与 单一的 package.json 设置
+1.	基本的项目结构与单一的 `package.json` 设置
 2.	详细的文档
-3.	使用 vue-cli 作为项目脚手架
-4.	立即可用的Vue插件 (axios, vue-electron, vue-router, vuex)*
-5.	预装开发工具 vue-devtools 和 devtron
-6.	使用 electron-packager 或 electron-builder 轻松打包你的应用程序*
-7.	appveyor.yml 与 .travis.yml 配置用于 electron-builder 的自动部署*
+3.	使用 `vue-cli` 作为项目脚手架
+4.	开箱即用的 `Vue` 插件 (`axios`, `vue-electron`, `vue-router`, `vuex`)
+5.	预装开发工具 `vue-devtools` 和 `devtron`
+6.	使用 `electron-packager` 或 `electron-builder` 轻松打包应用程序
+7.	`appveyor.yml` 与 `.travis.yml` 配置用于 `electron-builder` 的自动部署
 8.	能够生成用于浏览器的网页输出
-9.	便利的 NPM 脚本
-10.	使用携带模块热更新 (Hot Module Replacement) 的 webpack 和 vue-loader
-11.	在工作在 electron 的 main 主进程时重启进程
-12.	支持使用 vue-loader 的 HTML/CSS/JS 预处理器
-13.	默认支持 stage-0 的 ES6
-14.	使用 babili 避免完全反编译到 ES5
-15.	ESLint (支持 standard 和 airbnb-base)*
-16.	单元测试 (使用 Karma + Mocha)*
-17.	端到端测试 (使用 Spectron + Mocha)*
-(一)	起步
-该代码被构建为 vue-cli 的一个模板，并且包含多个选项，可以自定义你最终的脚手架程序。本项目需要使用 node@^7 或更高版本。electron-vue 官方推荐 yarn 作为软件包管理器，因为它可以更好地处理依赖关系，并可以使用 yarn clean 帮助减少最后构建文件的大小。
-安装vue-cli脚手架：
+9.	便利的 `NPM` 脚本
+10.	使用携带热更新 (`Hot Module Replacement`) 的 `webpack` 和 `vue-loader`
+11.	在 `electron` 的 `main` 主进程修改时重启进程
+12.	支持使用 `vue-loader` 的 `HTML/CSS/JS` 预处理器
+13.	默认支持 `stage-0` 的 `ES6`
+14.	使用 `babili` 避免完全反编译到 `ES5`
+15.	`ESLint` (支持 `standard` 和 `airbnb-base`)
+16.	单元测试 (使用 `Karma` + `Mocha`)
+17.	端到端测试 (使用 `Spectron` + `Mocha`)
+#### (一)	起步
+它是 `vue-cli` 的一个模板，并且包含多个选项，最终的脚手架程序可以自定义。本项目需要使用  `node@^7` 或更高版本。`electron-vue` 官方推荐 `yarn` 作为软件包管理器，因为它可以更好地处理依赖关系，并可以使用 `yarn clean` 帮助减少最后构建文件的大小。
+
+安装 `vue-cli` 脚手架：
+```bash
 npm install -g vue-cli
 vue init simulatedgreg/electron-vue my-project
+```
 安装依赖并且运行程序：
+```bash
 cd my-project
 yarn # or npm install
 yarn run dev # or npm run dev
+```
 创建项目如下：
  
 图 7 创建electron-vue项目
-Electron-vue-case2就使用electron-vue模板安装成功了。
+`Electron-vue-case2` 就使用 `electron-vue` 模板安装成功了。
 启动应用后：
  
 图 8 electron-vue模板项目
-(二)	项目结构
-当涉及制作 electron 应用程序的问题时，项目结构会有些不同。如果你以前使用过官方的 vuejs-templates/webpack 设置，那么你对这个结构应该很熟悉。本文档在此章节将尝试解释样板代码的工作原理以及应用程序在构建中的一些区别。
-单一的 package.json 设置
-就在不久之前，两个 package.json 的设置是必需的，但是，感谢 @electron-userland 的努力，electron-packager 和 electron-builder 现在完全支持单一的 package.json 设置。
-dependencies
-这些依赖项将会被包含在你最终产品的应用程序中。所以，如果你的应用程序需要某个模块才能运行，那么请在此安装！
-devDependencies
-这些依赖项不会被包含在你最终产品的应用程序中。在这里，你可以安装专门用于开发的模块，如构建脚本、webpack加载器等等。
-安装原生 NPM 模块
-我们需要确保我们本地的 npm 模块是针对 electron 来构建的。为了做到这一点，我们可以使用 electron-rebuild，但是为了使事情变得更简单，我们强烈建议使用 electron-builder 作为你的构建工具，因为它会为你处理很多任务。
-关于 main 进程
-在开发过程中，你可能会注意到 src/main/index.dev.js。该文件专门用于开发以及安装开发工具。原则上，该文件不应该被修改，但是可以被用来扩展你的开发需求。在构建的过程中，webpack 将介入其中并创建一个的捆绑，以 src/main/index.js 作为该捆绑的入口文件。
+#### (二)	项目结构
+项目结构与官方的 `vuejs-templates/webpack` 设置不同。
+##### 单一的 package.json 设置
+就在不久之前，两个 `package.json` 的设置是必需的，但是，感谢 `@electron-userland` 的努力，`electron-packager` 和 `electron-builder` 现在完全支持单一的 `package.json` 设置。
+
+##### 关于 main 进程
+在开发过程中，你可能会注意到 `src/main/index.dev.js`。该文件专门用于开发以及安装开发工具。原则上，该文件不应该被修改，但是可以被用来扩展你的开发需求。在构建的过程中，`webpack` 将介入其中并创建一个的捆绑，以 `src/main/index.js` 作为该捆绑的入口文件。
 文件树
-在开发过程中
-注意: 某些文件或文件夹可能会根据在 vue-cli 脚手架中所选设置的不同而有所不同。
+##### 组织架构
+注意: 某些文件或文件夹可能会根据在 `vue-cli` 脚手架中所选设置的不同而有所不同。
+```
 my-project
 ├─ .electron-vue
 │  └─ <build/development>.js files
@@ -224,7 +244,9 @@ my-project
 ├─ .gitignore
 ├─ package.json
 └─ README.md
+```
 产品构建
+```
 app.asar
 ├─ dist
 │  └─ electron
@@ -234,31 +256,37 @@ app.asar
 │     └─ renderer.js
 ├─ node_modules/
 └─ package.json
-可以说，几乎所有的东西都在最终的产品构建中被删除。在分发 electron 应用程序时，这几乎是强制性的，因为你不希望用户下载拥有庞大文件的臃肿的软件。
-渲染进程
-vue 组件
-组件的使用使我们大型、复杂的应用程序更加有组织化。每个组件都有能力封装自己的 CSS、模板 和 JavaScript 的功能。
-组件存放在 src/renderer/components 里。创建子组件时，一个常用的组织化实践是将它们放置在一个使用其父组件名称的新文件夹中。在协调不同的路由时，这一点特别有用。
-vue 组件
-简而言之，我们鼓励使用 vue-router，因为创建 单页应用程序 (Single Page Application) 在制作 electron 程序的时候更加实用。你真的想管理一堆 BrowserWindows，然后在其之间传达信息吗？恐怕不会。
-路由被保存在 src/renderer/router/index.js 
-在使用 vue-router 时，不要使用 HTML5 历史模式。 此模式严格用于通过 http 协议提供文件，并且不能正常使用 file 协议，但是 electron 在产品构建中使用此协议提供文件。默认的 hash 模式正是我们所需要的。
-vuex 模块
-electron-vue 利用 vuex 的模块结构创建多个数据存储，并保存在 src/renderer/store/modules 中。
-拥有多个数据存储对于组织化来说可能很好，但你必须导入每一个数据，这也可能令人厌烦。但是不要担心，因为 src/renderer/store/modules/index.js 帮我们处理了这些麻烦事！这个简单的脚本让 src/renderer/store/index.js 一次性导入我们所有的模块。
+```
+可以说，几乎所有的东西都在最终的产品构建中被删除。在分发 `electron` 应用程序时，这几乎是强制性的，因为你不希望用户下载拥有庞大文件的臃肿的软件。
+##### 渲染进程
+公共且非业务的 `vue` 组件放进 `src/renderer/components` 里。
 
-主进程
-在 Electron 中，运行 package.json 主脚本的过程称为主进程 (main process)。在主进程中运行的脚本可以通过创建网页来显示其图形化界面。
-由于 main 进程本质上是一个完整的 node 环境，所以除了以下两个文件之外，并没有什么初始的项目结构。
-src/main/index.js
-这个文件是你应用程序的主文件，electron 也从这里启动。它也被用作 webpack 产品构建的入口文件。所有的 main 进程工作都应该从这里开始。
-app/src/main/index.dev.js
-这个文件专门用于开发阶段，因为它会安装 electron-debug 和 vue-devtools。一般不需要修改此文件，但它可以用于扩展你开发的需求。
-关于 __dirname 与 __filename 的使用
-由于 main 进程是使用 webpack 来绑定的，所以使用 __dirname 和 __filename 将不会 在产品阶段给你提供一个预期的值。若参考 文件树 你会注意到，在产品阶段，main.js 被放在了 dist/electron 文件夹里面。应根据此点相应地使用 __dirname 和 __filename。
-如果你需要 static/ 资源目录的路径，请务必阅读 使用静态资源 学习了解非常方便的 __static 变量。
+业务的 `vue` 组件放进 `src/renderer/views` 里面。
 
-Webpack 配置
+创建子组件时，一个常用的组织化实践是将它们放置在一个使用其父组件名称的新文件夹中。在协调不同的路由时，这一点特别有用。
+
+简而言之，`vue-router` 因为创建单页应用程序 (`Single Page Application`) 在制作 `electron` 程序的时候更加实用。如果没有，那就只能管理一堆  `BrowserWindows`，然后在其之间传达信息。
+
+路由被保存在 `src/renderer/router/index.js` 
+在使用 `vue-router` 时，不要使用 `HTML5` 历史模式。 此模式严格用于通过 `http` 协议提供文件，并且不能正常使用 `file` 协议，但是 `electron` 在产品构建中使用此协议提供文件。默认的 `hash` 模式正是我们所需要的。
+
+`electron-vue` 利用 `vuex` 的模块结构创建多个数据存储，并保存在 `src/renderer/store/modules` 中。
+
+多模块数据存储不用考虑不相干业务数据交叉感染，多余组织化来说非常好。但是不要担心导入每一个数据带来的烦恼，因为 `src/renderer/store/modules/index.js` 帮我们处理了这些麻烦事！这个简单的脚本让 `src/renderer/store/index.js` 一次性导入我们所有的模块。
+
+##### 主进程
+在 `Electron` 中，运行 `package.json` 主脚本的过程称为主进程 (`main process`)。在主进程中运行的脚本可以通过创建网页来显示其图形化界面。
+由于 `main` 进程本质上是一个完整的 `node` 环境，所以除了以下两个文件之外，并没有什么初始的项目结构。
+
+`src/main/index.js`
+
+这个文件是你应用程序的主文件，`electron` 也从这里启动。它也被用作 `webpack` 产品构建的入口文件。所有的 `main` 进程工作都应该从这里开始。
+`app/src/main/index.dev.js`
+
+这个文件专门用于开发阶段，因为它会安装 `electron-debug` 和 `vue-devtools`。一般不需要修改此文件，但它可以用于扩展你开发的需求。
+
+由于 `main` 进程是使用 `webpack` 来绑定的，所以使用 `__dirname` 和 `__filename` 将不会在产品阶段给你提供一个预期的值。在产品阶段，`main.js` 被放在了 `dist/electron` 文件夹里面。应根据此点相应地使用 `__dirname` 和 `__filename`。
+
 electron-vue 包含三个单独的、位于 .electron-vue/ 目录中的 webpack 配置文件。除了可选的使用 web 输出以外，main 和 renderer 在安装过程中都是相似的。两者都使用 babel-preset-env 来针对 node@7 的功能特性、使用babili、并把所有的模块都视为 externals。
 .electron-vue/webpack.main.config.js
 针对 electron 的 main 进程。这种配置是相当简单的，但确实包括一些常见的 webpack 做法。
