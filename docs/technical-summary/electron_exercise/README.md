@@ -27,6 +27,7 @@ Electron Electron-vue
 图 1 ATM编辑器
  
 图 2 vscode编辑器
+
 官网上第一段话就是：`Electron` 是一个框架，可以让您使用  `JavaScript`，`HTML` 和 `CSS` 创建桌面应用程序。 然后这些应用程序可以打包在 `macOS`、`Windows` 和 `Linux` 上直接运行，或者通过 `Mac App Store` 或微软商店分发。通常，您使用每个操作系统特定的本地应用程序框架为操作系统 (`OS`)创建一个桌面应用程序。 `Electron` 可以在使用您已经知道的技术后写入您的应用程序。由此看出，它是框架，而不是库，前端开发者可以像开发 `web` 应用一样开发桌面应用程序。当然在各大应用商店都可以上架，这个需要各自的认证，这个之后文章讲述。
  
 图 3 electron图标
@@ -34,11 +35,13 @@ Electron Electron-vue
 其优势如下图：
  
 图 4 electron的优势
+
 用 `Electron` 来做桌面程序开发的优势明显，相当于是完全的网页编程，有 `Web` 开发经验的前端开发上手非常容易。`Web` 开发生态广泛，开发成本低，可扩展性强，一些流行的前端框架例如 `React`、`Angular`、`Vue` 都可以和 `electron` 结合进行开发。另外它也具备和 `Qt` 一样跨平台的优良特性。对性能要求不高的桌面版程序来说，一份代码同时得到网页版和各个平台的桌面版，开发的效率是其他方案无法比的。可以说，这是大部分人看好的趋势。
 ### 四、	Electron的入门
 #### (一)	应用程序结构
  
 图 5 electron的架构
+
 `Electron` 由三个主要部分组成：
 1.	Chromium 用于显示网页内容。
 2.	Node.js 用于本地文件系统和操作系统。
@@ -90,14 +93,9 @@ ipcRenderer.on('asynchronous-reply', (event, arg) => {
 ipcRenderer.send('asynchronous-message', 'ping')
 ```
 ##### Electron API
-<<<<<<< HEAD
-Electron API是根据流程类型分配的。这意味着某些模块可以从主程序或渲染程序中使用，有些模块可以从两者中使用。Electron的API文档指明了每个模块可以使用的过程。
-例如，要在两个进程中访问Electron API，需要它包含的模块：
-=======
 `Electron API` 是根据流程类型分配的。这意味着某些模块可以从主程序或渲染程序中使用，有些模块可以从两者中使用。`Electron` 的 `API` 文档指明了每个模块可以使用的过程。
 例如，要在两个进程中访问 `Electron API`，需要它包含的模块：
 ```js
->>>>>>> 8a384b07b5171d6fe0eb9c979975006f965004ed
 const electron = require('electron')
 ```
 若要创建一个窗口，则要调用 `BrowserWindow` 类，只能在主进程中使用：
@@ -148,6 +146,7 @@ $ cd electron-quick-start
 $ npm install && npm start
 ```
 图 6 electron-quick-start模板项目
+
 这个模板没有集成任何前端框架，开发效率惨不忍睹。
 
 对于 `react` 开发者，可以去翻阅 `electron-react-boilerplate` （https://github.com/electron-react-boilerplate/electron-react-boilerplate）
@@ -192,6 +191,7 @@ yarn run dev # or npm run dev
 创建项目如下：
  
 图 7 创建electron-vue项目
+
 `Electron-vue-case2` 就使用 `electron-vue` 模板安装成功了。
 启动应用后：
  
@@ -306,12 +306,12 @@ app.asar
 具体的更新策略可以阅读我的另一篇文章《`Electron`自动更新》。
 ### 六、	开发中存在的问题
 #### (一)	内存占用越来越大，运行越来越慢
-背景
-当应用放很久后，会越来越卡，打开任务管理器发现，electron占用内存很大。
-分析
-这一大部分原因是electron在牺牲内存占用的基础上，将electron.js封装。所以，本身就比较耗内存，Windows版一上来开4个线程，再加上业务代码用到一些类库。
-解决方式
-Electron官网上也有介绍（https://www.electronjs.org/docs/tutorial/performance）。
+##### 背景
+当应用放很久后，会越来越卡，打开任务管理器发现，`electron` 应用占用内存很大。
+##### 分析
+这一大部分原因是 `electron` 在牺牲内存占用的基础上，将 `electron.js` 封装。所以，本身就比较耗内存，`Windows` 版一上来开 `4` 个线程，再加上业务代码用到一些类库。
+##### 解决方式
+`Electron` 官网上也有介绍（https://www.electronjs.org/docs/tutorial/performance）。
 1.	谨慎地加载模块
 2.	过早的加载和执行代码
 3.	阻塞主进程
@@ -320,18 +320,24 @@ Electron官网上也有介绍（https://www.electronjs.org/docs/tutorial/perform
 6.	不必要的或者阻塞的网络请求
 7.	打包你的代码
 #### (二)	electron程序显示了文件浏览器
-背景
-启动electron-vue项目的时候，会经常出现下图的情况：
+##### 背景
+启动 `electron-vue` 项目的时候，会经常出现下图的情况：
  
 图 9 文件浏览器
+
 为什么会显示文件浏览器呢？我的应用程序去哪了？
-分析
-出现上述这个错误，八成就是 src/renderer 包含错误。检查下终端，修复错误，然后用CommandOrControl+R 刷新electron，就可以看到熟悉的应用页面。
-如果src/renderer 中出现错误，则会在首次运行时与 ESLint 产生冲突。接着，一个无效的 webpack 的 renderer.js 会被生成出来，它会打断 HtmlWebpackPlugin创建index.html。由于 webpack-dev-server 没有 index.html 可以提供服务，所以服务器失败，程序返回到文件浏览器。
+##### 分析
+出现上述这个错误，八成就是 `src/renderer` 包含错误。
+
+如果 `src/renderer` 中出现错误，则会在首次运行时与 `ESLint` 产生冲突。接着，一个无效的 `webpack` 的 `renderer.js` 会被生成出来，它会打断 `HtmlWebpackPlugin` 创建 `index.html`。由于 `webpack-dev-server` 没有 `index.html` 可以提供服务，所以服务器失败，程序返回到文件浏览器。
+##### 解决方式
+在终端下检查下爆红的错误，修复错误，然后用 `CommandOrControl+R` 刷新 `electron` 应用，就可以看到熟悉的应用页面。
 #### (三)	ReferenceError: process is not defined
-背景
-当你启动electron-vue项目时会遇到process is not defined。
+##### 背景
+当你首次启动 `electron-vue` 项目时会遇到 `process is not defined`。
+
 具体报错如下图：
+```bash
 ReferenceError: process is not defined
   
 - index.ejs:11 eval
@@ -347,11 +353,16 @@ ReferenceError: process is not defined
 
 - task_queues.js:93 processTicksAndRejections
   internal/process/task_queues.js:93:5
-原因分析
-我本地的node版本是12.3.1，好像更新到12之前就一切正常。看样子，最新版本的node会出现了错误。
-解决方式
-降低版本这种方式也可以。
-除此之外，我从这个issue（https://github.com/SimulatedGREG/electron-vue/issues/871）中得到了解决方法：就是在webpack.web.config.js和webpack.renderer.config.js中的HtmlWebpackPlugin中加入如下代码即可：
+```
+##### 原因分析
+暂无
+##### 解决方式
+网上说降低版本这种方式也可以。
+
+我本地的 `node` 版本是 `12.3.1`，好像更新到 `12` 之前就一切正常。看样子，最新版本的 `node` 会出现了错误。
+
+除此之外，我从这个 `issue`（https://github.com/SimulatedGREG/electron-vue/issues/871）中得到了解决方法：就是在 `webpack.web.config.js` 和 `webpack.renderer.config.js` 中的 `HtmlWebpackPlugin` 中加入如下代码即可：
+```js
       // 模版需要的参数
       // https://github.com/jantimon/html-webpack-plugin/blob/master/examples/template-parameters/webpack.config.js
       templateParameters(compilation, assets, options) {
@@ -367,29 +378,44 @@ ReferenceError: process is not defined
           process,
         };
       },
+```
 #### (四)	electron 如何打开开发者工具devtools
-背景
-开发应用，如果没有开发者工具devtools，那么开发效率会大大降低，用上开发者工具，无论在调试还是测试方面犹如蛟龙出海，游刃有余。
-解决方式
-利用electron的webContents对象打开及关闭devtools。下面的例子中，我基于main.js中的createWindow中的mainWindow.webContents进行操作的。
-打开devtools：
-mainWindow.webContents.openDevTools()
+##### 背景
+开发应用，如果没有开发者工具 `devtools`，那么开发效率会大大降低，用上开发者工具，无论在调试还是测试方面犹如蛟龙出海，游刃有余。
+##### 解决方式
+利用 `electron` 的 `webContents` 对象打开及关闭 `devtools`。下面的例子中，我基于 `main.js` 中的 `createWindow` 中的 `mainWindow.webContents` 进行操作的。
+
+打开 `devtools`：
+
+`mainWindow.webContents.openDevTools()`
+
 默认状态下，开发者工具的位置是上一次工具打开的位置（左边，右边，下边都有可能。取决于上一次的状态，但不会是分离状态，也没有处于顶部的状态）
-界面右侧打开devtools：
-mainWindow.webContents.openDevTools({mode:'right'})
-界面底部打开devtools：
-mainWindow.webContents.openDevTools({mode:'bottom'})
-界面左侧打开devtools：
-mainWindow.webContents.openDevTools({mode:'left'})
-分离状态打开devtools：
-mainWindow.webContents.openDevTools({mode:'detach'})
-mainWindow.webContents.openDevTools({mode:'undocked'})
-这两种情况下，devtools都是不和主界面在一起的，都是分离状态。但是 undocked 状态下，这个开发者工具是可以合并到主界面中的。detach状态下，是永久分离的。这个就是两者的区别。
-关闭devtools：
-mainWindow.webContents.closeDevTools()
+
+应用右侧打开 `devtools`：
+
+`mainWindow.webContents.openDevTools({mode:'right'})`
+
+底部打开 `devtools`：
+
+`mainWindow.webContents.openDevTools({mode:'bottom'})`
+
+左侧打开 `devtools`：
+
+`mainWindow.webContents.openDevTools({mode:'left'})`
+
+分离状态打开 `devtools`：
+
+`mainWindow.webContents.openDevTools({mode:'detach'})`
+`mainWindow.webContents.openDevTools({mode:'undocked'})`
+
+这两种情况下，`devtools` 都是不和主界面在一起的，都是分离状态。但是 `undocked` 状态下，这个开发者工具是可以合并到主界面中的。`detach` 状态下，是永久分离的。这个就是两者的区别。
+
+关闭 `devtools`：
+
+`mainWindow.webContents.closeDevTools()`
 #### (五)	找不到electron依赖包
-背景
-我的应用明明安装了依赖包，却无法找到electron包时，报这个错误：
+##### 背景
+我的应用明明安装了依赖包，却无法找到 `electron` 包时，报这个错误：
 throw new Error('Electron failed to install correctly, please delete node_modules/electron and try installing again')
 原因分析
 经测试发现，electron必须要安装在 devDependencies。
