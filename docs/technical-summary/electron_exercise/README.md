@@ -416,11 +416,13 @@ ReferenceError: process is not defined
 #### (五)	找不到electron依赖包
 ##### 背景
 我的应用明明安装了依赖包，却无法找到 `electron` 包时，报这个错误：
-throw new Error('Electron failed to install correctly, please delete node_modules/electron and try installing again')
-原因分析
-经测试发现，electron必须要安装在 devDependencies。
-找到该代码在源码的位置，见node_modules\electron\index.js：
 
+`throw new Error('Electron failed to install correctly, please delete node_modules/electron and try installing again')`
+##### 原因分析
+经测试发现，`electron` 必须要安装在   `devDependencies`。
+
+找到该代码在源码的位置，见 `node_modules\electron\index.js`：
+```js
 var pathFile = path.join(__dirname, 'path.txt')
 
 function getElectronPath () {
@@ -436,20 +438,25 @@ function getElectronPath () {
 }
 
 module.exports = getElectronPath()
-
-如果是安装在dependencies下，就没有path.txt。那么node就读取不到该文件，抛出electron安装失败的问题。
-解决方式
+```
+如果是安装在 `dependencies` 下，就没有 `path.txt`。那么 `node` 就读取不到该文件，抛出 `electron` 安装失败的问题。
+##### 解决方式
 重新安装：
+```
 npm install electron --save-dev
+```
 #### (六)	electron-vue无法改变vuex状态
-背景
-Electron-vue中添加vuex插件后，却无法使用。组件间根本无法改变vuex数据状态。
-解决方案
-首先，vuex-electron 的文档里写了：
-In case if you enabled createSharedMutations() plugin you need to create an instance of store in the main process. To do it just add this line into your main process (for example src/main.js):
-import './path/to/your/store'
-意思是如果启用了createSharedMutations() 的插件，需要在主进程中创建一个store的实例，在主进程中(例如src/main.js)添加store实例。
-是否启用了createSharedMutations插件，见src\renderer\store\index.js文件：
+##### 背景
+`Electron-vue` 中添加 `vuex` 插件后，却无法使用。组件间根本无法改变 `vuex` 数据状态。
+##### 解决方案
+首先，`vuex-electron` 的文档里写了：
+
+`In case if you enabled createSharedMutations() plugin you need to create an instance of store in the main process. To do it just add this line into your main process (for example src/main.js):import './path/to/your/store'`
+
+意思是如果启用了 `createSharedMutations()` 的插件，需要在主进程中创建一个 `store` 的实例，在主进程中(例如 `src/main.js`)添加 `store` 实例。
+
+是否启用了 `createSharedMutations` 插件，见 `src\renderer\store\index.js` 文件：
+```js
 const store = new Vuex.Store({
   state,
   getters,
@@ -461,18 +468,25 @@ const store = new Vuex.Store({
   ],
   strict: process.env.NODE_ENV !== 'production'
 })
-开启多窗口共享后，在主进程加上这一句就行了，见src\main\index.js文件：
+```
+开启多窗口共享后，在主进程加上这一句就行了，见 `src\main\index.js` 文件：
+```js
 import '../renderer/store'
+```
 重启程序即可。
-如果应用中，不需要多窗口共享状态，就不需要在主进程中添加stote实例，将store实例中createSharedMutations方法去掉。
+
+如果应用中，不需要多窗口共享状态，就不需要在主进程中添加 `stote` 实例，将 `store` 实例中 `createSharedMutations` 方法去掉。
 #### (七)	electron-vue中无法使用Element组件
-背景
-应用需要集成第三方ui组件，比如element-ui，但是导入组件后却无法使用。
-解决方案
-查看这个issue（https://github.com/SimulatedGREG/electron-vue/issues/361）： 
-Okay, I am able to reproduce this issue now. It seems element-ui falls into that category of modules that need to be white-listed. If you go into .electron-vue/webpack.renderer.config.js, around line 21, you can add element-ui to the whiteListedModules list. After making that change, tooltips will work as expected.
-大概的意思是似乎element-ui并不属于这一类的模块，需要那些列入“白名单”,如果你进入electron-vue/webpack.renderer.config.js。
-在大约 21 行左右找到 let whiteListedModules 将 element-ui 添加进去：
+##### 背景
+应用需要集成第三方 `ui` 组件，比如 `element-ui`，但是导入组件后却无法使用。
+##### 解决方案
+查看这个 `issue`（https://github.com/SimulatedGREG/electron-vue/issues/361）： 
+
+`Okay, I am able to reproduce this issue now. It seems element-ui falls into that category of modules that need to be white-listed. If you go into .electron-vue/webpack.renderer.config.js, around line 21, you can add element-ui to the whiteListedModules list. After making that change, tooltips will work as expected.`
+
+大概的意思是似乎 `element-ui` 并不属于这一类的模块，需要那些列入“白名单”,如果你进入 `electron-vue/webpack.renderer.config.js`。
+在大约 `21` 行左右找到 `let whiteListedModules` 将 `element-ui` 添加进去：
+```js
 let whiteListedModules = ['vue', 'element-ui', 'vuetify']
 
 let rendererConfig = {
@@ -483,20 +497,24 @@ let rendererConfig = {
   externals: [
     ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
   ],
-一个关于此配置的重要的事情是，可以将特定的模块列入白名单，而不是把它视为 webpack 的 externals。并没有很多情况需要这个功能，但在某些情况下，对于提供原始的 *.vue 组件的 Vue UI 库，他们需要被列入白名单，以至于 vue-loader 能够编译它们。另一个使用情况是使用 webpack 的 alias，例如设置 vue 来导入完整的 编译+运行环境 的构建。因此，vue 已经在白名单中了。
+```
+一个关于此配置的重要的事情是，可以将特定的模块列入白名单，而不是把它视为 `webpack` 的  `externals`。并没有很多情况需要这个功能，但在某些情况下，对于提供原始的 `*.vue` 组件的  `Vue UI` 库，他们需要被列入白名单，以至于  `vue-loader` 能够编译它们。另一个使用情况是使用 `webpack` 的 `alias`，例如设置 `vue` 来导入完整的编译+运行环境的构建。因此，`vue` 已经在白名单中了。
 #### (八)	Electron无边框窗口中自定义窗口快捷键
-背景
-  mainWindow = new BrowserWindow({
+##### 背景
+```js
+mainWindow = new BrowserWindow({
     height: 720,
     minHeight: 720,
     minWidth: 1080,
     width: 1080,
     frame: false
   })
-设置了frame为false后，electron就隐藏了工具栏，所有窗口都变成了无边框窗口。因此，窗口中缺少了必要的最小化、最大化、关闭的窗口快捷键。
-解决方案
-首先在windowOperate.vue页面中写入三个按钮，并将事件绑定：
- // 从渲染器进程到主进程的异步通信。
+```
+设置了 `frame` 为 `false` 后，`electron` 就隐藏了工具栏，所有窗口都变成了无边框窗口。因此，窗口中缺少了必要的最小化、最大化、关闭的窗口快捷键。
+##### 解决方案
+首先在 `windowOperate.vue` 页面中写入三个按钮，并将事件绑定：
+```js
+// 从渲染器进程到主进程的异步通信。
 // 使用它提供的一些方法从渲染进程 (web 页面) 发送同步或异步的消息到主进程。
 const {
     ipcRenderer
@@ -511,8 +529,12 @@ onRectangle () {
 onCross () {
     ipcRenderer.send('window-close')
 }
-上面三个方法的意思是：给主进程发送同步消息，触发特定的事件。onMinusSm 方法中 ipcRenderer 发送 min 事件，主进程就可以监听 min 事件。
-在src/main/index.js中：
+```
+上面三个方法的意思是：给主进程发送同步消息，触发特定的事件。`onMinusSm` 方法中 `ipcRenderer` 发送 `min` 事件，主进程就可以监听 `min` 事件。
+
+在 `src/main/index.js` 中：
+
+```js
 const {
   // 从主进程到渲染进程的异步通信。
   ipcMain
@@ -536,13 +558,15 @@ ipcMain.on('max', function () {
     mainWindow.maximize()
   }
 })
-主进程监听渲染进程的三个事件。如：主进程监听 min ，触发最小化窗口的方法。
-注意：mainWindow.close() 不能关闭程序，需要使用 app.exit() 来关闭。
+```
+主进程监听渲染进程的三个事件。如：主进程监听 `min` ，触发最小化窗口的方法。
+注意：`mainWindow.close()` 不能关闭程序，需要使用 `app.exit()` 来关闭。
 #### (九)	监听窗口状态，动态改变窗口最大化图标
-背景
+##### 背景
 上一个问题解决了窗口最小化、最大化、关闭的窗口快捷键。但是，还缺少动态改变窗口最大化的快捷键。
-解决方案
-在 windowOperate.vue 中监听 main-window-max 事件，触发展示缩小图标； 在 windowOperate.vue 中监听 main-window-unmax 事件，触发展示最大化图标：
+##### 解决方案
+在 `windowOperate.vue` 中监听 `main-window-max` 事件，触发展示缩小图标； 在 `windowOperate.vue` 中监听 `main-window-unmax` 事件，触发展示最大化图标：
+```js
 mounted () {
     // 监听窗口状态，动态改变图片
     this.changeWin()
@@ -556,7 +580,9 @@ changeWin () {
     this.isRectangle = true
     })
 },
-在 src/main/index.js 让主进程监听窗口 maximize 和 unmaximize 向子进程发送事件消息：
+```
+在 `src/main/index.js` 让主进程监听窗口 `maximize` 和 `unmaximize` 向子进程发送事件消息：
+```js
 function createWindow () {}中插入
   // 监听窗口状态，向渲染进程发送消息
   // 窗口最大化时触发
@@ -567,9 +593,11 @@ function createWindow () {}中插入
   mainWindow.on('unmaximize', function () {
     mainWindow.webContents.send('main-window-unmax')
   })
+```
 #### (十)	electron Uncaught TypeError: Cannot read property 'app' of undefined
-背景
-electron-vue 这个项目有一些缺陷，启动项目的时候会报错：
+##### 背景
+`electron-vue` 这个项目有一些缺陷，启动项目的时候会报错：
+```
 Uncaught TypeError: Cannot read property 'app' of undefined
     at new ElectronStore (E:\eleftron-autoupdate-demo\node_modules\electron-store\index.js:8:55)
     at a (E:\eleftron-autoupdate-demo\node_modules\vuex-electron\dist\persisted-state.js:1:1365)
@@ -581,8 +609,10 @@ Uncaught TypeError: Cannot read property 'app' of undefined
     at eval (webpack-internal:///./src/renderer/store/index.js:17:64)
     at Module../src/renderer/store/index.js (http://localhost:9080/renderer.js:1583:1)
     at __webpack_require__ (http://localhost:9080/renderer.js:791:30)
-解决方案
-给主窗口添加 enableRemoteModule 属性，使用remote模块：
+```
+##### 解决方案
+给主窗口添加 `enableRemoteModule` 属性，使用 `remote` 模块：
+```js
 mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
@@ -592,9 +622,10 @@ mainWindow = new BrowserWindow({
       enableRemoteModule: true
     }
   })
-
+```
 ## 总结
-本文介绍了桌面应用程序的历史、electron的历史和electron-vue的项目。
-Electron的应用程序结构分为主进程和渲染进程、electron的api和nodejs的api三大块。
-从介绍electron-vue的项目结构，到构建应用程序，上手electron项目，完成一个简单的electron项目。
-还通过分析开发中存在的一些问题，加深了对electron的了解。
+本文介绍了桌面应用程序的历史、`electron` 的历史和 `electron-vue` 的项目。
+
+`Electron` 的应用程序结构分为主进程和渲染进程、`electron` 的 `api` 和 `nodejs` 的 `api` 三大块。
+从介绍 `electron-vue` 的项目结构，到构建应用程序，上手 `electron` 项目，完成一个简单的 `electron` 项目。
+还通过分析开发中存在的一些问题，加深了对 `electron` 的了解。
