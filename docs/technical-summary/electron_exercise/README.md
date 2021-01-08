@@ -659,5 +659,6 @@ mainWindow = new BrowserWindow({
 本文介绍了桌面应用程序的历史、`electron` 的历史和 `electron-vue` 的项目。
 
 `Electron` 的应用程序结构分为主进程和渲染进程、`electron` 的 `api` 和 `nodejs` 的 `api` 三大块。
-从介绍 `electron-vue` 的项目结构，到构建应用程序，上手 `electron` 项目，完成一个简单的 `electron` 项目。
+从介绍 `electron-vue` 的项目结构，到构建应用程序，上手 `electron` 项目，完成一个 `electron` 项目（进行中）。
+
 还通过分析开发中存在的一些问题，加深了对 `electron` 的了解。
