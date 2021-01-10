@@ -1,6 +1,20 @@
 # Electron实战
 ## 摘要
-阅读本文需要一定的 `node` 基础知识。知道 `Electron` 是开发桌面应用程序的技术。
+
+时间过得真快，在忙碌的工作中，`2020` 年就已经过去了。
+
+虽然到了 `2021` 年，年龄增加了一岁，白头发多了很多，技术学了很多，但是工资却没有见涨。
+
+那能如何呢？难道 `xxx` 不再剥削了，打工人就能自由了？
+
+![avatar](./打工人觉悟.png)
+
+“打工人，打工魂，打工才是人上人”，透露出小人物在平凡生活中的不懈追求，
+有着更积极的乐观主义色彩。
+
+这是一种自嘲，也是一直激励。同为打工人，那就一起来学习一直很火的 `electron` 吧。
+
+阅读本文需要一定的 `node` 基础知识。知道 `electron` 是开发桌面应用程序的技术。
 
 本文主要介绍了桌面应用程序的历史和 `electron` 的历史，分析了 `electron` 原理和 `electron-vue` 项目架构，快速上手了 `electron-vue` 项目。
 
@@ -79,7 +93,7 @@ Electron Electron-vue
 每个应用程序的主进程文件都在 `package.json` 中的 `main` 属性中指定。这就是程序知道在启动时执行什么文件。
 `Rendererer` 进程，又叫渲染进程。在 `Chromium` 中，此进程被称为“浏览器进程”。 它在 `Electron` 中重新命名，以避免与渲染器过程混淆。与主进程不同的是，它可以有多个，每个都是在一个单独的进程中运行的。它们也可以被掩盖。
 在通常的浏览器内，网页通常运行在一个沙盒的环境中，并且不能够使用原生的资源。然而 `Electron` 的用户在 `Node.js` 的 `API` 支持下可以在页面中和操作系统进行一些低级别的交互。
-1.	主进程 通过创建 `BrowserWindow` 实例来创建网页。 每一个 `BrowserWindow` 实例在其渲染过程中运行网页。当一个 `BrowserWindow` 实例被摧毁时，对应的渲染过程也被终止。
+1.	主进程通过创建 `BrowserWindow` 实例来创建网页。 每一个 `BrowserWindow` 实例在其渲染过程中运行网页。当一个 `BrowserWindow` 实例被摧毁时，对应的渲染过程也被终止。
 2.	主进程管理所有网页及其对应的渲染进程。
 3.	渲染进程只能管理每个相应的网页。在一个渲染过程中崩溃不会影响其他渲染过程。
 4.	渲染进程通过 `IPC` 与主进程通信在网页上执行 `GUI` 操作。由于安全考虑和可能的资源泄漏，直接从渲染器过程中调用与本地 `GUI` 有关的 `API` 受到限制。
@@ -94,28 +108,41 @@ Electron Electron-vue
 ###### ipcRenderer
 从渲染器进程到主进程的异步通信。
 下面是一个渲染进程向主进程通信的例子：
+
+同步：
 ```js
-// 在主进程中.
-const { ipcMain } = require('electron')
-ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log(arg) // prints "ping"
-  event.reply('asynchronous-reply', 'pong')
-})
-
-ipcMain.on('synchronous-message', (event, arg) => {
-  console.log(arg) // prints "ping"
-  event.returnValue = 'pong'
-})
-
-//在渲染器进程 (网页) 中。
+//在渲染进程中
 const { ipcRenderer } = require('electron')
-console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
-
-ipcRenderer.on('asynchronous-reply', (event, arg) => {
-  console.log(arg) // prints "pong"
+ipcRenderer.on('main-reply', (event, arg) => {
+  console.log(arg) //  "main的回复消息"
 })
-ipcRenderer.send('asynchronous-message', 'ping')
+ipcRenderer.send('render-main-message', '来自render的消息')
 ```
+```js
+// 在主进程中
+const { ipcMain } = require('electron')
+ipcMain.on('render-main-message', (event, arg) => {
+  console.log(arg) //  "来自render的消息"
+  event.reply('main-reply', 'main的回复消息')
+})
+```
+
+异步：
+```js
+//在渲染进程中
+const { ipcRenderer } = require('electron')
+console.log(ipcRenderer.sendSync('render-main-message', '来自render的消息')) // 来自render的消息
+```
+```js
+// 在主进程中
+const { ipcMain } = require('electron')
+
+ipcMain.on('render-main-message', (event, arg) => {
+  console.log(arg) // 来自render的消息
+  event.returnValue = '来自render的消息'
+})
+```
+这两段代码很好理解，渲染进程发送消息，主进程接受到消息事件后回复消息回复渲染进程，最主要的区别在于一个是异步一个是同步。
 ##### Electron API
 `Electron API` 是根据流程类型分配的。这意味着某些模块可以从主程序或渲染程序中使用，有些模块可以从两者中使用。`Electron` 的 `API` 文档指明了每个模块可以使用的过程。
 例如，要在两个进程中访问 `Electron API`，需要它包含的模块：
@@ -662,6 +689,14 @@ mainWindow = new BrowserWindow({
 从介绍 `electron-vue` 的项目结构，到构建应用程序，上手 `electron` 项目，完成一个 `electron` 项目（进行中）。
 
 还通过分析开发中存在的一些问题，加深了对 `electron` 的了解。
+
+愿你悄悄打工，然后惊艳所有人！
+
+![](./加油打工人.gif)
+## 参考文献
+[electron官网](https://www.electronjs.org/)
+
+[electron-vue官网](https://simulatedgreg.gitbooks.io/electron-vue/content/cn/)
 
 最后，希望大家一定要点赞三连。
 
