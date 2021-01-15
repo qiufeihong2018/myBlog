@@ -360,7 +360,7 @@ app.asar
 如果你刚开始制作 `electron` 应用程序或只需要创建简单的可执行文件，那么 `electron-packager` 就可以满足你的需求。
 `electron-builder`
 如果你正在寻找完整的安装程序、自动更新的支持、使用 `Travis CI` 和 `AppVeyor` 的 `CI` 构建、或本机 `node` 模块的自动重建，那么你会需要 `electron-builder`。
-具体的更新策略可以阅读我的另一篇文章《`Electron`自动更新》。
+具体的更新策略可以阅读我的另一篇文章[《`Electron`自动更新》](../electron-update/README.md)。
 ### 六、	开发中存在的问题
 #### (一)	内存占用越来越大，运行越来越慢
 ##### 背景
