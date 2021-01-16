@@ -1,24 +1,27 @@
 
-(四)	Error Downloading Update: Command failed: 4294967295
-1.	背景
-自动更新过程中出现“Error Downloading Update: Command failed: 4294967295”的报错，因为这个问题很常见，所以我要挑出来讲。
-2.	原因分析
-这个问题在Squirrel.Windows的issues（https://GitHub.com/Squirrel/Squirrel.Windows/issues/833）中也有，
+#### (四)	Error Downloading Update: Command failed: 4294967295
+##### 1.	背景
+自动更新过程中出现“`Error Downloading Update: Command failed: 4294967295`”的报错，因为这个问题很常见，所以我要挑出来讲。
+##### 2.	原因分析
+这个问题在 `Squirrel.Windows` 的 `issues`（`https://GitHub.com/Squirrel/Squirrel.Windows/issues/833`）中也有，
 其中的回答绕不过一点：程序的错误，远程发布文件是空的或损坏影响我们的更新。
-3.	解决方式
+##### 3.	解决方式
 对于开发者来说，我需要重新上传新的安装程序。
 对于用户来说，可能需要先卸载后重新安装新的版本。
-(五)	更新后，老版本没有被替换
-1.	背景
-自动更新完成后，多出来一个新版本的目录app-0.0.2,没有覆盖xxx项目，桌面快捷方式打开的还是xxx项目里的旧版本。
-究其原因，归咎于nsis没有集成updateManage机制。上文已经描述过，就不再多述。
+#### (五)	更新后，老版本没有被替换
+##### 1.	背景
+自动更新完成后，多出来一个新版本的目录 `app-0.0.2`,没有覆盖 `xxx` 项目，桌面快捷方式打开的还是 `xxx` 项目里的旧版本。
+究其原因，归咎于 `nsis` 没有集成 `updateManage` 机制。上文已经描述过，就不再多述。
  
 图 7 安装目录
-2.	解决方案
-1.	向服务器每隔一段时间发送当前版本的请求，询问其是否有新版本的应用（setFeedURL和checkForUpdates方法实现）
-2.	当有更新进入error、checking-for-update、update-available和update-not-available这些钩子方法时，写入日志
-3.	更新进入update-downloaded，提示用户更新完成，手动重启。然后，启动一个子进程去执行bat脚本，替换安装目录下面的旧版本。
-xxx项目的更新代码，见update.js：
+
+##### 2.	解决方案
+1.	向服务器每隔一段时间发送当前版本的请求，询问其是否有新版本的应用（`setFeedURL` 和 `checkForUpdates` 方法实现）;
+2.	当有更新进入 `error`、`checking-for-update`、`update-available`和`update-not-available` 这些钩子方法时，写入日志;
+3.	更新进入 `update-downloaded`，提示用户更新完成，手动重启。然后，启动一个子进程去执行 `bat` 脚本，替换安装目录下面的旧版本。
+
+`xxx` 项目的更新代码，见 `update.js`：
+```js
 const server = process.env.VUE_APP_SERVER
 const url = `${server}/update/${process.platform}/${app.getVersion()}/stable`
 logger.info(`url:${url}`)
@@ -100,7 +103,9 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     }
   })
 })
-xxx项目新版本替换旧版本的脚本，见Replace.bat：
+```
+`xxx` 项目新版本替换旧版本的脚本，见 `Replace.bat`：
+```bash
 chcp 65001
 echo **更新即将完成，请勿关闭窗口！** >> replace.log
 ping -n 5 127.0.0.1 >> replace.log
@@ -110,13 +115,14 @@ RD /q /s ".\xxx项目" >> replace.log
 ren app-%1 "xxx项目" >> replace.log
 del "xxx项目.Exe" >> replace.log
 exit
-
-(六)	Update.exe之外的操作无日志
-1.	背景
-更新过程中产生的日志都存储在SquirrelSetup.log中，但是仅仅只是Update.exe产出的日志。可是很多步骤需要输出更多的日志。
-自动化工具中的部分更新日志采用log4js方案，将不同的日志类型输出在不同文件中。
-2.	解决方案
-xxx项目的日志配置，见log4js.js：
+```
+#### (六)	Update.exe之外的操作无日志
+##### 1.	背景
+更新过程中产生的日志都存储在 `SquirrelSetup.log` 中，但是仅仅只是 `Update.exe` 产出的日志。可是很多步骤需要输出更多的日志。
+自动化工具中的部分更新日志采用 `log4js` 方案，将不同的日志类型输出在不同文件中。
+##### 2.	解决方案
+`xxx` 项目的日志配置，见 `log4js.js`：
+```js
 const log4js = require('log4js')
 const programName = 'xxx项目'
 log4js.configure({
@@ -174,8 +180,12 @@ log4js.configure({
 })
 
 module.exports = log4js
- 
-总结
+```
+### 总结
 解决的方式可能会很多，但是需要采用一种适合自己的方式钻研到底，坚持不懈，就一定能得到收获。
-文中介绍了当前存在的问题、自动更新的方案、打包的两种方式和开发中存在的问题。其中，xxx项目采用的是squirrel.windows的更新机制和nsis的自定义安装策略。通过electron-builder将两者配置后，产出不同的安装程序setup.exe和更新程序nupkg。然后将nsis的setup.exe和squirrel.windows中的nupkg上传到electron-release-server中。利用electron-release-server定时检查策略，对比本地版本和线上版本，自动下载依赖和程序，进行更新并且替换，做到用户无感知，操作不繁琐。
+
+文中介绍了当前存在的问题、自动更新的方案、打包的两种方式和开发中存在的问题。其中，`xxx` 项目采用的是 `squirrel.windows` 的更新机制和 `nsis` 的自定义安装策略。
+
+通过 `electron-builder` 将两者配置后，产出不同的安装程序 `setup.exe` 和更新程序 `nupkg`。然后将 `nsis` 的 `setup.exe` 和 `squirrel.windows` 中的 `nupkg` 上传到 `electron-release-server` 中。利用 `electron-release-server` 定时检查策略，对比本地版本和线上版本，自动下载依赖和程序，进行更新并且替换，做到用户无感知，操作不繁琐。
+
 开发中遇到问题其实不止这些，由于篇幅问题，所以我总结了一部分常见的问题。
