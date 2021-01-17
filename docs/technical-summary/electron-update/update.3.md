@@ -1,4 +1,5 @@
-
+# 研究Electron自动更新 系列三【近1W字】
+这是继《研究 `Electron` 自动更新》系列的最后一篇，感谢大家的耐心阅读。
 #### (四)	Error Downloading Update: Command failed: 4294967295
 ##### 1.	背景
 自动更新过程中出现“`Error Downloading Update: Command failed: 4294967295`”的报错，因为这个问题很常见，所以我要挑出来讲。
@@ -6,7 +7,8 @@
 这个问题在 `Squirrel.Windows` 的 `issues`（`https://GitHub.com/Squirrel/Squirrel.Windows/issues/833`）中也有，
 其中的回答绕不过一点：程序的错误，远程发布文件是空的或损坏影响我们的更新。
 ##### 3.	解决方式
-对于开发者来说，我需要重新上传新的安装程序。
+对于开发者来说，我需要重新上传新的安装程序。还有可能是更新服务器提供的下载 `nupkg` 的 `url` 出错，这个需要通过  `SquirrelSetup.log` 去仔细检查，不难的。
+ 
 对于用户来说，可能需要先卸载后重新安装新的版本。
 #### (五)	更新后，老版本没有被替换
 ##### 1.	背景

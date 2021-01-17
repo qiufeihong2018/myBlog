@@ -1,19 +1,22 @@
-# Electron自动更新的研究(一)
+# 研究Electron自动更新 系列一【近8k字】
 ## 摘要
-阅读本文需要 `Electron` 和 `Node` 的基础知识，本文只针对 `Electron` 自动更新机制进行研究。目前文中的可行方案仅在 `Windows` 环境中适用，`Mac` 和 `Linux` 环境的方案亟待研究。
+阅读本文需要 `Electron` 和 `Node` 的基础知识，本文只针对 `Electron` 自动更新机制进行研究。
+
+目前文中的可行方案仅在 `Windows` 环境中适用，`Mac` 和 `Linux` 环境的方案亟待研究。
+
 进行了多个方案研究测试，方案简述如下：利用内置的 `Squirrel` 框架和 `Electron` 的 `autoUpdater` 模块更新 `Electron` 应用。
 
-如果您对electron还不是特别清楚，请见[《Electron实战》](../electron_exercise/README.md)一文。
+如果您对 `Electron` 还不是特别清楚，请见我的拙作[《Electron实战》](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/electron_exercise)一文。
 ## 关键词
-`Electron` `Nsis` `Squirrel.windows` `Update.exe` `xxx`项目
+`Electron` `Nsis` `Squirrel.windows` `Update.exe`
  
 ## 正文
 ### 一、	背景
- 
-图 1 `electron`
+![Electron](./Electron.jpg)
+图 1 `Electron`
+
 在开发 `xxx` 项目的时候，像很多做桌面应用的框架（如包括较早的 `vc6.0`，以及 `c#`、`asp.net`、`QT`、`java`、`Delphi`、`C++BUILDE` 等等）一样，`Electron` 需要打包出应用程序，分发给每一个用户使用。
  
-图 2 `xxx`项目
 ### 二、	当前存在的问题
 当我们在应用中添加了新的功能并且提交了新代码后，当然是希望在用户的电脑上能够自动更新。 
 但是最原始的操作是这样的：
@@ -102,7 +105,7 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 下面是两种可行的更新服务器的解决方案以及他们所依赖打包更新机制。
 
 #### (一)	Electron-builder搭配Electron-release-server
-对于 `Electron-builder` 的介绍，官网给得相当详细，一个完整的解决方案，打包和建立准备分发 `electron` 应用程序的”`auto update`”支持开箱即用。
+对于 `Electron-builder` 的介绍，官网给得相当详细，一个完整的解决方案，打包和建立准备分发 `Electron` 应用程序的”`auto update`”支持开箱即用。
 下面是 `Electron-builder` 中 `windows` 的两种配置方式，分别是 `Squirrel.windows` 和 `Nsis`，其他的就不提了。
 1.	`Squirrel.windows` 自动更新，该方式默认安装到本地用户帐户下，安装在 `%LocalAppData%` 下(例如，`xxx` 项目就会被安装在 `C:\Users\用户\AppData\Local\xxx` 文件夹中)，并且会自动产生 `packages` 文件夹和 `Update.exe` 程序。 `packages` 包含了版本信息的 `RELEASES` 文件。 如果有最新版本，他的 `nupkg` 也会下载到其中。期间，自动更新的日志会存放在 `SquirrelSetup.log` 中。
 2.	`Nsis` 自动更新方式与 `Squirrel.windows` 类似。 但是安装后不会产生 `packages` 文件夹和 `Update.exe` 程序。打开后可以选择安装目录等安装步骤进行安装，安装颗粒度变得更加细致。
@@ -120,7 +123,7 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
       "publish": [
         {
           "provider": "generic",
-          "url": "http://10.66.193.88:5000/"
+          "url": ""
         }
       ]
     },
@@ -147,11 +150,16 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
   }
 ```
 `Electron-builder` 打包生成的目录如下： 
-图 3 build目录
-
 ```
+build
 ├─icons
 ├─squirrel-Windows
+├─xxx Setup 0.0.1.exe
+├─xxx Setup 0.0.2.exe
+├─xxx Setup 0.0.3.exe
+├─xxx-0.0.1-full.nupkg
+├─xxx-0.0.2-full.nupkg
+├─xxx-0.0.3-full.nupkg
 └─win-unpacked 
     ├─libs
 ...需要的依赖
@@ -161,6 +169,15 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
     │      └─node_modules
 ...npm依赖
     └─swiftshader
+├─xxx Setup 0.0.1.exe
+├─xxx Setup 0.0.1.exe.blockmap
+├─xxx Setup 0.0.2.exe
+├─xxx Setup 0.0.2.exe.blockmap
+├─xxx Setup 0.0.3.exe
+├─xxx Setup 0.0.3.exe.blockmap
+├─xxx-0.0.1-win.zip
+├─xxx-0.0.2-win.zip
+├─xxx-0.0.3-win.zip
 ```
 1. `build`：打包产生的文件夹；
 2. `Nupkg`：是具有 `.nupkg` 扩展的单个 `ZIP` 文件，此扩展包含编译代码 (`Dll`)、与该代码相关的其他文件以及描述性清单（包含包版本号等信息）； 
@@ -193,10 +210,11 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 
 前两者的方式都是采用 `Electron` 原生的 `autoupdate` 方式，将 `dist` 打包成应用程序的方式不同，`packager` 是一个命令行工具和 `Node.js` 库，它将基于 `Electron` 应用程序源代码、重命名的 `Electron` 可执行文件的和支持文件打包进准备发布的文件夹中；`winstaller` 是用于用 `Squirrel` 构建 `Electron` 应用程序成 `Windows` 安装程序的 `NPM` 模块 。最后一种是对原生 `autoupdate` 机制进行封装。
 ### 四、	打包的两种方式
-如果要谈自动更新的话，必须要讲讲 `electron` 的打包。
+如果要谈自动更新的话，必须要讲讲 `Electron` 的打包。
 #### (一)	Squirrel.windows方式
+![`squirrel.window`吉祥物](./squirrel.window吉祥物.jpg)
  
-图 4 `squirrel.window`吉祥物
+图 2 `squirrel.window`吉祥物
 
 它是一组工具和一个库，它可以完全管理安装和更新用任何其他语言编写的桌面 `Windows` 应用程序。
 
@@ -221,7 +239,9 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 2.	任何时候都不应该强迫用户停止他或她正在做的事情；
 3.	没有重新启动。
  
-图 5 `Squirrel.windows` 默认安装
+![`squirrel.window`默认安装](./squirrel.windows默认安装.jpg)
+
+图 3 `Squirrel.windows` 默认安装
 
 #### (二)	Nsis方式
 全名：`Nullsoft Scriptable Install System`，是一个开源的 `Windows` 系统下安装程序制作程序。它提供了安装、卸载、系统设置、文件解压缩等功能。这如其名字所指出的那样，`NSIS` 是通过它的脚本语言来描述安装程序的行为和逻辑的。`NSIS` 的脚本语言和通常的编程语言有类似的结构和语法，但它是为安装程序这类应用所设计的。
@@ -250,7 +270,9 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 在对个性化安装过程需求并不复杂，只是需要修改一下安装位置，卸载提示等等的简单操作建议使用 `include` 配置,如果你需要炫酷的安装过程，建议使用 `script` 进行完全自定义。
 `xxx` 项目上传到服务器上的就是 `nsis` 打包出来的 `setup.exe`。
  
-图 6 `nsis` 自定义安装
+![nsis自定义安装](./nsis自定义安装.jpg)
+
+图 4 `nsis` 自定义安装
 
 `Nsis` 和 `Squirrel.windows` 相同之处：
 1.	之前的应用程序版本在更新后仍然存在。应用程序的旧版本一直存在。
@@ -262,3 +284,26 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 2.	`Nsis` 无法生成 `packages` 文件夹和 `Update.exe` 程序。
 3.	`Squirrel.windows` 只能安装在本地用户帐户中。
 4.	`Squirrel.windows` 集成 - 将 `Squirrel UpdateManager` 集成到您的应用程序中。分发 - 为用户提供安装和更新文件。更新 - 更新现有安装的过程。
+
+## 小结
+系列一从自动更新的方案深入地讲解了其中的原理，另外还讲解了两种打包方式。
+
+后面的系列，让我们来看看自动更新开发中出现的一些问题。
+
+![avatar](./开心.jpg)
+## 参考文献
+[更新应用程序](https://www.electronjs.org/docs/tutorial/updates)
+
+最后，希望大家一定要点赞三连。
+
+可以阅读我的其他文章，见[blog地址](https://github.com/qiufeihong2018/vuepress-blog)
+
+![](https://images.qiufeihong.top/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E5%BE%AE%E4%BF%A1%E6%A0%87%E5%87%86%E7%BB%BF%E7%89%88.png)
+
+一个学习编程技术的公众号。每天推送高质量的优秀博文、开源项目、实用工具、面试技巧、编程学习资源等等。目标是做到个人技术与公众号一起成长。欢迎大家关注，一起进步，走向全栈大佬的修炼之路
+
+<style scoped>
+    p:nth-last-child(2) {
+        text-align: center
+    }
+</style>
