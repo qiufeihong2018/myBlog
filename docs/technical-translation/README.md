@@ -18,7 +18,7 @@
 * [【Github】electron-winstaller说明文档](./electron-winstaller/README.md)
 * [【Github】html-webpack-plugin的说明文档](./html-webpack-plugin/README.md)
 * [【Github】log4js-node说明文档](./log4js-node/README.md)
-* [【译】markdown-it说明文档](./markdown-id/README.md)
+* [【Github】markdown-it说明文档](./markdown-id/README.md)
 * [【CSS】CSS渐进增强](./progressiveEnhancement/README.md)
 * [【Github】prop-types包的一些说明](./prop-types/README.md)
 * [【Github】react-devtools说明文档](./react-devtools/README.md)
