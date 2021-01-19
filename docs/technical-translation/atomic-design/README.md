@@ -1,4 +1,4 @@
-# 【设计】原子设计 (译)
+# 【设计】原子设计
 [文章地址](https://bradfrost.com/blog/post/atomic-web-design/)
 
 > 我们不是在设计页面，我们是在设计组件系统——Stephen Hay

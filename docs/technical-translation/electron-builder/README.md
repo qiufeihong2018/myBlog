@@ -1,4 +1,4 @@
-# 【译】electron-builder说明文档
+# 【Github】electron-builder说明文档
 ## electron-builder Publish
 publish键包含一组选项，指导electron-builder如何发布工件并构建用于 auto update的更新信息文件。
 

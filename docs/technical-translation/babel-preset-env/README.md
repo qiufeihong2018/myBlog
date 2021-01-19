@@ -1,4 +1,4 @@
-# 【译】babel-preset-env说明文档
+# 【Github】babel-preset-env说明文档
 ## 现在 `babel-preset-env` 已经稳定，它已经 [转移到主Babel mono-repo](https://github.com/babel/babel/tree/master/packages/babel-preset-env) 并且这个回购已经被归档。
 
 此举使它更容易与 `Babel` 的其余部分同步发布和开发!

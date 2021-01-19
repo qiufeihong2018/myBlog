@@ -1,4 +1,4 @@
-# 【译】three.js说明文档
+# 【Github】three.js说明文档
 ========
 
 [![NPM Package][npm]][npm-url]

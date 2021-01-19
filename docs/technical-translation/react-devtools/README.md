@@ -1,4 +1,4 @@
-# 【react】react-devtools说明文档
+# 【Github】react-devtools说明文档
 React DevTools是Chrome和Firefox浏览器的内置扩展。这个包允许您在其他地方调试React应用程序(例如，在iframe中调试移动浏览器、嵌入式webview、Safari)。它可以与React DOM和React Native一起工作。
 
 ## 安装

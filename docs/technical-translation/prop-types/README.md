@@ -1,4 +1,4 @@
-# 【译】prop-types包的一些说明
+# 【Github】prop-types包的一些说明
 `react props`和相似对象的运行时类型检查器
 
 您可以使用`prop-type`来记录传递给组件的属性的预期类型。React(以及其他潜在的库——参见下面的`checkPropTypes()`引用)将根据这些定义检查传递给组件的`prop`，如果它们不匹配，将在开发过程中发出警告。

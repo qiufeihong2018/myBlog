@@ -1,4 +1,4 @@
-# 【译】electron-packager说明文档
+# 【Github】electron-packager说明文档
 ## 来源
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 

@@ -1,4 +1,4 @@
-# 【译】electron-release-server说明文档
+# 【Github】electron-release-server说明文档
 请确保您使用的文件与您的 `Electron Release Server version` 版本相匹配。
 ### FAQ
 有一些问题经常被问到， [在产生问题之前检查一下](faq.md).

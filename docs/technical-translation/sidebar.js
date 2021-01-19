@@ -1,36 +1,42 @@
 module.exports = [
     {
-        title: '【译】babel-preset-env说明文档',
+        title: '【Github】Windows-Build-Tools',
+        collapsable: false,
+        sidebarDepth: 4,
+        children: ['window-buildtools/']
+    },
+    {
+        title: '【Github】babel-preset-env说明文档',
         collapsable: false,
         sidebarDepth: 4,
         children: ['babel-preset-env/']
     },
     {
-        title: '【译】CodeMirror说明文档',
+        title: '【Github】CodeMirror说明文档',
         collapsable: false,
         sidebarDepth: 4,
         children: ['codemirror/']
     },
     {
-        title: '【译】three.js说明文档',
+        title: '【Github】three.js说明文档',
         collapsable: false,
         sidebarDepth: 4,
         children: ['three.js/']
     },
     {
-        title: '【译】three.js说明文档',
+        title: '【Github】three.js说明文档',
         collapsable: false,
         sidebarDepth: 4,
         children: ['three.js/']
     },
     {
-        title: '【译】markdown-it说明文档',
+        title: '【Github】markdown-it说明文档',
         collapsable: false,
         sidebarDepth: 4,
         children: ['markdown-id/']
     },
     {
-        title: '【译】electron-packager说明文档',
+        title: '【Github】electron-packager说明文档',
         collapsable: false,
         sidebarDepth: 4,
         children: ['electron-packager/']
@@ -42,19 +48,19 @@ module.exports = [
         children: ['atomic-design/']
     },
     {
-        title: '【react】Create React App说明文档',
+        title: '【Github】Create React App说明文档',
         collapsable: false,
         sidebarDepth: 4,
         children: ['create-react-app/']
     },
     {
-        title: '【react】react-devtools说明文档',
+        title: '【Github】react-devtools说明文档',
         collapsable: false,
         sidebarDepth: 4,
         children: ['react-devtools/']
     },
     {
-        title: '【react】prop-types包的一些说明',
+        title: '【Github】prop-types包的一些说明',
         collapsable: false,
         sidebarDepth: 4,
         children: ['prop-types/']

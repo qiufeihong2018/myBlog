@@ -1,4 +1,4 @@
-# 【译】html-webpack-plugin的说明文档
+# 【Github】html-webpack-plugin的说明文档
 <div align="center">
   <img width="200" height="200" src="https://worldvectorlogo.com/logos/html5.svg">
   <a href="https://github.com/webpack/webpack">
