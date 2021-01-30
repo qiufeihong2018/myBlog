@@ -1,42 +1,55 @@
-# 研究Electron自动更新 系列三【近1W字】
+# 研究Electron自动更新 系列二【近8k字】
 这是继《研究 `Electron` 自动更新》系列的最后一篇，感谢大家的耐心阅读。
-#### (四)	Error Downloading Update: Command failed: 4294967295
-##### 1.	背景
-自动更新过程中出现“`Error Downloading Update: Command failed: 4294967295`”的报错，因为这个问题很常见，所以我要挑出来讲。
-##### 2.	原因分析
+
+[系列一](https://github.com/qiufeihong2018/vuepress-blog/blob/master/docs/technical-summary/electron-update/update.1.md)从自动更新的方案深入地讲解了其中的原理，另外还讲解了两种打包方式。
+
+[系列二](https://github.com/qiufeihong2018/vuepress-blog/blob/master/docs/technical-summary/electron-update/update.2.md)列举了开发中出现的三个问题，分别是“`Can not find Squirrel`”、“安装目录中`packages`文件夹和`Update.exe`程序找不到”和“`Error: spawn UNKNOWN`”，从不同角度分析并且作了解答。
+
+本文就继续系列二，再讲讲遇到的其他问题。
+
+## 开发中存在的问题
+### (四)	Error Downloading Update: Command failed: 4294967295
+#### 1.	背景
+自动更新过程中出现“`Error Downloading Update: Command failed: 4294967295`”的报错，这个 `error` 和系列二中的问题`3` “`Error: spawn UNKNOWN`” 很类似，因为这个问题很常见，所以我要挑出来讲。
+#### 2.	原因分析
 这个问题在 `Squirrel.Windows` 的 `issues`（`https://GitHub.com/Squirrel/Squirrel.Windows/issues/833`）中也有，
 其中的回答绕不过一点：程序的错误，远程发布文件是空的或损坏影响我们的更新。
-##### 3.	解决方式
+#### 3.	解决方式
 对于开发者来说，我需要重新上传新的安装程序。还有可能是更新服务器提供的下载 `nupkg` 的 `url` 出错，这个需要通过  `SquirrelSetup.log` 去仔细检查，不难的。
  
 对于用户来说，可能需要先卸载后重新安装新的版本。
-#### (五)	更新后，老版本没有被替换
-##### 1.	背景
-自动更新完成后，多出来一个新版本的目录 `app-0.0.2`,没有覆盖 `xxx` 项目，桌面快捷方式打开的还是 `xxx` 项目里的旧版本。
-究其原因，归咎于 `nsis` 没有集成 `updateManage` 机制。上文已经描述过，就不再多述。
- 
+### (五)	更新后，老版本没有被替换
+#### 1.	背景
+如果当前电脑上的应用版本是 `0.0.1`，服务器上最新是 `0.0.2`。自动更新完成后，多出来一个新版本的目录 `app-0.0.2`,但是没有覆盖 `xxx` 项目，桌面快捷方式打开的还是 `xxx` 项目里的旧版本。
+
+究其原因，归咎于 `nsis` 没有集成 `updateManage` 机制。系列一和二已经描述过，就不再赘述。
+
+![安装目录](./安装目录.jpg)
+
 图 7 安装目录
 
-##### 2.	解决方案
+#### 2.	解决方案
 1.	向服务器每隔一段时间发送当前版本的请求，询问其是否有新版本的应用（`setFeedURL` 和 `checkForUpdates` 方法实现）;
 2.	当有更新进入 `error`、`checking-for-update`、`update-available`和`update-not-available` 这些钩子方法时，写入日志;
 3.	更新进入 `update-downloaded`，提示用户更新完成，手动重启。然后，启动一个子进程去执行 `bat` 脚本，替换安装目录下面的旧版本。
 
 `xxx` 项目的更新代码，见 `update.js`：
 ```js
-const server = process.env.VUE_APP_SERVER
+import {autoUpdater} from 'electron'
+// 服务器地址
+const server = 'XXXXXXX'
 const url = `${server}/update/${process.platform}/${app.getVersion()}/stable`
 logger.info(`url:${url}`)
+// 设置请求地址
 autoUpdater.setFeedURL({
   url
 })
 logger.info(`process.ExecPath:${process.ExecPath}`)
-
-// 更新频率-1h
+// 检查更新
 setInterval(() => {
   autoUpdater.checkForUpdates()
   logger.info('checkForUpdates')
-}, 3600000)
+}, 900000)
 
 const appName = '应用更新'
 const message = {
@@ -87,6 +100,7 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
           })
           ls.on('exit', function (code) {
             logger.info('目录替换程序开始运行')
+            // 地址
             const a = process.cwd()
             logger.info('a ' + a)
             const arr = a.split('\\')
@@ -118,11 +132,13 @@ ren app-%1 "xxx项目" >> replace.log
 del "xxx项目.Exe" >> replace.log
 exit
 ```
-#### (六)	Update.exe之外的操作无日志
-##### 1.	背景
+### (六)	Update.exe之外的操作无日志
+#### 1.	背景
+主进程中加入 `console`，仅仅打印在终端上，并不能持久化日志。
+
 更新过程中产生的日志都存储在 `SquirrelSetup.log` 中，但是仅仅只是 `Update.exe` 产出的日志。可是很多步骤需要输出更多的日志。
 自动化工具中的部分更新日志采用 `log4js` 方案，将不同的日志类型输出在不同文件中。
-##### 2.	解决方案
+#### 2.	解决方案
 `xxx` 项目的日志配置，见 `log4js.js`：
 ```js
 const log4js = require('log4js')
@@ -191,3 +207,18 @@ module.exports = log4js
 通过 `electron-builder` 将两者配置后，产出不同的安装程序 `setup.exe` 和更新程序 `nupkg`。然后将 `nsis` 的 `setup.exe` 和 `squirrel.windows` 中的 `nupkg` 上传到 `electron-release-server` 中。利用 `electron-release-server` 定时检查策略，对比本地版本和线上版本，自动下载依赖和程序，进行更新并且替换，做到用户无感知，操作不繁琐。
 
 开发中遇到问题其实不止这些，由于篇幅问题，所以我总结了一部分常见的问题。
+
+
+最后，希望大家一定要点赞三连。
+
+可以阅读我的其他文章，见[blog地址](https://github.com/qiufeihong2018/vuepress-blog)
+
+![](https://images.qiufeihong.top/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E5%BE%AE%E4%BF%A1%E6%A0%87%E5%87%86%E7%BB%BF%E7%89%88.png)
+
+一个学习编程技术的公众号。常常推送高质量的优秀博文、开源项目、实用工具、面试技巧、编程学习资源等等。目标是做到个人技术与公众号一起成长。欢迎大家关注，一起进步，走向全栈大佬的修炼之路
+
+<style scoped>
+    p:nth-last-child(2) {
+        text-align: center
+    }
+</style>
