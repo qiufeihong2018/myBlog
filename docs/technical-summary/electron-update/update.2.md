@@ -1,11 +1,13 @@
 # 研究Electron自动更新 系列二【近8k字】
 上一篇文章——[系列一](https://github.com/qiufeihong2018/vuepress-blog/blob/master/docs/technical-summary/electron-update/update.1.md)，从自动更新的方案深入地讲解了其中的原理，另外还讲解了两种打包方式。
 
-如果你对文章目录感兴趣，可以阅读[这里](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/electron-update)
+如果你对文章目录感兴趣，可以阅读[这里](https://github.com/qiufeihong2018/vuepress-blog/tree/master/docs/technical-summary/electron-update)。
 
 今天，让我们来看看自动更新开发中出现的一些问题。
 
 在文章中所经历的项目是采用 `electron-vue` + `electron-builder` + `electron-release-server` 架构。
+
+![背景](./背景.jpg)
 ## 开发中存在的问题
 ### (一)	Can not find Squirrel
 #### 1.	背景
@@ -299,6 +301,8 @@ module.exports = BufferHelper
 
 其目的是保证每个方法的职责单一，还在 `toBuffer` 里做了一下状态设置，使得不浪费 `CPU`。
 下载 `Update.exe` 代码就在问题 `2` 中。
+
+![背景](./加班.jpg)
 
 ## 总结
 如果是系列一是”是什么“，那么系列二就是”为什么？怎么办？“。
