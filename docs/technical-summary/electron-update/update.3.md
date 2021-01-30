@@ -1,4 +1,4 @@
-# 研究Electron自动更新 系列二【近8k字】
+# 研究Electron自动更新 系列三【近8k字】
 这是继《研究 `Electron` 自动更新》系列的最后一篇，感谢大家的耐心阅读。
 
 [系列一](https://github.com/qiufeihong2018/vuepress-blog/blob/master/docs/technical-summary/electron-update/update.1.md)从自动更新的方案深入地讲解了其中的原理，另外还讲解了两种打包方式。
