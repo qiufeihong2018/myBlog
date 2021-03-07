@@ -150,7 +150,6 @@ import './path/to/your/store'
 import '../renderer/store'
 ```
 重启即可，亲测成功！
-
 ### 6.electron-vue中无法使用Element的Tooltip组件
 查看[https://github.com/SimulatedGREG/electron-vue/issues/361](
 https://github.com/SimulatedGREG/electron-vue/issues/361)这个issue中给了答案。
@@ -162,7 +161,6 @@ I know from past experience when working with element-ui, it always helps to use
 打开文件： `electron-vue/webpack.renderer.config.js`。
 
 在大约 `21` 行左右找到 `let whiteListedModules` 将 `element-ui` 添加进去，`let whiteListedModules = ['vue', 'element-ui']`。
-
 ### 7.Electron无边框窗口中自定义最小化、最大化、关闭
 首先在`windowOperate.vue`页面中写入三个按钮，并将事件绑定
 ```js
@@ -217,7 +215,6 @@ ipcMain.on('max', function () {
 主进程监听渲染进程的三个事件。如：主进程监听 `min` ，触发最小化窗口的方法。
 
 注意：`mainWindow.close()` 不能关闭程序，需要使用 `app.exit()` 来关闭。
-
 ### 8.监听窗口状态，动态改变窗口最大化图标
 在 `windowOperate.vue` 中监听 `main-window-max` 事件，触发展示缩小图标；
 在 `windowOperate.vue` 中监听 `main-window-unmax` 事件，触发展示最大化图标。
@@ -354,7 +351,6 @@ var myFile = new File(bits, name[, options]);
         })
 ```
  `fs` 读取本地指定目录下的图片，编译格式是 `base64`，回调后的数据将 `data:image/png;base64` 拼接在一起，用 `dataURLtoFile` 方法将 `base64` 转换为 `file` 对象。 `formData` 添加 `file` 对象，上传到 `minio`。
-
 ### 10.创建文件夹，并且下载项目中的图片
 #### 背景
 创建文件夹，并且 `minio` 上下载项目中的对应的图片。
@@ -394,7 +390,6 @@ var myFile = new File(bits, name[, options]);
       },
 ```
 分析： `download` 方法先去检查文件夹是否存在，不存在就创建。接着请求对应的项目获取图片地址，转化为 `buffer` 下载文件，文件保存在项目 `id` 文件夹中。
-
 ### 11.electron Uncaught TypeError: Cannot read property 'app' of undefined
 #### 背景
 `electron-vue` 这个项目有一些缺陷，启动项目的时候会报错：
@@ -450,7 +445,6 @@ Uncaught TypeError: Cannot read property 'app' of undefined
 方式与 `Squirrel.Windows` 类似。
 但是安装后不会产生 `packages` 文件夹和 `Update.exe`程序。
 - electron-forge+nucleus
-
 ### 13.cannot unpack electron zip file, will be re-downloaded  error=zip: not a valid zip file
 #### 错误：
 ```
@@ -508,8 +502,6 @@ y
 'new Buffer()' was deprecated since v6. Use 'Buffer.alloc()' or 'Buffer.from()' (use 'https://www.npmjs.com/package/safe-buffer' for '<4.5.0') instead
 ```
 #### 解决方案
-
-
 ### 15.electron-builder nsis 打包配置license乱码
 使用 `electron-builder` 打包时配置好了 `license` 许可协议，打包后安装出现乱码
 ![avatar](./electron2.png)
@@ -529,7 +521,6 @@ y
 ![avatar](./electron1.png)
 
 选择 `ANSI` 转化重新打包即可
-
 ### 16.electron打包生成的exe程序安装已中止,安装程序并未成功地运行完成
 #### 背景
 ![avatar](./electron3.png)
@@ -561,14 +552,12 @@ Require stack:
 找不到 `electron-builder-squirrel-windows` 包。
 
 只要安装 `electron-builder-squirrel-windows` 包就好了。
-
 ### 18.app.asar删不掉
 重复打包的时候，会遇到下面的问题：
 ```bash
 ⨯ remove E:\electron-vue-case2\build\win-unpacked\resources\app.asar: The process cannot access the file because it is being used by another process.
 ```
 这个时候，只需要关闭正在占用 `app.asar` 这个文件的编辑器，并且将 `app.asar` 删掉即可重新打包成功。
-
 ### 19.打包icon问题
 打包过程，问题层出不现，请看下面报错：
 ```bash
@@ -584,7 +573,50 @@ Error: cannot find specified resource "build/icons/icon.ico", nor relative to "E
 
 要检查是否有该图标，该图标是否会变更目录。
 
+### 20.Electron 如何打开文件资源管理器窗口和打开文件
+最近接到一个需求：在 `electron` 应用中双击文件夹打开对应路径下的文件资源管理器窗口，双击文件用 `txt` 方式打开对应路径下的文件。
 
+后端提供了文件列表、文件夹和文件的路径。
+
+如下数据结构：
+```js
+fileData = [
+    {
+        folderName: 'feihong',
+        folderPath: 'D:\folder',
+        children: [{
+            fileName: 'jiang',
+            filePath: 'D:\folder\feihong\jiang.txt'
+        }]
+    }
+]
+```
+1. 打开文件资源管理器窗口
+```js
+import { remote } from 'electron'
+
+// 模板中注册双击事件，事件名为 onOpenFolder
+// folder对象是文件夹数组中的单个对象
+onOpenFolder(folder) {
+    // 获取当前窗口
+    const window = remote.getCurrentWindow()
+    // 资源管理器配置项
+    const options = {
+        title: '飞鸿酱文件管理',
+        // 打开的路径
+        defaultPath: folder.folderPath,
+        // 属性
+        properties: ['openFile', 'multiSelections']
+    }
+    remote.dialog.showOpenDialog(window, options)
+}
+```
+2. 用txt打开文件
+```js
+import { shell } from 'electron'
+// file是文件数组中的单个对象 
+shell.openPath(file.filePath)
+```
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
