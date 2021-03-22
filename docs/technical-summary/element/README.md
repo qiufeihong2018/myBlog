@@ -138,3 +138,6 @@ export default {
 
 </style>
 ```
+
+## 参考文献
+[vue按住shift键多选（以element框架的table为例）](https://blog.csdn.net/weixin_43734545/article/details/103582536)
