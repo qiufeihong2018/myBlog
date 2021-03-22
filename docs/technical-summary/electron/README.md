@@ -626,6 +626,47 @@ shell.openPath(file.filePath)
 "main": "background.js",'
 }
 ```
+### 22. 编译包如何不报错
+具体报错如图：
+![avatar](./electron4.png)
+
+其中内容如下：
+```
+App threw an error during load
+TypeError: Cannot read property 'indexOf' of undefined
+    at Function.getFileName (webpack:///./node_modules/bindings/bindings.js?:178:16)
+    at bindings (webpack:///./node_modules/bindings/bindings.js?:82:48)
+    at eval (webpack:///./node_modules/@serialport/bindings/lib/win32.js?:1:91)
+    at Object../node_modules/@serialport/bindings/lib/win32.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:309:1)
+    at __webpack_require__ (E:\vue-cli-electron-builder-client\dist_electron\index.js:20:30)
+    at eval (webpack:///./node_modules/@serialport/bindings/lib/index.js?:6:22)
+    at Object../node_modules/@serialport/bindings/lib/index.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:221:1)
+    at __webpack_require__ (E:\vue-cli-electron-builder-client\dist_electron\index.js:20:30)
+    at eval (webpack:///./node_modules/serialport/lib/index.js?:2:17)
+    at Object../node_modules/serialport/lib/index.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:6322:1)
+```
+因为 `electronbuilder` 打包构建后，需要重新下载和编译 `serialport` 等编译包，但是没有构建工具，所以编译不通过。
+
+只需要加上两行忽略即可：
+```js
+pluginOptions: {
+electronBuilder: {
+// List native deps here if they don't work
+externals: ['serialport'],
+// If you are using Yarn Workspaces, you may have multiple node_modules folders
+// List them all here so that VCP Electron Builder can find them
+nodeModulesPath: ['./node_modules'],
+nodeIntegration: true,
+chainWebpackMainProcess: (config) => {
+// Chain webpack config for electron main process only
+},
+// 这两行忽略serialport
+// List native deps here if they don't work
+externals: ['serialport'],
+// If you are using Yarn Workspaces, you may have multiple node_modules folders
+// List them all here so that VCP Electron Builder can find them
+nodeModulesPath: ['./node_modules'],
+```
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
