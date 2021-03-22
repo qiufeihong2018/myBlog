@@ -617,6 +617,15 @@ import { shell } from 'electron'
 // file是文件数组中的单个对象 
 shell.openPath(file.filePath)
 ```
+### 21.Error: Application entry file "index.js" in the resources/app.asar does not exist. Seems like a wrong configuration.
+出现这个问题是打包构建启动后发现缺少了入口。
+
+`app.asar` 必须要有 `main` 入口，其实将 `app.asar` 解压就会发现其中有 `background.js`，那么我们的 `package.json` 中的要设置入口
+```js
+{
+"main": "background.js",'
+}
+```
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
