@@ -20,3 +20,12 @@ object可以通过object.defineProperty将属性转换成getter/setter的形式�
 我们需要在getter中收集有哪些依赖使用数据。当setter被触发时，去通知getter中收集的依赖数据发生了变化。
 
 收集依赖需要为依赖找一个存储依赖的地方，为此我们创建了dep，他用来收集依赖、删除依赖和向依赖发送消息等。
+
+所谓的依赖，其实就是watcher。只有watcher触发的getter才会收集依赖，哪个watcher触发了getter，就把哪个watcher收集到dep中。当数据发生变化时，会循环依赖列表，把所有的watcher都通知一遍。
+
+watcher的原理是先把自己设置到全局唯一的指定位置（例如window.target），然后读取数据。因为读取了数据，所以会触发这个数据的getter。接着，在getter中就会从全局唯一的那个位置读取当前正在读取数据的watcher，并把这个watcher收集到dep中去。通过这样的方式，watcher可以主动去订阅任意一个数据的变化。
+
+此外，我们创建了observer类，他的作用是把一个object中的所有数据（包括子数据）都转换成响应式的，也就是它会侦测object中所有数据（包括子数据）的变化。
+
+
+
