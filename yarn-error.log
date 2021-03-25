@@ -1,0 +1,64 @@
+Arguments: 
+  D:\node\node.exe D:\node\node_global\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Program Files\PowerShell\7-preview;D:\python3.7.6\Scripts\;D:\python3.7.6\;D:\node\node_global\node_modules;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;"C:\Program Files\Java\jdk1.8.0_181\bin;C:\Program Files\Java\jdk1.8.0_181\jre\bin";C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\WINDOWS\System32\OpenSSH\;D:\svn\bin;D:\svn2\bin;D:\node\;D:\apache-maven-3.5.3-bin\bin;D:\node\node_global;D:\sdkdemo;D:\wordCount\c\bin;D:\wordCount\perl\site\bin;D:\wordCount\perl\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Users\臭猪猪\.windows-build-tools\python27;;D;\Git\cmd;D:\Git\cmd;C:\Program Files\PowerShell\7-preview\preview;C:\Program Files\Java\jdk1.8.0_181\bin;D:\Microsoft VS Code\bin;D:\node\node_global;C:\Users\臭猪猪\AppData\Local\Microsoft\WindowsApps;D:\PyCharm Community Edition 2019.2\bin;;;D:\Docker Toolbox
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  10.7.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: registry.cnpmjs.org. is not in the cert's altnames: DNS:r.cnpmjs.org
+      at Object.checkServerIdentity (tls.js:230:17)
+      at TLSSocket.onConnectSecure (_tls_wrap.js:1058:27)
+      at TLSSocket.emit (events.js:182:13)
+      at TLSSocket._finishInit (_tls_wrap.js:628:8)
+
+npm manifest: 
+  {
+    "name": "vuepress-blog",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "vuepress dev docs",
+      "build": "vuepress build docs",
+      "pm2": "npm run build && pm2 start app.js --name='blog'",
+      "d": "bash deploy.sh"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "element-ui": "^2.5.4",
+      "express": "^4.16.4",
+      "gitalk": "^1.5.0",
+      "leancloud-storage": "^3.12.0",
+      "pm2": "^3.2.9",
+      "valine": "^1.3.4",
+      "vuepress": "^0.14.9"
+    },
+    "devDependencies": {
+      "commitizen": "^3.1.1",
+      "cz-conventional-changelog": "^2.1.0",
+      "vuepress-plugin-demo-block": "^0.7.2"
+    },
+    "config": {
+      "commitizen": {
+        "path": "./node_modules/cz-conventional-changelog"
+      }
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
