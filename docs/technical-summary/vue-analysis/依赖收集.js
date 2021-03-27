@@ -24,7 +24,8 @@ class Watcher {
     }
     // 更新
     update() {
-        console.log('我是watcher，我变了')
+        console.log('更新视图啦')
+        console.log('现在的作者是：', v._data.author)
     }
 }
 
@@ -43,12 +44,13 @@ function defineReactive(obj, key, val) {
         set: function reactiveSetter(newVal) {
             // 值变了那就通知watcher对象更新视图
             if (val === newVal) return
+            val = newVal
             dep.notify()
         }
     })
 }
 function observer(val) {
-    if (!val || typeof val !== 'object') return
+    if (!val || (typeof val !== 'object')) { return }
     Object.keys(val).forEach(key => {
         defineReactive(val, key, val[key])
     })
@@ -69,4 +71,5 @@ let v = new Vue({
 v._data.author = "飞鸿酱"
 Dep.target = null
 // 视图更新了： qfh
-// 我是watcher，我变了
+// 更新视图啦
+// 现在的作者是： 飞鸿酱
