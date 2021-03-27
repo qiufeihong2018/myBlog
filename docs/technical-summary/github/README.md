@@ -560,7 +560,7 @@ git config --global --unset http.proxy
 ```
 - 方法二：
 ```
-git config --global http.sslVerify false
+git config --global http.sslVerify "false"
 ```
 - 方法三：
 如果这样都没有用，最后解决方案如下：
