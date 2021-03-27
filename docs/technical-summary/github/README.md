@@ -553,10 +553,16 @@ Enter file in which to save the key 为空的话，创建的就是空的
 ### git push报错：OpenSSL SSL_connect: Connection was reset in connection to github.com:443
 因为 `Git` 的 `Http` 代理的问题， `Git` 支持三种协议：`git://`、 `ssh://` 和 `http://` ，本来 `push` 的时候应该走 `ssh` 隧道的，但是因为设置了 `http` 代理，所以就走了 `http` 的代理，于是就提交不了了。
 
+- 方法一：
 找到原因了，那就取消 `http` 代理吧:
 ```
 git config --global --unset http.proxy
 ```
+- 方法二：
+```
+git config --global http.sslVerify false
+```
+- 方法三：
 如果这样都没有用，最后解决方案如下：
 用记事本打开 
 ```text
