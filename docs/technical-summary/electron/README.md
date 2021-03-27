@@ -617,6 +617,151 @@ import { shell } from 'electron'
 // file是文件数组中的单个对象 
 shell.openPath(file.filePath)
 ```
+### 21.Error: Application entry file "index.js" in the resources/app.asar does not exist. Seems like a wrong configuration.
+出现这个问题是打包构建启动后发现缺少了入口。
+
+`app.asar` 必须要有 `main` 入口，其实将 `app.asar` 解压就会发现其中有 `background.js`，那么我们的 `package.json` 中的要设置入口
+```js
+{
+"main": "background.js",'
+}
+```
+### 22. 编译包如何不报错
+具体报错如图：
+![avatar](./electron4.png)
+
+其中内容如下：
+```
+App threw an error during load
+TypeError: Cannot read property 'indexOf' of undefined
+    at Function.getFileName (webpack:///./node_modules/bindings/bindings.js?:178:16)
+    at bindings (webpack:///./node_modules/bindings/bindings.js?:82:48)
+    at eval (webpack:///./node_modules/@serialport/bindings/lib/win32.js?:1:91)
+    at Object../node_modules/@serialport/bindings/lib/win32.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:309:1)
+    at __webpack_require__ (E:\vue-cli-electron-builder-client\dist_electron\index.js:20:30)
+    at eval (webpack:///./node_modules/@serialport/bindings/lib/index.js?:6:22)
+    at Object../node_modules/@serialport/bindings/lib/index.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:221:1)
+    at __webpack_require__ (E:\vue-cli-electron-builder-client\dist_electron\index.js:20:30)
+    at eval (webpack:///./node_modules/serialport/lib/index.js?:2:17)
+    at Object../node_modules/serialport/lib/index.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:6322:1)
+```
+因为 `electronbuilder` 打包构建后，需要重新下载和编译 `serialport` 等编译包，但是没有构建工具，所以编译不通过。
+
+只需要加上两行忽略即可：
+```js
+pluginOptions: {
+electronBuilder: {
+// List native deps here if they don't work
+externals: ['serialport'],
+// If you are using Yarn Workspaces, you may have multiple node_modules folders
+// List them all here so that VCP Electron Builder can find them
+nodeModulesPath: ['./node_modules'],
+nodeIntegration: true,
+chainWebpackMainProcess: (config) => {
+// Chain webpack config for electron main process only
+},
+// 这两行忽略serialport
+// List native deps here if they don't work
+externals: ['serialport'],
+// If you are using Yarn Workspaces, you may have multiple node_modules folders
+// List them all here so that VCP Electron Builder can find them
+nodeModulesPath: ['./node_modules'],
+```
+### 23. electron中添加vue-devtools
+由于 `vue-devtools` 被墙， `electron` 自动导入 `vue-devtools` 没用。
+
+如果可以科学上网，下面代码就可以加载 `vue-devtools` 。
+
+```js
+```
+1. 方法一：
+
+没事，我有一招，可以从 `github` 上把代码拉下来编译，手动导入。
+
+[`vue-devtools` 地址](https://github.com/vuejs/vue-devtools)
+
+如果您的环境编译有问题，我还有办法，从[这个地址](https://github.com/qiufeihong2018/windows-build-tools)直接下载导入即可。
+
+再将 `vue-devtools` 的文件夹放在项目根目录下。
+
+然后在 `electron` 项目中的主进程加入如下代码：
+```js
+import { session } from 'electron'
+session.defaultSession.loadExtension(path.resolve(__dirname, '../vue-devtools'))
+```
+
+保存后重启，效果如下图：
+![avatar](./electron5.png)
+
+为什么要用 `loadExtension()` 这个 `api` 呢
+
+其实， `electron` 最先开始提供的是 `addDevToolsExtension()`
+```js
+/**
+* Adds DevTools extension located at path, and returns extension's name.
+*
+* The extension will be remembered so you only need to call this API once, this
+* API is not for programming use. If you try to add an extension that has already
+* been loaded, this method will not return and instead log a warning to the
+* console.
+*
+* The method will also not return if the extension's manifest is missing or
+* incomplete.
+*
+* Note: This API cannot be called before the ready event of the app module
+* is emitted.
+*
+Note: This method is deprecated. Instead, use ses.loadExtension(path).
+*
+* @deprecated 
+*/
+static addDevToolsExtension(path: string): void;
+```
+很不幸，`addDevToolsExtension()` 被弃用了，同时告诉我们可以使用 `session` 的 `api`。
+```js
+/**
+* resolves when the extension is loaded.
+*
+* This method will raise an exception if the extension could not be loaded. If
+* there are warnings when installing the extension (e.g. if the extension requests
+* an API that Electron does not support) then they will be logged to the console.
+*
+* Note that Electron does not support the full range of Chrome extensions APIs.
+* See Supported Extensions APIs for more details on what is supported.
+*
+* Note that in previous versions of Electron, extensions that were loaded would be
+* remembered for future runs of the application. This is no longer the case:
+* loadExtension must be called on every boot of your app if you want the
+* extension to be loaded.
+*
+* This API does not support loading packed (.crx) extensions.
+*
+* Note: This API cannot be called before the ready event of the app module
+* is emitted.
+*
+* Note: Loading extensions into in-memory (non-persistent) sessions is not
+* supported and will throw an error.
+*/
+loadExtension(path: string): Promise<Electron.Extension>;
+```
+官网上也有[案例](https://www.electronjs.org/docs/api/session#sesloadextensionpath-options)
+2. 方法二
+```js
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+app.on('ready', async () => {
+  if (isDevelopment && !process.env.IS_TEST) {
+    // Install Vue Devtools
+    try {
+      await installExtension(VUEJS_DEVTOOLS)
+    } catch (e) {
+      console.error('Vue Devtools failed to install:', e.toString())
+    }
+  }
+  createWindow()
+  autoUpdater.checkForUpdates()
+})
+```
+但是这个我没有尝试过，您可以试下
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
