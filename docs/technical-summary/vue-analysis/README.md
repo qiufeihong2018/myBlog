@@ -15,6 +15,24 @@ vue实例化后，将所有代码$mount进行挂载，然后进行compile()编�
 1. 初始化vue的时候，会将data进行observe，注册get方法。在他的闭包中会有一个Dep对象，这个对象存储一个个watcher对象的实例；
 2. get方法会调用addSub方法让每一个watcher对象存放到Dep的subs中；
 3. 在data发生变化时，set方法会调用Dep对象的notify方法通知其内部所有的watcher实例进行视图更新。
+### vue源码局部观-virtual dom的原理
+虚拟dom其实就是一个JavaScript对象
+用JavaScript属性来描述节点的属性
+阅读[一起理解 Virtual DOM]https://www.jianshu.com/p/bef1c1ee5a0e
+
+### vue源码局部观-diff算法原理
+涉及到了patch机制
+新旧节点进行比对，复杂度为O(n)，是较快的一种比对方式。
+- patch()方法
+判断新老节点，分为三种情况：
+老节点不存在，添加新节点；
+新节点不存在，删除老节点；
+两个节点都存在，情况又分为两种：
+如果新老节点相同，进行patchVnode()
+如果不相同，删除老节点，添加新节点。
+- patchVnode()方法
+
+
 ## 《深入浅出vue.js》总结
 ### object的变化侦测
 变化侦测就是侦测数据的变化。当数据发生变化时，要能侦测到并发出通知。
