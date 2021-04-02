@@ -32,7 +32,14 @@ vue实例化后，将所有代码$mount进行挂载，然后进行compile()编�
 如果不相同，删除老节点，添加新节点。
 - patchVnode()方法
 
-
+### vue源码局部观-template模板转化为render function的原理
+也就是 `compile` 过程，分为三部分：
+1. parse
+2. optimize
+3. generate
+`parse` 主要作用：将 `template` 模板通过正则模板进行字符串解析，转化为可以用 `js` 对象描述的 `AST` 树
+`optimise` 主要作用：标记出静态节点，增加 `static` 属性
+`generate` 主要作用：将 `AST` 转化为 `render function` 字符串
 ## 《深入浅出vue.js》总结
 ### object的变化侦测
 变化侦测就是侦测数据的变化。当数据发生变化时，要能侦测到并发出通知。

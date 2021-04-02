@@ -761,7 +761,11 @@ app.on('ready', async () => {
   autoUpdater.checkForUpdates()
 })
 ```
-但是这个我没有尝试过，您可以试下
+但是这个我没有尝试过，您可以试下。
+### 24. ExecError: C:\Users\xxx\AppData\Local\electron-builder\Cache\nsis\nsis-3.0.4.1\Bin\makensis.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
+解决：`electron` 项目路径不能有中文！
+### 25. Syntax Error: ReferenceError: document is not defined
+`vue-cli-plugin-electron-builder` 不能出现 `list-style: square inside url('../../icons/svg/moreThen.svg');`
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
