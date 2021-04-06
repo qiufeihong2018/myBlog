@@ -21,7 +21,7 @@ vue实例化后，将所有代码$mount进行挂载，然后进行compile()编�
 阅读[一起理解 Virtual DOM]https://www.jianshu.com/p/bef1c1ee5a0e
 
 ### vue源码局部观-diff算法原理
-涉及到了patch机制
+涉及到了 `patch` 机制
 新旧节点进行比对，复杂度为O(n)，是较快的一种比对方式。
 - patch()方法
 判断新老节点，分为三种情况：
@@ -31,6 +31,26 @@ vue实例化后，将所有代码$mount进行挂载，然后进行compile()编�
 如果新老节点相同，进行patchVnode()
 如果不相同，删除老节点，添加新节点。
 - patchVnode()方法
+1. 当新老节点相同时，不用比较
+2. 当新老节点都是静态的，并且key相同，把老节点的componentInstance赋值给新节点。
+3. 当新节点是文本节点的时候，直接用setTextContent来设置文本。
+4. 当新节点非文本节点，分为以下几种情况：
+• oldCh与ch都存在且不相同，使用updateChildren来更新子节点
+• 只有ch存在，老节点是文本节点，将elm下的文本内容删除，将ch插入elm下
+• 只有oldch存在，将老节点删除
+• 老节点是文本节点，清除文本节点。
+- updateChildren方法
+oldStartIdx:老节点开始索引
+newStartIdx:新节点开始索引
+oldEndIdx老节点结束索引
+newEndIdx新节点结束索引
+oldStartVnode老节点相应索引下的VNode节点
+newStartVnode新节点相应索引下的VNode节点
+oldEndVnode老节点相应索引下的VNode节点
+newEndVnode老节点相应索引下的VNode节点
+
+进行一个while循环，oldStartIdx、newStartIdx、oldEndIdx和newEndIdx会逐渐向中间靠拢。
+
 
 ### vue源码局部观-template模板转化为render function的原理
 也就是 `compile` 过程，分为三部分：
