@@ -60,6 +60,9 @@ newEndVnode老节点相应索引下的VNode节点
 `parse` 主要作用：将 `template` 模板通过正则模板进行字符串解析，转化为可以用 `js` 对象描述的 `AST` 树
 `optimise` 主要作用：标记出静态节点，增加 `static` 属性
 `generate` 主要作用：将 `AST` 转化为 `render function` 字符串
+### vue源码局部观-nexttick原理
+watch中有两个方法，分别是update和run
+当data中的某个对象一直更新的时候，一直触发update方法，在下一次啊tick来之后，触发run方法更新视图。
 ## 《深入浅出vue.js》总结
 ### object的变化侦测
 变化侦测就是侦测数据的变化。当数据发生变化时，要能侦测到并发出通知。
