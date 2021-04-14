@@ -63,6 +63,15 @@ newEndVnode老节点相应索引下的VNode节点
 ### vue源码局部观-nexttick原理
 watch中有两个方法，分别是update和run
 当data中的某个对象一直更新的时候，一直触发update方法，在下一次啊tick来之后，触发run方法更新视图。
+
+### vue源码局部观-vuex状态管理原理
+Vue.use来安装vuex，
+其内部调用install方法，install方法内部将vuexInit混淆进了beforeCreate钩子中去。
+vueInit方法是将根组件或非根组件上的store挂载到vue上，
+store实现响应式
+commit将mutation的变动实现到store上；
+dispatch将action的变动实现到store上。
+
 ## 《深入浅出vue.js》总结
 ### object的变化侦测
 变化侦测就是侦测数据的变化。当数据发生变化时，要能侦测到并发出通知。
