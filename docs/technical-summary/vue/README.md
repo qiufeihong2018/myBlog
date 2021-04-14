@@ -56,6 +56,25 @@ configureWebpack: {
 ```js
 import Vue from 'vue/dist/vue.esm.js'
 ```
+## 插槽中事件中的参数不动态刷新
+在插槽中的子组件上绑定事件不要传参，
+由于组件复用，所以事件中的参数永远是最新的子组件的参数。
 
+如果 `a` 插槽是一个 `for` 循环的插槽，内部组件传入的参数永远是最新的那一条数据，不会动态刷新。
+
+如：
+错误写法：
+```html
+<div slot="a" slot-scope="scope">
+<child-component @event="handleEvent(scope)"></child-component>
+</div>
+```
+正确写法：
+```html
+<div slot="a" slot-scope="scope">
+<child-component @event="handleEvent"></child-component>
+</div>
+```
+在 `handleEvent` 中传入每个子组件中应该收到的对象。
 ## 参考文献
 [You are using the runtime-only build of Vue where the template compiler is not available.](https://blog.csdn.net/wxl1555/article/details/83187647)
