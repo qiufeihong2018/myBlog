@@ -766,6 +766,12 @@ app.on('ready', async () => {
 解决：`electron` 项目路径不能有中文！
 ### 25. Syntax Error: ReferenceError: document is not defined
 `vue-cli-plugin-electron-builder` 不能出现 `list-style: square inside url('../../icons/svg/moreThen.svg');`
+### 26. electron打包后出现如下问题
+![avatar](./electron6.png)
+
+如图：`chunk-vendors.js`中放的是通过 `import` 包导入的第三方依赖包。防止该文件体积过大，可以使用 `webpack` 的 `externals` 配置。凡是声明在 `externals` 中的第三方依赖包，都不会被打包。
+以找到出错的依赖包剔除即可。
+`n=t.colouredLayout;` 让我查到了 `log4js` 这个包，只要将这个包 `external` 就好了。
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
