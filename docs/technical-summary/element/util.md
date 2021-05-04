@@ -42,6 +42,7 @@ function toObject(arr) {
   return res;
 };
 ```
+## 获取对象内部的属性值（深层遍历）
 ```js
 const getValueByPath = function(object, prop) {
   prop = prop || '';
