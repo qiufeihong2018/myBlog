@@ -491,3 +491,104 @@ aria.Utils.keys = {
 
 export default aria.Utils;
 ```
+
+## 对话框工具函数
+```js
+import Utils from './aria-utils';
+
+/**
+ * @constructor
+ * @desc Dialog object providing modal focus management.提供模式焦点管理的对话框对象。
+ *
+ * Assumptions: The element serving as the dialog container is present in the
+ * DOM and hidden. The dialog container has role='dialog'.
+ *元素中存在作为对话框容器的元素
+* DOM和隐藏。
+对话框容器有role='dialog'。
+ * @param dialogId
+ *          The ID of the element serving as the dialog container.用作对话框容器的元素的ID。
+ * @param focusAfterClosed
+ *          Either the DOM node or the ID of the DOM node to focus when the
+ *          dialog closes.对话框关闭时要聚焦的DOM节点或DOM节点ID
+ * @param focusFirst
+ *          Optional parameter containing either the DOM node or the ID of the
+ *          DOM node to focus when the dialog opens. If not specified, the
+ *          first focusable element in the dialog will receive focus.
+ * 对象的ID或DOM节点的可选参数
+*当对话框打开时聚焦的DOM节点。
+如果未指定，则
+*对话框中的第一个可聚焦元素将获得聚焦。
+ */
+var aria = aria || {};
+var tabEvent;
+
+aria.Dialog = function (dialog, focusAfterClosed, focusFirst) {
+  this.dialogNode = dialog;
+  // 对话框为null或者不为对话框抛出异常
+  if (this.dialogNode === null || this.dialogNode.getAttribute('role') !== 'dialog') {
+    throw new Error('Dialog() requires a DOM element with ARIA role of dialog.');
+  }
+  // 对话框关闭时要聚焦的DOM节点
+  if (typeof focusAfterClosed === 'string') {
+    this.focusAfterClosed = document.getElementById(focusAfterClosed);
+  } else if (typeof focusAfterClosed === 'object') {
+    this.focusAfterClosed = focusAfterClosed;
+  } else {
+    this.focusAfterClosed = null;
+  }
+  // 当对话框打开时聚焦的DOM节点
+  if (typeof focusFirst === 'string') {
+    this.focusFirst = document.getElementById(focusFirst);
+  } else if (typeof focusFirst === 'object') {
+    this.focusFirst = focusFirst;
+  } else {
+    this.focusFirst = null;
+  }
+  // 有的话聚焦，没有找到第一个子代中可聚焦的节点聚焦
+  if (this.focusFirst) {
+    this.focusFirst.focus();
+  } else {
+    Utils.focusFirstDescendant(this.dialogNode);
+  }
+
+  this.lastFocus = document.activeElement;
+  tabEvent = (e) => {
+    this.trapFocus(e);
+  };
+  this.addListeners();
+};
+// 添加设置焦点事件
+aria.Dialog.prototype.addListeners = function () {
+  document.addEventListener('focus', tabEvent, true);
+};
+// 移除焦点事件
+aria.Dialog.prototype.removeListeners = function () {
+  document.removeEventListener('focus', tabEvent, true);
+};
+// 关闭对话框
+aria.Dialog.prototype.closeDialog = function () {
+  this.removeListeners();
+  if (this.focusAfterClosed) {
+    setTimeout(() => {
+      this.focusAfterClosed.focus();
+    });
+  }
+};
+// 捕捉聚焦
+aria.Dialog.prototype.trapFocus = function (event) {
+  if (Utils.IgnoreUtilFocusChanges) {
+    return;
+  }
+  if (this.dialogNode.contains(event.target)) {
+    this.lastFocus = event.target;
+  } else {
+    Utils.focusFirstDescendant(this.dialogNode);
+    if (this.lastFocus === document.activeElement) {
+      Utils.focusLastDescendant(this.dialogNode);
+    }
+    this.lastFocus = document.activeElement;
+  }
+};
+
+export default aria.Dialog;
+```
