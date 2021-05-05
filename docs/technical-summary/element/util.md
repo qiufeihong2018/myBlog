@@ -592,3 +592,101 @@ aria.Dialog.prototype.trapFocus = function (event) {
 
 export default aria.Dialog;
 ```
+## clickoutside
+该指令用来处理目标节点之外的点击事件，常用来处理下拉菜单等展开内容的关闭，在Element-ui的Select选择器、Dropdown下拉菜单、Popover 弹出框等组件中都用到了该指令，所以这个指令在实现一些自定义组件的时候非常有用。
+
+当指令与元素绑定以及组件更新的时候，搜集并设置绑定元素的ctx特性，同时将绑定元素添加到nodeList当中去，当指令与元素解绑的时候，删除nodeList中存储的对应的绑定元素，并将之前设置在绑定元素上之前设置的ctx特性删除掉。
+
+```js
+import Vue from 'vue';
+import { on } from 'element-ui/src/utils/dom';
+// https://juejin.cn/post/6844903775501565959
+// 元素搜集器，会将页面中所有绑定clickoutside的dom元素储存起来
+const nodeList = [];
+// 命名控件，防止其他特性重名
+const ctx = '@@clickoutsideContext';
+
+let startClick;
+let seed = 0;
+// 非服务端给文档对象添加鼠标点下事件
+// 鼠标点下回调中将事件储存在startClick全局变量中。
+!Vue.prototype.$isServer && on(document, 'mousedown', e => (startClick = e));
+// 鼠标抬起回调中遍历nodeList，然后分别执行每一个node节点ctx特性中存储的documentHandler函数
+!Vue.prototype.$isServer && on(document, 'mouseup', e => {
+  nodeList.forEach(node => node[ctx].documentHandler(e, startClick));
+});
+// 创建文档事件
+function createDocumentHandler(el, binding, vnode) {
+  return function (mouseup = {}, mousedown = {}) {
+    if (!vnode ||
+      !vnode.context ||
+      !mouseup.target ||
+      !mousedown.target ||
+      // 绑定对象el是否包含mouseup.target/mousedown.target子节点，如果包含说明点击的是绑定元素的内部，则不执行clickoutside指令内容
+      el.contains(mouseup.target) ||
+      el.contains(mousedown.target) ||
+      // 绑定对象el是否等于mouseup.target，等于说明点击的就是绑定元素自身，也不执行clickoutside指令内容
+      el === mouseup.target ||
+      // 最后vnode.context.popperElm这部分内容则是 : 判断是否点击在下拉菜单的上，如果是，也是没有点击在绑定元素外部，不执行clickoutside指令内容
+      (vnode.context.popperElm &&
+        (vnode.context.popperElm.contains(mouseup.target) ||
+          vnode.context.popperElm.contains(mousedown.target)))) return;
+    // 如果以上条件全部符合，则判断闭包缓存起来的值，如果methodName存在则执行这个方法，如果不存在则执行bindingFn
+    if (binding.expression &&
+      el[ctx].methodName &&
+      vnode.context[el[ctx].methodName]) {
+      vnode.context[el[ctx].methodName]();
+    } else {
+      el[ctx].bindingFn && el[ctx].bindingFn();
+    }
+  };
+}
+
+/**
+ * v-clickoutside
+ * @desc 点击元素外面才会触发的事件
+ * @example
+ * ```vue
+ * <div v-element-clickoutside="handleClose">
+ * ```
+ */
+export default {
+  bind(el, binding, vnode) {
+    // 将所有调用该指令的dom元素塞进nodeList变量中
+    nodeList.push(el);
+    const id = seed++;
+    el[ctx] = {
+      // 前面生成的全局唯一id，用来标识该指令
+      id,
+      documentHandler: createDocumentHandler(el, binding, vnode),
+      // 字符串形式的执行表达式
+      // 例如有  <div v-my-directive="1 + 1"></div>，则binding.expression的值为 1 + 1
+      methodName: binding.expression,
+      // 执行表达式的值
+      // 指令的值为js表达式的情况下，**binding.expresssion**为表达式本身，是一个字符串，而**binding.value**是该表达式的值。
+      bindingFn: binding.value
+    };
+  },
+  // update钩子的内容很简单，就是当组件更新的时候，更新 绑定元素 el 的特性 ctx 中的值。
+  update(el, binding, vnode) {
+    el[ctx].documentHandler = createDocumentHandler(el, binding, vnode);
+    el[ctx].methodName = binding.expression;
+    el[ctx].bindingFn = binding.value;
+  },
+  // 当clickoutside指令与元素el解绑的时候，遍历nodeList，通过ctx特性上的id找到nodeList中存储的当前解绑元素el，将它从nodeList中删除，并且删除el上的ctx特性。
+  unbind(el) {
+    let len = nodeList.length;
+
+    for (let i = 0; i < len; i++) {
+      if (nodeList[i][ctx].id === el[ctx].id) {
+        nodeList.splice(i, 1);
+        break;
+      }
+    }
+    delete el[ctx];
+  }
+};
+```
+
+以上就是 documentHandler方法的生成以及内部逻辑。通过这个方法和之前的分析，我们就可以知道，当页面绑mouseup事件触发的时候，会遍历nodeList，依次执行每一个绑定元素el的ctx特性上的documentHandler方法。而在这个方法内部可以访问到指令传入的表达式，在进行一系列判断之后会执行该表达式，从而达到点击目标元素外部执行给定逻辑的目的，而这个给定逻辑是通过自定义指令的值，传到绑定元素el的ctx特性上的。
+至此clickoutside的源码就分析完了，可以看到clickoutside指令的源码并不复杂，不过涉及到的内容还是挺多的，有许多东西值得我们学习，比如利用dom元素的特性来存储额外信息，使用闭包缓存变量，如何判断点击在目标元素外部和Vue自定义指令的使用等等。
