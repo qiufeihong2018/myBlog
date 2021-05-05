@@ -295,3 +295,199 @@ function objToArray(obj) {
   return isEmpty(obj) ? [] : [obj];
 }
 ```
+## after-leave
+```js
+/**
+ * Bind after-leave event for vue instance. Make sure after-leave is called in any browsers.
+ * 为vue实例绑定after-leave事件。
+确保在任何浏览器中都调用after-leave。
+ *
+ * @param {Vue} instance Vue instance.
+ * @param {Function} callback callback of after-leave event
+ * @param {Number} speed the speed of transition, default value is 300ms。转换速度
+ * @param {Boolean} once weather bind after-leave once. default value is false. after-leave是否绑定一次。默认值是false。
+ */
+// called为开关。
+// called先是为false，代表开着状态，进入回调事件后，把它关上，回调事件绑定所有参数。
+// 为true即是关上状态，进入回调后马上退出。
+
+export default function(instance, callback, speed = 300, once = false) {
+  // 实例和回调方法是必须的
+  if (!instance || !callback) throw new Error('instance & callback is required');
+  let called = false;
+  const afterLeaveCallback = function() {
+    if (called) return;
+    called = true;
+    if (callback) {
+      callback.apply(null, arguments);
+    }
+  };
+  if (once) {
+    // 只调用一次
+    instance.$once('after-leave', afterLeaveCallback);
+  } else {
+    instance.$on('after-leave', afterLeaveCallback);
+  }
+  setTimeout(() => {
+    afterLeaveCallback();
+  }, speed + 100);
+};
+```
+## dom工具方法
+```js
+var aria = aria || {};
+
+aria.Utils = aria.Utils || {};
+
+/**
+ * @desc Set focus on descendant nodes until the first focusable element is
+ *       found.将焦点设置在后代节点上，直到第一个焦点元素被
+*发现。
+ * @param element
+ *          DOM node for which to find the first focusable descendant.
+ * 要为其找到第一个可聚焦后代的DOM节点。
+ * @returns
+ *  true if a focusable element is found and focus is set.
+ * 如果找到可聚焦元素并设置焦点，则为True。
+ */
+aria.Utils.focusFirstDescendant = function (element) {
+  // 遍历元素的所有子节点
+  for (var i = 0; i < element.childNodes.length; i++) {
+    var child = element.childNodes[i];
+    // 迭代所有子孙节点，找到可聚焦的节点
+    if (aria.Utils.attemptFocus(child) || aria.Utils.focusFirstDescendant(child)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ * @desc Find the last descendant node that is focusable.找到可聚焦的最后一个子孙节点。
+ * @param element
+ *          DOM node for which to find the last focusable descendant.要为其找到最后一个可聚焦后代的DOM节点。
+ * @returns
+ *  true if a focusable element is found and focus is set.如果找到可聚焦元素并设置焦点，则为True。
+ */
+
+aria.Utils.focusLastDescendant = function (element) {
+  for (var i = element.childNodes.length - 1; i >= 0; i--) {
+    var child = element.childNodes[i];
+    if (aria.Utils.attemptFocus(child) || aria.Utils.focusLastDescendant(child)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ * @desc Set Attempt to set focus on the current node.设置尝试设置当前节点的焦点。
+ * @param element
+ *          The node to attempt to focus on.试图聚焦的节点。
+ * @returns
+ *  true if element is focused.如果元素被聚焦返回true
+ */
+aria.Utils.attemptFocus = function (element) {
+  if (!aria.Utils.isFocusable(element)) {
+    return false;
+  }
+  aria.Utils.IgnoreUtilFocusChanges = true;
+  try {
+    element.focus();
+  } catch (e) {
+  }
+  aria.Utils.IgnoreUtilFocusChanges = false;
+  return (document.activeElement === element);
+};
+
+// 元素是否是可聚焦的
+aria.Utils.isFocusable = function (element) {
+  // tabIndex获取或设置当前元素的tab键激活顺序.
+  if (element.tabIndex > 0 || (element.tabIndex === 0 && element.getAttribute('tabIndex') !== null)) {
+    return true;
+  }
+  // 元素禁用返回false
+  if (element.disabled) {
+    return false;
+  }
+  // 判断元素节点类型
+  // a标签有href并且不忽略返回true
+  // 输入框标签类型不隐藏并且不是文件类型返回true
+  // 按钮、选择框和文本框都返回true
+  // 剩余的都返回false
+  switch (element.nodeName) {
+    case 'A':
+      return !!element.href && element.rel !== 'ignore';
+    case 'INPUT':
+      return element.type !== 'hidden' && element.type !== 'file';
+    case 'BUTTON':
+    case 'SELECT':
+    case 'TEXTAREA':
+      return true;
+    default:
+      return false;
+  }
+};
+
+/**
+ * 触发一个事件
+ * mouseenter, mouseleave, mouseover, keyup, change, click 等
+ * @param  {Element} elm
+ * @param  {String} name
+ * @param  {*} opts
+ */
+
+
+// createEvent
+// // 创建事件
+// var event = document.createEvent('Event');
+
+// // 定义事件名为'build'.
+// event.initEvent('build', true, true);
+
+// // 监听事件
+// elem.addEventListener('build', function (e) {
+//   // e.target matches elem
+// }, false);
+
+// // 触发对象可以是任何元素或其他事件目标
+// elem.dispatchEvent(event);
+aria.Utils.triggerEvent = function (elm, name, ...opts) {
+  let eventName;
+
+  if (/^mouse|click/.test(name)) {
+    // 鼠标事件
+    eventName = 'MouseEvents';
+  } else if (/^key/.test(name)) {
+    // 键盘事件
+    eventName = 'KeyboardEvent';
+  } else {
+    // html事件
+    eventName = 'HTMLEvents';
+  }
+  // 创建事件
+  const evt = document.createEvent(eventName);
+
+  evt.initEvent(name, ...opts);
+  elm.dispatchEvent
+    ? elm.dispatchEvent(evt)
+    : elm.fireEvent('on' + name, evt);
+
+  return elm;
+};
+
+
+// 绑定键盘键值
+aria.Utils.keys = {
+  tab: 9,
+  enter: 13,
+  space: 32,
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40,
+  esc: 27
+};
+
+export default aria.Utils;
+```
