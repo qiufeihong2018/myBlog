@@ -64,6 +64,15 @@ disk cache
 http cache
 service worker cache
 push cache
+### 总结
+1. 命中强缓存，使用缓存
+2. 没有命中，向服务器发送命令检查是否命中协商缓存
+3. 如果命中，返回304，使用浏览器缓存
+4. 否则，返回最新资源。
+
+## performance lighthouse
+- performance：提供网页的可视化性能分析报告
+- lighthouse：提供网页的性能优化分析报告
 ## dom优化原理
 有句名言形容dom和js的关系很是贴切：把 DOM 和 JavaScript 各自想象成一个岛屿，它们之间用收费桥梁连接。——《高性能 JavaScript》
 回流：改变了dom的几何属性，如长宽高等，性能消耗很大
