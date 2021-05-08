@@ -70,6 +70,7 @@ push cache
 3. 如果命中，返回304，使用浏览器缓存
 4. 否则，返回最新资源。
 
+看了 example 中的 cache 项目就明白了浏览器缓存了。
 ## performance lighthouse
 - performance：提供网页的可视化性能分析报告
 - lighthouse：提供网页的性能优化分析报告
