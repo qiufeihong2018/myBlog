@@ -49,12 +49,26 @@ css是阻塞的，所以css需要放在header标签里，先加载。如果放�
 • 放在css和html渲染之后：当渲染完成后，加载并执行js
 • async：异步加载js，一边渲染一边执行
 • defer：异步加载js，等页面渲染完成后，加载并执行js
+## 本地存储
+1. cookie
+奔波于浏览器和服务器之间的文本文件，记录某些信息，存储大小不超过4kb，超过删除。
+2. webstorage
+其包括sessionStorage和localStorage
+- sessionStorage：存储当前会话的信息，关闭当前会话，存储消失，同一浏览器不同页面无法共享数据，存储大小不超过5mb左右。
+- localStorage：存储不会消失，可以共享数据，存储大小不超过5mb。
+indexDB
+存储大小不受限制，永远不会删除存储。
+## 浏览器缓存
+merroy cache
+disk cache
+http cache
+service worker cache
+push cache
 ## dom优化原理
 有句名言形容dom和js的关系很是贴切：把 DOM 和 JavaScript 各自想象成一个岛屿，它们之间用收费桥梁连接。——《高性能 JavaScript》
 回流：改变了dom的几何属性，如长宽高等，性能消耗很大
 重绘：改变了dom的基本属性，如颜色和大小等，性能小号没有回流来得大
 优化方式：尽量不要造成dom回流和重绘。但是js不仅仅是去访问dom，更多的时候修改dom，所以尽可能将操作都在js中完成，将js处理后的结果交给dom。
-
 ## eventloop和nextTick原理
 事件循环是js中最重要的内容和组成部分。
 其中事件分为宏任务（macrotask）和微任务（microtask）。
