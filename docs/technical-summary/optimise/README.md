@@ -159,3 +159,94 @@ dom.style.display='block'
 ```
 拿掉和放回的操作性能消耗特别低。
 4.浏览器的flush队列
+
+## 服务端渲染
+定义
+代码在服务器中编译成html页面返回，浏览器请求拿到页面直接渲染
+解决的问题
+• 网站seo：方便搜索引擎爬到
+• 首页加载慢
+
+## 首屏优化-懒加载
+用户点开页面的瞬间，呈现给他的只有屏幕的一部分，只要我们将首屏的图片资源加载出来，用户就不会觉得有问题。至于下面的图片，我们可以等用户下来的瞬间再及时去请求、及时呈现给用户。性能压力小了，用户体验却没有变差。
+
+## 事件的节流和防抖
+- 节流
+第一个人说了算
+```js
+        // 事件节流
+        function throttle(fn, interval) {
+            let time = 0
+            return function () {
+                let _t = this
+                let arg = arguments
+                let now = new Date()
+                if (now - time > interval) {
+                    time = now
+                    fn.apply(_t, arg)
+                }
+            }
+        }
+        const scrollFn = throttle(lazyload, 1000)
+        window.addEventListener('scroll', scrollFn);
+```
+- 防抖
+最后一个人说了算
+```js
+        // 事件防抖
+        function debounce(fn, delay) {
+            let timer = null
+            return function () {
+                let _t = this
+                let arg = arguments
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                timer = setTimeout(() => {
+                    fn.apply(_t, arg)
+                }, delay);
+            }
+        }
+        const scrollFn = debounce(lazyload, 1000)
+        window.addEventListener('scroll', scrollFn)
+```
+- 用throttle优化debounce
+```js
+               // fn是我们需要包装的事件回调, delay是时间间隔的阈值
+        function throttle(fn, delay) {
+            // last为上一次触发回调的时间, timer是定时器
+            let last = 0,
+                timer = null
+            // 将throttle处理结果当作函数返回
+
+            return function () {
+                // 保留调用时的this上下文
+                let context = this
+                // 保留调用时传入的参数
+                let args = arguments
+                // 记录本次触发回调的时间
+                let now = +new Date()
+
+                // 判断上次触发的时间和本次触发的时间差是否小于时间间隔的阈值
+                if (now - last < delay) {
+                    // 如果时间间隔小于我们设定的时间间隔阈值，则为本次触发操作设立一个新的定时器
+                    clearTimeout(timer)
+                    timer = setTimeout(function () {
+                        last = now
+                        fn.apply(context, args)
+                    }, delay)
+                } else {
+                    // 如果时间间隔超出了我们设定的时间间隔阈值，那就不等了，无论如何要反馈给用户一次响应
+                    last = now
+                    fn.apply(context, args)
+                }
+            }
+        }
+
+        // 用新的throttle包装scroll的回调
+        const scrollFn = throttle(lazyload, 1000)
+
+        document.addEventListener('scroll', scrollFn)
+```
+
+example 中的 lazyLoad 项目
