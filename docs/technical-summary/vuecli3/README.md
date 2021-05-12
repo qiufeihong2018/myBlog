@@ -16,3 +16,11 @@ vue cli 的插件有哪些？
 8. 统一管理缓存变量
 9. 使用setTimeout代替setInterval
 10. 不要使用for...in来遍历数组
+
+## vue api盲点解析
+- 使用performance开启性能追踪
+- 使用errorHandler来捕获异常
+- 使用nextTick将回调延迟到下次DOM更新循环之后执行
+- 使用watch深层遍历和立即回调的功能
+- 对低开销的组件使用v-once
+- 使用$isServer判断当前实例是否运行于服务器
