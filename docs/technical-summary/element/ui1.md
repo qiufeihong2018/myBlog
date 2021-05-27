@@ -37,7 +37,7 @@
 
 这些原则都是老生常谈了，也是最重要的。`Element` 组件的设计和我们以后自己造的轮子切记也要遵循这些原则。
 ## 二、	目录结构
-从[Element仓库](https://github.com/ElemeFE/element)下载下源码（我下的是 `master`），首先我们来看下未打包目录：
+从[Element仓库](https://github.com/ElemeFE/element)下载源码（我下的是 `master` 分支），首先我们来看下未打包目录：
 
 ![未打包目录](./未打包目录.png)
 
@@ -151,7 +151,7 @@ export default ElInput;
 ```
 
 ## 四、	package.json
-`package.json` 是项目的解释性文档。属性描述如下：
+`package.json` 是项目的解释性文档（项目清单）。属性描述如下：
 1.	name：项目名称，不能重复
 2.	version：版本号
 3.	description：项目描述
@@ -217,6 +217,7 @@ Vue.prototype.$icon = icon; // Icon 列表页用
 ![文档](./文档.png)
 
 通过之后说到的 `md-loader` 解析成 `vue` 组件，渲染在官网上。
+
 ![icon](./icon.png)
 #### node build/bin/build-entry.js
 执行后自动生成`element-master\src\index.js`，也就是项目的入口文件，用 `json-templater` 结合变量生成模板，避免每次新增组件时手动在 `src\index.js` 中引入并导出组件。如何自动新增组件后文也会提及。
