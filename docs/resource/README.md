@@ -1,12 +1,6 @@
 # 全栈学习资源
 [[toc]]
 
-
-## element源码
-
-:100: [官方解析](https://www.jianshu.com/c/c71f9c127c71)
-
-
 ## Vue.js 组件精讲
  [组件精讲](https://juejin.im/book/5bc844166fb9a05cd676ebca)
 
@@ -16,9 +10,6 @@
 guyikeji20160927
 
 ## [思否](https://segmentfault.com/ls/1650000016424063)
-
-13372507596
-guyikeji20160927
 
 
 ## [Vue相关开源项目库汇总](https://github.com/opendigg/awesome-github-vue)
