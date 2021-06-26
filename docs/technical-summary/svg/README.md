@@ -116,27 +116,35 @@ import './icons'
 ![avatar](./svg2.png)
 
 ## Vue-cli3使用svg-sprite-loader的vue.config配置
-（node_modules里有个svg导致一直报错）只应用于src/icons目录下
-```js
-    config.module
-            .rule('svg')
-            .exclude.add(resolve('src/icons'))
-            .end();
+（`node_modules` 里有个 `svg` 导致一直报错）只应用于 `src/icons` 目录下
 
-        config.module
-            .rule('icons')
-            .test(/\.svg$/)
-            .include.add(resolve('src/icons'))
-            .end()
-            .use('svg-sprite-loader')
-            .loader('svg-sprite-loader')
-            .options({
-                symbolId: 'icon-[name]'
-            });
+解决：需要在 `vue.config.js` 文件下加入 `webpack` 配置
+```js
+const path = require('path')
+module.exports = {  
+   chainWebpack: config => {    
+    const svgRule = config.module.rule('svg')   
+    svgRule.uses.clear()    
+    svgRule        
+    	.test(/\.svg$/)        
+    	.include.add(path.resolve(__dirname, './src/icons'))        	.end()        
+    	.use('svg-sprite-loader')        
+    	.loader('svg-sprite-loader')        
+    	.options({          
+    		symbolId: 'icon-[name]'        
+    		})    
+    const fileRule = config.module.rule('file')  
+    fileRule.uses.clear()    
+    fileRule        
+    	.test(/\.svg$/)        
+    	.exclude.add(path.resolve(__dirname, './src/icons'))        
+    	.end()        
+    	.use('file-loader')        
+    	.loader('file-loader')  }}
 ```
 ## svg-sprite-loader源码
 ### 是什么
-创建svg的webpack加载器
+创建 `svg` 的 `webpack` 加载器
 ### 地址
 https://github.com/JetBrains/svg-sprite-loader
 ### 为什么要用

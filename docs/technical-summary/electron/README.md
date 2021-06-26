@@ -761,7 +761,93 @@ app.on('ready', async () => {
   autoUpdater.checkForUpdates()
 })
 ```
-但是这个我没有尝试过，您可以试下
+但是这个我没有尝试过，您可以试下。
+### 24. ExecError: C:\Users\xxx\AppData\Local\electron-builder\Cache\nsis\nsis-3.0.4.1\Bin\makensis.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
+解决：`electron` 项目路径不能有中文！
+### 25. Syntax Error: ReferenceError: document is not defined
+`vue-cli-plugin-electron-builder` 不能出现 `list-style: square inside url('../../icons/svg/moreThen.svg');`
+### 26. electron打包后出现如下问题
+![avatar](./electron6.png)
+
+如图：`chunk-vendors.js`中放的是通过 `import` 包导入的第三方依赖包。防止该文件体积过大，可以使用 `webpack` 的 `externals` 配置。凡是声明在 `externals` 中的第三方依赖包，都不会被打包。
+以找到出错的依赖包剔除即可。
+`n=t.colouredLayout;` 让我查到了 `log4js` 这个包，只要将这个
+### 27. electron实现多窗口功能
+#### 配置路由文件
+```js
+export default new Router({
+  routes: [
+    {path: '/', name: 'home', component: ()=> import('@/view//home')},
+    {path: '/suspension', name: 'suspension', component: ()=> import('@/view/components/suspension')}
+  ]
+})
+```
+`home` 组件是在主窗口中，`suspension` 组件是在子窗口中。
+
+两者组件的内容随意。
+
+关键的在于主进程，主进程要控制两者的交互。
+```js
+import {BrowserWindow, ipcMain, screen, Menu, shell, app, webContents} from 'electron'
+
+var win = null;
+const window = BrowserWindow.fromWebContents(webContents.getFocusedWebContents());
+const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080/#/suspension` : `file://${__dirname}/index.html/#/suspension`;
+// 主进程监听子进程发过来的消息showSuspensionWindow，如果没有win或者被隐藏了则创建，否则就展示。
+ipcMain.on('showSuspensionWindow', () => {
+  if (win) {
+    if (win.isVisible()) {
+      createSuspensionWindow();
+    } else {
+      win.showInactive();
+    }
+  } else {
+    createSuspensionWindow();
+  }
+
+});
+// 主窗口就不展示了
+// 创建子窗口
+function createSuspensionWindow() {
+  win = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    frame: false,  //要创建无边框窗口
+    alwaysOnTop: true, //窗口是否总是显示在其他窗口之前
+  });
+  const size = screen.getPrimaryDisplay().workAreaSize;  //获取显示器的宽高
+  const winSize = win.getSize(); //获取窗口宽高
+
+  //设置窗口的位置 注意x轴要桌面的宽度 - 窗口的宽度
+  win.setPosition(size.width - winSize[0], 100);
+  win.loadURL(winURL);
+
+  win.once('ready-to-show', () => {
+    win.show()
+  });
+
+  win.on('close', () => {
+    win = null;
+  })
+}
+// 隐藏窗口事件
+ipcMain.on('hideSuspensionWindow', () => {
+  if (win) {
+    win.hide();
+  }
+});
+```
+
+在主窗口中发送创建子窗口的事件
+```js
+ipcRender.send('showSuspensionWindow')
+```
+
+在主窗口中发送隐藏子窗口的事件
+```js
+ipcRender.send('hideSuspensionWindow')
+```
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
