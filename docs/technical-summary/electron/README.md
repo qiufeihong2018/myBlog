@@ -847,7 +847,120 @@ ipcRender.send('showSuspensionWindow')
 ```js
 ipcRender.send('hideSuspensionWindow')
 ```
+### 28.electron最小化窗口闪烁
+使用的 `api` 是 `flashFrame`
 
+主进程：
+```js
+ipcMain.on('flashFrame', function () {
+  mainWindow.flashFrame(true)
+})
+```
+渲染进程：
+```js
+  ipcRenderer.send('flashFrame')
+```
+### 29. 避免出现开启白屏情况
+用 `show` 来控制窗口是否显示。
+
+可以先不显示，等到资源加载完毕，再显示窗口。
+```js
+mainWindow = new BrowserWindow({
+    height: 720,
+    minHeight: 600,
+    minWidth: 900,
+    width: 1280,
+    frame: false,
+    useContentSize: true,
+    webPreferences: {
+        // Use pluginOptions.nodeIntegration, leave this alone
+        // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
+        // nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+        nodeIntegration: true,
+        contextIsolation: false,
+        enableRemoteModule: true
+    },
+    //先不显示
+    show: false
+})
+mainWindow.on('ready-to-show', () => {
+    // 资源准备好后显示界面    
+    mainWindow.show()
+})
+```
+### 30.electron notification 源码
+```ts
+  interface NotificationConstructorOptions {
+    /**
+ 通知的标题，将显示在通知的顶部
+*窗口显示时。
+     */
+    title: string;
+    /**
+通知的副标题，将显示在标题下方。
+     *
+     * @platform darwin
+     */
+    subtitle?: string;
+    /**
+*通知的正文，将显示在标题或
+*副标题。
+     */
+    body: string;
+    /**
+是否在显示通知时发出OS通知噪声。
+     */
+    silent?: boolean;
+    /**
+*通知中使用的图标。
+     */
+    icon?: (string) | (NativeImage);
+    /**
+*是否在通知中添加内联回复选项。
+     *
+     * @platform darwin
+     */
+    hasReply?: boolean;
+    /**
+通知超时时间。可以是'default'或'never'。
+     *
+     * @platform linux,win32
+     */
+    timeoutType?: ('default' | 'never');
+    /**
+     *要写入内联回复输入字段的占位符。
+     *
+     * @platform darwin
+     */
+    replyPlaceholder?: string;
+    /**
+*显示通知时播放的声音文件的名称。
+     *
+     * @platform darwin
+     */
+    sound?: string;
+    /**
+*通知的紧急程度。可以是“正常”、“严重”或“低”。. Can be 'normal', 'critical', or 'low'.
+     *
+     * @platform linux
+     */
+    urgency?: ('normal' | 'critical' | 'low');
+    /**
+*添加到通知的动作。请阅读可用的操作
+*“NotificationAction”文档中的限制。
+     *
+     * @platform darwin
+     */
+    actions?: NotificationAction[];
+    /**
+*警报关闭按钮的自定义标题。空字符串将导致
+*使用默认本地化文本。
+     *
+     * @platform darwin
+     */
+    closeButtonText?: string;
+  }
+```
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
