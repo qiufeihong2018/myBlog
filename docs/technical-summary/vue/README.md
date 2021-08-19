@@ -76,5 +76,109 @@ import Vue from 'vue/dist/vue.esm.js'
 </div>
 ```
 在 `handleEvent` 中传入每个子组件中应该收到的对象。
+
+## 在Vue中使用websocket实时通信
+websocket全局配置
+```js
+export default {
+    ws: {},
+    delay: 1500,
+    setWs: function (newWs) {
+        this.ws = newWs
+    },
+    setDelay: function (newDelay) {
+        this.delay = newDelay
+    },
+    sendMsg: function (msg) {
+        this.ws.send(JSON.stringify(msg))
+    }
+}
+```
+
+在main.js中全局挂载
+```js
+import socket from '@/utils/socket'
+
+Vue.prototype.$socket = socket
+```
+
+vue页面中使用
+```js
+      createSocket() {
+        let _t = this
+        if ('WebSocket' in window) {
+          console.log('您的浏览器支持 webSocket')
+          _t.ws = new WebSocket('ws://127.0.0.1:8849')
+          _t.$socket.setWs(_t.ws)
+          _t.ws.onopen = () => {
+            console.log('打开')
+            // 发送消息
+            if (_t.$socket.ws && _t.$socket.ws.readyState === 1) {
+              _t.$socket.sendMsg(`xxx`)
+            }
+          }
+          _t.ws.onerror = () => {
+            console.log('连接出错')
+            // 延迟重连
+            setTimeout(() => {
+              _t.createSocket()
+            }, _t.$socket.delay);
+          }
+          _t.ws.onclose = () => {
+            console.log('连接关闭')
+            // 延迟重连
+            setTimeout(() => {
+              _t.createSocket()
+            }, _t.$socket.delay);
+          }
+          _t.ws.onmessage = (res) => {
+            _t.logVal.push(res.data)
+            console.log('收到信息：', res.data)
+          }
+        } else {
+          console.log('您的浏览器不支持 webSocket')
+        }
+      },
+```
+### 心跳机制
+
+为了保证连接一直正常，需要加入心跳机制，以保证后端可以实时知道当前连接状态。具体操作：前端会每隔一段时间发送请求到后端。
+
+```js
+keepAlive() {
+    let that = this;
+    setTimeout(() => {
+        //判断当前webscokt状态
+        if (that.$socket.ws.readyState == 1) {
+            console.log('发送keepalve')
+            //调用发送方法
+            that.$socket.sendMsg({
+                "type": "keepAlive"
+            })
+            that.keepAlive()
+        }
+    }, 1000);
+}
+```
+在this.ws.onopen事件中调用心跳方法。
+
+
+在其他路由页面中
+
+直接调用onmessage方法
+
+```js
+eventMsg() {
+    this.$socket.ws.onmessage = function (res) {
+        //处理接收的数据
+    }
+}
+```
+
+
+用来测试websocket的网页`http://www.websocket-test.com/`
+
 ## 参考文献
 [You are using the runtime-only build of Vue where the template compiler is not available.](https://blog.csdn.net/wxl1555/article/details/83187647)
+
+
