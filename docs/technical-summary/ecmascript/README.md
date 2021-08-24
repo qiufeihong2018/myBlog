@@ -7,6 +7,26 @@
 
 let 局部声明变量；
 const 局部声明常量，一般不可以改变。
+
+
+### 默认参数
+```js
+function person(name,age){
+    var name=name||'qfh'
+    var age=age||26
+    console.log(`${name}今年${age}岁了`)
+}
+person()
+```
+改成es6写法:
+```js
+function person(name='qfh',age=26){
+    console.log(`${name}今年${age}岁了`)
+}
+person()
+```
+### 扩展运算符
+
 ## ES7
 ## ES8
 ## ES10
