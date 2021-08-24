@@ -464,7 +464,21 @@ stats返回文件统计信息
 
 ### fs.lstatSync
 获取指定路径的 `stat` 对象（文件统计信息）
+## 移动文件
+从 `temp` 目录移到根目录中。
+```js
+     let source = 'temp/xxx.exe'
+        let target = 'xxx.exe' 
+       try {
+          fs.rename(source, target, function (err) {
+            if (err) throw err
 
+          })
+
+        } catch (error) {
+          console.log(error)
+        }
+```
 ## 参考文献
 [Nodejs编写守护进程](https://cnodejs.org/topic/57adfadf476898b472247eac)
 
