@@ -26,7 +26,16 @@ function person(name='qfh',age=26){
 person()
 ```
 ### 扩展运算符
+...是扩展运算符
+```js
+let arr1=[1,2,3]
+let arr2=[1,2,3]
+let arr3=[1,2,3]
 
+console.log(arr1.concat(arr2).concat(arr3))
+// 扩展运算符
+console.log([...arr1,...arr2,...arr3])
+```
 ## ES7
 ## ES8
 ## ES10
