@@ -417,7 +417,7 @@ data可以是字符串或缓冲区
 
 ###  fs.readFileSync
 同步读取文件
-
+```
 path
 
 options：
@@ -428,12 +428,12 @@ signal
 callback：
 err
 data
-
-回调中的data是文件内容。如果为指定编码，则返回原始缓冲区。
+```
+回调中的 `data` 是文件内容。如果为指定编码，则返回原始缓冲区。
 
 ### fs.readdir
-
-异步读取目录的内容。
+异步读取目录的内容
+```
 path
 
 options：
@@ -443,14 +443,12 @@ withFileTypes
 callback：
 err
 files
-
-files是目录文件名的数组，不包括“.”“..”
-
+```
+`files` 是目录文件名的数组，不包括“.”“..”
 
 ### fs.stat
-
 异步检查文件是否存在，并进行操作
-
+```
 path
 
 options：bigint
@@ -458,14 +456,14 @@ options：bigint
 callback：
 err
 stats
-
+```
 stats返回文件统计信息
 
 ### fs.mkdir
 异步地创建目录
 
 ### fs.lstatSync
-获取指定路径的stat对象（文件统计信息）
+获取指定路径的 `stat` 对象（文件统计信息）
 
 ## 参考文献
 [Nodejs编写守护进程](https://cnodejs.org/topic/57adfadf476898b472247eac)
