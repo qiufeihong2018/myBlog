@@ -249,6 +249,223 @@ xintop.png
 守护进程最重要的是稳定，如果守护进程挂掉，那么其管理的子进程都将变为孤儿进程，同时被init进程接管，这是我们不愿意看到的。于此同时，守护进程对于子进程的管理也是有非常多的发挥余地的，例如PM2中，将一个进程同时启动4次，达到CPU多核使用的目的（很有可能你的进程在同一核中运行），进程挂掉后自动重启等等，这些事情等着我们去造轮子。
 
 总体来说，Nodejs启动守护进程方式比较简单，默认所暴露的API也屏蔽了很多系统级别API，使得大家使用上更加方便，但没有接触过Linux的人在理解上有一些复杂。推荐大家学习Nodejs的同时，多学习Linux系统调用的和系统内核的一些东西。
+## 拷贝指定目录下的所有文件夹和文件
+初始化：在 `utils` 中定义 `system.js`
+```js
+// 将srcDir文件下的文件、文件夹递归的复制到tarDir下
+const fs = require('fs')
+const path = require('path')
+// 将srcPath路径的文件复制到tarPath
+var copyFile = function (srcPath, tarPath, cb) {
+    // 流拷贝
+    // 问题：写入缺失
+    // // 读文件
+    // var rs = fs.createReadStream(srcPath);
+    // rs.on('error', function (err) {
+    //     if (err) {
+    //         console.log('read error', srcPath);
+    //     }
+    //     cb && cb(err);
+    // })
+    // // 写文件
+    // var ws = fs.createWriteStream(tarPath);
+    // ws.on('error', function (err) {
+    //     if (err) {
+    //         console.log('write error', tarPath);
+    //     }
+    //     cb && cb(err);
+    // })
+    // ws.on('close', function (ex) {
+    //     cb && cb(ex);
+    // })
+    // rs.pipe(ws);
+    // 小文件拷贝
+    fs.writeFileSync(tarPath, fs.readFileSync(srcPath))
+}
+const copyFolder = function (srcDir, tarDir, cb) {
+    fs.readdir(srcDir, function (err, files) {
+        var count = 0;
+        // 统计文件数量
+        var checkEnd = function () {
+            ++count == files.length && cb && cb();
+        }
+        if (err) {
+            checkEnd();
+            console.log('复制', err)
+            return;
+        }
+        // 遍历文件
+        files.forEach(function (file) {
+            var srcPath = path.join(srcDir, file);
+            var tarPath = path.join(tarDir, file);
+            // 判断文件夹是否存在
+            // 问题：走不进stat的回调中
+            // fs.stat(srcPath, function (err, stats) {
+            //     if (stats.isDirectory()) {
+            //         console.log('mkdir', tarPath);
+            //         //    创建文件夹
+            //         fs.mkdir(tarPath, function (err) {
+            //             if (err) {
+            //                 console.log(err);
+            //                 return;
+            //             }
+            //             // 递归
+            //             copyFolder(srcPath, tarPath, checkEnd);
+            //         });
+            //     } else {
+            //         // 拷贝文件
+            //         copyFile(srcPath, tarPath, checkEnd);
+            //     }
+            // });
+
+// 上面判断是否是文件夹的操作是异步的，有问题，改成同步的就可以了
+            var stat = fs.lstatSync(srcPath)
+            if (stat.isDirectory()) {
+                console.log('mkdir', tarPath);
+                //    创建文件夹
+                fs.mkdir(tarPath, function (err) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    // 递归
+                    copyFolder(srcPath, tarPath, checkEnd);
+                });
+            } else {
+                // 拷贝文件
+                copyFile(srcPath, tarPath, checkEnd);
+            }
+        });
+        //为空时直接回调
+        files.length === 0 && cb && cb();
+    });
+}
+export default {
+    copyFolder
+}
+```
+调用：
+```js
+  import system from '@/utils/system'
+
+        const _t = this
+        let source = 'libs/manisRunner'
+        let target = ''
+        try {
+          system.copyFolder(source, target)
+          setTimeout(() => {
+      具体业务逻辑
+          }, 20000);
+        } catch (error) {
+          console.log(error)
+        }
+```
+`copyFolder` 中的回调进不去的
+
+### fs.createReadStream
+返回可读流
+`options` 中的 `start` 和 `end`，以从文件中读取一定范围的字节
+
+指定 `fd`，则不会去读取 `path` 指定的文件描述符，也不会触发 `open`事件
+
+path 目标的url路径
+options：
+flags
+encoding
+fd
+mode
+autoClose
+emitClose
+start
+end
+highWaterMark
+fs
+fs提供open、read、close事件
+
+### fs.createWriteStream
+可写流
+path 目标的url路径
+options：
+flags
+encoding
+fd
+mode
+autoClose
+emitClose
+start
+end
+fs
+修改文件而不是替换它需要将flags设置为r+而不是默认的w
+
+fs提供open、write、close事件
+
+### fs.writeFileSync
+file
+data
+options：
+encodeing
+mode
+flag
+signal
+
+callback
+
+
+同步写入文件
+如果文件已经存在则替换文件。
+data可以是字符串或缓冲区
+
+###  fs.readFileSync
+同步读取文件
+
+path
+
+options：
+encodeing
+flag
+signal
+
+callback：
+err
+data
+
+回调中的data是文件内容。如果为指定编码，则返回原始缓冲区。
+
+### fs.readdir
+
+异步读取目录的内容。
+path
+
+options：
+encoding
+withFileTypes
+
+callback：
+err
+files
+
+files是目录文件名的数组，不包括“.”“..”
+
+
+### fs.stat
+
+异步检查文件是否存在，并进行操作
+
+path
+
+options：bigint
+
+callback：
+err
+stats
+
+stats返回文件统计信息
+
+### fs.mkdir
+异步地创建目录
+
+### fs.lstatSync
+获取指定路径的stat对象（文件统计信息）
 
 ## 参考文献
 [Nodejs编写守护进程](https://cnodejs.org/topic/57adfadf476898b472247eac)
