@@ -36,6 +36,34 @@ console.log(arr1.concat(arr2).concat(arr3))
 // 扩展运算符
 console.log([...arr1,...arr2,...arr3])
 ```
+### 剩余参数
+一个函数传入的参数个数是不确定的，就可以使用剩余参数
+```js
+function person(name,...params){
+    console.log(name);
+    console.log(params)
+    }
+    person('qfh',1,2,3,4,5)
+//   qfh
+// [1, 2, 3, 4, 5]
+```
+### 模板字符串
+$可以连接变量和字符串。
+```js
+const name="qfh"
+const age=26
+console.log(`我叫${name}，今年${age}岁`)
+```
+### Object.keys
+可以用它来获取对象的键key的数组。
+```js
+const person={name:'qfh',age:26}
+undefined
+const keys=Object.keys(person)
+undefined
+console.log(keys)
+//  ["name", "age"]
+```
 ## ES7
 ## ES8
 ## ES10
