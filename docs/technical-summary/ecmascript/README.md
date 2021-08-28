@@ -64,6 +64,28 @@ undefined
 console.log(keys)
 //  ["name", "age"]
 ```
+### 箭头函数
+普通函数：
+```js
+function person(){
+    return this
+}
+person()
+```
+可以改变成箭头函数：
+```js
+const person=()=>{
+    return this
+}
+person()
+```
+普通函数和箭头函数的区别：
+1. 普通函数的this指向调用者，默认指向Window对象
+2. 箭头函数的this继承来的，默认指向定义它时所处的对象
+3. 箭头函数不可以作为构造函数，不能new
+4. 箭头函数没有自己的this
+5. 箭头函数没有arguments对象
+6. 箭头函数没有原型对象
 ## ES7
 ## ES8
 ## ES10
