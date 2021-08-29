@@ -138,6 +138,55 @@ export default {
 
 </style>
 ```
+## el-tree修改节点不影响后续操作
+修改和添加子节点不能重新获取列表，否则折叠的树会进行展开。
+
+`parentNode.data = res;` 修改子节点时，直接赋值并不会修改树绑定过的数据，只会修改当前节点的数据。
+
+产生的问题：修改之后进行修改或添加脚本，之前的修改不生效。
+
+解决方式:通过先删除后添加的方式，将数据打入树中。
+
+```
+        this.$refs.requireTypeTree.remove(parentNode)
+        this.$refs.requireTypeTree.append(res, rootNode)
+```
+重要代码：
+```js
+      /**
+       * @description 子向父发送修改子节点操作
+       */
+ emitModifyScript(res, rootdata) {
+        // 修改文件夹必须重新刷新，否则直接children赋值，文件和文件夹交替修改还是旧数据
+        if (res.isFolder === 1) {
+          this.getTreeNodes();
+        }
+        let parentNode = this.$refs.requireTypeTree.getNode(rootdata.id);
+        let rootNode = parentNode.parent
+        // 直接赋值并不会修改树绑定过的数据
+        // 产生的问题：修改之后进行修改或添加脚本，之前的修改不生效。
+        // parentNode.data = res;
+        // 解决方式：
+        // 通过先删除后添加的方式，将数据打入树中
+        this.$refs.requireTypeTree.remove(parentNode)
+        this.$refs.requireTypeTree.append(res, rootNode)
+        this.$forceUpdate();
+        console.log('this.treeData', this.treeData)
+      },
+      /**
+       * @description 子向父发送添加子节点操作
+       */
+      emitCreate(res, rootdata) {
+        // (data) 要获得 node 的 key 或者 data
+        let parentNode = this.$refs.requireTypeTree.getNode(rootdata.id);
+        // (data, parentNode) 接收两个参数，1. 要追加的子节点的 data 2. 子节点的 parent 的 data、key 或者 node
+        this.$refs.requireTypeTree.append(res, parentNode);
+        this.$refs.requireTypeTree.setCheckedKeys([])
+        console.log('this.treeData', this.treeData)
+      },
+```
+
+
 
 ## 参考文献
 [vue按住shift键多选（以element框架的table为例）](https://blog.csdn.net/weixin_43734545/article/details/103582536)
