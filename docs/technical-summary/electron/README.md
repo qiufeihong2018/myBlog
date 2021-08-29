@@ -961,6 +961,19 @@ mainWindow.on('ready-to-show', () => {
     closeButtonText?: string;
   }
 ```
+### electron打包更新需要图标是256*256
+这个是强制要求
+
+可以通过 `https://lirongyao.com/ico/` 这个网站将图片改成256*256的ico图标
+
+
+### Error: EBUSY: resource busy or locked, rename
+打包出现了问题：
+```
+[Error: EBUSY: resource busy or locked, rename 'E:\person\electron-builder-demo\dist_electron\win-unpacked\electron.exe' -> 'E:\person\electron-builder-demo\dist_electron\win-unpacked\Vue Electron.exe'] {
+```
+网上说的从资源管理器中杀进程方式不行，直接重启就能解决问题。
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
