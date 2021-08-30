@@ -86,6 +86,86 @@ person()
 4. 箭头函数没有自己的this
 5. 箭头函数没有arguments对象
 6. 箭头函数没有原型对象
+
+### Array.forEach
+数组遍历方法
+```js
+const arr = [1, 2, 3]
+
+// 三个参数：遍历项 索引 数组本身
+// 配合箭头函数
+arr.forEach((item, index, arr) => {
+  console.log(item, index, arr)
+})
+// VM136:6 1 0 (3) [1, 2, 3]
+// VM136:6 2 1 (3) [1, 2, 3]
+// VM136:6 3 2 (3) [1, 2, 3]
+```
+### Array.map
+返回一个处理过后的新数组
+```js
+const arr = [1, 2, 3]
+
+// 三个参数：遍历项 索引 数组本身
+// 配合箭头函数
+const newArr=arr.map((item, index, arr) => {return item*item
+})
+// (3) [1, 4, 9]
+```
+### Array.filter
+用来过滤的方法，返回新数组。
+```js
+const arr = [1, 2, 3]
+
+// 三个参数：遍历项 索引 数组本身
+// 配合箭头函数
+const newArr=arr.filter((item, index, arr) => {return item>1
+})
+// (2) [2, 3]
+```
+### Array.some
+有一个是真的就返回真的
+```js
+const arr = [1, 2, 3]
+
+// 三个参数：遍历项 索引 数组本身
+// 配合箭头函数
+const tag=arr.some((item, index, arr) => {return item===1
+})
+// true
+```
+### Array.every
+全部都是真才返回真
+```js
+const arr = [1, 2, 3]
+
+// 三个参数：遍历项 索引 数组本身
+// 配合箭头函数
+const tag=arr.every((item, index, arr) => {return item===1
+})
+// false
+```
+#### Array.reduce
+高阶函数，
+
+第一个参数是callback函数，pre为上次return的值，next为本次遍历的项
+
+第二个参数为初始值，也是第一个pre
+
+```js
+// 统计每个值出现的次数
+const arr=['a','b','c','a','b','d','e','a']
+
+let obj=arr.reduce((pre,next)=>{
+if(pre[next]){
+    pre[next]+=1
+}else{
+    pre[next]=1   
+}
+return pre
+},{})
+// {a: 3, b: 2, c: 1, d: 1, e: 1}
+```
 ## ES7
 ## ES8
 ## ES10
