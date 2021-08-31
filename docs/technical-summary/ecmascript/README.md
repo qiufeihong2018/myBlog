@@ -145,7 +145,7 @@ const tag=arr.every((item, index, arr) => {return item===1
 })
 // false
 ```
-#### Array.reduce
+### Array.reduce
 高阶函数，
 
 第一个参数是callback函数，pre为上次return的值，next为本次遍历的项
@@ -166,6 +166,135 @@ return pre
 },{})
 // {a: 3, b: 2, c: 1, d: 1, e: 1}
 ```
+### 对象属性同名省略
+以前：
+```js
+const name="qfh"
+const age=26
+const person={
+name:name,
+age:age
+}
+console.log(person)
+```
+现在：
+```js
+const name="qfh"
+const age=26
+const person={
+name,
+age
+}
+console.log(person)
+```
+### promise
+表示“承诺”，一旦改变了状态，就不会发生改变。
+
+成功：
+```js
+function getList(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve('hello')
+        },2000)
+    })
+}
+getList().then(res=>{
+    console.log(res)
+})
+.catch((err)=>{
+    console.log(err)
+})
+```
+
+失败：
+```js
+function getList(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            reject('hello')
+        },2000)
+    })
+}
+getList().then(res=>{
+    console.log(res)
+})
+.catch((err)=>{
+    console.log(err)
+})
+```
+#### all方法：
+1. 接受一个promise数组，数组中有非promise选项，将此项当做成功；
+2. 如果全部成功，则返回成功结果的数组；
+3. 如果有一个失败，则返回这个失败结果。
+
+都成功:
+```js
+function out(time){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve(`我是${time}毫秒~`)
+        },time)
+    })
+}
+
+Promise.all([out(1000),out(4000),out(3000),out(2000)])
+.then(res=>{
+    console.log(res)
+})
+.catch(err=>{
+    console.log(err)
+})
+
+// 成功： 过了4秒后输出： ["我是1000毫秒~", "我是4000毫秒~", "我是3000毫秒~", "我是2000毫秒~"]
+```
+
+有个失败：
+```js
+function out(time,tag){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            tag?resolve(`我是${time}毫秒~`):reject(`我是${time}毫秒!`)
+        },time)
+    })
+}
+
+Promise.all([out(1000,true),out(4000,true),out(3000),out(2000)])
+.then(res=>{
+    console.log(res)
+})
+.catch(err=>{
+    console.log(err)
+})
+
+
+// 失败：2秒后，输出“我是2000毫秒!”
+```
+
+#### race方法
+1. 接受一个promise数组，数组中有非promise选项，将此项当做成功；
+2. 哪个最快得到结果就输出哪个。
+
+```js
+function out(time,tag){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            tag?resolve(`我是${time}毫秒~`):reject(`我是${time}毫秒!`)
+        },time)
+    })
+}
+
+Promise.race([out(3000,true),out(4000,true),out(1000),out(2000)])
+.then(res=>{
+    console.log(res)
+})
+.catch(err=>{
+    console.log(err)
+})
+
+// 失败：1秒后，输出“我是1000毫秒!”
+```
+
 ## ES7
 ## ES8
 ## ES10
