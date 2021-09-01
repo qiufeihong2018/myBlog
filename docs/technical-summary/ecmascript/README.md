@@ -294,7 +294,75 @@ Promise.race([out(3000,true),out(4000,true),out(1000),out(2000)])
 
 // 失败：1秒后，输出“我是1000毫秒!”
 ```
+### class
+以前使用构造函数生成对象：
+```js
+function person(name){
+    this.name=name
+}
+// 如果是箭头函数，打印就是undefined
+// person.prototype.alertName=()=>{
+person.prototype.alertName=function(){
+    console.log(this.name)
+}
 
+const one=new person('qfh')
+one.alertName()
+// qfh
+```
+现在用es6 class实现构造函数：
+```js
+class person{
+    constructor(name){
+        this.name=name
+    }
+    alertName(){
+        console.log(this.name)
+    }
+}
+const one=new person('qfh')
+one.alertName()
+// qfh
+```
+静态属性和方法实例都不能调用
+```js
+class person{
+    constructor(name){
+        this.name=name
+    }
+    static age=26
+    static alertName(){
+        console.log(this.name)
+    }
+}
+const one=new person('qfh')
+one.alertName()
+// one.alertName is not a function
+console.log(one.age)
+// undefined
+```
+用extends实现继承
+```js
+class person{
+    constructor(name,age){
+        this.name=name
+        this.age=age
+    }
+    alertName(){
+        console.log(this.name)
+    }
+}
+class GoodPerson extends person{
+    alertAge(){
+        console.log(this.age)
+    }
+}
+const leiFeng=new GoodPerson('qfh',26)
+leiFeng.alertAge()
+// 26
+leiFeng.alertName()
+// qfh
+```
 ## ES7
 ## ES8
 ## ES10
