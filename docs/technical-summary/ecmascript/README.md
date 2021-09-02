@@ -363,6 +363,77 @@ leiFeng.alertAge()
 leiFeng.alertName()
 // qfh
 ```
+
+### 解构赋值
+以前
+```js
+const person = {
+    name: 'qfh',
+    age: 26,
+    pet: 'cat'
+}
+const name = person.name
+const age = person.age
+const pet = person.pet
+console.log(name, age, pet)
+VM82:9 qfh 26 cat
+```
+
+现在
+```js
+const person = {
+    name: 'qfh',
+    age: 26,
+    pet: 'cat'
+}
+const {
+    name,
+    age,
+    pet
+} = person
+console.log(name, age, pet)
+// qfh 26 cat
+```
+
+嵌套解构
+```js
+const person = {
+    name: 'qfh',
+    age: 26,
+    pet: {
+        name: 'paofu',
+        age: 1
+    }
+}
+const {
+    pet: {
+        name,
+        age
+    }
+} = person
+console.log(name, age)
+// VM158:15 paofu 1
+```
+
+重命名
+```js
+const person = {
+    name: 'qfh',
+    age: 26,
+    pet: {
+        name: 'paofu',
+        age: 1
+    }
+}
+const {
+    pet: {
+        name: petName,
+        age
+    }
+} = person
+console.log(petName, age)
+// VM221:15 paofu 1
+```
 ## ES7
 ## ES8
 ## ES10
