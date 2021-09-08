@@ -24,7 +24,7 @@
 ```
 
 ## 一、	背景
-在开发某款应用程序的时候，需要用到本地数据库，而不是像xxx应用程序一样可以通过restful接口，使用远程数据库。所以我们在应用中需要加入数据库，究其根本就是electron搭配数据库。那么，数据库要选择哪个呢？
+在我们开发某款应用程序的时候，可能会需要用到本地数据库，而不是一直通过 restful 接口，使用远程数据库。所以我们在应用中需要加入数据库，究其根本就是 `electron` 搭配数据库。那么，数据库要选择哪个呢？
 ## 二、	数据库选型
 ### (一)	LocalStorage
 **LocalStorage** 存储的数据保存在浏览器中。存储容量很小，大概不会超过 **10M**，它是以键值对形式保存数据的，没有关联查询、条件查询的机制。
@@ -76,12 +76,12 @@ npm install --save aws-sdk
  
 ![python版本](./python版本.png)
 
-下载地址：https://www.python.org/downloads。
+下载地址：https://www.python.org/downloads 。
 下载并且安装 `python`，将默认没有勾选的“加入系统变量path”的选项勾选上，配置好环境变量后，在终端里测试一下。
 ### (二)	构建工具下载
 我安装的是 **Visual Studio 15生成工具2017**
  
-![Visual Studio 15生成工具2017](./Visual Studio 15生成工具2017.png)
+![Visual Studio 15生成工具2017](./VisualStudio15生成工具2017.png)
 
 还需要执行
 ```
@@ -99,6 +99,8 @@ cnpm install sqlite3@latest --build-from-source --runtime=electron --target=1.7.
 
 ![不要使用npm](./不要使用npm.png)
  
+使用 cnpm 去安装它。
+
 执行命令开始安装最新版的 `SQLite3`。
  
 ![开始安装最新版的SQLite3](./开始安装最新版的SQLite3.png)
@@ -196,10 +198,6 @@ app.sqlite3db = sqlite3db
 
 ## 六、	参考文献
 https://newsn.net/say/electron-install-sqlite3.html
-
-https://newsn.net/say/electron-sqlite-render.html
-
-https://newsn.net/say/sqlite-manage-tool.html
 
 https://www.cnblogs.com/liulun/p/13061672.html
 
