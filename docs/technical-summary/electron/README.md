@@ -961,6 +961,39 @@ mainWindow.on('ready-to-show', () => {
     closeButtonText?: string;
   }
 ```
+### 31. electron打包更新需要图标是256*256
+这个是强制要求
+
+可以通过 `https://lirongyao.com/ico/` 这个网站将图片改成256*256的ico图标
+
+
+### 32.Error: EBUSY: resource busy or locked, rename
+打包出现了问题：
+```
+[Error: EBUSY: resource busy or locked, rename 'E:\person\electron-builder-demo\dist_electron\win-unpacked\electron.exe' -> 'E:\person\electron-builder-demo\dist_electron\win-unpacked\Vue Electron.exe'] {
+```
+网上说的从资源管理器中杀进程方式不行，直接重启就能解决问题。
+### 33.electron项目打包时下载Electron缓慢
+`vue-cli-electron-builder` 项目打包
+```
+ downloading     url=https://cdn.npm.taobao.org/dist/electron/13.2.2/electron-v13.2.2-win32-x64.zip 
+```
+一直卡在下载`electron-v13.2.2-win32-x64.zip`这里。
+
+怎么解决下载Electron缓慢呢？
+
+![avatar](./33.png)
+
+在 `C:\Users\用户名\AppData\Local\electron\Cache` 路径下，将下载下来的 `electron-v13.2.2-win32-x64.zip` 和 `SHASUMS256.txt` 改成 `SHASUMS256.txt-13.2.2` 放入其中。
+
+重新打包就好了
+### 34.打包报错ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
+Electron执行electron-builder打包命令报错
+```
+...electron-builder\Cache\nsis\nsis-3.0.3.2\Bin\makensis.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
+```
+解决方法很简单，打包项目路径不能包含中文路径。
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 

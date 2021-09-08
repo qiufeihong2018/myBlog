@@ -1,4 +1,3 @@
-
 # Electron控制应用是否更新
 ## 更新需要提示用户，需要控制应用是否更新
 ### 1.	方案一
@@ -164,7 +163,7 @@ private async doCheckForUpdates(): Promise < UpdateCheckResult > {
 ```
 如果需要配置updater中的其他参数达到某种功能，我们可以仔细查看其中的配置项。
 ```ts
-export declare abstract class AppUpdater extends EventEmitter {
+export abstract class AppUpdater extends EventEmitter {
     /**
      * 当被发现有更新时，是否要自动下载更新
      * 场景：可以适用于electron检查更新包提示，用户操作是否需要更新
@@ -176,21 +175,16 @@ export declare abstract class AppUpdater extends EventEmitter {
      */
     autoInstallOnAppQuit: boolean;
     /**
-     * *GitHub provider only.* Whether to allow update to pre-release versions. Defaults to `true` if application version contains prerelease components (e.g. `0.12.1-alpha.1`, here `alpha` is a prerelease component), otherwise `false`.
-     ** GitHub提供者。
-    *是否允许升级到预发布版本。
-如果应用程序版本包含预发布组件，默认为“true”。
-“0.12.1-alpha。
-1 '，这里' alpha '是预发布组件)，否则' false '。
-     * If `true`, downgrade will be allowed (`allowDowngrade` will be set to `true`).
-如果' true '，则允许降级(' allow降级'将被设置为' true ')。
-     */
+   *   GitHub提供者。
+    是否允许升级到预发布版本。
+    如果应用程序版本包含预发布组件，默认为“true”。0.12.1-alpha.1，这里alpha是预发布组件)，否则“false”。
+    allowDowngrade设置为true，则应用允许降级。
+   */
     allowPrerelease: boolean;
     /**
-     * *GitHub provider only.* Get all release notes (from current version to latest), not just the latest.
-     * * GitHub提供者。
-     *获取所有发布说明(从当前版本到最新版本)，而不仅仅是最新版本。
-     * @default false
+     * GitHub提供者。
+    获取所有发布说明(从当前版本到最新版本)，而不仅仅是最新版本。
+    @default false
      */
     fullChangelog: boolean;
     /**
@@ -206,20 +200,17 @@ export declare abstract class AppUpdater extends EventEmitter {
     private _channel;
     protected downloadedUpdateHelper: DownloadedUpdateHelper | null;
     /**
-     * Get the update channel. Not applicable for GitHub. Doesn't return `channel` from the update configuration, only if was previously set.
      * 获取更新通道。
-不适用于GitHub。
-从更新配置不返回' channel '，只有在以前设置。
+      不适用于GitHub。
+      从更新配置不返回“channel”，仅在之前设置的情况下。
      */
     get channel(): string | null;
     /**
-     * Set the update channel. Not applicable for GitHub. Overrides `channel` in the update configuration.
-     *设置更新通道。
-不适用于GitHub。
-覆盖更新配置中的' channel '。
-     * `allowDowngrade` will be automatically set to `true`. If this behavior is not suitable for you, simple set `allowDowngrade` explicitly after.
-“allow降级”将自动设置为“true”。
-如果这个行为不适合你，简单设置“allow降级”后显式。
+     * 设置更新通道。
+   不适用于GitHub。
+   覆盖更新配置中的“channel”。
+   “allowDowngrade”将自动设置为“true”。
+   如果这个行为不适合你，明确后简单设置“allowDowngrade”。
      */
     set channel(value: string | null);
     /**
@@ -236,8 +227,10 @@ export declare abstract class AppUpdater extends EventEmitter {
     get logger(): Logger | null;
     set logger(value: Logger | null);
     /**
-     * For type safety you can use signals, e.g. `autoUpdater.signals.updateDownloaded(() => {})` instead of `autoUpdater.on('update-available', () => {})`
-     * 为了类型安全，可以使用signals
+     * For type safety you can use signals, e.g. 
+    为了类型安全，可以使用signals。
+     例如：
+      `autoUpdater.signals.updateDownloaded(() => {})` instead of `autoUpdater.on('update-available', () => {})`
      */
     readonly signals: UpdaterSignal;
     private _appUpdateConfigPath;
@@ -247,11 +240,14 @@ export declare abstract class AppUpdater extends EventEmitter {
      */
     set updateConfigPath(value: string | null);
     private clientPromise;
-    protected readonly stagingUserIdPromise: Lazy < string > ;
+    protected readonly stagingUserIdPromise: Lazy<string>;
     private checkForUpdatesPromise;
     protected readonly app: AppAdapter;
     protected updateInfoAndProvider: UpdateInfoAndProvider | null;
-    protected constructor(options: AllPublishOptions | null | undefined, app ? : AppAdapter);
+    protected constructor(
+        options: AllPublishOptions | null | undefined,
+        app?: AppAdapter
+    );
     /**
      * 获取当前更新的url
      */
@@ -259,7 +255,7 @@ export declare abstract class AppUpdater extends EventEmitter {
     /**
      * Configure update provider. If value is `string`, [GenericServerOptions](/configuration/publish#genericserveroptions) will be set with value as `url`.
      * @param options If you want to override configuration in the `app-update.yml`.
-     * 
+     *
      * 配置更新提供者。通过提供url
      * @param options 如果你想覆盖' app-update.yml '中的配置。
      */
@@ -267,53 +263,59 @@ export declare abstract class AppUpdater extends EventEmitter {
     /**
      * 检查服务其是否有更新
      */
-    checkForUpdates(): Promise < UpdateCheckResult > ;
+    checkForUpdates(): Promise<UpdateCheckResult>;
     isUpdaterActive(): boolean;
     /**
-     * 
+     *
      * @param downloadNotification 询问服务器是否有更新，下载并通知更新是否可用
      */
-    checkForUpdatesAndNotify(downloadNotification ? : DownloadNotification): Promise < UpdateCheckResult | null > ;
+    checkForUpdatesAndNotify(
+        downloadNotification?: DownloadNotification
+    ): Promise<UpdateCheckResult | null>;
     private static formatDownloadNotification;
     private isStagingMatch;
     private computeFinalHeaders;
     private isUpdateAvailable;
-    protected getUpdateInfoAndProvider(): Promise < UpdateInfoAndProvider > ;
+    protected getUpdateInfoAndProvider(): Promise<UpdateInfoAndProvider>;
     private createProviderRuntimeOptions;
     private doCheckForUpdates;
     protected onUpdateAvailable(updateInfo: UpdateInfo): void;
     /**
-     * 
+     *
      * 作用：开始下载更新包
-     * 
+     *
      * 如果将`autoDownload`选项设置为false，就可以使用这个方法。
-     * 
+     *
      * @returns {Promise<string>} Path to downloaded file.
      */
-    downloadUpdate(cancellationToken ? : CancellationToken): Promise < any > ;
+    downloadUpdate(cancellationToken?: CancellationToken): Promise<any>;
     protected dispatchError(e: Error): void;
     protected dispatchUpdateDownloaded(event: UpdateDownloadedEvent): void;
-    protected abstract doDownloadUpdate(downloadUpdateOptions: DownloadUpdateOptions): Promise < Array < string >> ;
+    protected abstract doDownloadUpdate(
+        downloadUpdateOptions: DownloadUpdateOptions
+    ): Promise<Array<string>>;
     /**
      * 作用：下载后重新启动应用程序并安装更新。
      *只有在' update- downloads '被触发后才会调用。
      *
      * 注意：如果在update-downloaded钩子中，让用户选择是否更新应用，选择不更新，那就是没有执行autoUpdater.quitAndInstall()方法。
      * 虽然应用没有更新，但是当第二次打开应用的时候，应用检测到本地有更新包，他就会直接更新，最后不会重启更新后的应用。
-     * 
+     *
      * 为了解决这个问题，需要设置`autoInstallOnAppQuit`为false。关闭应用自动更新。
-     * 
+     *
      * **Note:** ' autoUpdater.quitAndInstall() '将首先关闭所有的应用程序窗口，然后只在' app '上发出' before-quit '事件。
      *这与正常的退出事件序列不同。
      *
      * @param isSilent 仅Windows以静默模式运行安装程序。默认为false。
      * @param isForceRunAfter 即使无提示安装也可以在完成后运行应用程序。不适用于macOS。忽略是否isSilent设置为false。
      */
-    abstract quitAndInstall(isSilent ? : boolean, isForceRunAfter ? : boolean): void;
+    abstract quitAndInstall(isSilent?: boolean, isForceRunAfter?: boolean): void;
     private loadUpdateConfig;
     private computeRequestHeaders;
     private getOrCreateStagingUserId;
     private getOrCreateDownloadHelper;
-    protected executeDownload(taskOptions: DownloadExecutorTask): Promise < Array < string >> ;
+    protected executeDownload(
+        taskOptions: DownloadExecutorTask
+    ): Promise<Array<string>>;
 }
 ```
