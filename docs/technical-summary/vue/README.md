@@ -239,6 +239,102 @@ configureWebpack: {
 ```js
 import Vue from 'vue/dist/vue.esm.js'
 ```
+## vue-cli4项目中使用svg图标
+```
+npm install svg-sprite-loader --save-dev
+```
+在根目录下添加 vue.config.js 文件
+代码如下：
+```js
+const path = require('path')
+module.exports = {  
+   chainWebpack: config => {    
+    const svgRule = config.module.rule('svg')   
+    svgRule.uses.clear()    
+    svgRule        
+    	.test(/\.svg$/)        
+    	.include.add(path.resolve(__dirname, './src/icons'))        	.end()        
+    	.use('svg-sprite-loader')        
+    	.loader('svg-sprite-loader')        
+    	.options({          
+    		symbolId: 'icon-[name]'        
+    		})    
+    const fileRule = config.module.rule('file')  
+    fileRule.uses.clear()    
+    fileRule        
+    	.test(/\.svg$/)        
+    	.exclude.add(path.resolve(__dirname, './src/icons'))        
+    	.end()        
+    	.use('file-loader')        
+    	.loader('file-loader')  }} 
+```
+src下创建icons文件夹（与components是同一级），文件夹下设两个，一个是svg文件夹，留着存放svg图片，另一个为index.js文件。
+
+index.js代码
+```js
+
+import Vue from 'vue'//引入组件
+import SvgIcon from '@/components/SvgIcon/index.vue'// svg组件
+//全局注册组件
+Vue.component('svg-icon', SvgIcon)//此处递归获取.svg文件
+const requireAll = requireContext => requireContext.keys().map(requireContext)
+const req = require.context('./svg', false, /\.svg$/)
+requireAll(req)
+```
+components下创建SvgIcon
+```js
+<template>  
+   <svg :class="svgClass" aria-hidden="true">    
+     <use :href="iconName" />  
+   </svg>
+</template>
+<script>
+export default {  
+    name: 'SvgIcon', 
+    props: {    
+      iconClass: {      
+        type: String,      
+        required: true    
+        },    
+      className: {      
+        type: String,     
+         default: ''    
+         }  
+        },  
+     computed: {
+        iconName () {      
+        return `#icon-${this.iconClass}`    
+        },    
+        svgClass () {      
+        if (this.className) {       
+         return 'svg-icon ' + this.className      
+         } else {        
+         return 'svg-icon'      
+         }    
+       },
+  }
+  }
+</script> 
+
+<style scoped>
+ .svg-icon {  
+     width: 1em;  
+     height: 1em;  
+     vertical-align: -0.15em;  
+     fill: currentColor;  
+     overflow: hidden;}
+  .svg-external-icon {  
+     background-color: currentColor; 
+     mask-size: cover !important;  
+     display: inline-block;}
+  </style>
+```
+不要忘了在main.js里进行引入组件引用
+```js
+<svg-icon icon-class="" />
+//""里为svg图标文件名
+```
+按照上述配好之后不要直接刷新，要重启！重启！项目会有图标出现。
 ## 参考文献
 [You are using the runtime-only build of Vue where the template compiler is not available.](https://blog.csdn.net/wxl1555/article/details/83187647)
 
