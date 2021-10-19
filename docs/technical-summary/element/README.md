@@ -185,8 +185,43 @@ export default {
         console.log('this.treeData', this.treeData)
       },
 ```
+## el-popover 弹出框不放在body中
+不放在 body 中。
 
+el-popover 默认将弹窗放到 body 中，但是在某个项目中，当 el-popover 的高度超出了父级 div 的宽度时，会造成 body 的滚动，而不是其父级的滚动。
+所以要将 el-popover 放入到父级 div 中
+```html
+<el-popover
+    class="add-step-popover"
+    ref="add-step-popover"
+    placement="bottom"
+    width="212"
+    trigger="click"
+    @show="show"
+    :append-to-body="false"
+    :popper-options="{
+      positionFixed: true
+    }"
+  >
+  </el-popover>
+```
+根据项目需求，要注意 z-index 的使用
 
-
+原来
+```html
+<div style="position: relative;z-index:1" >
+   <el-popover ...>
+     <span style="position: absolute;z-index:2" slot="reference">+</span>
+   </el-popover>
+</div>
+```
+解决
+```html
+<el-popover ...>
+  <div style="position: relative;z-index:1"  >
+    <span style="position: absolute;z-index:2" >+</span>
+  </div>
+</el-popover>
+```
 ## 参考文献
 [vue按住shift键多选（以element框架的table为例）](https://blog.csdn.net/weixin_43734545/article/details/103582536)
