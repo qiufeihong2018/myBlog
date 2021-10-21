@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+
+<body>
+<!-- Other HTML for your app goes here -->
+  <!-- The node we will use to put our app in the document -->
+  <div id="root"></div>
+
+  <!-- Note: When deploying to production, replace "development.js"
+       with "production.min.js" in each of the following tags -->
+
+  <!-- Load React and React DOM -->
+  <!-- See https://reactjs.org/docs/add-react-to-a-website.html to learn more -->
+  <script src="https://unpkg.com/react@>=16.8/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@>=16.8/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Load history -->
+  <script src="https://unpkg.com/history@5/umd/history.development.js" crossorigin></script>
+
+  <!-- Load React Router and React Router DOM -->
+  <script src="https://unpkg.com/react-router@6/umd/react-router.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin></script>
+
+  <!-- A simple example app -->
+  <script>
+  var e = React.createElement;
+  var Router = ReactRouterDOM.BrowserRouter;
+  var Routes = ReactRouterDOM.Routes;
+  var Route = ReactRouterDOM.Route;
+
+  ReactDOM.render(
+    (
+      e(Router, null, (
+        e(Routes, null, (
+          e(Route, {
+            element: e('div', null, 'Hello, React Router!')
+          })
+        ))
+      ))
+    ),
+    document.getElementById('root')
+  );
+  </script>
+
+</body>
+
+</html>
