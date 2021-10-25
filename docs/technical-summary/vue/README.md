@@ -451,6 +451,18 @@ dragControllerDiv: function () {
 ```js
 this.dragControllerDiv();
 ```
+## npm run dev卡住
+npm run dev 卡住 即 vue-cli-service serve 卡住，不提示错误信息，进程也不关闭。
+
+问题分析和解决：
+
+我的问题出现在使用 template 时，外层没有给根 div，导致死循环
+```
+<template>
+ddd
+</template>
+```
+其实就是自己粗心大意产生的一些错误
 ## 参考文献
 [You are using the runtime-only build of Vue where the template compiler is not available.](https://blog.csdn.net/wxl1555/article/details/83187647)
 
