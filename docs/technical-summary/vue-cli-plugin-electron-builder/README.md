@@ -63,13 +63,13 @@
 
 选择 `electron` 版本，最好选择最新的。
 
-![选择electron版本](./选择electron版本.png)
+![选择electron版本](./selectTheElectronVersion.png)
 
 选择后项目会去拉去electron，这个过程很漫长。如果等不了，看看之前有没有electron项目，将依赖复制过来。
  
 npm run electron:serve启动应用：
 
-![启动应用](./启动应用.png)
+![启动应用](./startingTheApplication.png)
 
 那么这个命令他做了什么？
 1.	启动内置开发服务器，并进行一些修改以与electron正常工作；
@@ -78,7 +78,7 @@ npm run electron:serve启动应用：
 
 最后自动打开应用界面：
  
-![打开应用界面](./打开应用界面.png)
+![打开应用界面](./openTheApplicationPage.png)
 
 你以为完了？不不不，还有很多步骤。
 
@@ -451,41 +451,40 @@ npm run electron:build
 
 electron-builder的配置：
 
-![electronBuilder配置](./electronBuilder配置.png)
+![electronBuilder配置](./electronBuilderConfiguration.png)
 
 `builder-effective-config.yaml` 就是 `electron-builder` 的配置项文件。
  
-![配置项文件](./配置项文件.png)
+![配置项文件](./configurationItemFile.png)
 
 0.1.0版本打包成功：
  
-![0.1.0版本打包成功](./0.1.0版本打包成功.png)
+![0.1.0版本打包成功](./Version0.1.0waspackagedsuccessfully.png)
  
-![0.1.0版本打包成功2](./0.1.0版本打包成功2.png)
+![0.1.0版本打包成功2](./Version0.1.0waspackagedsuccessfully2.png)
 
 双击打开应用
  
-![双击打开应用](./双击打开应用.png)
+![双击打开应用](./Doubleclicktoopentheapp.png)
  
-![双击打开应用2](./双击打开应用2.png)
-
-![双击打开应用3](./双击打开应用3.png)
+![双击打开应用2](./Doubleclicktoopentheapp2.png)
+![双击打开应用3](./Doubleclicktoopentheapp3.png)
  
 点击完成，自动运行应用
 
-![点击完成](./点击完成.png)
+![点击完成](./Finishtapdone.png)
  
 又能看到应用界面了
 
-![到应用界面](./到应用界面.png)
+![到应用界面](./Gototheapp.png)
 
 桌面自动生成快捷方式
  
-![快捷方式](./快捷方式.png)
+![快捷方式](./shortcut.png)
 
 Windows开始菜单也会出现应用
 
-![Windows开始菜单](./Windows开始菜单.png)
+![Windows开始菜单](./Windowsinitiativemenu.png)
 
 ### (五)	测试更新
 接下来就是打包一个高版本的应用来测试更新是否生效。
@@ -496,17 +495,17 @@ Windows开始菜单也会出现应用
 
 打包0.2.0：
 
-![打包0.2.0](./打包0.2.0.png)
+![打包0.2.0](./package0.2.0.png)
 
 dist_electron目录下就会出现两个安装包
  
-![两个安装包](./两个安装包.png)
+![两个安装包](./Twoinstallationpackages.png)
 
 应用是通过打包配置publish中的url提供的地址请求，检测更新。
 
 根据electron-builder的配置：
  
-![配置](./配置.png)
+![配置](./configuration.png)
 
 需要启动一个端口为7777的静态文件服务器。
 ```
@@ -514,13 +513,13 @@ python -m SimpleHTTPServer 7777
 ```
 重启0.1.0，打开就检测到有新版本：
  
-![检测到有新版本](./检测到有新版本.png)
+![检测到有新版本](./ANeVersionWasDetected.png)
 
 点击取消，应用不更新，用户可以进行这个版本的继续操作。
 
 查看日志
  
-![查看日志](./查看日志.png)
+![查看日志](./viewLog.png)
 
 重启0.1.0应用，再次出现应用提示界面，点击确定，应用消失，紧接着回到应用安装界面，当然可以选择静默安装。
  
@@ -532,7 +531,7 @@ python -m SimpleHTTPServer 7777
 
 再打开日志：
  
-![再打开日志](./再打开日志.png)
+![再打开日志](./OpenLogAgain.png)
 
 其中静态服务器是用 `python` 起的，大家可以采用其他方式。
 
@@ -542,4 +541,4 @@ python -m SimpleHTTPServer 7777
 
 应用和功能、桌面快捷方式、Windows开始菜单的应用从0.1.0都变成了0.2.0。
 
-![0.1.0都变成了0.2.0](./0.1.0都变成了0.2.0.png)
+![0.1.0都变成了0.2.0](./0.1.0AllBecome0.2.0.png)
