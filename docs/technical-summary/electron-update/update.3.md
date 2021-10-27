@@ -24,7 +24,7 @@
 
 究其原因，归咎于 `nsis` 没有集成 `updateManage` 机制。系列一和二已经描述过，就不再赘述。
 
-![安装目录](./安装目录.jpg)
+![安装目录](./installationDirectory.jpg)
 
 图 7 安装目录
 
@@ -212,10 +212,6 @@ module.exports = log4js
 最后，希望大家一定要点赞三连。
 
 可以阅读我的其他文章，见[blog地址](https://github.com/qiufeihong2018/vuepress-blog)
-
-![](../public/微信公众号.png)
-
-一个学习编程技术的公众号。常常推送高质量的优秀博文、开源项目、实用工具、面试技巧、编程学习资源等等。目标是做到个人技术与公众号一起成长。欢迎大家关注，一起进步，走向全栈大佬的修炼之路
 
 <style scoped>
     p:nth-last-child(2) {

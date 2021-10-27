@@ -523,7 +523,7 @@ python -m SimpleHTTPServer 7777
 
 重启0.1.0应用，再次出现应用提示界面，点击确定，应用消失，紧接着回到应用安装界面，当然可以选择静默安装。
  
-![回到应用安装界面](./回到应用安装界面.png)
+![回到应用安装界面](./TheApplicationInstallationPageIsDisplayed.png)
 
 然后下一步安装，最后启动应用，就更新到了0.2.0。
  

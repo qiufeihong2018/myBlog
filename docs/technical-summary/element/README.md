@@ -225,7 +225,7 @@ el-popover 默认将弹窗放到 body 中，但是在某个项目中，当 el-po
 ```
 
 ## el-tree和el-table梦幻联动
-![el-tree和el-table梦幻联动](./el-tree和el-table梦幻联动.png)
+![el-tree和el-table梦幻联动](./TheDreamLinkageBetweenEl-treeAndEl-table.png)
 
 代码如下：
 ```js
