@@ -47,7 +47,7 @@
 
 组件库是组里一直想要搞的玩意，但是迫于业务繁忙，一直往后拖。
 
-![avatar](./业务繁忙.png)
+![avatar](./beBusyWithBusiness.png)
 
 如果真的需要做组件库，那么下面的两个问题肯定多少是有答案的。
 ### 什么是组件库？
@@ -82,11 +82,11 @@
 ## 二、	目录结构
 从[Element仓库](https://github.com/ElemeFE/element)下载源码（我下的是 `master` 分支），首先我们来看下未打包目录：
 
-![未打包目录](./未打包目录.png)
+![未打包目录](./UnpackagedDirectory.png)
 
 再来看下我们项目中用到的打包后的目录：
 
-![打包后的目录](./打包后的目录.png)
+![打包后的目录](./ThePackagedDirectory.png)
  
 乍一看，区别挺大的。那么，每个文件的作用是什么呢？
 1.	build：webpack相关的打包配置文件
@@ -257,7 +257,7 @@ Vue.prototype.$icon = icon; // Icon 列表页用
 ```
 应用在文档中`element-master\examples\docs\zh-CN\icon.md`：
 
-![文档](./文档.png)
+![文档](./document.png)
 
 通过之后说到的 `md-loader` 解析成 `vue` 组件，渲染在官网上。
 
@@ -382,9 +382,9 @@ console.log('[build entry] DONE:', OUTPUT_PATH);
 #### node build/bin/i18n.js
 根据模板创建各个语言下的组件，只需要维护 `page.json` 文件，执行命令自动生成官网上的语言组件
 
-![语言组件](./语言组件.png)
+![语言组件](./LanguageComponent.png)
 
-![语言模板](./语言模板.png)
+![语言模板](./LanguageTemplate.png)
 
 来看下具体实现：
 ```js
@@ -422,7 +422,7 @@ langConfig.forEach(lang => {
 #### node build/bin/version.js
 根据 `/package.json` 文件，自动生成 `/examples/version.json`，用于记录组件库的版本信息，这些版本会渲染在官网组件页面的头部导航栏。
 
-![avatar](./头部导航栏.png)
+![avatar](./HeadNavigationBar.png)
 
 来看下具体实现：
 ```js
@@ -486,9 +486,7 @@ fs.writeFileSync(path.resolve(__dirname, '../../examples/versions.json'), JSON.s
 
 可以阅读我的其他文章，见[blog地址](https://github.com/qiufeihong2018/vuepress-blog)
 
-![](../public/微信公众号.png)
 
-一个学习编程技术的公众号。每天推送高质量的优秀博文、开源项目、实用工具、面试技巧、编程学习资源等等。目标是做到个人技术与公众号一起成长。欢迎大家关注，一起进步，走向全栈大佬的修炼之路
 
 <style scoped>
     p:nth-last-child(2) {

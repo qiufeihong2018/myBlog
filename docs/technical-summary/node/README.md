@@ -466,6 +466,8 @@ stats返回文件统计信息
 获取指定路径的 `stat` 对象（文件统计信息）
 ## 移动文件
 从 `temp` 目录移到根目录中。
+
+如下：移动某个 exe 程序到根目录。
 ```js
      let source = 'temp/xxx.exe'
         let target = 'xxx.exe' 
@@ -479,6 +481,106 @@ stats返回文件统计信息
           console.log(error)
         }
 ```
+## 批量移动文件
+system.js
+```js
+// 将srcDir文件下的文件、文件夹递归的复制到tarDir下
+const fs = require('fs')
+const path = require('path')
+// 将srcPath路径的文件复制到tarPath
+var copyFile = function (srcPath, tarPath, cb) {
+    // 流拷贝
+    // 问题：写入缺失
+    // // 读文件
+    // var rs = fs.createReadStream(srcPath);
+    // rs.on('error', function (err) {
+    //     if (err) {
+            // console.log('read error', srcPath);
+    //     }
+    //     cb && cb(err);
+    // })
+    // // 写文件
+    // var ws = fs.createWriteStream(tarPath);
+    // ws.on('error', function (err) {
+    //     if (err) {
+            // console.log('write error', tarPath);
+    //     }
+    //     cb && cb(err);
+    // })
+    // ws.on('close', function (ex) {
+    //     cb && cb(ex);
+    // })
+    // rs.pipe(ws);
+    // 小文件拷贝
+    fs.writeFileSync(tarPath, fs.readFileSync(srcPath))
+}
+const copyFolder = function (srcDir, tarDir, cb) {
+    fs.readdir(srcDir, function (err, files) {
+        var count = 0;
+        // 统计文件数量
+        var checkEnd = function () {
+            ++count == files.length && cb && cb();
+        }
+        if (err) {
+            checkEnd();
+            // console.log('复制', err)
+            throw err
+        }
+        // 遍历文件
+        files.forEach(function (file) {
+            var srcPath = path.join(srcDir, file);
+            var tarPath = path.join(tarDir, file);
+            // 判断文件夹是否存在
+            // 问题：走不进stat的回调中
+            // fs.stat(srcPath, function (err, stats) {
+            //     if (stats.isDirectory()) {
+                    // console.log('mkdir', tarPath);
+            //         //    创建文件夹
+            //         fs.mkdir(tarPath, function (err) {
+            //             if (err) {
+                            // console.log(err);
+            //                 return;
+            //             }
+            //             // 递归
+            //             copyFolder(srcPath, tarPath, checkEnd);
+            //         });
+            //     } else {
+            //         // 拷贝文件
+            //         copyFile(srcPath, tarPath, checkEnd);
+            //     }
+            // });
+            var stat = fs.lstatSync(srcPath)
+            if (stat.isDirectory()) {
+                // console.log('mkdir', tarPath);
+                //    创建文件夹
+                fs.mkdir(tarPath, function (err) {
+                    // 覆盖文件
+                    // 递归
+                    copyFolder(srcPath, tarPath, checkEnd);
+                    if (err) {
+                        // console.log(err);
+                        throw err
+                    }
+                });
+            } else {
+                // 拷贝文件
+                copyFile(srcPath, tarPath, checkEnd);
+            }
+        });
+        //为空时直接回调
+        files.length === 0 && cb && cb();
+    });
+}
+export default {
+    copyFolder
+}
+```
+使用方式，导入并且使用：
+```js
+import system from '@/utils/system'
+
+system.copyFolder(source, target)
+```
 ## 参考文献
 [Nodejs编写守护进程](https://cnodejs.org/topic/57adfadf476898b472247eac)
 
@@ -490,9 +592,7 @@ stats返回文件统计信息
 
 [blog](https://github.com/qiufeihong2018/vuepress-blog)
 
-![](../public/微信公众号.png)
 
-一个学习编程技术的公众号。每天推送高质量的优秀博文、开源项目、实用工具、面试技巧、编程学习资源等等。目标是做到个人技术与公众号一起成长。欢迎大家关注，一起进步，走向全栈大佬的修炼之路
 
 <style scoped>
     p:nth-last-child(2) {

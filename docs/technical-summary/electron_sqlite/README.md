@@ -65,23 +65,23 @@ npm install --save aws-sdk
 ```
 启动应用又报如下错误，真是多灾多难：
 
-![直接下载](./直接下载.png)
+![直接下载](./directDownload.png)
 
 看来安装 `SQLite` 没有这么简单，还是需要做一些准备工作的。比如需要 `python` 环境（python2.7）和vsBuildTools构建工具（Visual Studio 15生成工具2017）。
 
-![前期准备](./前期准备.png)
+![前期准备](./previousPreparation.png)
 
 ### (一)	安装python环境
 我的 `python` 版本：
  
-![python版本](./python版本.png)
+![python版本](./pythonVersion.png)
 
 下载地址：https://www.python.org/downloads 。
 下载并且安装 `python`，将默认没有勾选的“加入系统变量path”的选项勾选上，配置好环境变量后，在终端里测试一下。
 ### (二)	构建工具下载
 我安装的是 **Visual Studio 15生成工具2017**
  
-![Visual Studio 15生成工具2017](./VisualStudio15生成工具2017.png)
+![Visual Studio 15生成工具2017](./VisualStudio15GeneratingTools2017.png)
 
 还需要执行
 ```
@@ -97,13 +97,13 @@ cnpm install sqlite3@latest --build-from-source --runtime=electron --target=1.7.
 
 不要使用 `npm`。否则报错如下：
 
-![不要使用npm](./不要使用npm.png)
+![不要使用npm](./doNotUseNPM.png)
  
 使用 cnpm 去安装它。
 
 执行命令开始安装最新版的 `SQLite3`。
  
-![开始安装最新版的SQLite3](./开始安装最新版的SQLite3.png)
+![开始安装最新版的SQLite3](./startInstallingTheLatestVersionOfSQLite3.png)
 
 其实这个过程中，会试图下载 `SQLite3` 和我指定版本的 `electron` 的 `prebuild` 版本，没有发现的话。就会重新构建一份合适的版本出来。
 #### 2.	方案二
@@ -184,15 +184,15 @@ app.sqlite3db = sqlite3db
 
 使用 `sqlite studio` 打开，添加数据库，查看导入的数据。
  
-![添加数据库](./添加数据库.png)
+![添加数据库](./addingADatabase.png)
 
 选择文件路径，添加数据库。
 
-![选择文件路径](./选择文件路径.png)
+![选择文件路径](./selectFilePath.png)
  
 选择 `test` 表，切换到数据，查看插入的值。
  
-![导入成功](./导入成功.png)
+![导入成功](./importSuccess.png)
 
 导入成功。
 
