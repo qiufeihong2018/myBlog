@@ -108,13 +108,20 @@ $ git commit --amend [file1] [file2] ...
 ## 分支
 ```js
 git 本地分支与远程分支
-github上已经有master分支 和dev分支
+github上已经有master分支和dev分支
 在本地
-git checkout -b dev 新建并切换到本地dev分支
-git pull origin dev 本地分支与远程分支相关联
+
+新建并切换到本地dev分支
+git checkout -b dev 
+
+本地分支与远程分支相关联
+git pull origin dev 
+
 在本地新建分支并推送到远程
 git checkout -b test
-git push origin test   这样远程仓库中也就创建了一个test分支
+
+这样远程仓库中也就创建了一个test分支
+git push origin test   
 
 # 列出所有本地分支
 $ git branch
