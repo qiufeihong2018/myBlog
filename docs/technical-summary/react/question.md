@@ -1,5 +1,5 @@
 # react-question
-在 react 项目中执行 yarn start 时出现问题：
+## 在 react 项目中执行 yarn start 时出现问题：
 ```
 yarn run v1.19.2
 $ react-scripts start
@@ -62,4 +62,8 @@ info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this comm
 7. 尝试在你的项目文件夹中运行npm ls webpack。
 这将告诉你其他的包(除了预期的反应脚本)安装了webpack。
 
- 
+##  react导入src之外目录报错
+模块未找到:你试图导入../assets/woman1.jpg，它位于项目src/目录之外。
+不支持src/之外的相对导入。
+
+![avatar](./1.png)

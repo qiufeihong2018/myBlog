@@ -322,5 +322,11 @@ React 会先匹配两个 `<li>first</li>` 对应的树，然后匹配第二个�
 
 > 你必须谨慎对待 JSX 回调函数中的 this，类的方法默认是不会绑定 this 的。如果你忘记绑定 this.handleClick 并把它传入 onClick, 当你调用这个函数的时候 this 的值会是 undefined。
 ## react源码
+## react-redux
+
+该 `<Provider>` 组件使  `Reduxstore` 可用于任何需要访问 `Redux` 存储的嵌套组件。
+由于 `React Redux` 应用程序中的任何 `React` 组件都可以连接到 store，因此大多数应用程序将 `<Provider>` 在顶层渲染 a ，其中包含整个应用程序的组件树。
+该钩和 connect 随后的 API 可以通过阵营的上下文机制访问提供的存储实例。
+![avatar](./2.png)
 ## 参考文献
 [React](https://react.docschina.org/)
