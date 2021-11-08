@@ -1,7 +1,7 @@
 下面是我的公众号
 
 
-![](../public/微信公众号.png)
+![](../technical-summary/public/wechat.png)
 
 <style scoped>
     p:nth-child(2) {

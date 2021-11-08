@@ -22,7 +22,7 @@ home: true
     </el-carousel>
     <span class="title">我的公众号</span>
     <span class="time">{{ currentDate }}</span>
-    <img src="../public/微信公众号.png"
+    <img src="./technical-summary/public/wechat.png"
         class="image">
 </template>
 

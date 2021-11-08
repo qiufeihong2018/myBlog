@@ -692,7 +692,7 @@ mainWindow = new BrowserWindow({
 
 愿你悄悄打工，然后惊艳所有人！
 
-![](./加油打工人.gif)
+![](./GasWorker.gif)
 ## 参考文献
 [electron官网](https://www.electronjs.org/)
 
