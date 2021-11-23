@@ -1183,5 +1183,24 @@ letter-spacing: 0;" v-if="scoped.row.conditions.length===0">
 	}]
 }]
 ```
+## el-date-picker获取时间不能小于现在时间
+```html
+    <el-date-picker :picker-options="pickerOptions" v-model="form.expect_return_time" type="datetime"
+            placeholder="选择日期时间" default-time="12:00:00">
+          </el-date-picker>
+```
+```js
+    computed: {
+      pickerOptions() {
+        return {
+          disabledDate(time) {
+            return time.getTime() <= new Date().getTime()
+          }
+        }
+      }
+    }
+```
+![timer](./timer.png)
+
 ## 参考文献
 [vue按住shift键多选（以element框架的table为例）](https://blog.csdn.net/weixin_43734545/article/details/103582536)
