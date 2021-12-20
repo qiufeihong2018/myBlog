@@ -993,6 +993,43 @@ Electron执行electron-builder打包命令报错
 ...electron-builder\Cache\nsis\nsis-3.0.3.2\Bin\makensis.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
 ```
 解决方法很简单，打包项目路径不能包含中文路径。
+### 实现桌面截图取主屏幕
+具体需求是:使用 electron 实现桌面截图取主屏幕(如果存在多个屏幕的话)
+```js
+        ipcRenderer.send("min");
+      /**
+       * 截图
+       */
+      desktopCapturer
+        .getSources({
+          types: ["screen"],
+          thumbnailSize: {
+            width:3000,
+            height:3000,
+          },
+        })
+        .then(async (sources) => {
+          // 取主屏幕
+          letselectSource = sources[0];
+          // 缩略图图像
+          letimageurl = selectSource.thumbnail.toDataURL("image/png");
+          this.setImageUrl(imageurl.slice(22));
+//base64的图片
+          console.log(imageurl);
+          if (["Web", "Client"].includes(this.currentProject.belong)) {
+            ipcRenderer.send("max");
+          }
+        });
+```
+参考请见：
+
+https://www.psvmc.cn/article/2021-07-02-electron-screenshot.html
+
+https://zhuanlan.zhihu.com/p/121075555
+
+https://www.electronjs.org/zh/docs/latest/api/desktop-capturer
+
+http://www.360doc.com/content/16/0119/16/597197_529120116.shtml
 
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
