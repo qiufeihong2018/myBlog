@@ -993,7 +993,7 @@ Electron执行electron-builder打包命令报错
 ...electron-builder\Cache\nsis\nsis-3.0.3.2\Bin\makensis.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
 ```
 解决方法很简单，打包项目路径不能包含中文路径。
-### 实现桌面截图取主屏幕
+### 35.实现桌面截图取主屏幕
 具体需求是:使用 electron 实现桌面截图取主屏幕(如果存在多个屏幕的话)
 ```js
         ipcRenderer.send("min");
@@ -1031,6 +1031,34 @@ https://www.electronjs.org/zh/docs/latest/api/desktop-capturer
 
 http://www.360doc.com/content/16/0119/16/597197_529120116.shtml
 
+### 36.获取当前屏幕的分辨率，并将值从主进程传到渲染进程
+主进程中
+```js
+mainWindow = newBrowserWindow({
+……
+  letdisplay = screen.getPrimaryDisplay();
+  letscaleFactor = display.scaleFactor;
+  logger.info("scaleFactor:", display.bounds.width * scaleFactor);
+  logger.info("height:", display.bounds.height * scaleFactor);
+  letscaleFactorHeightAndWidth={
+    width:display.bounds.width * scaleFactor,
+    height:display.bounds.height * scaleFactor,
+  }
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('scaleFactor', scaleFactorHeightAndWidth)
+  })
+……
+}
+```
+
+渲染进程的App.vue中
+```js
+    created() {
+   ipcRenderer.on('scaleFactor', (event, msg) => {
+        console.log(msg)
+      })
+    },
+```
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
