@@ -463,6 +463,19 @@ ddd
 </template>
 ```
 其实就是自己粗心大意产生的一些错误
+
+## Javascript heap out of memory
+
+前端项目打包产生错误：
+```
+[91mFATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+```
+内存溢出造成的
+
+解决方法：
+
+修改 npm run build
+把package.json中 "build": "node build/build.js" 修改成 "build": "node --max_old_space_size=2048 build/build.js"
 ## 参考文献
 [You are using the runtime-only build of Vue where the template compiler is not available.](https://blog.csdn.net/wxl1555/article/details/83187647)
 
