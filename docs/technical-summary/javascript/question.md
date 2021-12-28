@@ -20,3 +20,17 @@ let obj = {
     console.log('value:', val)
     console.log(findKey(val))
 ```
+
+## map 遍历乱序
+一个 Map 对象以插入的顺序返回键值。
+```js
+this.data.map((item, index) => {
+  if (item.id === _t.replaceData.id) {
+    tag = index
+  }
+})
+```
+
+因为 map 迭代的时候，顺序是按照插入的顺序返回，所以会造成乱序
+
+最好使用 for 循环去迭代
