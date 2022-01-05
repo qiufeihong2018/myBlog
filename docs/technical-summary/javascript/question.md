@@ -34,3 +34,11 @@ this.data.map((item, index) => {
 因为 map 迭代的时候，顺序是按照插入的顺序返回，所以会造成乱序
 
 最好使用 for 循环去迭代
+
+## 堆、栈、队列
+详细请见[https://www.cnblogs.com/netUserAdd/p/10979069.html](https://www.cnblogs.com/netUserAdd/p/10979069.html)
+
+## id生成器
+nanoid——一个小巧、安全、URL友好、唯一的 JavaScript 字符串ID生成器。
+
+详细请见[https://github.com/ai/nanoid/blob/main/README.zh-CN.md](https://github.com/ai/nanoid/blob/main/README.zh-CN.md)

@@ -1059,6 +1059,259 @@ mainWindow = newBrowserWindow({
       })
     },
 ```
+
+### 37. electron实现百度网盘悬浮窗口功能
+相关依赖
+
+里面使用了vuex vue vue-route storeJs
+
+storeJs 用来持久化vuex状态
+
+![avatar](./electron7.png)
+
+> 介绍说明
+
+没有使用electron内置的-webkit-app-region: drag 因为使用他那个有很多问题
+比如事件无法使用 右键无法使用 以及不能使用手型等!
+
+> 安装
+
+安装的时候没有截图 所以就参考下我其他的文章吧
+storeJs 安装
+
+```
+npm install storejs
+```
+
+准备写代码
+> 配置路由文件
+
+```js
+export default new Router({
+  routes: [
+    {path: '/', name: 'home', component: ()=> import('@/view//home')},
+    {path: '/suspension', name: 'suspension', component: ()=> import('@/view/components/suspension')}
+  ]
+})
+```
+
+> 写悬浮窗页面
+
+页面路径 /src/renderer/view/components/suspension.vue
+```js
+<template>
+  <div id="suspension">
+    <div class="logo"></div>
+    <div class="content_body">
+      <div class="upload">拖拽上传</div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "suspension",
+    mounted() {
+      let win = this.$electron.remote.getCurrentWindow();
+      let biasX = 0;
+      let biasY = 0;
+      let that = this;
+      document.addEventListener('mousedown', function (e) {
+        switch (e.button) {
+          case 0:
+            biasX = e.x;
+            biasY = e.y;
+            document.addEventListener('mousemove', moveEvent);
+            break;
+          case 2:
+            that.$electron.ipcRenderer.send('createSuspensionMenu');
+            break;
+        }
+      });
+
+      document.addEventListener('mouseup', function () {
+        biasX = 0;
+        biasY = 0;
+        document.removeEventListener('mousemove', moveEvent)
+      });
+
+      function moveEvent(e) {
+        win.setPosition(e.screenX - biasX, e.screenY - biasY)
+      }
+    }
+  }
+</script>
+
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  .upload {
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    text-align: center;
+    color: #74A1FA;
+  }
+
+  .logo {
+    width: 40px;
+    background: #5B9BFE url("../../assets/img/logo@2x.png") no-repeat 2px 3px;
+    background-size: 80%;
+  }
+
+  .content_body {
+    background-color: #EEF4FE;
+    width: 100%;
+  }
+
+  #suspension {
+    -webkit-user-select: none;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  #suspension {
+    cursor: pointer !important;
+    height: 25px;
+    border-radius: 4px;
+    display: flex;
+    border: 1px solid #3388FE;
+  }
+</style>
+```
+> 主进程创建悬浮窗页面代码
+
+路径: /src/main/window.js
+```js
+import {BrowserWindow, ipcMain, screen, Menu, shell, app, webContents} from 'electron'
+
+var win = null;
+const window = BrowserWindow.fromWebContents(webContents.getFocusedWebContents());
+const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080/#/suspension` : `file://${__dirname}/index.html/#/suspension`;
+ipcMain.on('showSuspensionWindow', () => {
+  if (win) {
+    if (win.isVisible()) {
+      createSuspensionWindow();
+    } else {
+      win.showInactive();
+    }
+  } else {
+    createSuspensionWindow();
+  }
+
+});
+
+ipcMain.on('createSuspensionMenu', (e) => {
+  const rightM = Menu.buildFromTemplate([
+    {label: '开始全部任务', enabled: false},
+    {label: '暂停全部任务', enabled: false},
+    {label: '本次传输完自动关机'},
+    {type: 'separator'},
+    {
+      label: '隐藏悬浮窗',
+      click: () => {
+        window.webContents.send('hideSuspension', false);
+        win.hide()
+      }
+    },
+    {type: 'separator'},
+    {
+      label: '加入qq群',
+      click: () => {
+        shell.openExternal('tencent://groupwpa/?subcmd=all&param=7B2267726F757055696E223A3831343237303636392C2274696D655374616D70223A313533393531303138387D0A');
+      }
+    },
+    {
+      label: 'GitHub地址',
+      click: () => {
+        shell.openExternal('https://github.com/lihaotian0607/auth');
+      }
+    },
+    {
+      label: '退出软件',
+      click: () => {
+        app.quit();
+      }
+    },
+  ]);
+  rightM.popup({});
+});
+
+function createSuspensionWindow() {
+  win = new BrowserWindow({
+    width: 107, //悬浮窗口的宽度 比实际DIV的宽度要多2px 因为有1px的边框
+    height: 27, //悬浮窗口的高度 比实际DIV的高度要多2px 因为有1px的边框
+    type: 'toolbar',  //创建的窗口类型为工具栏窗口
+    frame: false,  //要创建无边框窗口
+    resizable: false, //禁止窗口大小缩放
+    show: false,  //先不让窗口显示
+    webPreferences: {
+      devTools: false //关闭调试工具
+    },
+    transparent: true, //设置透明
+    alwaysOnTop: true, //窗口是否总是显示在其他窗口之前
+  });
+  const size = screen.getPrimaryDisplay().workAreaSize;  //获取显示器的宽高
+  const winSize = win.getSize(); //获取窗口宽高
+
+  //设置窗口的位置 注意x轴要桌面的宽度 - 窗口的宽度
+  win.setPosition(size.width - winSize[0], 100);
+  win.loadURL(winURL);
+
+  win.once('ready-to-show', () => {
+    win.show()
+  });
+
+  win.on('close', () => {
+    win = null;
+  })
+}
+
+ipcMain.on('hideSuspensionWindow', () => {
+  if (win) {
+    win.hide();
+  }
+});
+```
+
+> store文件
+
+路径: /src/renderer/store/modules/suspension.js
+
+```js
+import storejs from 'storejs'
+
+const state = {
+  show: storejs.get('showSuspension')
+};
+
+const actions = {
+  showSuspension: function ({state, commit}) {
+    let status = true;
+    storejs.set('showSuspension', status);
+    state.show = status;
+  },
+
+  hideSuspension: function ({state, commit}) {
+    let status = false;
+    storejs.set('showSuspension', status);
+    state.show = status;
+  },
+};
+
+export default ({
+  state,
+  actions
+});
+```
+
+> 遗留问题
+
+- 在软件关闭之后重启会导致悬浮窗口的位置重置 也曾尝试在主进程中使用store.js 但是不能用!
+- 如果想解决这个问题 可以在渲染进程中将拖动的最后坐标保存到storejs中
+- 在渲染进程给主进程发送异步消息的时候将坐标携带进去 也可以使用nedb在主进程中存储坐标!
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
