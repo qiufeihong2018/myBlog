@@ -1312,6 +1312,14 @@ export default ({
 - 在软件关闭之后重启会导致悬浮窗口的位置重置 也曾尝试在主进程中使用store.js 但是不能用!
 - 如果想解决这个问题 可以在渲染进程中将拖动的最后坐标保存到storejs中
 - 在渲染进程给主进程发送异步消息的时候将坐标携带进去 也可以使用nedb在主进程中存储坐标!
+
+### 解决白屏问题
+升级依赖版本后，出现白屏问题，经排查是 vuex-electron 引起的。
+
+vuex-electron@1.0.3 异常
+
+vuex-electron@1.0.0 正常
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
