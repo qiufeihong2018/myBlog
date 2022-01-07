@@ -476,6 +476,28 @@ ddd
 
 修改 npm run build
 把package.json中 "build": "node build/build.js" 修改成 "build": "node --max_old_space_size=2048 build/build.js"
+
+### vue右键菜单插件问题
+![avatar](./vue1.png)
+
+![avatar](./vue2.png)
+
+使用 v-contextmenu 无论点击哪一行输出的只有第一行的数据
+
+但是可以使用 vue-contextmenu 解决
+
+![avatar](./vue3.png)
+
+![avatar](./vue4.png)
+
+![avatar](./vue5.png)
+
+参考仓库：
+
+https://github.com/heynext/v-contextmenu
+
+https://github.com/chiic/vue-contextmenu
+
 ## 参考文献
 [You are using the runtime-only build of Vue where the template compiler is not available.](https://blog.csdn.net/wxl1555/article/details/83187647)
 
