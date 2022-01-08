@@ -1202,5 +1202,31 @@ letter-spacing: 0;" v-if="scoped.row.conditions.length===0">
 ```
 ![timer](./timer.png)
 
+## ERROR in ./node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf 1:0 Module parse failed:
+在使用 webpack 搭建 vue 项目时，添加了element-ui 在启动 webpack-dev-server 后报错
+```
+ERROR in ./node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf 1:0
+Module parse failed: Unexpected character '' (1:0)
+You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+(Source code omitted for this binary file)
+ @ ./node_modules/element-ui/lib/theme-chalk/index.css (./node_modules/css-loader/dist/cjs.js!./node_modules/element-ui/lib/theme-chalk/index.css) 5:0-70 8:73-102
+
+ERROR in ./node_modules/element-ui/lib/theme-chalk/fonts/element-icons.woff 1:4
+Module parse failed: Unexpected character '' (1:4)
+You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+(Source code omitted for this binary file)
+ @ ./node_modules/element-ui/lib/theme-chalk/index.css (./node_modules/css-loader/dist/cjs.js!./node_modules/element-ui/lib/theme-chalk/index.css) 4:0-71 7:73-102
+```
+
+最终找到问题，是字体文件中的’ '符号没有识别。
+需要用file-loader进行转换
+在webpack.config.js中的module里的rules里添加：
+
+```
+{
+  test: /\.(png|jpg|gif|eot|woff|ttf|svg|webp|PNG)(\?\S*)?$/,
+  use: ["file-loader"],
+},
+```
 ## 参考文献
 [vue按住shift键多选（以element框架的table为例）](https://blog.csdn.net/weixin_43734545/article/details/103582536)
