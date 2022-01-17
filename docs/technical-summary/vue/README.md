@@ -648,7 +648,6 @@ const integerLetterFilter = function(el) {
     el.dispatchEvent(new Event('input'))
   })
 }
-
 ···
 ```
 链接：https://juejin.cn/post/6876066773720891399
