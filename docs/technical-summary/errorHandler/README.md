@@ -174,7 +174,7 @@ Vue.config.errorHandler = function (err, vm, info) {
 
 因此，浏览器只允许同域下的脚本捕获具体错误信息，而其他脚本只知道发生了一个错误，但无法获知错误的具体内容。
 
-#### 解决方案1：（推荐）
+#### 解决方案1（推荐）
 
 添加 crossorigin="anonymous" 属性。
 ```js
@@ -356,7 +356,7 @@ domain1.remove(emitter1);
 emitter1.emit('error', new Error('转换为异常，系统将崩溃!'));//转换为异常，系统将崩溃!
 ```
 
-### 暴露错误的基本原则：
+### 暴露错误的基本原则
 同步的函数里，使用throw。使用者使用try...catch即可捕获错误。
 
 
