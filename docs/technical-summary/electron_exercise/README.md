@@ -7,7 +7,7 @@
 
 那能如何呢？难道 `xxx` 不再剥削了，打工人就能自由了？
 
-![avatar](./打工人觉悟.png)
+![avatar](./ConsciousnessOfMigrantWorkers.png)
 
 “打工人，打工魂，打工才是人上人”，透露出小人物在平凡生活中的不懈追求，
 有着更积极的乐观主义色彩。
@@ -53,30 +53,30 @@ Electron Electron-vue
 ### 三、	Electron的历史
 `Electron`（最初名为 `Atom Shell`）是 `GitHub` 开发的一个开源框架。它允许使用 `Node.js`（作为后端）和 `Chromium`（作为前端）完成桌面 `GUI` 应用程序的开发。`Electron` 现已被多个开源 `Web` 应用程序用于前端与后端的开发，著名项目包括 `GitHub` 的 `Atom` 和微软的 `Visual Studio Code`。
 
-![avatar](./ATM编辑器.png)
+![avatar](./ATMEditor.png)
 
 图 1 ATM编辑器
  
-![avatar](./vscode编辑器.png)
+![avatar](./vscodeEditor.png)
 
 图 2 vscode编辑器
 
 官网上第一段话就是：`Electron` 是一个框架，可以让您使用  `JavaScript`，`HTML` 和 `CSS` 创建桌面应用程序。 然后这些应用程序可以打包在 `macOS`、`Windows` 和 `Linux` 上直接运行，或者通过 `Mac App Store` 或微软商店分发。通常，您使用每个操作系统特定的本地应用程序框架为操作系统 (`OS`)创建一个桌面应用程序。 `Electron` 可以在使用您已经知道的技术后写入您的应用程序。由此看出，它是框架，而不是库，前端开发者可以像开发 `web` 应用一样开发桌面应用程序。当然在各大应用商店都可以上架，这个需要各自的认证，这个之后文章讲述。
  
-![avatar](./electron图标.png)
+![avatar](./electronIcon.png)
 
 图 3 electron图标
 
 其优势如下图：
  
-![avatar](./electron的优势.png)
+![avatar](./electronFeature.png)
 
 图 4 electron的优势
 
 用 `Electron` 来做桌面程序开发的优势明显，相当于是完全的网页编程，有 `Web` 开发经验的前端开发上手非常容易。`Web` 开发生态广泛，开发成本低，可扩展性强，一些流行的前端框架例如 `React`、`Angular`、`Vue` 都可以和 `electron` 结合进行开发。另外它也具备和 `Qt` 一样跨平台的优良特性。对性能要求不高的桌面版程序来说，一份代码同时得到网页版和各个平台的桌面版，开发的效率是其他方案无法比的。可以说，这是大部分人看好的趋势。
 ### 四、	Electron的入门
 #### (一)	应用程序结构
-![avatar](./electron的架构.png)
+![avatar](./ArchitectureOfElectron.png)
  
 图 5 electron的架构
 
@@ -196,7 +196,7 @@ $ cd electron-quick-start
 # 安装依赖并运行
 $ npm install && npm start
 ```
-![avatar](./模板项目.png)
+![avatar](./TemplateProjects.png)
 
 图 6 electron-quick-start模板项目
 
@@ -243,7 +243,7 @@ yarn run dev # or npm run dev
 ```
 创建项目如下：
 
-![avatar](./创建.png)
+![avatar](./creation.png)
  
 图 7 创建electron-vue项目
 
@@ -380,7 +380,7 @@ app.asar
 ##### 背景
 启动 `electron-vue` 项目的时候，会经常出现下图的情况：
  
-![avatar](./文件浏览器.png)
+![avatar](./FileBrowser.png)
 
 图 9 文件浏览器
 
@@ -701,13 +701,3 @@ mainWindow = new BrowserWindow({
 最后，希望大家一定要点赞三连。
 
 [blog地址](https://github.com/qiufeihong2018/vuepress-blog)
-
-![](https://images.qiufeihong.top/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E5%BE%AE%E4%BF%A1%E6%A0%87%E5%87%86%E7%BB%BF%E7%89%88.png)
-
-一个学习编程技术的公众号。每天推送高质量的优秀博文、开源项目、实用工具、面试技巧、编程学习资源等等。目标是做到个人技术与公众号一起成长。欢迎大家关注，一起进步，走向全栈大佬的修炼之路
-
-<style scoped>
-    p:nth-last-child(2) {
-        text-align: center
-    }
-</style>

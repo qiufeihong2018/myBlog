@@ -1,7 +1,6 @@
 # github
 [[toc]]
 
-
 ```js
 …or create a new repository on the command line
 echo "# popu" >> README.md
@@ -20,8 +19,8 @@ You can initialize this repository with code from a Subversion, Mercurial, or TF
 Import code
 ```
 
-我每天使用 Git ，但是很多命令记不住。
-一般来说，日常使用只要记住下图6个命令，就可以了。但是熟练使用，恐怕要记住60～100个命令。
+我每天使用 `Git` ，但是很多命令记不住。
+一般来说，日常使用只要记住下图 `6` 个命令，就可以了。但是熟练使用，恐怕要记住60～100个命令。
 
 下面是我整理的常用 Git 命令清单。几个专用名词的译名如下。
 Workspace：工作区
@@ -559,7 +558,7 @@ git push即可。
 ![avatar](./public/github8.png)
 
 
-这样，我们的git配置就完成了。
+这样，我们的 `git` 配置就完成了。
 
 #### 配置另一个id_rsa
 key默认位置是id_rsa
@@ -584,6 +583,25 @@ Enter file in which to save the key 为空的话，创建的就是空的
 
 ![](https://images.qiufeihong.top/github1.png)
 
+### git push报错：OpenSSL SSL_connect: Connection was reset in connection to github.com:443
+因为 `Git` 的 `Http` 代理的问题， `Git` 支持三种协议：`git://`、 `ssh://` 和 `http://` ，本来 `push` 的时候应该走 `ssh` 隧道的，但是因为设置了 `http` 代理，所以就走了 `http` 的代理，于是就提交不了了。
+
+- 方法一：
+找到原因了，那就取消 `http` 代理吧:
+```
+git config --global --unset http.proxy
+```
+- 方法二：
+```
+git config --global http.sslVerify "false"
+```
+- 方法三：
+如果这样都没有用，最后解决方案如下：
+用记事本打开 
+```text
+C:\Windows\System32\drivers\etc 
+```
+中的 `hosts` 文件，加入 `github` 的 [`ip` 地址](https://www.ipaddress.com/)。
 ## 参考文献
 [Git 修改已提交的commit注释](https://www.jianshu.com/p/098d85a58bf1)
 
@@ -595,9 +613,7 @@ Enter file in which to save the key 为空的话，创建的就是空的
 
 [blog](https://github.com/qiufeihong2018/vuepress-blog)
 
-![](https://images.qiufeihong.top/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E5%BE%AE%E4%BF%A1%E6%A0%87%E5%87%86%E7%BB%BF%E7%89%88.png)
 
-一个学习编程技术的公众号。每天推送高质量的优秀博文、开源项目、实用工具、面试技巧、编程学习资源等等。目标是做到个人技术与公众号一起成长。欢迎大家关注，一起进步，走向全栈大佬的修炼之路
 
 <style scoped>
     p:nth-last-child(2) {

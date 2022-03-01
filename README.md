@@ -11,7 +11,7 @@
 
 >  a vuepress blog about qiufeihong
 
-### 🏠 [Homepage](https://www.qiufeihong.top/)
+### 🏠 ~~[https://www.qiufeihong.top/](https://www.qiufeihong.top/)~~
 
 ## Install
 
@@ -44,7 +44,7 @@ Contributions, issues and feature requests are welcome!<br />Feel free to check 
 
 ## Online Demo
 
-[Preview](http://www.qiufeihong.top)
+~~[https://www.qiufeihong.top/](https://www.qiufeihong.top/)~~
 
 ## Show your support
 

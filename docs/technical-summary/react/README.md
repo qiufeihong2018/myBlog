@@ -34,6 +34,72 @@ return React.createElement('div', {className: 'shopping-list'},
   React.createElement('ul', /* ... ul children ... */)
 );
 ```
+
+1. React 是一个用于构建用户界面的 JAVASCRIPT 库。
+2. React 主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）。
+3. React 起源于 Facebook 的内部项目，用来架设 Instagram 的网站，并于 2013 年 5 月开源。
+4. React 拥有较高的性能，代码逻辑非常简单
+
+特点：
+1. 申明式设计：采用声明范式，可以轻松描述应用。
+2. 高效：通过对DOM的模拟，最大限度的减少与DOM的交互。
+3. 灵活：可以与已知的库或框架很好地配合
+4. JSX：是JavaScript语法的扩展。
+5. 组件：使得代码更加容易得到服用，能够很好的应用在大项目的开发中
+6. 单向响应的数据流：减少了重复代码，比传统数据绑定更简单。
+
+`react` 用 `jsx` 来替代常规的 `JavaScript`
+是一个看起来很像 `XML` 的 `JavaScript` 语法扩展
+
+优点：
+1. 执行更快，因为他在编译为 `JavaScript` 代码后进行优化
+2. 类型安全的，在编译过程中发现错误
+3. 使用 `jsx` 编写模板更加简单快捷
+
+`jsx` 是 `JavaScript` 内部实现的
+元素是构成 `react` 的最小单位。`jsx` 就是来声明元素的
+与浏览器的 `DOM` 元素不同，`react` 中的元素事实上是普通的对象，`react DOM` 可以确保浏览器 `DOM` 的数据内容与 `react` 元素保持一致。
+要将 `react` 元素渲染到根 `DOM` 节点中，需要将它们传递给 `ReactDOM.render()` 方法。
+
+`react` 把组件看成是一个状态机。通过与用户的交互，实现不同状态，然后渲染 `UI`，让用户界面和数据保持一致。
+
+`react` 中只需要更新组件的 `state`，然后根据新的 `state` 重新渲染用户界面（不需要操作 `DOM`）
+
+`state` 和 `props` 主要的区别在于 `props` 是不可变的，而 `state` 可以根据与用户交互来改变。这就是为什么有些容器组件需要定义 `state` 来更新和修改数据。而子组件只能通过 `props` 来传递数据。
+
+`react` 元素的事件处理和 `DOM` 元素类似。但是有一点语法上的不同：
+`react` 事件绑定属性的命名采用驼峰式写法，而不是小写。
+如果采用 `jsx` 的语法，需要传入一个函数作为事件处理函数，而不是一个字符串。
+
+`react` 组件 `api`：
+1. 设置状态：setState
+2. 替换状态：replaceState
+3. 设置属性：setProps
+4. 替换属性：replaceProps
+5. 强制更新：forceUpdate
+6. 获取DOM节点：findDOMNode
+7. 判断组件挂载状态：isMounted
+
+组件的生命周期
+可分为三个状态：
+1. Mounting：已插入真实DOM
+2. Updating:正在被重新渲染
+3. Unmouting：已移除真实DOM
+
+方法：
+1. componentWillMount在渲染前调用，在客户端也在服务端
+2. componentDidMount在第一次渲染后调用，只在客户端。之后组件生成了对应的DOM结构，可以通过this.getDOMNode()方法来进行访问。
+3. componentWillReceiveProps在组件接收到一个新的prop之后调用。在初始化render时不会调用。
+4. shouldComponentUpdate返回一个布尔值，在组件接收到新的props或者state时被调用。在初始化时或者使用forceUpdate时不被调用。
+5. componentWillUpdate在组建接收到新的prop或者state但没有render时被调用。在初始化时不会被调用。
+6. componentDidUpdate在组件更新后被调用。初始化时不会被调用。
+7. componentWillUnmount在组件从DOM中移除之前立刻被调用。
+
+组件的数据可以通过 `componentDidMount` 方法中的 `ajax` 来获取，当从服务端中获取数据可以将数据存储在 `state` 中，在用 `this.setState` 方法重新渲染 `UI`。当使用异步加载数据，在组件卸载前使用 `componentWillUnmount` 来取消未完成的请求。
+
+`react` 支持一种非常特殊的属性 `ref`，可以用来绑定 `render()` 输出的任何组件上。
+这个特殊的属性允许你引用 `render()` 返回响应的支撑实例。确保任何时间总是拿到正确的实例。
+
 ## react怎么玩？
 步骤：
 1. 安装最新的`node`
@@ -249,6 +315,12 @@ React 会先匹配两个 `<li>first</li>` 对应的树，然后匹配第二个�
 根据`1+1>2`的定论，有多个组件可以组成超级复杂的页面。组件逻辑由`js`编写而不是模板，`vue`是用模板，可以轻松的在页面中传递数据，并使得状态与`dom`分离。
 - 不需要学习其他框架
 只要你学会的`react`，你可以用`react`开发任何的前端页面，可以`node`进行服务器渲染，还可以使用`react native`开发原生移动应用。
+## react要点
+> 组件的 render 方法返回 null 并不会影响该组件生命周期方法的回调。例如，componentWillUpdate 和 componentDidUpdate 依然可以被调用。
+
+> 参数 e 作为 React 事件对象将会被作为第二个参数进行传递。通过箭头函数的方式，事件对象必须显式的进行传递，但是通过 bind 的方式，事件对象以及更多的参数将会被隐式的进行传递。
+
+> 你必须谨慎对待 JSX 回调函数中的 this，类的方法默认是不会绑定 this 的。如果你忘记绑定 this.handleClick 并把它传入 onClick, 当你调用这个函数的时候 this 的值会是 undefined。
 ## react源码
 ## 参考文献
 [React](https://react.docschina.org/)

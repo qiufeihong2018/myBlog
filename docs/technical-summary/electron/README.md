@@ -617,6 +617,383 @@ import { shell } from 'electron'
 // file是文件数组中的单个对象 
 shell.openPath(file.filePath)
 ```
+### 21.Error: Application entry file "index.js" in the resources/app.asar does not exist. Seems like a wrong configuration.
+出现这个问题是打包构建启动后发现缺少了入口。
+
+`app.asar` 必须要有 `main` 入口，其实将 `app.asar` 解压就会发现其中有 `background.js`，那么我们的 `package.json` 中的要设置入口
+```js
+{
+"main": "background.js",'
+}
+```
+### 22. 编译包如何不报错
+具体报错如图：
+![avatar](./electron4.png)
+
+其中内容如下：
+```
+App threw an error during load
+TypeError: Cannot read property 'indexOf' of undefined
+    at Function.getFileName (webpack:///./node_modules/bindings/bindings.js?:178:16)
+    at bindings (webpack:///./node_modules/bindings/bindings.js?:82:48)
+    at eval (webpack:///./node_modules/@serialport/bindings/lib/win32.js?:1:91)
+    at Object../node_modules/@serialport/bindings/lib/win32.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:309:1)
+    at __webpack_require__ (E:\vue-cli-electron-builder-client\dist_electron\index.js:20:30)
+    at eval (webpack:///./node_modules/@serialport/bindings/lib/index.js?:6:22)
+    at Object../node_modules/@serialport/bindings/lib/index.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:221:1)
+    at __webpack_require__ (E:\vue-cli-electron-builder-client\dist_electron\index.js:20:30)
+    at eval (webpack:///./node_modules/serialport/lib/index.js?:2:17)
+    at Object../node_modules/serialport/lib/index.js (E:\vue-cli-electron-builder-client\dist_electron\index.js:6322:1)
+```
+因为 `electronbuilder` 打包构建后，需要重新下载和编译 `serialport` 等编译包，但是没有构建工具，所以编译不通过。
+
+只需要加上两行忽略即可：
+```js
+pluginOptions: {
+electronBuilder: {
+// List native deps here if they don't work
+externals: ['serialport'],
+// If you are using Yarn Workspaces, you may have multiple node_modules folders
+// List them all here so that VCP Electron Builder can find them
+nodeModulesPath: ['./node_modules'],
+nodeIntegration: true,
+chainWebpackMainProcess: (config) => {
+// Chain webpack config for electron main process only
+},
+// 这两行忽略serialport
+// List native deps here if they don't work
+externals: ['serialport'],
+// If you are using Yarn Workspaces, you may have multiple node_modules folders
+// List them all here so that VCP Electron Builder can find them
+nodeModulesPath: ['./node_modules'],
+```
+### 23. electron中添加vue-devtools
+由于 `vue-devtools` 被墙， `electron` 自动导入 `vue-devtools` 没用。
+
+如果可以科学上网，下面代码就可以加载 `vue-devtools` 。
+
+```js
+```
+1. 方法一：
+
+没事，我有一招，可以从 `github` 上把代码拉下来编译，手动导入。
+
+[`vue-devtools` 地址](https://github.com/vuejs/vue-devtools)
+
+如果您的环境编译有问题，我还有办法，从[这个地址](https://github.com/qiufeihong2018/windows-build-tools)直接下载导入即可。
+
+再将 `vue-devtools` 的文件夹放在项目根目录下。
+
+然后在 `electron` 项目中的主进程加入如下代码：
+```js
+import { session } from 'electron'
+session.defaultSession.loadExtension(path.resolve(__dirname, '../vue-devtools'))
+```
+
+保存后重启，效果如下图：
+![avatar](./electron5.png)
+
+为什么要用 `loadExtension()` 这个 `api` 呢
+
+其实， `electron` 最先开始提供的是 `addDevToolsExtension()`
+```js
+/**
+* Adds DevTools extension located at path, and returns extension's name.
+*
+* The extension will be remembered so you only need to call this API once, this
+* API is not for programming use. If you try to add an extension that has already
+* been loaded, this method will not return and instead log a warning to the
+* console.
+*
+* The method will also not return if the extension's manifest is missing or
+* incomplete.
+*
+* Note: This API cannot be called before the ready event of the app module
+* is emitted.
+*
+Note: This method is deprecated. Instead, use ses.loadExtension(path).
+*
+* @deprecated 
+*/
+static addDevToolsExtension(path: string): void;
+```
+很不幸，`addDevToolsExtension()` 被弃用了，同时告诉我们可以使用 `session` 的 `api`。
+```js
+/**
+* resolves when the extension is loaded.
+*
+* This method will raise an exception if the extension could not be loaded. If
+* there are warnings when installing the extension (e.g. if the extension requests
+* an API that Electron does not support) then they will be logged to the console.
+*
+* Note that Electron does not support the full range of Chrome extensions APIs.
+* See Supported Extensions APIs for more details on what is supported.
+*
+* Note that in previous versions of Electron, extensions that were loaded would be
+* remembered for future runs of the application. This is no longer the case:
+* loadExtension must be called on every boot of your app if you want the
+* extension to be loaded.
+*
+* This API does not support loading packed (.crx) extensions.
+*
+* Note: This API cannot be called before the ready event of the app module
+* is emitted.
+*
+* Note: Loading extensions into in-memory (non-persistent) sessions is not
+* supported and will throw an error.
+*/
+loadExtension(path: string): Promise<Electron.Extension>;
+```
+官网上也有[案例](https://www.electronjs.org/docs/api/session#sesloadextensionpath-options)
+2. 方法二
+```js
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+app.on('ready', async () => {
+  if (isDevelopment && !process.env.IS_TEST) {
+    // Install Vue Devtools
+    try {
+      await installExtension(VUEJS_DEVTOOLS)
+    } catch (e) {
+      console.error('Vue Devtools failed to install:', e.toString())
+    }
+  }
+  createWindow()
+  autoUpdater.checkForUpdates()
+})
+```
+但是这个我没有尝试过，您可以试下。
+### 24. ExecError: C:\Users\xxx\AppData\Local\electron-builder\Cache\nsis\nsis-3.0.4.1\Bin\makensis.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
+解决：`electron` 项目路径不能有中文！
+### 25. Syntax Error: ReferenceError: document is not defined
+`vue-cli-plugin-electron-builder` 不能出现 `list-style: square inside url('../../icons/svg/moreThen.svg');`
+### 26. electron打包后出现如下问题
+![avatar](./electron6.png)
+
+如图：`chunk-vendors.js`中放的是通过 `import` 包导入的第三方依赖包。防止该文件体积过大，可以使用 `webpack` 的 `externals` 配置。凡是声明在 `externals` 中的第三方依赖包，都不会被打包。
+以找到出错的依赖包剔除即可。
+`n=t.colouredLayout;` 让我查到了 `log4js` 这个包，只要将这个
+### 27. electron实现多窗口功能
+#### 配置路由文件
+```js
+export default new Router({
+  routes: [
+    {path: '/', name: 'home', component: ()=> import('@/view//home')},
+    {path: '/suspension', name: 'suspension', component: ()=> import('@/view/components/suspension')}
+  ]
+})
+```
+`home` 组件是在主窗口中，`suspension` 组件是在子窗口中。
+
+两者组件的内容随意。
+
+关键的在于主进程，主进程要控制两者的交互。
+```js
+import {BrowserWindow, ipcMain, screen, Menu, shell, app, webContents} from 'electron'
+
+var win = null;
+const window = BrowserWindow.fromWebContents(webContents.getFocusedWebContents());
+const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080/#/suspension` : `file://${__dirname}/index.html/#/suspension`;
+// 主进程监听子进程发过来的消息showSuspensionWindow，如果没有win或者被隐藏了则创建，否则就展示。
+ipcMain.on('showSuspensionWindow', () => {
+  if (win) {
+    if (win.isVisible()) {
+      createSuspensionWindow();
+    } else {
+      win.showInactive();
+    }
+  } else {
+    createSuspensionWindow();
+  }
+
+});
+// 主窗口就不展示了
+// 创建子窗口
+function createSuspensionWindow() {
+  win = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    frame: false,  //要创建无边框窗口
+    alwaysOnTop: true, //窗口是否总是显示在其他窗口之前
+  });
+  const size = screen.getPrimaryDisplay().workAreaSize;  //获取显示器的宽高
+  const winSize = win.getSize(); //获取窗口宽高
+
+  //设置窗口的位置 注意x轴要桌面的宽度 - 窗口的宽度
+  win.setPosition(size.width - winSize[0], 100);
+  win.loadURL(winURL);
+
+  win.once('ready-to-show', () => {
+    win.show()
+  });
+
+  win.on('close', () => {
+    win = null;
+  })
+}
+// 隐藏窗口事件
+ipcMain.on('hideSuspensionWindow', () => {
+  if (win) {
+    win.hide();
+  }
+});
+```
+
+在主窗口中发送创建子窗口的事件
+```js
+ipcRender.send('showSuspensionWindow')
+```
+
+在主窗口中发送隐藏子窗口的事件
+```js
+ipcRender.send('hideSuspensionWindow')
+```
+### 28.electron最小化窗口闪烁
+使用的 `api` 是 `flashFrame`
+
+主进程：
+```js
+ipcMain.on('flashFrame', function () {
+  mainWindow.flashFrame(true)
+})
+```
+渲染进程：
+```js
+  ipcRenderer.send('flashFrame')
+```
+### 29. 避免出现开启白屏情况
+用 `show` 来控制窗口是否显示。
+
+可以先不显示，等到资源加载完毕，再显示窗口。
+```js
+mainWindow = new BrowserWindow({
+    height: 720,
+    minHeight: 600,
+    minWidth: 900,
+    width: 1280,
+    frame: false,
+    useContentSize: true,
+    webPreferences: {
+        // Use pluginOptions.nodeIntegration, leave this alone
+        // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
+        // nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+        nodeIntegration: true,
+        contextIsolation: false,
+        enableRemoteModule: true
+    },
+    //先不显示
+    show: false
+})
+mainWindow.on('ready-to-show', () => {
+    // 资源准备好后显示界面    
+    mainWindow.show()
+})
+```
+### 30.electron notification 源码
+```ts
+  interface NotificationConstructorOptions {
+    /**
+ 通知的标题，将显示在通知的顶部
+*窗口显示时。
+     */
+    title: string;
+    /**
+通知的副标题，将显示在标题下方。
+     *
+     * @platform darwin
+     */
+    subtitle?: string;
+    /**
+*通知的正文，将显示在标题或
+*副标题。
+     */
+    body: string;
+    /**
+是否在显示通知时发出OS通知噪声。
+     */
+    silent?: boolean;
+    /**
+*通知中使用的图标。
+     */
+    icon?: (string) | (NativeImage);
+    /**
+*是否在通知中添加内联回复选项。
+     *
+     * @platform darwin
+     */
+    hasReply?: boolean;
+    /**
+通知超时时间。可以是'default'或'never'。
+     *
+     * @platform linux,win32
+     */
+    timeoutType?: ('default' | 'never');
+    /**
+     *要写入内联回复输入字段的占位符。
+     *
+     * @platform darwin
+     */
+    replyPlaceholder?: string;
+    /**
+*显示通知时播放的声音文件的名称。
+     *
+     * @platform darwin
+     */
+    sound?: string;
+    /**
+*通知的紧急程度。可以是“正常”、“严重”或“低”。. Can be 'normal', 'critical', or 'low'.
+     *
+     * @platform linux
+     */
+    urgency?: ('normal' | 'critical' | 'low');
+    /**
+*添加到通知的动作。请阅读可用的操作
+*“NotificationAction”文档中的限制。
+     *
+     * @platform darwin
+     */
+    actions?: NotificationAction[];
+    /**
+*警报关闭按钮的自定义标题。空字符串将导致
+*使用默认本地化文本。
+     *
+     * @platform darwin
+     */
+    closeButtonText?: string;
+  }
+```
+### 31. electron打包更新需要图标是256*256
+这个是强制要求
+
+可以通过 `https://lirongyao.com/ico/` 这个网站将图片改成256*256的ico图标
+
+
+### 32.Error: EBUSY: resource busy or locked, rename
+打包出现了问题：
+```
+[Error: EBUSY: resource busy or locked, rename 'E:\person\electron-builder-demo\dist_electron\win-unpacked\electron.exe' -> 'E:\person\electron-builder-demo\dist_electron\win-unpacked\Vue Electron.exe'] {
+```
+网上说的从资源管理器中杀进程方式不行，直接重启就能解决问题。
+### 33.electron项目打包时下载Electron缓慢
+`vue-cli-electron-builder` 项目打包
+```
+ downloading     url=https://cdn.npm.taobao.org/dist/electron/13.2.2/electron-v13.2.2-win32-x64.zip 
+```
+一直卡在下载`electron-v13.2.2-win32-x64.zip`这里。
+
+怎么解决下载Electron缓慢呢？
+
+![avatar](./33.png)
+
+在 `C:\Users\用户名\AppData\Local\electron\Cache` 路径下，将下载下来的 `electron-v13.2.2-win32-x64.zip` 和 `SHASUMS256.txt` 改成 `SHASUMS256.txt-13.2.2` 放入其中。
+
+重新打包就好了
+### 34.打包报错ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
+Electron执行electron-builder打包命令报错
+```
+...electron-builder\Cache\nsis\nsis-3.0.3.2\Bin\makensis.exe exited with code ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
+```
+解决方法很简单，打包项目路径不能包含中文路径。
+
 ### 参考
 [https://github.com/electron/electron-packager](https://github.com/electron/electron-packager)
 
