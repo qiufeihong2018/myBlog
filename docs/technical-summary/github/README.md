@@ -602,6 +602,21 @@ git config --global http.sslVerify "false"
 C:\Windows\System32\drivers\etc 
 ```
 中的 `hosts` 文件，加入 `github` 的 [`ip` 地址](https://www.ipaddress.com/)。
+
+### Git push推送出现remote: fatal: pack exceeds maximum allowed size问题解决版本
+#### 问题原因
+commit 大文件，虽然中间被删了，但是commit 记录还在，git push大文件不行
+
+#### 解决方法
+
+```
+# 查看某个commit 日志
+git log
+# 回退到commit 大文件以前
+git reset hash
+```
+最后重新add并且commit后提交即可。
+
 ## 参考文献
 [Git 修改已提交的commit注释](https://www.jianshu.com/p/098d85a58bf1)
 
