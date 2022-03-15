@@ -463,6 +463,18 @@ ddd
 </template>
 ```
 其实就是自己粗心大意产生的一些错误
+
+### vue 打包出现TypeError: Cannot read property ‘tapPromise‘ of undefined问题
+
+出现这个问题是最新版8.x以上版本问题，只需降低版本。
+一、卸载
+```
+npm uninstall compression-webpack-plugin
+```
+二、安装
+```
+npm i compression-webpack-plugin@6.1.0
+```
 ## 参考文献
 [You are using the runtime-only build of Vue where the template compiler is not available.](https://blog.csdn.net/wxl1555/article/details/83187647)
 
