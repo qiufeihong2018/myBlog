@@ -616,7 +616,19 @@ git log
 git reset hash
 ```
 最后重新add并且commit后提交即可。
+### 解决 yarn.lock 冲突的方法
+经过一番搜寻，发现目前有三种方式来搞。
 
+1. 手动解决，纯手工一个一个对比冲突。
+
+这种方式如果只有几个小的改动还行，当你的 yarn.lock 改动很多，那么手动是没法搞定的。
+
+2. 先将 yarn.lock 还原为 base branch 的版本（通常是 origin/master ），解决完 package.json 的冲突后，再进行 yarn install。
+
+```
+git checkout origin/master -- yarn.lock
+yarn install
+```
 ## 参考文献
 [Git 修改已提交的commit注释](https://www.jianshu.com/p/098d85a58bf1)
 
